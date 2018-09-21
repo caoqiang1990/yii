@@ -11,6 +11,12 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+	'admin' =>[
+		'class' => 'mdm\admin\Module',
+		'layout' => 'left-menu',
+	],
+	],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
@@ -36,14 +42,19 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
+        'authManager' => [
+    //        'enablePrettyUrl' => true,
+    //        'showScriptName' => false,
+    //        'rules' => [
+		'class' => 'yii\rbac\DbManager',
+          // ],
         ],
-        */
     ],
+	'as access' =>[
+		'class' => 'mdm\admin\components\AccessControl',
+		'allowActions' =>[
+			'site/*',
+		],
+	],
     'params' => $params,
 ];

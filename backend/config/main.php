@@ -14,8 +14,11 @@ return [
     'modules' => [
 	'admin' => [
 			'class' => 'mdm\admin\Module',
-			'layout'=> 'left-menu'
+//			'layout'=> 'left-menu'
 		]
+	],
+	'aliases' => [
+		'@mdm\admin' => '@vendor/mdmsoft/yii2-admin'
 	],
     'components' => [
         'authManager' => [
@@ -53,11 +56,18 @@ return [
             ],
         ],
         */
+//	'view' => [
+//		'theme' => [
+//			'pathMap' => [
+//				'@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
+//			]
+//		]
+//	]
     ],
     'as access' =>[
 	'class' => 'mdm\admin\components\AccessControl',
 	'allowActions' => [
-//		'site/*',
+		'site/*',
 		'admin/*',
 	]
     ],
