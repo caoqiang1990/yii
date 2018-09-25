@@ -75,4 +75,25 @@ class LoginForm extends Model
 
         return $this->_user;
     }
+
+
+    /**
+     * 对应的中文
+     */
+    public function attributeLabels()
+    {
+        return [
+            'user_id' => '自增ID',
+            'username' => '用户名',
+            'password' => '密码',
+            're_pwd' => '请再次输入密码',
+            'sex' => '性别',
+            'photo' => '头像',
+            'email' => '邮箱',
+            'hobby' => '爱好',
+            'school' => '学校',
+            'remark' => '备注信息',
+            'rememberMe' => '记住我'
+        ];
+    }  
 }

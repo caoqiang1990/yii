@@ -72,4 +72,5 @@ return [
 	]
     ],
     'params' => $params,
+    'language' => 'zh-CN',
 ];
