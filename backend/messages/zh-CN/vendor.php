@@ -66,5 +66,7 @@ return [
     'Help' => '帮助',
     'Application' => '应用',
     'Vendor Name' => '供应商名称',
-    'Created At' => '创建时间'
+    'Created At' => '创建时间',
+    'Updated At' => '更新时间',
+    'ID' => '序号'
 ];

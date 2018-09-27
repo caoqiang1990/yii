@@ -35,8 +35,11 @@ class Vendor extends ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => Yii::t('vendor','ID'),
             'vendorname' => Yii::t('vendor','Vendor Name'),
             'created_at' => Yii::t('vendor','Created At'),
+            'updated_at' => Yii::t('vendor','Updated At'),
+
         ];
     }
 
