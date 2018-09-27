@@ -56,13 +56,24 @@ return [
             ],
         ],
         */
-//	'view' => [
-//		'theme' => [
-//			'pathMap' => [
-//				'@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
-//			]
-//		]
-//	]
+        //	'view' => [
+        //		'theme' => [
+        //			'pathMap' => [
+        //				'@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
+        //			]
+        //		]
+        //	]
+        'i18n' => [
+            'translations' => [
+                'vendor*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'fileMap' => [
+                        'vendor' => 'vendor.php' //可以加多个，是yii::t里面的第一个参数名
+                    ],
+                    //'basePath' => '@backend/message', //配置语言文件路径，现在采用默认的，就可以不配置这个
+                ],
+            ],
+        ],
     ],
     'as access' =>[
 	'class' => 'mdm\admin\components\AccessControl',
