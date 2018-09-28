@@ -65,4 +65,7 @@ return [
     'Menu' => '菜单',
     'Help' => '帮助',
     'Application' => '应用',
+    'Email' => '邮箱',
+    'Status' => '状态',
+    'Created At' => '创建时间'
 ];

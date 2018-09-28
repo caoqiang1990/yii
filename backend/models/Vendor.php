@@ -6,12 +6,23 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
  */
 class Vendor extends ActiveRecord
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -50,7 +61,7 @@ class Vendor extends ActiveRecord
       $dataProvider = new ActiveDataProvider([
           'query' => $query,
           'pagination' => [
-                'pageSize' => 1,
+                'pageSize' => 5,
             ],
       ]);
 

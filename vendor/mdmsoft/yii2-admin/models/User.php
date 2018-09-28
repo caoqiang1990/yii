@@ -194,4 +194,19 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return Configs::userDb();
     }
+
+    /**
+     * 对应中文
+     * @return [type] [description]
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('rbac-admin','ID'),
+            'username' => Yii::t('rbac-admin','Username'),
+            'created_at' => Yii::t('rbac-admin','Created At'),
+            'email' => Yii::t('rbac-admin','Email'),
+            'status' => Yii::t('rbac-admin','Status'),
+        ];
+    }    
 }

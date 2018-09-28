@@ -15,7 +15,7 @@ class VendorController extends Controller
    */
   public function actionIndex()
   {
-    $model=new Vendor();
+    $model=new Vendor;
     // $dataProvider = new ActiveDataProvider([
     //     'query' => Vendor::find()->orderBy('id'),//此处添加where条件时：'query'=>User::find()->where(['username'=>'lizi']);
     // ]);
@@ -33,7 +33,15 @@ class VendorController extends Controller
    */
   public function actionCreate()
   {
-    return $this->render('create',[]);
+    $model = new Vendor;
+
+    if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        return $this->redirect(['index']);
+    } else {
+        return $this->render('create', [
+                'model' => $model,
+        ]);
+    }    
   }
 
 
