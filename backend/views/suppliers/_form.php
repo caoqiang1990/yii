@@ -66,8 +66,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'remarks')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'update_date')->textInput() ?>
-
     <?= $form->field($model, 'operator')->textInput(['maxlength' => true]) ?>
 
 

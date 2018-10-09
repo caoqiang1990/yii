@@ -12,6 +12,8 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\EntryForm;
+use frontend\models\Country;
 
 /**
  * Site controller
@@ -72,6 +74,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
+        $countries = Country::find()->orderBy('name')->all();
+        foreach($countries as $v) {
+            var_dump($v->name);
+        }
+        $country = Country::findOne('US');
+var_dump($country);
+        die;
         return $this->render('index');
     }
 
@@ -211,5 +221,32 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     *
+     * Say
+     * 
+     */
+    public function actionSay($message = 'Hello')
+    {
+        return $this->render('say',['message'=>$message]);
+    }
+
+
+    /**
+     *
+     * Entry表单
+     * 
+     */
+    public function actionEntry()
+    {
+        $model = new EntryForm;
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            return $this->render('entry-confirm',['model' => $model]);
+        }else{
+            return $this->render('entry',['model' => $model]);
+        }
     }
 }
