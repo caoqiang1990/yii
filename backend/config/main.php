@@ -65,10 +65,11 @@ return [
         //	]
         'i18n' => [
             'translations' => [
-                'vendor*' => [
+                '*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'fileMap' => [
-                        'vendor' => 'vendor.php' //可以加多个，是yii::t里面的第一个参数名
+                        'vendor' => 'vendor.php', //可以加多个，是yii::t里面的第一个参数名
+                        'suppliers' => 'suppliers.php',
                     ],
                     //'basePath' => '@backend/message', //配置语言文件路径，现在采用默认的，就可以不配置这个
                 ],
