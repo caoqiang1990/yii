@@ -115,7 +115,7 @@ class UserController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->getUser()->isGuest) {
+        if (Yii::$app->getUser()->isGuest) {
             return $this->goHome();
         }
 
@@ -175,7 +175,7 @@ class UserController extends Controller
             }
         }
 
-        return $this->render('requestPasswordResetToken', [
+        return $this->renderPartial('requestPasswordResetToken', [
                 'model' => $model,
         ]);
     }

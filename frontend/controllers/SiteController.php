@@ -79,9 +79,6 @@ class SiteController extends Controller
         foreach($countries as $v) {
             var_dump($v->name);
         }
-        $country = Country::findOne('US');
-var_dump($country);
-        die;
         return $this->render('index');
     }
 

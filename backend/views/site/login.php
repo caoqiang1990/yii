@@ -51,6 +51,7 @@ $fieldOptions2 = [
         </div>
         <?php ActiveForm::end(); ?>
         <a href="#">忘记密码</a><br>
+        <?= Html::a('忘记密码', ['admin/user/request-password-reset']) ?>
     </div>
     <!-- /.login-box-body -->
 </div><!-- /.login-box -->
