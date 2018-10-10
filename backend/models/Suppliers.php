@@ -14,6 +14,8 @@ use yii\behaviors\TimestampBehavior;
 class Suppliers extends ActiveRecord
 {
     const SCENARIO_ADD = 'add';
+    const SCENARIO_EDIT = 'edit';
+
 
     /**
      * 返回表名
@@ -31,7 +33,7 @@ class Suppliers extends ActiveRecord
     public function attributeLabels()
     {
       return [
-        'id' => Yii::t('suppliers','id'),
+        'id' => \Yii::t('suppliers','id'),
         'sname' => \Yii::t('suppliers', 'sname'),
         'legal_person' => \Yii::t('suppliers','legal_person'),
         'business_license' => \Yii::t('suppliers','business_license'),
@@ -74,7 +76,8 @@ class Suppliers extends ActiveRecord
     public function scenarios()
     {
         return [
-            self::SCENARIO_ADD => ['sname']
+            self::SCENARIO_ADD => ['sname','url','mobile'],
+            self::SCENARIO_EDIT => ['sname','url','mobile'],
         ];
     }
 
@@ -86,6 +89,9 @@ class Suppliers extends ActiveRecord
     {
         return [
             [['sname'],'required','on'=>'add'],
+            ['url','url','on'=>'add'],
+            ['mobile','required','message'=>'手机号码不能为空！','on'=>'add'],
+            ['mobile','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'手机号码格式不正确！'],
         ];
     }
 
