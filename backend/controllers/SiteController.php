@@ -7,6 +7,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use backend\models\PasswordResetRequestForm;
+use backend\models\ResetPasswordForm;
 
 /**
  * Site controller
@@ -118,6 +119,31 @@ class SiteController extends Controller
         }
         
         return $this->render('reset', [
+            'model' => $model,
+        ]);
+    }
+    /**
+     * Resets password.
+     *
+     * @param string $token
+     * @return mixed
+     * @throws BadRequestHttpException
+     */
+    public function actionResetPassword($token)
+    {
+        try {
+            $model = new ResetPasswordForm($token);
+        } catch (InvalidParamException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            Yii::$app->session->setFlash('success', 'New password saved.');
+
+            return $this->goHome();
+        }
+
+        return $this->render('resetPassword', [
             'model' => $model,
         ]);
     }
