@@ -50,8 +50,7 @@ $fieldOptions2 = [
             <!-- /.col -->
         </div>
         <?php ActiveForm::end(); ?>
-        <a href="#">忘记密码</a><br>
-        <?= Html::a('忘记密码', ['admin/user/request-password-reset']) ?>
+        <?= Html::a('忘记密码', ['site/reset']) ?>
     </div>
     <!-- /.login-box-body -->
 </div><!-- /.login-box -->
