@@ -11,10 +11,10 @@ $this->title = '找回密码';
 $this->params['breadcrumbs'][] = $this->title;
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>"
+    'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
 ];
 ?>
-<div class="site-reset-password">
+<div class="login-box">
     <div class="login-box-body">
     <div class="login-logo">
     <a href="#"><?= Html::encode($this->title) ?></a>
