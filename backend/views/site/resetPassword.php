@@ -23,10 +23,10 @@ $fieldOptions1 = [
     <p>请输入你的密码:</p>
 
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-12">
             <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
 
-                <?= $form->field($model, 'password',$fieldOptions1)->passwordInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'password',$fieldOptions1)->label('密码')->passwordInput(['autofocus' => true]) ?>
 
                 <div class="form-group">
                     <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>

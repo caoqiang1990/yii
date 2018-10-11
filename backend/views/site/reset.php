@@ -24,7 +24,7 @@ $fieldOptions1 = [
     <p>请输入你的邮箱</p>
 
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-12">
             <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
 
                 <?= $form->field($model, 'email',$fieldOptions1)->label('邮箱')->textInput(['autofocus' => true]) ?>
