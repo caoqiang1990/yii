@@ -23,7 +23,7 @@ class Suppliers extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'suppliers';
+        return '{{%suppliers}}';
     }
 
     /**
