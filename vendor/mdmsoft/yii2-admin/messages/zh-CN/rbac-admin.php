@@ -67,5 +67,8 @@ return [
     'Application' => '应用',
     'Email' => '邮箱',
     'Status' => '状态',
-    'Created At' => '创建时间'
+    'Created At' => '创建时间',
+    'Create User' => '新增用户',
+    'Signup' =>'新增用户',
+    'Password' => '密码',
 ];

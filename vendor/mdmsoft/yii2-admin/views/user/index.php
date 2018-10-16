@@ -14,6 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <p>
+        <?= Html::a(Yii::t('rbac-admin', 'Create User'), ['signup'], ['class' => 'btn btn-success']) ?>
+    </p>
 
     <?=
     GridView::widget([
@@ -23,15 +26,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'username',
             'email:email',
-            'created_at:date',
+            [
+                'attribute' => 'created_at',
+                'value' => function($model){
+                    return date('Y-m-d H:i:s',$model->created_at);
+                }
+            ],
             [
                 'attribute' => 'status',
                 'value' => function($model) {
-                    return $model->status == 0 ? 'Inactive' : 'Active';
+                    return $model->status == 0 ? '无效用户' : '有效用户';
                 },
                 'filter' => [
-                    0 => 'Inactive',
-                    10 => 'Active'
+                    0 => '无效用户',
+                    10 => '有效用户'
                 ]
             ],
             [
