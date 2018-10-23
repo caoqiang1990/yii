@@ -7,19 +7,26 @@ use yii\db\ActiveRecord;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\behaviors\TimestampBehavior;
+use yii\web\UploadedFile;
 
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
  */
-class Vendor extends ActiveRecord
+class Vendor extends Model
 {
+  public $vendorname;
+  public $imageFile;
+  public $isNewRecord;
+  public $id;
+  public $created_at;
+  public $updated_at;
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+           // TimestampBehavior::className(),
         ];
     }
 
@@ -31,6 +38,7 @@ class Vendor extends ActiveRecord
         return [
             [['id', 'created_at', 'updated_at'], 'integer'],
             [['vendorname'], 'safe'],
+            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
         ];
     }
 
@@ -56,30 +64,17 @@ class Vendor extends ActiveRecord
 
     public function search($params)
     {
-      $query = Vendor::find();
-
-      $dataProvider = new ActiveDataProvider([
-          'query' => $query,
-          'pagination' => [
-                'pageSize' => 5,
-            ],
-      ]);
-
-
-      $this->load($params);
-      if (!$this->validate()) {
-          $query->where('1=0');
-          return $dataProvider;
-      }
-
-      $query->andFilterWhere([
-          'id' => $this->id,
-          'created_at' => $this->created_at,
-          'updated_at' => $this->updated_at,
-      ]);
-
-      $query->andFilterWhere(['like', 'vendorname', $this->vendorname]);
-
-      return $dataProvider;
+    
     }    
+
+
+    public function upload()
+    {
+        if ($this->validate()) {
+            $this->imageFile->saveAs('uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

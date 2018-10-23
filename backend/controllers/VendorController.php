@@ -6,6 +6,8 @@ use Yii;
 use yii\web\Controller;
 use backend\models\Vendor;
 use yii\data\ActiveDataProvider;
+use backend\models\UploadForm;
+use yii\web\UploadedFile;
 
 class VendorController extends Controller
 {
@@ -15,7 +17,7 @@ class VendorController extends Controller
    */
   public function actionIndex()
   {
-    $model=new Vendor;
+    $model=new Vendor();
     // $dataProvider = new ActiveDataProvider([
     //     'query' => Vendor::find()->orderBy('id'),//此处添加where条件时：'query'=>User::find()->where(['username'=>'lizi']);
     // ]);
@@ -33,9 +35,14 @@ class VendorController extends Controller
    */
   public function actionCreate()
   {
-    $model = new Vendor;
-
-    if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    $model = new Vendor();
+    $model->load(Yii::$app->getRequest()->post());
+    if (Yii::$app->request->isPost) {
+        $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+        if ($model->upload()) {
+          var_dump('文件上传成功');die;
+            // 文件上传成功
+        }
         return $this->redirect(['index']);
     } else {
         return $this->render('create', [
@@ -51,7 +58,20 @@ class VendorController extends Controller
     var_dump(Yii::$app->user->identity);die;
   }
 
+    public function actionUpload()
+    {
+        $model = new UploadForm();
 
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload()) {
+                // 文件上传成功
+                return;
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
+    }
 }
 
 

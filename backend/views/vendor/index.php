@@ -20,28 +20,5 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('vendor', 'Create Menu'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-<?=
-GridView::widget([
-    'dataProvider' => $dataProvider,
-    'filterModel' => $model,
-    'columns' => [
-        'id',
-        [
-            'attribute' => 'vendorname',
-            'content' => function($dataProvider){
-                return $dataProvider['vendorname'];
-            },
-        ],
-        [
-            'attribute' => 'created_at',
-            'format' =>  ['date', 'php:Y-m-d H:i:s'],
-        ],
-        [
-            'attribute' => 'updated_at',
-            'format' =>  ['date', 'php:Y-m-d H:i:s'],
-        ],
-
-    ],
-]); ?>
 
 </div>

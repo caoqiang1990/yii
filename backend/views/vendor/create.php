@@ -14,7 +14,11 @@ $this->title = Yii::t('vendor','Create Menu');
             <?= $form->field($model, 'vendorname')->textInput(['maxlength' => 128]) ?>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-sm-6">
+            <?= $form->field($model, 'imageFile')->fileInput() ?>
+        </div>
+    </div>
     <div class="form-group">
         <?=
         Html::submitButton($model->isNewRecord ? Yii::t('vendor', 'Create') : Yii::t('rbac-admin', 'Update'), ['class' => $model->isNewRecord
