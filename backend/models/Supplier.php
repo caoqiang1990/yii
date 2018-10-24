@@ -35,6 +35,8 @@ class Supplier extends ActiveRecord
       return [
         'id' => \Yii::t('suppliers','id'),
         'name' => \Yii::t('suppliers', 'name'),
+        'supplier_grade' => \Yii::t('suppliers','supplier_grade'),
+        'firm_nature' => \Yii::t('suppliers','firm_nature'),
         'created_at' => \Yii::t('suppliers','created_at'),
         'updated_at' => \Yii::t('suppliers','updated_at'),
       ];
@@ -47,8 +49,8 @@ class Supplier extends ActiveRecord
     public function scenarios()
     {
         return [
-            self::SCENARIO_ADD => ['name','url','mobile'],
-            self::SCENARIO_EDIT => ['name','url','mobile'],
+            self::SCENARIO_ADD => ['name','url','supplier_grade','firm_nature'],
+            self::SCENARIO_EDIT => ['name','url','supplier_grade','firm_nature'],
         ];
     }
 
@@ -61,6 +63,7 @@ class Supplier extends ActiveRecord
         return [
             [['name'],'required','on'=>'add'],
             ['url','url','on'=>'add'],
+            [['supplier_grade'], 'safe'],
             //['mobile','required','message'=>'手机号码不能为空！','on'=>'add'],
             //['mobile','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'手机号码格式不正确！'],
         ];

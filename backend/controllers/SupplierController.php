@@ -8,6 +8,8 @@ use backend\models\SupplierSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\SupplierLevel;
+use backend\models\SupplierCategory;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -70,8 +72,14 @@ class SupplierController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $levelModel = new SupplierLevel;
+        $categoryModel = new SupplierCategory;
+        $supplier_grade = $levelModel::getLevelByParams();
+        $firm_nature = $categoryModel::getCategoryByParams();
         return $this->render('create', [
             'model' => $model,
+            'supplier_grade' => $supplier_grade,
+            'firm_nature' => $firm_nature,
         ]);
     }
 
@@ -91,8 +99,15 @@ class SupplierController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $levelModel = new SupplierLevel;
+        $categoryModel = new SupplierCategory;
+        $supplier_grade = $levelModel::getLevelByParams();
+        $firm_nature = $categoryModel::getCategoryByParams();
+
         return $this->render('update', [
             'model' => $model,
+            'supplier_grade' => $supplier_grade,
+            'firm_nature' => $firm_nature
         ]);
     }
 

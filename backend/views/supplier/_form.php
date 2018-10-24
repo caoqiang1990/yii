@@ -14,6 +14,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'supplier_grade')->dropDownList($supplier_grade) ?>
+
+    <?= $form->field($model, 'firm_nature')->dropDownList($firm_nature) ?>
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('suppliers', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>

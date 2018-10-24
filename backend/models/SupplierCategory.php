@@ -54,6 +54,49 @@ class SupplierCategory extends ActiveRecord
       'updated_at' => Yii::t('category','updated_at'),
     ];
   }
+
+  /**
+   * 根据参数获取企业类别名称firm_nature
+   * @param  string $column [description]
+   * @param  string $id     [description]
+   * @return [type]         [description]
+   */
+  public static function getCategoryByParams($column='',$id='')
+  {
+    $where = [];
+    $field = '';
+    if ($id) {
+      $where['id'] = $id;
+    }
+    if ($column) {
+      $field = $column;
+    }
+    $lists = self::find()->select($field)->where($where)->asArray()->all();
+    if ($lists) {
+      foreach ($lists as $value) {
+        $result[$value['id']] = $value['category_name'];
+      }
+    }else{
+      return false;
+    }
+    return $result;
+  }
+
+
+  /**
+   * 根据id获取企业类别名称
+   * @param  string $id [description]
+   * @return [type]     [description]
+   */
+  public static function getCategoryById($id='')
+  {
+    if (!$id) {
+      return false;
+    }
+    $info = self::find()->where(['id'=>$id])->one();
+    return $info ? $info : false;
+  }  
+
 }
 
 

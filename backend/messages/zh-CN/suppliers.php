@@ -13,6 +13,8 @@ return [
   'Update Suppliers: ' => '更新供应商：',
   'id' => '序号',
   'name' => '供应商名字',
+  'supplier_grade' => '供应商等级',
+  'firm_nature' => '企业性质',
   'legal_person' => '法人',
   'business_license' => '工商营业执照副本',
   'tax_registration_certificate' => '税务登记证副本',

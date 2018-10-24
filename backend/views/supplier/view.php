@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use backend\models\SupplierLevel;
+use backend\models\SupplierCategory;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Suppliers */
@@ -30,6 +32,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
+            [
+                'attribute' => 'supplier_grade',
+                'value' => function($model){
+                    return SupplierLevel::getLevelById($model->supplier_grade)->level_name;
+                }
+            ],
+            [
+                'attribute' => 'firm_nature',
+                'value' => function($model){
+                    return SupplierCategory::getCategoryById($model->firm_nature)->category_name;
+                }
+            ],
             [
                 'attribute' => 'created_at',
                 'value' => function($model){
