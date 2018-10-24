@@ -12,7 +12,7 @@ return [
   'DetailView' => '供应商详情',
   'Update Suppliers: ' => '更新供应商：',
   'id' => '序号',
-  'sname' => '供应商名字',
+  'name' => '供应商名字',
   'legal_person' => '法人',
   'business_license' => '工商营业执照副本',
   'tax_registration_certificate' => '税务登记证副本',

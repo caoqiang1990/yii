@@ -3,8 +3,8 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Suppliers;
-use backend\models\SuppliersSearch;
+use backend\models\Supplier;
+use backend\models\SupplierSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
  */
-class SuppliersController extends Controller
+class SupplierController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -35,7 +35,7 @@ class SuppliersController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new SuppliersSearch();
+        $searchModel = new SupplierSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -64,7 +64,7 @@ class SuppliersController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Suppliers;
+        $model = new Supplier;
         $model->scenario = 'add';
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -119,7 +119,7 @@ class SuppliersController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Suppliers::findOne($id)) !== null) {
+        if (($model = Supplier::findOne($id)) !== null) {
             return $model;
         }
 
