@@ -35,8 +35,10 @@ class Supplier extends ActiveRecord
       return [
         'id' => \Yii::t('suppliers','id'),
         'name' => \Yii::t('suppliers', 'name'),
-        'supplier_grade' => \Yii::t('suppliers','supplier_grade'),
-        'firm_nature' => \Yii::t('suppliers','firm_nature'),
+        'level' => \Yii::t('suppliers','level'),
+        'address' => \Yii::t('suppliers','address'),
+        'url' => \Yii::t('suppliers','url'),
+        'register_date' => \Yii::t('suppliers','register_date'),
         'created_at' => \Yii::t('suppliers','created_at'),
         'updated_at' => \Yii::t('suppliers','updated_at'),
       ];
@@ -49,8 +51,8 @@ class Supplier extends ActiveRecord
     public function scenarios()
     {
         return [
-            self::SCENARIO_ADD => ['name','url','supplier_grade','firm_nature'],
-            self::SCENARIO_EDIT => ['name','url','supplier_grade','firm_nature'],
+            self::SCENARIO_ADD => ['name','level','address','url','register_date'],
+            self::SCENARIO_EDIT => ['name','level','address','url','register_date'],
         ];
     }
 
@@ -61,9 +63,9 @@ class Supplier extends ActiveRecord
     public function rules()
     {
         return [
-            [['name'],'required','on'=>'add'],
+            [['name','address'],'required','on'=>'add'],
             ['url','url','on'=>'add'],
-            [['supplier_grade'], 'safe'],
+            [['level'], 'safe'],
             //['mobile','required','message'=>'手机号码不能为空！','on'=>'add'],
             //['mobile','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'手机号码格式不正确！'],
         ];

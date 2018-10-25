@@ -33,23 +33,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             [
-                'attribute' => 'supplier_grade',
+                'attribute' => 'level',
                 'value' => function($model){
-                    return SupplierLevel::getLevelById($model->supplier_grade)->level_name;
+                    return SupplierLevel::getLevelById($model->level)->level_name;
                 }
             ],
-            [
-                'attribute' => 'firm_nature',
-                'value' => function($model){
-                    return SupplierCategory::getCategoryById($model->firm_nature)->category_name;
-                }
-            ],
+            'url',
+            'address',
             [
                 'attribute' => 'created_at',
                 'value' => function($model){
                     return date('Y-m-d H:i:s',$model->created_at);
                 }
             ],
+            'register_date',
             [
                 'attribute' => 'updated_at',
                 'value' => function($model){

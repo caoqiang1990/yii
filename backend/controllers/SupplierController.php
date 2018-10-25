@@ -74,12 +74,11 @@ class SupplierController extends Controller
 
         $levelModel = new SupplierLevel;
         $categoryModel = new SupplierCategory;
-        $supplier_grade = $levelModel::getLevelByParams();
-        $firm_nature = $categoryModel::getCategoryByParams();
+        $level = $levelModel::getLevelByParams();
+        //$firm_nature = $categoryModel::getCategoryByParams();
         return $this->render('create', [
             'model' => $model,
-            'supplier_grade' => $supplier_grade,
-            'firm_nature' => $firm_nature,
+            'level' => $level,
         ]);
     }
 
@@ -101,13 +100,12 @@ class SupplierController extends Controller
 
         $levelModel = new SupplierLevel;
         $categoryModel = new SupplierCategory;
-        $supplier_grade = $levelModel::getLevelByParams();
-        $firm_nature = $categoryModel::getCategoryByParams();
+        $level = $levelModel::getLevelByParams();
+        //$firm_nature = $categoryModel::getCategoryByParams();
 
         return $this->render('update', [
             'model' => $model,
-            'supplier_grade' => $supplier_grade,
-            'firm_nature' => $firm_nature
+            'level' => $level,
         ]);
     }
 

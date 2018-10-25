@@ -8,15 +8,20 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+
 <div class="suppliers-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'supplier_grade')->dropDownList($supplier_grade) ?>
+    <?= $form->field($model, 'level')->dropDownList($level) ?>
 
-    <?= $form->field($model, 'firm_nature')->dropDownList($firm_nature) ?>
+    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'register_date')->textInput(['maxlength' => true,'id'=>'datepicker']) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('suppliers', 'Save'), ['class' => 'btn btn-success']) ?>
@@ -25,3 +30,16 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?= Html::jsFile('@web/plugin/timepicker/bootstrap-datepicker.js') ?>
+<script>
+$(function () {
+  //Date picker
+  $('#datepicker').datepicker({
+    autoclose: true,
+    format:'yyyy-mm-dd'
+  })
+
+})
+
+</script>
