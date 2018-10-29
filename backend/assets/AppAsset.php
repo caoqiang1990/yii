@@ -14,11 +14,11 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
-        'plugin/timepicker/datepicker3.css',
+        //'plugin/timepicker/datepicker3.css',
     ];
     public $js = [
-     'plugin/timepicker/bootstrap-datepicker.js',
-    'js/jquery.js',
+        //'plugin/timepicker/bootstrap-datepicker.js',
+        //'js/jquery.js',
 
     ];
     public $depends = [

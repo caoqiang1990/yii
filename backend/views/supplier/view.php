@@ -40,13 +40,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'url',
             'address',
+            'register_date',
             [
                 'attribute' => 'created_at',
                 'value' => function($model){
                     return date('Y-m-d H:i:s',$model->created_at);
                 }
             ],
-            'register_date',
             [
                 'attribute' => 'updated_at',
                 'value' => function($model){

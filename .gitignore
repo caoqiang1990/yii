@@ -4,7 +4,7 @@
 /yii_test.bat
 /frontend
 /backend/runtime
-
+/vendor
 # phpstorm project files
 .idea
 
