@@ -31,7 +31,7 @@ return [
   'business_certificate' => '经营许可证',
   'credibility_certificate' => '资信文件',
   'headcount' => '员工人数',
-  'address' => '经营地址',
+  'business_address' => '经营地址',
   'telephone' => '电话号码',
   'mobile' => '手机号码',
   'fax' => '传真号码',
@@ -45,6 +45,11 @@ return [
   'operator' => '操作者',
   'created_at' => '创建时间',
   'updated_at' => '修改时间',
+  'coop_content' => '合作内容',
+  'register_fund' => '注册资金',
+  'trade' => '所属行业',
+  'business_phone' => '联系人手机号',
+  'business_mobile' => '联系人电话',
 ];
 
 

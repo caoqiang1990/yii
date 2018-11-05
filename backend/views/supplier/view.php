@@ -39,8 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'url',
-            'address',
+            'business_address',
             'register_date',
+            'coop_content',
             [
                 'attribute' => 'created_at',
                 'value' => function($model){

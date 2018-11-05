@@ -3,19 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Supplier;
-use backend\models\SupplierSearch;
+use backend\models\SupplierTrade;
+use backend\models\SupplierTradeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use backend\models\SupplierLevel;
-use backend\models\SupplierCategory;
-use backend\models\SupplierTrade;
 
 /**
- * SuppliersController implements the CRUD actions for Suppliers model.
+ * SupplierTradeController implements the CRUD actions for SupplierTrade model.
  */
-class SupplierController extends Controller
+class SupplierTradeController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -33,12 +30,12 @@ class SupplierController extends Controller
     }
 
     /**
-     * Lists all Suppliers models.
+     * Lists all SupplierTrade models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SupplierSearch();
+        $searchModel = new SupplierTradeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +45,7 @@ class SupplierController extends Controller
     }
 
     /**
-     * Displays a single Suppliers model.
+     * Displays a single SupplierTrade model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,35 +58,25 @@ class SupplierController extends Controller
     }
 
     /**
-     * Creates a new Suppliers model.
+     * Creates a new SupplierTrade model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Supplier;
-        $model->scenario = 'add';
+        $model = new SupplierTrade();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $levelModel = new SupplierLevel;
-        $categoryModel = new SupplierCategory;
-        $tradeModel = new SupplierTrade;
-        $level = $levelModel::getLevelByParams();
-        //$firm_nature = $categoryModel::getCategoryByParams();
-        $firm_nature = [1=>'国有',2=>'合资',3=>'独资'];
-        $trade = $tradeModel::getTradeByParams();
         return $this->render('create', [
             'model' => $model,
-            'level' => $level,
-            'firm_nature' => $firm_nature,
-            'trade' => $trade,
         ]);
     }
 
     /**
-     * Updates an existing Suppliers model.
+     * Updates an existing SupplierTrade model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,29 +85,18 @@ class SupplierController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->scenario = 'edit';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $levelModel = new SupplierLevel;
-        $categoryModel = new SupplierCategory;
-        $tradeModel = new SupplierTrade;
-        $level = $levelModel::getLevelByParams();
-        //$firm_nature = $categoryModel::getCategoryByParams();
-        $firm_nature = [1=>'国有',2=>'合资',3=>'独资'];
-        $trade = $tradeModel::getTradeByParams();
         return $this->render('update', [
             'model' => $model,
-            'level' => $level,
-            'firm_nature' => $firm_nature,
-            'trade' => $trade,
         ]);
     }
 
     /**
-     * Deletes an existing Suppliers model.
+     * Deletes an existing SupplierTrade model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -134,18 +110,18 @@ class SupplierController extends Controller
     }
 
     /**
-     * Finds the Suppliers model based on its primary key value.
+     * Finds the SupplierTrade model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Suppliers the loaded model
+     * @return SupplierTrade the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Supplier::findOne($id)) !== null) {
+        if (($model = SupplierTrade::findOne($id)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

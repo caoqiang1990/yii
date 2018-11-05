@@ -85,6 +85,7 @@ return [
                         'suppliers' => 'suppliers.php',
                         'category' => 'suppliercategory.php',
                         'level' => 'supplierlevel.php',
+                        'trade' => 'suppliertrade.php',
                     ],
                     //'basePath' => '@backend/message', //配置语言文件路径，现在采用默认的，就可以不配置这个
                 ],

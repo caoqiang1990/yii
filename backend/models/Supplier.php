@@ -36,11 +36,18 @@ class Supplier extends ActiveRecord
         'id' => \Yii::t('suppliers','id'),
         'name' => \Yii::t('suppliers', 'name'),
         'level' => \Yii::t('suppliers','level'),
-        'address' => \Yii::t('suppliers','address'),
+        'business_address' => \Yii::t('suppliers','business_address'),
         'url' => \Yii::t('suppliers','url'),
         'register_date' => \Yii::t('suppliers','register_date'),
         'created_at' => \Yii::t('suppliers','created_at'),
         'updated_at' => \Yii::t('suppliers','updated_at'),
+        'coop_content' => \Yii::t('suppliers','coop_content'),
+        'firm_nature' => \Yii::t('suppliers','firm_nature'),
+        'register_fund' => \Yii::t('suppliers','register_fund'),
+        'headcount' => \Yii::t('suppliers','headcount'),
+        'trade' => \Yii::t('suppliers','trade'),
+        'business_mobile' => \Yii::t('suppliers','business_mobile'),
+        'business_phone' => \Yii::t('suppliers','business_phone'),
       ];
     }
 
@@ -51,8 +58,34 @@ class Supplier extends ActiveRecord
     public function scenarios()
     {
         return [
-            self::SCENARIO_ADD => ['name','level','address','url','register_date'],
-            self::SCENARIO_EDIT => ['name','level','address','url','register_date'],
+            self::SCENARIO_ADD => [
+                'name',
+                'level',
+                'business_address',
+                'url',
+                'register_date',
+                'coop_content',
+                'firm_nature',
+                'register_fund',
+                'headcount',
+                'trade',
+                'business_phone',
+                'business_mobile',
+            ],
+            self::SCENARIO_EDIT => [
+                'name',
+                'level',
+                'business_address',
+                'url',
+                'register_date',
+                'coop_content',
+                'firm_nature',
+                'register_fund',
+                'headcount',
+                'trade',
+                'business_phone',
+                'business_mobile',
+            ],
         ];
     }
 
@@ -63,11 +96,14 @@ class Supplier extends ActiveRecord
     public function rules()
     {
         return [
-            [['name','address'],'required','on'=>'add'],
+            [['name','business_address'],'required','on'=>'add'],
             ['url','url','on'=>'add'],
+            ['headcount','integer'],
+            ['register_fund','double'],
             [['level'], 'safe'],
-            //['mobile','required','message'=>'手机号码不能为空！','on'=>'add'],
-            //['mobile','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'手机号码格式不正确！'],
+            ['business_mobile','required','message'=>'联系人电话不能为空！','on'=>'add'],
+            ['business_phone','required','message'=>'联系人电话不能为空！','on'=>'add'],
+            ['business_phone','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'联系人手机号格式不正确！'],
         ];
     }
 
