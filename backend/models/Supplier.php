@@ -48,6 +48,7 @@ class Supplier extends ActiveRecord
         'trade' => \Yii::t('suppliers','trade'),
         'business_mobile' => \Yii::t('suppliers','business_mobile'),
         'business_phone' => \Yii::t('suppliers','business_phone'),
+        'business_scope' =>\Yii::t('suppliers','business_scope'),
       ];
     }
 
@@ -71,6 +72,7 @@ class Supplier extends ActiveRecord
                 'trade',
                 'business_phone',
                 'business_mobile',
+                'business_scope',
             ],
             self::SCENARIO_EDIT => [
                 'name',
@@ -85,6 +87,7 @@ class Supplier extends ActiveRecord
                 'trade',
                 'business_phone',
                 'business_mobile',
+                'business_scope',
             ],
         ];
     }
@@ -96,7 +99,7 @@ class Supplier extends ActiveRecord
     public function rules()
     {
         return [
-            [['name','business_address'],'required','on'=>'add'],
+            [['name','business_address','business_scope'],'required','on'=>'add'],
             ['url','url','on'=>'add'],
             ['headcount','integer'],
             ['register_fund','double'],

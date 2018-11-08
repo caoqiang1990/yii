@@ -46,10 +46,11 @@ return [
   'created_at' => '创建时间',
   'updated_at' => '修改时间',
   'coop_content' => '合作内容',
-  'register_fund' => '注册资金',
+  'register_fund' => '注册资金(万元)',
   'trade' => '所属行业',
   'business_phone' => '联系人手机号',
   'business_mobile' => '联系人电话',
+  'business_scope' => '经营范围',
 ];
 
 

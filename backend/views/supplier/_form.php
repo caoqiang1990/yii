@@ -49,10 +49,13 @@ use dosamigos\datepicker\DatePicker;
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-12">
+    <?= $form->field($model, 'business_scope')->textArea(['rows'=>6]) ?>
+    </div>    
+    <div class="col-xs-12">
     <?= $form->field($model, 'coop_content')->textArea(['rows'=>6]) ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'register_fund')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'register_fund')->textInput(['maxlength' => true,'placeholder' => '万元']) ?>
     </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'headcount')->textInput(['maxlength' => true]) ?>
