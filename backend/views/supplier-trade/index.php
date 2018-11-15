@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->status ? '有效' : '无效';
                 }
             ],
+            'order_no',
             [
                 'attribute' => 'created_at',
                 'value' => function($model){

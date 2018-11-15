@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
+use backend\models\SupplierType;
+use moonland\phpexcel\Excel;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -76,15 +78,18 @@ class SupplierController extends Controller
         $levelModel = new SupplierLevel;
         $categoryModel = new SupplierCategory;
         $tradeModel = new SupplierTrade;
-        $level = $levelModel::getLevelByParams();
+        $typeModel = new SupplierType;
+        $level = $levelModel::getLevelByParams();//供应商等级
         //$firm_nature = $categoryModel::getCategoryByParams();
-        $firm_nature = [1=>'国有',2=>'合资',3=>'独资'];
-        $trade = $tradeModel::getTradeByParams();
+        $firm_nature = [1=>'国有',2=>'合资',3=>'独资'];//企业性质
+        $trade = $tradeModel::getTradeByParams();//所属行业
+        $type = $typeModel::getTypeByParams();//业务类型
         return $this->render('create', [
             'model' => $model,
             'level' => $level,
             'firm_nature' => $firm_nature,
             'trade' => $trade,
+            'type' => $type,
         ]);
     }
 
@@ -107,15 +112,18 @@ class SupplierController extends Controller
         $levelModel = new SupplierLevel;
         $categoryModel = new SupplierCategory;
         $tradeModel = new SupplierTrade;
+        $typeModel = new SupplierType;
         $level = $levelModel::getLevelByParams();
         //$firm_nature = $categoryModel::getCategoryByParams();
         $firm_nature = [1=>'国有',2=>'合资',3=>'独资'];
         $trade = $tradeModel::getTradeByParams();
+        $type = $typeModel::getTypeByParams();//业务类型
         return $this->render('update', [
             'model' => $model,
             'level' => $level,
             'firm_nature' => $firm_nature,
             'trade' => $trade,
+            'type' => $type,
         ]);
     }
 
@@ -148,4 +156,30 @@ class SupplierController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    /**
+     * 供应商导入
+     * @return [type] [description]
+     */
+    public function actionImport()
+    {
+        $data = Excel::import('f:\20181112.xlsx',[              
+        'setFirstRecordAsKeys' => true,               
+        'setIndexSheetByName' => true,               
+        'getOnlySheet' => 'sheet1',               
+        ]);
+        $supplierModel = new Supplier;
+        foreach($data as $vo) {
+            $supplierModel->scenario = 'add';
+            $supplierModel->name = $vo['编号'];
+            $supplierModel->business_address = 'ddd';
+            $supplierModel->business_scope = 'ddd';
+            $supplierModel->business_type = 1;
+            $supplierModel->business_mobile = '33321111';
+            $supplierModel->business_phone = '13811643823';
+            $a = $supplierModel->save();
+            var_dump($a);die;
+        }
+        echo json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }    
 }

@@ -36,15 +36,15 @@ return [
             // this is the name of the session cookie used for login on the backend
             'name' => 'advanced-backend',
         ],
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
-        ],
+        // 'log' => [
+        //     'traceLevel' => YII_DEBUG ? 3 : 0,
+        //     'targets' => [
+        //         [
+        //             'class' => 'yii\log\FileTarget',
+        //             'levels' => ['error', 'warning'],
+        //         ],
+        //     ],
+        // ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -86,17 +86,20 @@ return [
                         'category' => 'suppliercategory.php',
                         'level' => 'supplierlevel.php',
                         'trade' => 'suppliertrade.php',
+                        'type' => 'suppliertype.php',
                     ],
                     //'basePath' => '@backend/message', //配置语言文件路径，现在采用默认的，就可以不配置这个
                 ],
             ],
         ],
+
     ],
     'as access' =>[
 	'class' => 'mdm\admin\components\AccessControl',
 	'allowActions' => [
 		'site/*',
 		'admin/*',
+        'supplier/*',
 	]
     ],
     'params' => $params,

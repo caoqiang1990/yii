@@ -12,7 +12,7 @@ return [
   'Update' => '更新',
   'Delete' => '删除',
   'Are you sure you want to delete this item?' => '确认要删除吗?',
-  '' => '',
+  'Order No' => '排序',
 
 ];
 

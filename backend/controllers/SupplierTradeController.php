@@ -65,7 +65,7 @@ class SupplierTradeController extends Controller
     public function actionCreate()
     {
         $model = new SupplierTrade();
-
+        $model->scenario = 'add';
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -85,7 +85,7 @@ class SupplierTradeController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->scenario = 'edit';
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }

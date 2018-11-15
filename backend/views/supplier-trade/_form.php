@@ -13,6 +13,8 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'trade_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model,'status')->dropDownList([0=>'无效',1=>'有效'])?>
+    <?= $form->field($model, 'order_no')->input('number') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

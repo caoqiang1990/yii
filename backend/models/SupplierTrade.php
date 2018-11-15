@@ -10,6 +10,9 @@ use yii\behaviors\TimestampBehavior;
 
 class SupplierTrade extends ActiveRecord
 {
+  const SCENARIO_ADD = 'add';
+  const SCENARIO_EDIT = 'edit';
+
   /**
    * 表名
    * @return [type] [description]
@@ -29,7 +32,23 @@ class SupplierTrade extends ActiveRecord
         TimestampBehavior::className(),
       ];
   }
-
+  /**
+   * 场景
+   * @return [type] [description]
+   */
+  public function scenarios()
+  {
+      return [
+          self::SCENARIO_ADD => [
+            'status',
+            'order_no',
+          ],
+          self::SCENARIO_EDIT => [
+            'status',
+            'order_no',
+          ],
+      ];
+  }
   /**
    * 规则
    * @return [type] [description]
@@ -39,6 +58,7 @@ class SupplierTrade extends ActiveRecord
     return [
         [['id', 'created_at', 'updated_at'], 'integer'],
         [['trade_name'], 'safe'],
+        ['order_no','required','on'=>'edit']
     ];    
   }
 
@@ -53,6 +73,7 @@ class SupplierTrade extends ActiveRecord
       'status' => Yii::t('trade','status'),
       'created_at' => Yii::t('trade','created_at'),
       'updated_at' => Yii::t('trade','updated_at'),
+      'order_no' => Yii::t('trade','Order No'),
     ];
   }
 
@@ -62,7 +83,7 @@ class SupplierTrade extends ActiveRecord
    * @param  string $id     [description]
    * @return [type]         [description]
    */
-  public static function getTradeByParams($column='',$id='')
+  public static function getTradeByParams($column='',$id='',$status='有效')
   {
     $where = [];
     $field = '';
@@ -72,7 +93,12 @@ class SupplierTrade extends ActiveRecord
     if ($column) {
       $field = $column;
     }
-    $lists = self::find()->select($field)->where($where)->asArray()->all();
+    if ($status == '有效') {
+      $where['status'] = 1;
+    }else{
+      $where['status'] = 0;
+    }
+    $lists = self::find()->select($field)->where($where)->orderBy('order_no')->asArray()->all();
     if ($lists) {
       foreach ($lists as $value) {
         $result[$value['id']] = $value['trade_name'];

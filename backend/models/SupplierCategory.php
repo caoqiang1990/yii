@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 
 class SupplierCategory extends ActiveRecord
@@ -39,7 +40,7 @@ class SupplierCategory extends ActiveRecord
   public function rules()
   {
     return [
-        [['id', 'created_at', 'updated_at'], 'integer'],
+        [['id', 'created_at', 'updated_at','order_no','level','pid','status'], 'integer'],
         [['category_name'], 'safe'],
     ];    
   }
@@ -52,6 +53,9 @@ class SupplierCategory extends ActiveRecord
       'status' => Yii::t('category','status'),
       'created_at' => Yii::t('category','created_at'),
       'updated_at' => Yii::t('category','updated_at'),
+      'level' => Yii::t('category','level'),
+      'order_no' => Yii::t('category','Order No'),
+      'pid' => Yii::t('category','pid'),
     ];
   }
 
@@ -96,6 +100,46 @@ class SupplierCategory extends ActiveRecord
     $info = self::find()->where(['id'=>$id])->one();
     return $info ? $info : false;
   }  
+
+  /**
+   * 获取所有的分类
+   */
+  public function getCategories()
+  {
+      $data = self::find()->all();
+      $data = ArrayHelper::toArray($data);
+      return $data;
+  }
+
+  /**
+   *遍历出各个子类 获得树状结构的数组
+   */
+  public static function getTree($data,$pid = 0,$lev = 1)
+  {
+      $tree = [];
+      foreach($data as $value){
+          if($value['pid'] == $pid){
+              $value['category_name'] = str_repeat('|___',$lev).$value['category_name'];
+              $tree[] = $value;
+              $tree = array_merge($tree,self::getTree($data,$value['id'],$lev+1));
+          }
+      }
+      return $tree;
+  }
+
+  /**
+   * 得到相应  id  对应的  分类名  数组
+   */
+  public function getOptions()
+  {
+      $data = $this->getCategories();
+      $tree = $this->getTree($data);
+      $list = ['添加顶级分类'];
+      foreach($tree as $value){
+          $list[$value['id']] = $value['category_name'];
+      }
+      return $list;
+  }
 
 }
 

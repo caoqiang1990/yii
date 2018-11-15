@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\datepicker\DatePicker;
+use backend\widgets\HelloWidget;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Suppliers */
@@ -64,11 +65,59 @@ use dosamigos\datepicker\DatePicker;
     <?= $form->field($model, 'trade')->dropDownList($trade) ?>
     </div>    
     <div class="col-xs-6">
+    <?= $form->field($model, 'business_contact')->textInput(['maxlength' => true]) ?>
+    </div>    
+    <div class="col-xs-6">
+    <?= $form->field($model, 'business_position')->textInput(['maxlength' => true]) ?>
+    </div>        
+    <div class="col-xs-6">
     <?= $form->field($model, 'business_phone')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'business_mobile')->textInput(['maxlength' => true]) ?>
     </div>    
+    <div class="col-xs-6">
+    <?= $form->field($model, 'business_type')->dropDownList($type) ?>
+    </div>     
+    <div class="col-xs-12">
+    <?= $form->field($model, 'factory_summary')->textArea(['rows'=>6]) ?>
+    </div>      
+    <div class="col-xs-6">
+    <?= $form->field($model, 'factory_land_area')->textInput(['maxlength' => true]) ?>
+    </div>      
+    <div class="col-xs-6">
+    <?= $form->field($model, 'factory_work_area')->textInput(['maxlength' => true]) ?>
+    </div>    
+    <div class="col-xs-12">
+    <?= $form->field($model, 'business_customer1')->textArea(['rows'=>6]) ?>
+    </div>      
+    <div class="col-xs-12">
+    <?= $form->field($model, 'business_customer2')->textArea(['rows'=>6]) ?>
+    </div>      
+    <div class="col-xs-12">
+    <?= $form->field($model, 'business_customer3')->textArea(['rows'=>6]) ?>
+    </div>          
+    <div class="col-xs-12">
+    <?= $form->field($model, 'material1')->textArea(['rows'=>6]) ?>
+    </div>      
+    <div class="col-xs-12">
+    <?= $form->field($model, 'material2')->textArea(['rows'=>6]) ?>
+    </div>      
+    <div class="col-xs-12">
+    <?= $form->field($model, 'material3')->textArea(['rows'=>6]) ?>
+    </div>           
+    <div class="col-xs-12">
+    <?= $form->field($model, 'instrument_device1')->textArea(['rows'=>6]) ?>
+    </div>      
+    <div class="col-xs-12">
+    <?= $form->field($model, 'instrument_device2')->textArea(['rows'=>6]) ?>
+    </div>      
+    <div class="col-xs-12">
+    <?= $form->field($model, 'instrument_device3')->textArea(['rows'=>6]) ?>
+    </div>    
+    <div class="col-xs-12">
+    <?= $form->field($model, 'instrument_device4')->textArea(['rows'=>6]) ?>
+    </div>                                
     <div class="form-group">
     <div class="col-xs-12">
 

@@ -51,6 +51,24 @@ return [
   'business_phone' => '联系人手机号',
   'business_mobile' => '联系人电话',
   'business_scope' => '经营范围',
+  'business_type' => '业务类型',
+  'factory_summary' => '工厂概述',
+  'factory_land_area' => '工厂土地面积(m²)',
+  'factory_work_area' => '工厂厂房面积(m²)',
+  'Import Suppliers' => '导入',
+  'business_customer1' => '主要服务客户1',
+  'business_customer2' => '主要服务客户2',
+  'business_customer3' => '主要服务客户3',
+  'material1' => '主要原材料来源1',
+  'material2' => '主要原材料来源2',
+  'material3' => '主要原材料来源3',
+  'instrument_device1' => '重要仪器设备1',
+  'instrument_device2' => '重要仪器设备2',
+  'instrument_device3' => '重要仪器设备3',
+  'instrument_device4' => '重要仪器设备4',
+  'business_contact' => '业务联系人',
+  'business_position' => '联系人职务'
+
 ];
 
 

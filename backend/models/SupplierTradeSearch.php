@@ -18,7 +18,7 @@ class SupplierTradeSearch extends SupplierTrade
     public function rules()
     {
         return [
-            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'status','order_no', 'created_at', 'updated_at'], 'integer'],
             [['trade_name'], 'safe'],
         ];
     }
@@ -61,6 +61,7 @@ class SupplierTradeSearch extends SupplierTrade
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
+            'order_no' => $this->order_no,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

@@ -8,7 +8,9 @@ return [
   'Save' => '新增',
   'created_at' => '创建时间',
   'updated_at' => '修改时间',
-
+  'level' => '级别',
+  'Order No' => '排序',
+  'pid' => '父级分类',
 
 ];
 

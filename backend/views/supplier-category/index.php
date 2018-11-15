@@ -27,6 +27,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'category_name',
             [
+                'attribute' => 'level',
+                'value' => function($model) {
+                    switch ($model->level) {
+                        case '1':
+                            return '总类';
+                            break;
+                        case '2':
+                            return '大类';
+                            break;
+                        case '3':
+                            return '子类';
+                            break;    
+                        default:
+                            return '未选择';
+                            break;
+                    }
+                }
+            ],
+            [
                 'attribute' => 'status',
                 'value' => function($model){
                     return $model->status ? '有效' : '无效';

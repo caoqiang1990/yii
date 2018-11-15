@@ -65,13 +65,21 @@ class SupplierCategoryController extends Controller
     public function actionCreate()
     {
         $model = new SupplierCategory();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $post = Yii::$app->request->post();
+        if ($post['SupplierCategory']['pid']) {
+            $info = $model::getCategoryById($post['SupplierCategory']['pid']);
+            $post['SupplierCategory']['level'] = $info->level + 1;
+        }
+        if ($model->load($post) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
+        $status = [0 => '无效',1 => '有效'];
+        $level = $model->getOptions();
 
         return $this->render('create', [
             'model' => $model,
+            'level' => $level,
+            'status' => $status,
         ]);
     }
 
@@ -85,13 +93,21 @@ class SupplierCategoryController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $post = Yii::$app->request->post();
+        if ($post['SupplierCategory']['pid']) {
+            $info = $model::getCategoryById($post['SupplierCategory']['pid']);
+            $post['SupplierCategory']['level'] = $info->level + 1;
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        $status = [0 => '无效',1 => '有效'];
+        $level = $model->getOptions();
+        
         return $this->render('update', [
             'model' => $model,
+            'level' => $level,
+            'status' => $status,
         ]);
     }
 
