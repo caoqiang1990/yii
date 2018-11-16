@@ -11,6 +11,9 @@ return [
   'level' => '级别',
   'Order No' => '排序',
   'pid' => '父级分类',
+  'Update' => '更新',
+  'Delete' => '删除',
+  'id' => '序号',
 
 ];
 

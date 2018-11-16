@@ -56,6 +56,7 @@ class SupplierCategory extends ActiveRecord
       'level' => Yii::t('category','level'),
       'order_no' => Yii::t('category','Order No'),
       'pid' => Yii::t('category','pid'),
+      'id' => Yii::t('category','id'),
     ];
   }
 

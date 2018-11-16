@@ -30,7 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'level_name',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => function($model){
+                    return $model->status ? '有效' : '无效';
+                }
+            ],
             [
                 'attribute' => 'created_at',
                 'value' =>function($model){
