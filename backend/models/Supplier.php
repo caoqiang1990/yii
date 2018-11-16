@@ -72,6 +72,9 @@ class Supplier extends ActiveRecord
         'sales_latest' => \Yii::t('suppliers','sales_latest'),
         'tax_latest' => \Yii::t('suppliers','tax_latest'),
         'social_responsibility' => \Yii::t('suppliers','social_responsibility'),
+        'department_name' => \Yii::t('suppliers','department_name'),
+        'department_manager' => \Yii::t('suppliers','department_manager'),
+        'department_manager_phone' => \Yii::t('suppliers','department_manager_phone'),
 
       ];
     }
@@ -119,6 +122,9 @@ class Supplier extends ActiveRecord
                 'last_sale',
                 'last_tax',
                 'social_responsibility',
+                'department_name',
+                'department_manager',
+                'department_manager_phone',
             ],
             self::SCENARIO_EDIT => [
                 'name',
@@ -156,6 +162,9 @@ class Supplier extends ActiveRecord
                 'last_sale',
                 'last_tax',
                 'social_responsibility',
+                'department_name',
+                'department_manager',
+                'department_manager_phone',
             ],
         ];
     }

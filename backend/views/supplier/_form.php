@@ -137,11 +137,20 @@ use backend\widgets\HelloWidget;
     </div>    
     <div class="col-xs-12">
     <?= $form->field($model, 'instrument_device4')->textArea(['rows'=>6]) ?>
-    </div>                                
+    </div>    
+    <div class="col-xs-6">
+    <?= $form->field($model, 'department_name')->textInput(['maxlength' => true]) ?>
+    </div>      
+    <div class="col-xs-6">
+    <?= $form->field($model, 'department_manager')->textInput(['maxlength' => true]) ?>
+    </div> 
+    <div class="col-xs-6">
+    <?= $form->field($model, 'department_manager_phone')->textInput(['maxlength' => true]) ?>
+    </div>                                       
     <div class="form-group">
     <div class="col-xs-12">
 
-        <?= Html::submitButton(Yii::t('suppliers', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
     </div>
 

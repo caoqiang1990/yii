@@ -78,7 +78,7 @@ class SupplierLevel extends ActiveRecord
     }else{
       $where['status'] = 0;
     }
-    $lists = self::find()->select($field)->where($where)->asArray()->all();
+    $lists = self::find()->select($field)->where($where)->orderBy('order_no')->asArray()->all();
     if ($lists) {
       foreach ($lists as $value) {
         $result[$value['id']] = $value['level_name'];

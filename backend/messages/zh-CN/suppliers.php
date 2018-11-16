@@ -75,6 +75,9 @@ return [
   'sales_latest' => '上一年度销售额(万元)',
   'tax_latest' => '上一年度纳税额(万元)',
   'social_responsibility' => '企业近三年履行社会责任情况',
+  'department_name' => '企业主要部门',
+  'department_manager' => '企业部门负责人',
+  'department_manager_phone' => '企业部门负责人电话',
 ];
 
 
