@@ -39,7 +39,7 @@ class SupplierType extends ActiveRecord
   public function rules()
   {
     return [
-        [['id', 'created_at', 'updated_at'], 'integer'],
+        [['id', 'created_at', 'updated_at','order_no','status'], 'integer'],
         [['type_name'], 'safe'],
     ];    
   }
@@ -52,6 +52,7 @@ class SupplierType extends ActiveRecord
       'status' => Yii::t('type','status'),
       'created_at' => Yii::t('type','created_at'),
       'updated_at' => Yii::t('type','updated_at'),
+      'order_no' => Yii::t('type','order_no'),
     ];
   }
 

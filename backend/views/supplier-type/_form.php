@@ -13,6 +13,8 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'type_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'status')->dropDownList($status) ?>
+    <?= $form->field($model, 'order_no')->input('number') ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -69,9 +69,10 @@ class SupplierTypeController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        $status = [0=>'无效',1=>'有效'];
         return $this->render('create', [
             'model' => $model,
+            'status' => $status,
         ]);
     }
 
@@ -89,9 +90,10 @@ class SupplierTypeController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        $status = [0=>'无效',1=>'有效'];
         return $this->render('update', [
             'model' => $model,
+            'status' => $status,
         ]);
     }
 
