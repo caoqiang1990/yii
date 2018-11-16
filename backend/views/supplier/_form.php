@@ -42,7 +42,6 @@ use backend\widgets\HelloWidget;
             'format' => 'yyyy-mm-dd'
         ]
     ]);?>
-    <div class="help-block"></div>
     </div>
     </div>
 
@@ -58,6 +57,24 @@ use backend\widgets\HelloWidget;
     <div class="col-xs-6">
     <?= $form->field($model, 'register_fund')->textInput(['maxlength' => true,'placeholder' => '万元']) ?>
     </div>
+    <div class="col-xs-6">
+    <?= $form->field($model, 'legal_person')->textInput(['maxlength' => true]) ?>
+    </div>     
+    <div class="col-xs-6">
+    <?= $form->field($model, 'legal_position')->textInput(['maxlength' => true]) ?>
+    </div>  
+    <div class="col-xs-6">
+    <?= $form->field($model, 'legal_phone')->textInput(['maxlength' => true]) ?>
+    </div>         
+    <div class="col-xs-6">
+    <?= $form->field($model, 'sales_latest')->textInput(['maxlength' => true]) ?>
+    </div>   
+    <div class="col-xs-6">
+    <?= $form->field($model, 'tax_latest')->textInput(['maxlength' => true]) ?>
+    </div>               
+    <div class="col-xs-12">
+    <?= $form->field($model, 'social_responsibility')->textArea(['rows'=>6]) ?>
+    </div>     
     <div class="col-xs-6">
     <?= $form->field($model, 'headcount')->textInput(['maxlength' => true]) ?>
     </div> 
@@ -75,6 +92,9 @@ use backend\widgets\HelloWidget;
     </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'business_mobile')->textInput(['maxlength' => true]) ?>
+    </div>    
+    <div class="col-xs-6">
+    <?= $form->field($model, 'business_email')->textInput(['maxlength' => true]) ?>
     </div>    
     <div class="col-xs-6">
     <?= $form->field($model, 'business_type')->dropDownList($type) ?>
@@ -98,13 +118,13 @@ use backend\widgets\HelloWidget;
     <?= $form->field($model, 'business_customer3')->textArea(['rows'=>6]) ?>
     </div>          
     <div class="col-xs-12">
-    <?= $form->field($model, 'material1')->textArea(['rows'=>6]) ?>
+    <?= $form->field($model, 'material_name1')->textArea(['rows'=>6]) ?>
     </div>      
     <div class="col-xs-12">
-    <?= $form->field($model, 'material2')->textArea(['rows'=>6]) ?>
+    <?= $form->field($model, 'material_name2')->textArea(['rows'=>6]) ?>
     </div>      
     <div class="col-xs-12">
-    <?= $form->field($model, 'material3')->textArea(['rows'=>6]) ?>
+    <?= $form->field($model, 'material_name3')->textArea(['rows'=>6]) ?>
     </div>           
     <div class="col-xs-12">
     <?= $form->field($model, 'instrument_device1')->textArea(['rows'=>6]) ?>

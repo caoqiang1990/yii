@@ -14,10 +14,13 @@ use yii\widgets\ActiveForm;
 
 
     <?= $form->field($model, 'level_name')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'status')->dropDownList($status) ?>
+    <?= $form->field($model, 'order_no')->input('number') ?>
 
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('level', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

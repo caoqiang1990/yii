@@ -59,16 +59,22 @@ return [
   'business_customer1' => '主要服务客户1',
   'business_customer2' => '主要服务客户2',
   'business_customer3' => '主要服务客户3',
-  'material1' => '主要原材料来源1',
-  'material2' => '主要原材料来源2',
-  'material3' => '主要原材料来源3',
+  'material_name1' => '主要原材料来源1',
+  'material_name2' => '主要原材料来源2',
+  'material_name3' => '主要原材料来源3',
   'instrument_device1' => '重要仪器设备1',
   'instrument_device2' => '重要仪器设备2',
   'instrument_device3' => '重要仪器设备3',
   'instrument_device4' => '重要仪器设备4',
   'business_contact' => '业务联系人',
-  'business_position' => '联系人职务'
-
+  'business_position' => '联系人职务',
+  'business_email' => '联系人邮箱',
+  'legal_person' => '法人',
+  'legal_position' => '法人职务',
+  'legal_phone' => '法人电话',
+  'sales_latest' => '上一年度销售额(万元)',
+  'tax_latest' => '上一年度纳税额(万元)',
+  'social_responsibility' => '企业近三年履行社会责任情况',
 ];
 
 

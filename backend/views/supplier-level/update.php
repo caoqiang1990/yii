@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = Yii::t('level', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'status' => $status,
     ]) ?>
 
 </div>

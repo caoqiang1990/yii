@@ -37,7 +37,7 @@ class SupplierLevel extends ActiveRecord
   public function rules()
   {
     return [
-        [['id', 'created_at', 'updated_at'], 'integer'],
+        [['id', 'created_at', 'updated_at','status','order_no'], 'integer'],
         [['level_name'], 'safe'],
     ];    
   }
@@ -53,6 +53,7 @@ class SupplierLevel extends ActiveRecord
       'status' => Yii::t('level','status'),
       'created_at' => Yii::t('level','created_at'),
       'updated_at' => Yii::t('level','updated_at'),
+      'order_no' => Yii::t('level','order_no'),
     ];
   }
 
@@ -62,7 +63,7 @@ class SupplierLevel extends ActiveRecord
    * @param  string $id     [description]
    * @return [type]         [description]
    */
-  public static function getLevelByParams($column='',$id='')
+  public static function getLevelByParams($column='',$id='',$status='有效')
   {
     $where = [];
     $field = '';
@@ -71,6 +72,11 @@ class SupplierLevel extends ActiveRecord
     }
     if ($column) {
       $field = $column;
+    }
+    if ($status == '有效') {
+      $where['status'] = 1;
+    }else{
+      $where['status'] = 0;
     }
     $lists = self::find()->select($field)->where($where)->asArray()->all();
     if ($lists) {
