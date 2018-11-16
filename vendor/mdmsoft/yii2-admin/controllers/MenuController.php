@@ -69,7 +69,7 @@ class MenuController extends Controller
     public function actionCreate()
     {
         $model = new Menu;
-        var_dump($model->isNewRecord);die;
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Helper::invalidate();
             return $this->redirect(['view', 'id' => $model->id]);
