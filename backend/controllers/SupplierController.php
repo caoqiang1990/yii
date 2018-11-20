@@ -13,6 +13,8 @@ use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
 use backend\models\SupplierType;
 use moonland\phpexcel\Excel;
+use backend\models\SupplierDetail;
+use backend\models\SupplierFunds;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -182,4 +184,33 @@ class SupplierController extends Controller
         }
         echo json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }    
+
+
+    public function actionRelation()
+    {
+        $model = new SupplierDetail;
+        $model->scenario = 'add';
+        $post = Yii::$app->request->post('SupplierDetail');
+        $funds = array();
+        $post['sid'] = $sid;
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($model->id) {
+                for($i=1;$i<=3;$i++) {
+                    $funds[$i-1]["detail_id"] = $model->id;
+                    $funds[$i-1]["coop_fund"] = $post["coop_fund{$i}"];
+                    $funds[$i-1]["trade_fund"] = $post["trade_fund{$i}"];
+                    $funds[$i-1]["created_at"] = time();
+                    $funds[$i-1]["updated_at"] = time();
+                }     
+                Yii::$app->db->createCommand()->batchInsert('supplier_funds',['detail_id','coop_fund','trade_fund','created_at','updated_at'],$funds)->execute();
+            }
+            return $this->redirect(['index']);
+        }
+        return $this->render('relation',
+                [
+                    'model' => $model,
+                    'sid' => $sid
+                ]
+            );
+    }
 }

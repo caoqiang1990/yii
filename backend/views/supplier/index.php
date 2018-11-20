@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SuppliersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -25,7 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'name',
+            [
+                'attribute' => 'name',
+                'format' => 'raw',
+                'value' => function($model) {
+                    $url = 'http://www.baidu.com';
+                    $options = ['title' => $model->name];
+                    return Html::a($model->name,$url,$options);
+                }
+            ],
             //'business_license',
             //'tax_registration_certificate',
             //'orcc',
@@ -66,7 +75,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => '操作'
+
+            ],
+            [
+                'label'=>'更多操作',
+                'format'=>'raw',
+                'value' => function($model){
+                    $url = Url::to(['supplier/relation','sid'=>$model->id]);
+                    return Html::a('与我方关系', $url, ['title' => '审核']); 
+                }
+            ]        
         ],
     ]); ?>
     <?php Pjax::end(); ?>
