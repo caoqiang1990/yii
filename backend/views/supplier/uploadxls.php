@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     //网上很多地方都没详细说明回调触发事件，其实fileupload为上传成功后触发的，三个参数，主要是第二个，有formData，jqXHR以及response参数，上传成功后返回的ajax数据可以在response获取
                     'pluginEvents' => [
                         'fileuploaded' => "function (object,data){ 
-                            $("input[name='UploadForm[imageFile]']").val(data.filepath);
+                            $("input[name='UploadForm\[imageFile\]']").val(data.filepath);
                             alert('上传成功');
                         }",
                         //错误的冗余机制
