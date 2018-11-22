@@ -168,6 +168,41 @@ class SupplierController extends Controller
         $uploadForm = new UploadForm();
 
         if(Yii::$app->request->isPost){
+            $upload = Yii::$app->request->post('UploadForm');
+            $filePath = $upload['filepath'];
+            $data = Excel::import($filePath,[              
+            'setFirstRecordAsKeys' => true,               
+            'setIndexSheetByName' => true,               
+            'getOnlySheet' => 'sheet1',               
+            ]);
+            $supplierModel = new Supplier;
+            foreach($data as $vo) {
+                $supplierModel->scenario = 'add';
+                $supplierModel->name = $vo['编号'];
+                $supplierModel->business_address = 'ddd';
+                $supplierModel->business_scope = 'ddd';
+                $supplierModel->business_type = 1;
+                $supplierModel->business_mobile = '33321111';
+                $supplierModel->business_phone = '13811643823';
+                $a = $supplierModel->save();
+                var_dump($a);die;
+            }
+            echo json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);          
+        }else{
+          return $this->render('uploadxls',
+                [
+                    'model' => $uploadForm,
+                ]
+            );          
+        }
+
+    }
+
+    public function actionUpload()
+    {
+        $uploadForm = new UploadForm();
+
+        if(Yii::$app->request->isPost){
             $uploadForm->imageFile = UploadedFile::getInstance($uploadForm, 'imageFile');
 
             if($filePath = $uploadForm->upload()){
@@ -182,11 +217,10 @@ class SupplierController extends Controller
                 ]);
             }
         }else{
-          return $this->render('uploadxls',
-                [
-                    'model' => $uploadForm,
-                ]
-            );          
+            echo Json::encode([
+                    'filepath' => '',
+                    'error' => '文件上传失败'
+                ]);
         }
 
     }
