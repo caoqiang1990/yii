@@ -16,7 +16,7 @@ use moonland\phpexcel\Excel;
 use backend\models\SupplierDetail;
 use backend\models\SupplierFunds;
 use backend\models\UploadForm;
-use yii\widgets\UploadedFile;
+use yii\web\UploadedFile;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
