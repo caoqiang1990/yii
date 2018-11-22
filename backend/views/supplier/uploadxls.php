@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'fileuploaded' => "function (object,data){
                             console.log(object);
                             console.log(data);
-                            $('.filepath input').val(data.filepath);
+                            $('.filepath input').val(data.response.filepath);
                             alert('上传成功');
                         }",
                         //错误的冗余机制
