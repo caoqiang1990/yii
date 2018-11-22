@@ -15,7 +15,11 @@ return [
     'trade_fund1' => '2015年交易金额（万元）',
     'trade_fund2' => '2016年交易金额（万元）',
     'trade_fund3' => '2017年交易金额（万元）',
-
+    'Create Supplier Detail' => '新增供应商详情',
+    'Supplier Details' => '供应商详情',
+    'Sid' => '供应商名称',
+    'Update' => '更新',
+    'Delete' => '删除',
   ];
 
 

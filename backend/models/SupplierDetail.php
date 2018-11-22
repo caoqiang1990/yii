@@ -53,7 +53,7 @@ class SupplierDetail extends ActiveRecord
         'trade_fund1' => \Yii::t('detail','trade_fund1'),
         'trade_fund2' => \Yii::t('detail','trade_fund2'),
         'trade_fund3' => \Yii::t('detail','trade_fund3'),
-
+        'sid' => \Yii::t('detail','Sid'),
       ];
     }
 

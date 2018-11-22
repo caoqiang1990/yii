@@ -197,4 +197,14 @@ class Supplier extends ActiveRecord
             TimestampBehavior::className()
         ];
     }
+
+    public function getNameByID($id)
+    {
+        if (!$id) {
+            return false;
+        }
+        $where['id'] = $id;
+        $name = self::find()->select('name')->where($where)->one();
+        return $name;
+    }
 }

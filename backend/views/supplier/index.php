@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Yii::t('suppliers', 'Create Suppliers'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Yii::t('suppliers', 'Import Suppliers'), ['import'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('suppliers', 'Import Suppliers'), ['uploadxls'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -84,7 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'更多操作',
                 'format'=>'raw',
                 'value' => function($model){
-                    $url = Url::to(['supplier/relation','sid'=>$model->id]);
+                    $url = Url::to(['supplier-detail/index','sid'=>$model->id]);
                     return Html::a('与我方关系', $url, ['title' => '审核']); 
                 }
             ]        
