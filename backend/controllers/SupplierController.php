@@ -169,7 +169,7 @@ class SupplierController extends Controller
 
         if(Yii::$app->request->isPost){
             $upload = Yii::$app->request->post('UploadForm');
-            $filePath = $upload['filepath'];
+            $filePath = $upload['imageFile'];
             $data = Excel::import($filePath,[              
             'setFirstRecordAsKeys' => true,               
             'setIndexSheetByName' => true,               
