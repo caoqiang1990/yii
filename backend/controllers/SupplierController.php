@@ -17,6 +17,7 @@ use backend\models\SupplierDetail;
 use backend\models\SupplierFunds;
 use backend\models\UploadForm;
 use yii\web\UploadedFile;
+use yii\helpers\Json;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
