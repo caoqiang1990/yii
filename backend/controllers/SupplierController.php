@@ -163,11 +163,26 @@ class SupplierController extends Controller
 
     public function actionUploadxls()
     {
-        $model = new UploadForm;
+        $uploadForm = new UploadForm();
 
+        if(Yii::$app->request->isPost){
+            $uploadForm->imageFile = UploadedFile::getInstance($uploadForm, 'imageFile');
+
+            if($imageUrl = $uploadForm->upload()){
+                echo Json::encode([
+                   'imageUrl'    => $imageUrl,
+                    'error'   => ''     //上传的error字段，如果没有错误就返回空字符串，否则返回错误信息，客户端会自动判定该字段来认定是否有错
+                ]);
+            }else{
+                echo Json::encode([
+                    'imageUrl'    => '',
+                    'error'   => '文件上传失败'
+                ]);
+            }
+        }
         return $this->render('uploadxls',
                 [
-                    'model' => $model,
+                    'model' => $uploadForm,
                 ]
             );
     }

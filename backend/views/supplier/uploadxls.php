@@ -18,9 +18,30 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin() ?>
             <?php
-                echo $form->field($model, 'imageFile')->widget(FileInput::classname());
+                echo $form->field($model, 'imageFile')->widget(FileInput::classname(),[
+                    'options' => [
+                        'module' => 'Supplier',
+                        'multipe' => false,
+                    ],
+                    'pluginOptions' => [
+                        // 异步上传的接口地址设置
+                        'uploadUrl' => \yii\helpers\Url::to(['uploadxls']),
+                        'uploadAsync' => true,
+                    ],
+                    //网上很多地方都没详细说明回调触发事件，其实fileupload为上传成功后触发的，三个参数，主要是第二个，有formData，jqXHR以及response参数，上传成功后返回的ajax数据可以在response获取
+                    'pluginEvents' => [
+                        'fileuploaded' => "function (object,data){ 
+                            alert('上传成功');
+                        }",
+                        //错误的冗余机制
+                        'error' => "function (){
+                            alert('上传失败');
+                        }"
+                    ]
+
+                    ]);
             ?>
-            <button>Submit</button>
+        <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php ActiveForm::end() ?>
     </p>
 
