@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin() ?>
             <?php
-                echo $form->field($model, 'imageFile','options'=>['class'=>'filepath'])->widget(FileInput::classname(),[
+                echo $form->field($model, 'imageFile')->widget(FileInput::classname(),[
                     'options' => [
                         'module' => 'Supplier',
                         'multipe' => false,
