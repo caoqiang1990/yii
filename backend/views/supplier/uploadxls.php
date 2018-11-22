@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     ]);
             ?>
-        <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton('导入', ['class' => 'btn btn-success']) ?>
         <?php ActiveForm::end() ?>
     </p>
 
