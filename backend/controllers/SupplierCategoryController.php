@@ -66,7 +66,7 @@ class SupplierCategoryController extends Controller
     {
         $model = new SupplierCategory();
         $post = Yii::$app->request->post();
-        if ($post['SupplierCategory']['pid']) {
+        if (isset($post['SupplierCategory']['pid'])) {
             $info = $model::getCategoryById($post['SupplierCategory']['pid']);
             $post['SupplierCategory']['level'] = $info->level + 1;
         }
@@ -94,9 +94,13 @@ class SupplierCategoryController extends Controller
     {
         $model = $this->findModel($id);
         $post = Yii::$app->request->post();
-        if ($post['SupplierCategory']['pid']) {
+        if (isset($post['SupplierCategory']['pid'])) {
             $info = $model::getCategoryById($post['SupplierCategory']['pid']);
-            $post['SupplierCategory']['level'] = $info->level + 1;
+            if ($post['SupplierCategory']['pid'] == 0) {
+                $post['SupplierCategory']['level'] = 1;
+            }else{
+                $post['SupplierCategory']['level'] = $info->level + 1;
+            }
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

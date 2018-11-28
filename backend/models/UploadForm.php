@@ -11,15 +11,35 @@ class UploadForm extends Model
      * @var UploadedFile
      */
     public $imageFile;
+    public $excelFile;
     public $filePath;
+    const SCENARIO_FILE = 'file';
+    const SCENARIO_IMAGE = 'image';
 
     public function rules()
     {
         return [
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'xlsx'],
+            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => '*','on' => 'image'],
+            [['excelFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'xlsx','on' => 'file'],
         ];
     }
-    
+    /**
+     * 场景
+     * @return [type] [description]
+     */
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_FILE => [
+                'excelFile',
+            ],
+            self::SCENARIO_IMAGE => [
+                'imageFile',
+            ],
+
+            ];
+
+    }
     public function upload()
     {
         if ($this->validate()) {

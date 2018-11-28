@@ -46,6 +46,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
+                'attribute' => 'pid',
+                'value' => function($model) {
+                    $info = $model->getCategoryById($model->pid);
+                    if (!$info){
+                        return '父类';
+                    }else{
+                        return $info['category_name'];
+                    }
+                }
+            ],
+            [
                 'attribute' => 'status',
                 'value' => function($model){
                     return $model->status ? '有效' : '无效';

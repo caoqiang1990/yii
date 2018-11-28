@@ -7,7 +7,9 @@ use yii\db\ActiveRecord;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\behaviors\TimestampBehavior;
-
+use yii\web\UploadedFile;
+use yii\helpers\FileHelper;
+use backend\models\Images;
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
  */
@@ -15,7 +17,15 @@ class Supplier extends ActiveRecord
 {
     const SCENARIO_ADD = 'add';
     const SCENARIO_EDIT = 'edit';
-
+    const SCENARIO_UPLOAD = 'upload';
+    public $enterprise_code_url;
+    public $enterprise_license_url;
+    public $enterprise_certificate_url;
+    public $enterprise_certificate_etc_url;    
+    public $enterprise_code_image_id;
+    public $enterprise_license_image_id;
+    public $enterprise_certificate_image_id;
+    public $enterprise_certificate_etc_image_id;
 
     /**
      * 返回表名
@@ -75,7 +85,10 @@ class Supplier extends ActiveRecord
         'department_name' => \Yii::t('suppliers','department_name'),
         'department_manager' => \Yii::t('suppliers','department_manager'),
         'department_manager_phone' => \Yii::t('suppliers','department_manager_phone'),
-
+        'enterprise_code_image_id' => \Yii::t('suppliers','enterprise_code'),
+        'enterprise_license_image_id' => \Yii::t('suppliers','enterprise_license'),
+        'enterprise_certificate_image_id' => \Yii::t('suppliers','enterprise_certificate'),
+        'enterprise_certificate_etc_image_id' => \Yii::t('suppliers','enterprise_certificate_etc'),
       ];
     }
 
@@ -125,6 +138,10 @@ class Supplier extends ActiveRecord
                 'department_name',
                 'department_manager',
                 'department_manager_phone',
+                'enterprise_code',
+                'enterprise_license',
+                'enterprise_certificate',
+                'enterprise_certificate_etc',                
             ],
             self::SCENARIO_EDIT => [
                 'name',
@@ -165,6 +182,16 @@ class Supplier extends ActiveRecord
                 'department_name',
                 'department_manager',
                 'department_manager_phone',
+                'enterprise_code',
+                'enterprise_license',
+                'enterprise_certificate',
+                'enterprise_certificate_etc',
+            ],
+            self::SCENARIO_UPLOAD => [
+                'enterprise_code',
+                'enterprise_license',
+                'enterprise_certificate',
+                'enterprise_certificate_etc',                
             ],
         ];
     }
@@ -178,12 +205,17 @@ class Supplier extends ActiveRecord
         return [
             [['name','business_address','business_scope','business_type'],'required','on'=>'add'],
             ['url','url','on'=>'add'],
-            ['headcount','integer'],
-            ['register_fund','double'],
-            [['level'], 'safe'],
+            ['headcount','integer','on' => 'add,edit'],
+            ['register_fund','double','on' => 'add,edit'],
+            [['level','enterprise_code','enterprise_license','enterprise_certificate','enterprise_certificate_etc'], 'safe'],
             ['business_mobile','required','message'=>'联系人电话不能为空！','on'=>'add'],
             ['business_phone','required','message'=>'联系人电话不能为空！','on'=>'add'],
-            ['business_phone','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'联系人手机号格式不正确！'],
+            ['business_phone','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'联系人手机号格式不正确！','on' => 'add,edit'],
+            [['enterprise_code_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
+            [['enterprise_license_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
+            [['enterprise_certificate'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
+            [['enterprise_certificate_etc'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
+
         ];
     }
 
@@ -206,5 +238,53 @@ class Supplier extends ActiveRecord
         $where['id'] = $id;
         $name = self::find()->select('name')->where($where)->one();
         return $name;
+    }
+
+    public function upload($field)
+    {
+        if ($this->validate()) {
+            $path = \Yii::getAlias('@uploadPath') . '/' . date("Ymd");
+            if (!is_dir($path) || !is_writable($path)) {
+                FileHelper::createDirectory($path, 0777, true);
+            }
+            $filePath = $path . '/' . \Yii::$app->request->post('model', '') . '_' . md5(uniqid() . mt_rand(10000, 99999999)) . '.' . $this->{$field}->extension;
+
+            if($this->{$field}->saveAs($filePath)) {
+                //如果上传成功，保存附件信息到数据库。TODO
+                //这里将上传成功后的图片信息保存到数据库
+                $imageUrl = $this->parseImageUrl($filePath);
+                $imageModel = new Images();
+                $imageModel->url = $imageUrl;
+                $imageModel->filepath = $filePath;
+                $imageModel->status = 1;
+                $imageModel->module = Yii::$app->request->post('model', '');
+                $imageModel->created_at = time();
+                $imageModel->updated_at = time();
+
+                $imageModel->save(false);
+                $imageId = Yii::$app->db->getLastInsertID();
+                
+            }
+            return ['filepath' => $filePath,'imageid' => $imageId];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 这里在upload中定义了上传目录根目录别名，以及图片域名
+     * 将/var/www/html/advanced/frontend/web/uploads/20160626/file.png 转化为 http://statics.gushanxia.com/uploads/20160626/file.png
+     * format:http://domain/path/file.extension
+     * @param $filePath
+     * @return string
+     */
+    public function parseImageUrl($filePath)
+    {
+        if (strpos($filePath, Yii::getAlias('@uploadPath')) !== false) {
+            $url =  Yii::$app->params['assetDomain'] . str_replace(Yii::getAlias('@uploadPath'), '', $filePath);
+            return $url;
+        } else {
+            return $filePath;
+        }
     }
 }

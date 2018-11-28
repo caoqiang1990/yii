@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\datepicker\DatePicker;
-use backend\widgets\HelloWidget;
+use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Suppliers */
@@ -146,7 +146,162 @@ use backend\widgets\HelloWidget;
     </div> 
     <div class="col-xs-6">
     <?= $form->field($model, 'department_manager_phone')->textInput(['maxlength' => true]) ?>
-    </div>                                       
+    </div>  
+    <div class="col-xs-12">
+    <?= $form->field($model,'enterprise_code')->hiddenInput()->label(false)?>
+      <?php
+                echo $form->field($model,'enterprise_code_image_id')->widget(FileInput::className(),[
+                    'options' => [
+                        'multiple' => false,
+                        'accept' => 'image/*'
+                    ],
+                    'pluginOptions' => [
+                        // 异步上传的接口地址设置
+                        'uploadUrl' => \yii\helpers\Url::to(['upload-attachment']),
+                        'uploadExtraData' => [
+                            'field' => 'enterprise_code_image_id',
+                        ],                        
+                        'uploadAsync' => true,
+                        'initialPreview'=>[
+                            "$model->enterprise_code_url",
+                        ],
+                         'initialPreviewAsData'=>true,
+                         'initialCaption'=>"$model->enterprise_code_image_id",
+                    ],
+                    //网上很多地方都没详细说明回调触发事件，其实fileupload为上传成功后触发的，三个参数，主要是第二个，有formData，jqXHR以及response参数，上传成功后返回的ajax数据可以在response获取
+                    'pluginEvents' => [
+                        'fileuploaded' => "function (object,data){
+                            console.log(object);
+                            console.log(data);
+                            $('input[name=\'Supplier\[enterprise_code\]\']').val(data.response.imageid);
+                            alert('上传成功');
+                        }",
+                        //错误的冗余机制
+                        'error' => "function (){
+                            alert('上传失败');
+                        }"
+                    ],
+
+                    ]);
+            ?>
+    </div>         
+    <div class="col-xs-12">
+        <?= $form->field($model,'enterprise_license')->hiddenInput()->label(false)?>
+
+      <?php
+                echo $form->field($model,'enterprise_license_image_id')->widget(FileInput::className(),[
+                    'options' => [
+                        'multiple' => false,
+                        'accept' => 'image/*'
+                    ],
+                    'pluginOptions' => [
+                        // 异步上传的接口地址设置
+                        'uploadUrl' => \yii\helpers\Url::to(['upload-attachment']),
+                        'uploadExtraData' => [
+                            'field' => 'enterprise_license_image_id',
+                        ],
+                        'uploadAsync' => true,
+                        'initialPreview'=>[
+                            "$model->enterprise_license_url",
+                        ],
+                         'initialPreviewAsData'=>true,
+                         'initialCaption'=>"$model->enterprise_license_image_id",
+                    ],
+                    //网上很多地方都没详细说明回调触发事件，其实fileupload为上传成功后触发的，三个参数，主要是第二个，有formData，jqXHR以及response参数，上传成功后返回的ajax数据可以在response获取
+                    'pluginEvents' => [
+                        'fileuploaded' => "function (object,data){
+                            console.log(object);
+                            console.log(data);
+                            $('input[name=\'Supplier\[enterprise_license\]\']').val(data.response.imageid);
+                            alert('上传成功');
+                        }",
+                        //错误的冗余机制
+                        'error' => "function (){
+                            alert('上传失败');
+                        }"
+                    ],
+
+                    ]);
+            ?>
+    </div>     
+    <div class="col-xs-12">
+        <?= $form->field($model,'enterprise_certificate')->hiddenInput()->label(false)?>
+
+      <?php
+                echo $form->field($model,'enterprise_certificate_image_id')->widget(FileInput::className(),[
+                    'options' => [
+                        'multiple' => false,
+                        'accept' => 'image/*'
+                    ],
+                    'pluginOptions' => [
+                        // 异步上传的接口地址设置
+                        'uploadUrl' => \yii\helpers\Url::to(['upload-attachment']),
+                        'uploadExtraData' => [
+                            'field' => 'enterprise_certificate_image_id',
+                        ],
+                        'uploadAsync' => true,
+                        'initialPreview'=>[
+                            "$model->enterprise_certificate_url",
+                        ],
+                         'initialPreviewAsData'=>true,
+                         'initialCaption'=>"$model->enterprise_certificate_image_id",
+                    ],
+                    //网上很多地方都没详细说明回调触发事件，其实fileupload为上传成功后触发的，三个参数，主要是第二个，有formData，jqXHR以及response参数，上传成功后返回的ajax数据可以在response获取
+                    'pluginEvents' => [
+                        'fileuploaded' => "function (object,data){
+                            console.log(object);
+                            console.log(data);
+                            $('input[name=\'Supplier\[enterprise_certificate\]\']').val(data.response.imageid);
+                            alert('上传成功');
+                        }",
+                        //错误的冗余机制
+                        'error' => "function (){
+                            alert('上传失败');
+                        }"
+                    ],
+
+                    ]);
+            ?>
+    </div>    
+    <div class="col-xs-12">
+        <?= $form->field($model,'enterprise_certificate_etc')->hiddenInput()->label(false)?>
+
+      <?php
+                echo $form->field($model,'enterprise_certificate_etc_image_id')->widget(FileInput::className(),[
+                    'options' => [
+                        'multiple' => false,
+                        'accept' => 'image/*'
+                    ],
+                    'pluginOptions' => [
+                        // 异步上传的接口地址设置
+                        'uploadUrl' => \yii\helpers\Url::to(['upload-attachment']),
+                        'uploadExtraData' => [
+                            'field' => 'enterprise_certificate_etc_image_id',
+                        ],
+                        'uploadAsync' => true,
+                        'initialPreview'=>[
+                            "$model->enterprise_certificate_etc_url",
+                        ],
+                         'initialPreviewAsData'=>true,
+                         'initialCaption'=>"$model->enterprise_certificate_etc_image_id",
+                    ],
+                    //网上很多地方都没详细说明回调触发事件，其实fileupload为上传成功后触发的，三个参数，主要是第二个，有formData，jqXHR以及response参数，上传成功后返回的ajax数据可以在response获取
+                    'pluginEvents' => [
+                        'fileuploaded' => "function (object,data){
+                            console.log(object);
+                            console.log(data);
+                            $('input[name=\'Supplier\[enterprise_certificate_etc\]\']').val(data.response.imageid);
+                            alert('上传成功');
+                        }",
+                        //错误的冗余机制
+                        'error' => "function (){
+                            alert('上传失败');
+                        }"
+                    ],
+
+                    ]);
+            ?>
+    </div>                                           
     <div class="form-group">
     <div class="col-xs-12">
 
@@ -166,6 +321,11 @@ $(function () {
     autoclose: true,
     format:'yyyy-mm-dd'
   })
+
+  // var enterprise_code = "<?= $model->enterprise_code ?>";
+  // if (enterprise_code) {
+  //   $("input[name='Supplier[enterprise_code]']").val(enterprise_code);
+  // }
 
 })
 

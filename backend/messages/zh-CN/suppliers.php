@@ -78,6 +78,12 @@ return [
   'department_name' => '企业主要部门',
   'department_manager' => '企业部门负责人',
   'department_manager_phone' => '企业部门负责人电话',
+  'enterprise_code' => '企业代码',
+  'enterprise_code_image_id' => '企业代码',
+  'enterprise_license' => '开户许可证',
+  'enterprise_license_image_id' => '开户许可证',
+  'enterprise_certificate' => '贸易商（中间商）代理资质',
+  'enterprise_certificate_etc' => '贸易商（中间商）其他资质',
 ];
 
 

@@ -4,13 +4,11 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\SupplierCategory */
-
-$this->title = Yii::t('app', 'Update Supplier Category: ' . $model->id, [
-    'nameAttribute' => '' . $model->id,
-]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Supplier Categories'), 'url' => ['index']];
+$title = Yii::t('category', 'Update Supplier Category: ');
+$this->title =  $title . $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('category', 'Supplier Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('category', 'Update');
 ?>
 <div class="supplier-category-update">
 

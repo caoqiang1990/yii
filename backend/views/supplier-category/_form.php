@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'pid')->dropDownList($level) ?>
     <?= $form->field($model, 'status')->dropDownList($status) ?>
     <?= $form->field($model, 'order_no')->input('number') ?>
-
+    <?= $form->field($model, 'level')->hiddenInput(['value'=>$model->level])->label(false); ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

@@ -14,7 +14,7 @@ return [
   'Update' => '更新',
   'Delete' => '删除',
   'id' => '序号',
-
+  'Update Supplier Category: ' => '更新供应商类别',
 ];
 
 

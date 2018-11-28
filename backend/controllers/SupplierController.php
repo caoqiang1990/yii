@@ -18,6 +18,7 @@ use backend\models\SupplierFunds;
 use backend\models\UploadForm;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
+use backend\models\Images;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -109,11 +110,20 @@ class SupplierController extends Controller
     {
         $model = $this->findModel($id);
         $model->scenario = 'edit';
+        $post = Yii::$app->request->post();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load($post) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        $imageModel = new Images();
+        $image = $imageModel->getImageByID($model->enterprise_code);
+        $model->enterprise_code_url = $image->url;
+        $image = $imageModel->getImageByID($model->enterprise_license);
+        $model->enterprise_license_url = $image->url;
+        $image = $imageModel->getImageByID($model->enterprise_certificate);
+        $model->enterprise_certificate_url = $image ? $image->url : '';
+        $image = $imageModel->getImageByID($model->enterprise_certificate_etc);
+        $model->enterprise_certificate_etc_url = $image ? $image->url : '';                
         $levelModel = new SupplierLevel;
         $categoryModel = new SupplierCategory;
         $tradeModel = new SupplierTrade;
@@ -206,6 +216,7 @@ class SupplierController extends Controller
             $uploadForm->imageFile = UploadedFile::getInstance($uploadForm, 'imageFile');
 
             if($filePath = $uploadForm->upload()){
+                $this->actionImport($filePath);
                 echo Json::encode([
                    'filepath'    => $filePath,
                     'error'   => ''     //上传的error字段，如果没有错误就返回空字符串，否则返回错误信息，客户端会自动判定该字段来认定是否有错
@@ -229,9 +240,9 @@ class SupplierController extends Controller
      * 供应商导入
      * @return [type] [description]
      */
-    public function actionImport()
+    public function actionImport($filePath = '')
     {
-        $data = Excel::import('f:\20181112.xlsx',[              
+        $data = Excel::import($filePath,[              
         'setFirstRecordAsKeys' => true,               
         'setIndexSheetByName' => true,               
         'getOnlySheet' => 'sheet1',               
@@ -246,10 +257,61 @@ class SupplierController extends Controller
             $supplierModel->business_mobile = '33321111';
             $supplierModel->business_phone = '13811643823';
             $a = $supplierModel->save();
-            var_dump($a);die;
         }
         echo json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }    
 
+    /**
+     * 上传附件
+     * @return [type] [description]
+     */
+    public function actionUploadAttachment()
+    {
+        $field = Yii::$app->request->post('field');
+        $supplierModel = new Supplier();
+        $supplierModel->scenario = 'upload';
 
+        if(Yii::$app->request->isPost){
+            switch ($field) {
+                case 'enterprise_code_image_id':
+                    $supplierModel->enterprise_code = UploadedFile::getInstance($supplierModel, 'enterprise_code_image_id');
+                    $field = 'enterprise_code';
+                    break;
+                case 'enterprise_license_image_id':
+                    $supplierModel->enterprise_license = UploadedFile::getInstance($supplierModel, 'enterprise_license_image_id');
+                    $field = 'enterprise_license';
+                    break;
+                case 'enterprise_certificate_image_id':
+                    $supplierModel->enterprise_certificate = UploadedFile::getInstance($supplierModel, 'enterprise_certificate_image_id');
+                    $field = 'enterprise_certificate';
+                    break;
+                case 'enterprise_certificate_etc_image_id':
+                    $supplierModel->enterprise_certificate_etc = UploadedFile::getInstance($supplierModel, 'enterprise_certificate_etc_image_id');
+                    $field = 'enterprise_certificate_etc';
+                    break;        
+                default:
+                    # code...
+                    break;
+            }
+            if($uploadInfo = $supplierModel->upload($field)){
+                echo Json::encode([
+                   'filepath' => $uploadInfo['filepath'],
+                   'imageid' => $uploadInfo['imageid'],
+                   'error' => ''     //上传的error字段，如果没有错误就返回空字符串，否则返回错误信息，客户端会自动判定该字段来认定是否有错
+                ]);
+            }else{
+                echo Json::encode([
+                    'filepath' => '',
+                    'imageid' => '',
+                    'error' => '文件上传失败'
+                ]);
+            }
+        }else{
+            echo Json::encode([
+                    'filepath' => '',
+                    'error' => '文件上传失败'
+                ]);
+        }
+
+    }
 }

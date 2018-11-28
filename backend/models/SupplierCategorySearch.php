@@ -18,7 +18,7 @@ class SupplierCategorySearch extends SupplierCategory
     public function rules()
     {
         return [
-            [['id', 'status', 'created_at', 'updated_at','level'], 'integer'],
+            [['id', 'status', 'created_at', 'updated_at','level','pid'], 'integer'],
             [['category_name'], 'safe'],
         ];
     }
@@ -62,6 +62,7 @@ class SupplierCategorySearch extends SupplierCategory
             'id' => $this->id,
             'status' => $this->status,
             'level' => $this->level,
+            'pid' => $this->pid,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

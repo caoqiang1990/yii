@@ -8,7 +8,7 @@ use kartik\file\FileInput;
 /* @var $searchModel backend\models\SuppliersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('suppliers', 'Suppliers');
+$this->title = '供应商手动导入';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="suppliers-index">
@@ -18,10 +18,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin() ?>
             <?php
-                echo $form->field($model, 'imageFile',['options'=>['class'=>'filepath']])->widget(FileInput::classname(),[
+                echo $form->field($model, 'imageFile',['options'=>['class'=>'filepath']])->label(false)->widget(FileInput::classname(),[
                     'options' => [
                         'module' => 'Supplier',
-                        'multipe' => false,
+                        'multiple' => false,
                     ],
                     'pluginOptions' => [
                         // 异步上传的接口地址设置
@@ -44,7 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     ]);
             ?>
-        <?= Html::submitButton('导入', ['class' => 'btn btn-success']) ?>
         <?php ActiveForm::end() ?>
     </p>
 
