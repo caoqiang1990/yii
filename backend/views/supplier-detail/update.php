@@ -4,11 +4,11 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\SupplierDetail */
-
-$this->title = 'Update Supplier Detail: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Supplier Details', 'url' => ['index']];
+$title = Yii::t('detail','Update Supplier Detail：');
+$this->title = $title . $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = Yii::t('detail','Update');
 ?>
 <div class="supplier-detail-update">
 

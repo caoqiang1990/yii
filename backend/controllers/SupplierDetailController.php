@@ -103,7 +103,7 @@ class SupplierDetailController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$sid='')
     {
         $model = $this->findModel($id);
         $model->scenario = 'edit';
@@ -116,6 +116,7 @@ class SupplierDetailController extends Controller
         return $this->render('update', [
             'model' => $model,
             'name' => $nameObject->name,
+            'sid' => $sid,
         ]);
     }
 

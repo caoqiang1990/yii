@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use dosamigos\datepicker\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\SupplierDetail */
@@ -20,6 +21,20 @@ use yii\widgets\ActiveForm;
 
     <div class="col-xs-6">
     <?= $form->field($model, 'second_level_department')->textInput(['maxlength' => true]) ?>
+    </div>
+    <div class="col-xs-6">
+    <div class="form-group field-supplier-coop_date required">
+    <label class="control-label" for="supplier-coop_date">合作起始时间</label>
+    <?= DatePicker::widget([
+    'model' => $model,
+    'attribute' => 'coop_date',
+    'template' => '{addon}{input}',
+        'clientOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd'
+        ]
+    ]);?>
+    </div>
     </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'coop_fund1')->textInput(['maxlength' => true]) ?>
@@ -59,3 +74,14 @@ use yii\widgets\ActiveForm;
     </div>
 
 </div>
+<?= Html::jsFile('@web/plugin/timepicker/bootstrap-datepicker.js') ?>
+<script>
+$(function () {
+  //Date picker
+  $('#datepicker').datepicker({
+    autoclose: true,
+    format:'yyyy-mm-dd'
+  })
+})
+
+</script>

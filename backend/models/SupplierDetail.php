@@ -49,7 +49,7 @@ class SupplierDetail extends ActiveRecord
         'updated_at' => \Yii::t('detail','updated_at'),
         'coop_fund1' => \Yii::t('detail','coop_fund1'),
         'coop_fund2' => \Yii::t('detail','coop_fund2'),
-        'coop_fund3' => \Yii::t('detail','coop_fund2'),
+        'coop_fund3' => \Yii::t('detail','coop_fund3'),
         'trade_fund1' => \Yii::t('detail','trade_fund1'),
         'trade_fund2' => \Yii::t('detail','trade_fund2'),
         'trade_fund3' => \Yii::t('detail','trade_fund3'),
@@ -71,6 +71,7 @@ class SupplierDetail extends ActiveRecord
                 'mobile',
                 'reason',
                 'sid',
+                'coop_date',
             ],
             self::SCENARIO_EDIT => [
                 'one_level_department',
@@ -78,7 +79,7 @@ class SupplierDetail extends ActiveRecord
                 'name',
                 'mobile',
                 'reason',
-                'sid',
+                'coop_date',
             ],
         ];
     }
