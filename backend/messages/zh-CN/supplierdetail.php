@@ -21,6 +21,7 @@ return [
     'Update' => '更新',
     'Delete' => '删除',
     'Update Supplier Detail：' => '更新供应商详情：',
+    'coop_date' => '合作时间',
   ];
 
 

@@ -84,7 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'更多操作',
                 'format'=>'raw',
                 'value' => function($model){
-                    $url = Url::to(['supplier-detail/index','sid'=>$model->id]);
+                    $url = Url::to(['supplier-detail/create','sid'=>$model->id]);
                     return Html::a('与我方关系', $url, ['title' => '审核']); 
                 }
             ]        

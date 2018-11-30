@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\Supplier;
+use backend\models\SupplierFunds;
 
 /**
  * SupplierDetailController implements the CRUD actions for SupplierDetail model.
@@ -66,15 +67,13 @@ class SupplierDetailController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($sid='')
     {
-        $model = new SupplierDetail();
+        $model = new SupplierDetail;
         $model->scenario = 'add';
         $post = Yii::$app->request->post('SupplierDetail');
         $funds = array();
-        $sid = Yii::$app->request->get('sid');
-        $supplierModel = new Supplier;
-        $nameObject = $supplierModel->getNameByID($sid);
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if ($model->id) {
                 for($i=1;$i<=3;$i++) {
@@ -86,13 +85,30 @@ class SupplierDetailController extends Controller
                 }     
                 Yii::$app->db->createCommand()->batchInsert('supplier_funds',['detail_id','coop_fund','trade_fund','created_at','updated_at'],$funds)->execute();
             }
-            return $this->redirect(['index']);
+            return $this->redirect(['supplier/index']);
         }
-
+        $supplierModel = new Supplier;
+        $fundModel = new SupplierFunds;
+        $supplierObj = $supplierModel->find($sid)->one();
+        $where['sid'] = $sid;
+        $detailObjList = $model->find()->where($where)->all();
+        foreach ($detailObjList as $id => &$detail) {
+                $map['detail_id'] = $detail->id;
+                $funds = $fundModel->find()->where($map)->all();
+                if ($funds) {
+                    foreach ($funds as $k => $v) {
+                        $id = $k + 1;
+                        $detail->{"coop_fund$id"} = $v->coop_fund;
+                        $detail->{"trade_fund$id"} = $v->trade_fund;
+                    }
+                }
+    
+        }
         return $this->render('create', [
             'model' => $model,
-            'name' => $nameObject->name,
+            'name' => $supplierObj->name,
             'sid' => $sid,
+            'detail_obj_list' => $detailObjList,
         ]);
     }
 
