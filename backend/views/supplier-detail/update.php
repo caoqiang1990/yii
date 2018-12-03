@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = Yii::t('detail','Update');
         'model' => $model,
         'name' => $name,
         'sid' => $sid,
+        'level' => $level,
     ]) ?>
 
 </div>

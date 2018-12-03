@@ -23,6 +23,10 @@ class SupplierDetail extends ActiveRecord
     public $trade_fund2;
     public $trade_fund3;
 
+    public $fund_year1;
+    public $fund_year2;
+    public $fund_year3;
+
     /**
      * 返回表名
      * @return [type] [description]
@@ -39,21 +43,22 @@ class SupplierDetail extends ActiveRecord
     public function attributeLabels()
     {
       return [
-        'id' => \Yii::t('detail','id'),
-        'one_level_department' => \Yii::t('detail','one_level_department'),
-        'second_level_department' => \Yii::t('detail','second_level_department'),
-        'name' => \Yii::t('detail', 'name'),
-        'mobile' => \Yii::t('detail','mobile'),
-        'reason' => \Yii::t('detail','reason'),
-        'created_at' => \Yii::t('detail','created_at'),
-        'updated_at' => \Yii::t('detail','updated_at'),
-        'coop_fund1' => \Yii::t('detail','coop_fund1'),
-        'coop_fund2' => \Yii::t('detail','coop_fund2'),
-        'coop_fund3' => \Yii::t('detail','coop_fund3'),
-        'trade_fund1' => \Yii::t('detail','trade_fund1'),
-        'trade_fund2' => \Yii::t('detail','trade_fund2'),
-        'trade_fund3' => \Yii::t('detail','trade_fund3'),
-        'sid' => \Yii::t('detail','Sid'),
+        'id' => Yii::t('detail','id'),
+        'one_level_department' => Yii::t('detail','one_level_department'),
+        'second_level_department' => Yii::t('detail','second_level_department'),
+        'name' => Yii::t('detail', 'name'),
+        'mobile' => Yii::t('detail','mobile'),
+        'reason' => Yii::t('detail','reason'),
+        'created_at' => Yii::t('detail','created_at'),
+        'updated_at' => Yii::t('detail','updated_at'),
+        'coop_fund1' => Yii::t('detail','coop_fund1'),
+        'coop_fund2' => Yii::t('detail','coop_fund2'),
+        'coop_fund3' => Yii::t('detail','coop_fund3'),
+        'trade_fund1' => Yii::t('detail','trade_fund1'),
+        'trade_fund2' => Yii::t('detail','trade_fund2'),
+        'trade_fund3' => Yii::t('detail','trade_fund3'),
+        'sid' => Yii::t('detail','Sid'),
+        'level' => Yii::t('detail','level'), 
       ];
     }
 

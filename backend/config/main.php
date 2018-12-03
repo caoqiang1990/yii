@@ -36,6 +36,9 @@ return [
             // this is the name of the session cookie used for login on the backend
             'name' => 'advanced-backend',
         ],
+        // 'on beforeRequest' => function($event) {
+        //     \yii\base\Event::on(\yii\db\BaseActiveRecord::className(), \yii\db\BaseActiveRecord::EVENT_AFTER_UPDATE, ['backend\components\AdminLog', 'write']);
+        // },        
         // 'log' => [
         //     'traceLevel' => YII_DEBUG ? 3 : 0,
         //     'targets' => [

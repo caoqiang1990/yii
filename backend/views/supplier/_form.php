@@ -21,9 +21,7 @@ use kartik\file\FileInput;
     <div class="col-xs-6">
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
     </div>
-    <div class="col-xs-6">
-    <?= $form->field($model, 'level')->dropDownList($level) ?>
-    </div>
+
     <div class="col-xs-6">
     <?= $form->field($model, 'business_address')->textInput(['maxlength' => true]) ?>
     </div>

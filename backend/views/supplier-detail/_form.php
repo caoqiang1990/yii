@@ -101,6 +101,9 @@ use yii\helpers\Url;
 
     <div class="row">
     <div class="col-xs-6">
+    <?= $form->field($model, 'level')->dropDownList($level) ?>
+    </div>    
+    <div class="col-xs-6">
     <?= $form->field($model, 'one_level_department')->textInput(['maxlength' => true]) ?>
     </div>
 
@@ -126,18 +129,22 @@ use yii\helpers\Url;
     </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'trade_fund1')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'fund_year1')->hiddenInput(['maxlength' => true])->label(false) ?>
     </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'coop_fund2')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'trade_fund2')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'fund_year2')->hiddenInput(['maxlength' => true])->label(false) ?>
     </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'coop_fund3')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'trade_fund3')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'fund_year3')->hiddenInput(['maxlength' => true])->label(false) ?>
+    
     </div>                    
     <div class="col-xs-6">
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
@@ -153,7 +160,8 @@ use yii\helpers\Url;
 
         <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>    
         <?php  if($detail_obj_list){?>
-        <?= Html::a('追加一个与我方关系',Url::to(['supplier-detail/create','sid'=>$sid]))?>
+        <?php //Html::a('追加一个与我方关系',Url::to(['supplier-detail/create','sid'=>$sid]))
+        ?>
         <?php } ?>
     </div>
     </div>

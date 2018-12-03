@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'name' => $name,
         'sid' => $sid,
         'detail_obj_list' => $detail_obj_list,
+        'level' => $level,
     ]) ?>
 
 </div>

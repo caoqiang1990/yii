@@ -32,12 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            [
-                'attribute' => 'level',
-                'value' => function($model){
-                    return SupplierLevel::getLevelById($model->level)->level_name;
-                }
-            ],
+            // [
+            //     'attribute' => 'level',
+            //     'value' => function($model){
+            //         return SupplierLevel::getLevelById($model->level)->level_name;
+            //     }
+            // ],
             'url',
             'business_address',
             'register_date',

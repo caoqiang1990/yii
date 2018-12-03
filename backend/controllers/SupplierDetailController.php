@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\Supplier;
 use backend\models\SupplierFunds;
+use backend\models\SupplierLevel;
 
 /**
  * SupplierDetailController implements the CRUD actions for SupplierDetail model.
@@ -80,16 +81,19 @@ class SupplierDetailController extends Controller
                     $funds[$i-1]["detail_id"] = $model->id;
                     $funds[$i-1]["coop_fund"] = $post["coop_fund{$i}"];
                     $funds[$i-1]["trade_fund"] = $post["trade_fund{$i}"];
+                    $funds[$i-1]["year"] = $post["fund_year{$i}"];
                     $funds[$i-1]["created_at"] = time();
                     $funds[$i-1]["updated_at"] = time();
                 }     
-                Yii::$app->db->createCommand()->batchInsert('supplier_funds',['detail_id','coop_fund','trade_fund','created_at','updated_at'],$funds)->execute();
+                Yii::$app->db->createCommand()->batchInsert('supplier_funds',['detail_id','coop_fund','trade_fund','year','created_at','updated_at'],$funds)->execute();
             }
             return $this->redirect(['supplier/index']);
         }
         $supplierModel = new Supplier;
         $fundModel = new SupplierFunds;
+        $levelModel = new SupplierLevel;
         $supplierObj = $supplierModel->find($sid)->one();
+        $level = $levelModel::getLevelByParams();//供应商等级
         $where['sid'] = $sid;
         $detailObjList = $model->find()->where($where)->all();
         foreach ($detailObjList as $id => &$detail) {
@@ -104,11 +108,16 @@ class SupplierDetailController extends Controller
                 }
     
         }
+        //前三年
+        $model->fund_year1 = date('Y') - 3;
+        $model->fund_year2 = date('Y') - 2;
+        $model->fund_year3 = date('Y') - 1;
         return $this->render('create', [
             'model' => $model,
             'name' => $supplierObj->name,
             'sid' => $sid,
             'detail_obj_list' => $detailObjList,
+            'level' => $level,
         ]);
     }
 

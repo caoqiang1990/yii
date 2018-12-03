@@ -19,7 +19,7 @@ use backend\models\UploadForm;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
 use backend\models\Images;
-
+use common\models\AdminLog;
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
  */
@@ -78,6 +78,7 @@ class SupplierController extends Controller
         $model = new Supplier;
         $model->scenario = 'add';
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AdminLog::saveLog('supplier','create',$model->getByID($model->primaryKey),$model->primaryKey);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
