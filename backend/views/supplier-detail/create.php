@@ -11,9 +11,11 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supplier-detail-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+<div class="box box-solid box-default">
+<div class="box-header">
+  <h3 class="box-title"><?= Html::encode($this->title) ?></h3>
+</div>
+</div>
     <?= $this->render('_form', [
         'model' => $model,
         'name' => $name,
