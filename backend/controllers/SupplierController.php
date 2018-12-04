@@ -118,9 +118,11 @@ class SupplierController extends Controller
         }
         $imageModel = new Images();
         $image = $imageModel->getImageByID($model->enterprise_code);
-        $model->enterprise_code_url = $image->url;
+        $model->enterprise_code_url = $image ? $image->url : '';
         $image = $imageModel->getImageByID($model->enterprise_license);
-        $model->enterprise_license_url = $image->url;
+        $model->enterprise_license_url = $image ? $image->url : '';
+        $image = $imageModel->getImageByID($model->enterprise_license_relate);
+        $model->enterprise_license_relate_url = $image ? $image->url : '';        
         $image = $imageModel->getImageByID($model->enterprise_certificate);
         $model->enterprise_certificate_url = $image ? $image->url : '';
         $image = $imageModel->getImageByID($model->enterprise_certificate_etc);
@@ -289,7 +291,11 @@ class SupplierController extends Controller
                 case 'enterprise_certificate_etc_image_id':
                     $supplierModel->enterprise_certificate_etc = UploadedFile::getInstance($supplierModel, 'enterprise_certificate_etc_image_id');
                     $field = 'enterprise_certificate_etc';
-                    break;        
+                    break;  
+                case 'enterprise_license_relate_image_id':
+                    $supplierModel->enterprise_license_relate = UploadedFile::getInstance($supplierModel, 'enterprise_license_relate_image_id');
+                    $field = 'enterprise_license_relate';                   
+                    break;          
                 default:
                     # code...
                     break;

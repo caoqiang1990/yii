@@ -22,10 +22,12 @@ class Supplier extends ActiveRecord
     public $enterprise_license_url;
     public $enterprise_certificate_url;
     public $enterprise_certificate_etc_url;    
+    public $enterprise_license_relate_url;
     public $enterprise_code_image_id;
     public $enterprise_license_image_id;
     public $enterprise_certificate_image_id;
     public $enterprise_certificate_etc_image_id;
+    public $enterprise_license_relate_image_id;
 
     /**
      * 返回表名
@@ -89,6 +91,8 @@ class Supplier extends ActiveRecord
         'enterprise_license_image_id' => \Yii::t('suppliers','enterprise_license'),
         'enterprise_certificate_image_id' => \Yii::t('suppliers','enterprise_certificate'),
         'enterprise_certificate_etc_image_id' => \Yii::t('suppliers','enterprise_certificate_etc'),
+        'enterprise_license_relate' => \Yii::t('suppliers','enterprise_license_relate'),
+        'enterprise_license_relate_image_id' => \Yii::t('suppliers','enterprise_license_relate_image_id'),
       ];
     }
 
@@ -141,7 +145,8 @@ class Supplier extends ActiveRecord
                 'enterprise_code',
                 'enterprise_license',
                 'enterprise_certificate',
-                'enterprise_certificate_etc',                
+                'enterprise_certificate_etc', 
+                'enterprise_license_relate',               
             ],
             self::SCENARIO_EDIT => [
                 'name',
@@ -186,12 +191,14 @@ class Supplier extends ActiveRecord
                 'enterprise_license',
                 'enterprise_certificate',
                 'enterprise_certificate_etc',
+                'enterprise_license_relate',               
             ],
             self::SCENARIO_UPLOAD => [
                 'enterprise_code',
                 'enterprise_license',
                 'enterprise_certificate',
-                'enterprise_certificate_etc',                
+                'enterprise_certificate_etc', 
+                'enterprise_license_relate',               
             ],
         ];
     }
@@ -207,7 +214,7 @@ class Supplier extends ActiveRecord
             ['url','url','on'=>'add'],
             ['headcount','integer','on' => 'add,edit'],
             ['register_fund','double','on' => 'add,edit'],
-            [['level','enterprise_code','enterprise_license','enterprise_certificate','enterprise_certificate_etc'], 'safe'],
+            [['level','enterprise_code','enterprise_license','enterprise_certificate','enterprise_certificate_etc','enterprise_license_relate'], 'safe'],
             ['business_mobile','required','message'=>'联系人电话不能为空！','on'=>'add'],
             ['business_phone','required','message'=>'联系人电话不能为空！','on'=>'add'],
             ['business_phone','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'联系人手机号格式不正确！','on' => 'add,edit'],
@@ -215,6 +222,7 @@ class Supplier extends ActiveRecord
             [['enterprise_license_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
             [['enterprise_certificate'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
             [['enterprise_certificate_etc'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
+               [['enterprise_license_relate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
 
         ];
     }

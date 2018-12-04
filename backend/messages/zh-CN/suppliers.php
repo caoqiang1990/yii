@@ -84,6 +84,8 @@ return [
   'enterprise_license_image_id' => '开户许可证',
   'enterprise_certificate' => '贸易商（中间商）代理资质',
   'enterprise_certificate_etc' => '贸易商（中间商）其他资质',
+  'enterprise_license_relate' => '企业相关资质',
+  'enterprise_license_relate_image_id' => '企业相关资质',
 ];
 
 
