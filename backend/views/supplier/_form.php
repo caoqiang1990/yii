@@ -160,14 +160,17 @@ use kartik\file\FileInput;
                             'field' => 'enterprise_code_image_id',
                         ],                        
                         'uploadAsync' => true,
-                        'initialPreview'=>[
-                            "$model->enterprise_code_url",
-                        ],
+                        'initialPreview'=> $model->enterprise_code_url ? $model->enterprise_code_url : "",
+                        
                          'initialPreviewAsData'=>true,
                          'initialCaption'=>"$model->enterprise_code_image_id",
+                         'showUpload' => false,
                     ],
                     //网上很多地方都没详细说明回调触发事件，其实fileupload为上传成功后触发的，三个参数，主要是第二个，有formData，jqXHR以及response参数，上传成功后返回的ajax数据可以在response获取
                     'pluginEvents' => [
+                        'filebatchuploadcomplete' => "function(){
+                            alert('自动');
+                        }",
                         'fileuploaded' => "function (object,data){
                             console.log(object);
                             console.log(data);
@@ -199,9 +202,7 @@ use kartik\file\FileInput;
                             'field' => 'enterprise_license_image_id',
                         ],
                         'uploadAsync' => true,
-                        'initialPreview'=>[
-                            "$model->enterprise_license_url",
-                        ],
+                        'initialPreview'=> $model->enterprise_license_url ? $model->enterprise_license_url : "",
                          'initialPreviewAsData'=>true,
                          'initialCaption'=>"$model->enterprise_license_image_id",
                     ],
@@ -238,9 +239,7 @@ use kartik\file\FileInput;
                             'field' => 'enterprise_license_relate_image_id',
                         ],
                         'uploadAsync' => true,
-                        'initialPreview'=>[
-                            "$model->enterprise_license_relate_url",
-                        ],
+                        'initialPreview'=> $model->enterprise_license_relate_url ? $model->enterprise_license_relate_url : "",
                          'initialPreviewAsData'=>true,
                          'initialCaption'=>"$model->enterprise_license_relate_image_id",
                     ],
@@ -277,9 +276,7 @@ use kartik\file\FileInput;
                             'field' => 'enterprise_certificate_image_id',
                         ],
                         'uploadAsync' => true,
-                        'initialPreview'=>[
-                            "$model->enterprise_certificate_url",
-                        ],
+                        'initialPreview'=> $model->enterprise_certificate_url ? $model->enterprise_certificate_url : "",
                          'initialPreviewAsData'=>true,
                          'initialCaption'=>"$model->enterprise_certificate_image_id",
                     ],
@@ -316,9 +313,7 @@ use kartik\file\FileInput;
                             'field' => 'enterprise_certificate_etc_image_id',
                         ],
                         'uploadAsync' => true,
-                        'initialPreview'=>[
-                            "$model->enterprise_certificate_etc_url",
-                        ],
+                        'initialPreview'=> $model->enterprise_certificate_etc_url ? $model->enterprise_certificate_etc_url : "",
                          'initialPreviewAsData'=>true,
                          'initialCaption'=>"$model->enterprise_certificate_etc_image_id",
                     ],
