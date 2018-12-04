@@ -78,6 +78,7 @@ class SupplierDetailController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if ($model->id) {
                 for($i=1;$i<=3;$i++) {
+                    $funds[$i-1]["sid"] = $post['sid'];
                     $funds[$i-1]["detail_id"] = $model->id;
                     $funds[$i-1]["coop_fund"] = $post["coop_fund{$i}"];
                     $funds[$i-1]["trade_fund"] = $post["trade_fund{$i}"];
@@ -85,7 +86,7 @@ class SupplierDetailController extends Controller
                     $funds[$i-1]["created_at"] = time();
                     $funds[$i-1]["updated_at"] = time();
                 }     
-                Yii::$app->db->createCommand()->batchInsert('supplier_funds',['detail_id','coop_fund','trade_fund','year','created_at','updated_at'],$funds)->execute();
+                Yii::$app->db->createCommand()->batchInsert('supplier_funds',['sid','detail_id','coop_fund','trade_fund','year','created_at','updated_at'],$funds)->execute();
             }
             return $this->redirect(['supplier/index']);
         }

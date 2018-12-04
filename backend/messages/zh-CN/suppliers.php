@@ -86,6 +86,7 @@ return [
   'enterprise_certificate_etc' => '贸易商（中间商）其他资质',
   'enterprise_license_relate' => '企业相关资质',
   'enterprise_license_relate_image_id' => '企业相关资质',
+  'total_fund' => '上一年交易金额',
 ];
 
 

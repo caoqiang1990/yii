@@ -30,9 +30,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'name',
                 'format' => 'raw',
                 'value' => function($model) {
-                    $url = 'http://www.baidu.com';
+                    $url = Url::to(['update','id'=>$model->id]);
                     $options = ['title' => $model->name];
                     return Html::a($model->name,$url,$options);
+                }
+            ],
+            [
+                'attribute' => 'total_fund',
+                'value' => function($model){
+                    $fund = $model->getTotalFund($model->id);
+                    return $fund ? $fund->trade_fund : '';
                 }
             ],
             //'business_license',
