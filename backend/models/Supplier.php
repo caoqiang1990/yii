@@ -9,7 +9,7 @@ use yii\data\ActiveDataProvider;
 use yii\behaviors\TimestampBehavior;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
-use backend\models\Images;
+use backend\models\Attachment;
 use backend\models\SupplierFunds;
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
@@ -259,24 +259,24 @@ class Supplier extends ActiveRecord
                 FileHelper::createDirectory($path, 0777, true);
             }
             $filePath = $path . '/' . \Yii::$app->request->post('model', '') . '_' . md5(uniqid() . mt_rand(10000, 99999999)) . '.' . $this->{$field}->extension;
-
             if($this->{$field}->saveAs($filePath)) {
                 //如果上传成功，保存附件信息到数据库。TODO
                 //这里将上传成功后的图片信息保存到数据库
                 $imageUrl = $this->parseImageUrl($filePath);
-                $imageModel = new Images();
-                $imageModel->url = $imageUrl;
-                $imageModel->filepath = $filePath;
-                $imageModel->status = 1;
-                $imageModel->module = Yii::$app->request->post('model', '');
-                $imageModel->created_at = time();
-                $imageModel->updated_at = time();
-
-                $imageModel->save(false);
+                $attachmentModel = new Attachment;
+                $attachmentModel->url = $imageUrl;
+                $attachmentModel->filepath = $filePath;
+                $attachmentModel->status = 1;
+                $attachmentModel->type = 'image';
+                $attachmentModel->module = Yii::$app->request->post('model', '');
+                $attachmentModel->created_at = time();
+                $attachmentModel->updated_at = time();
+                $attachmentModel->save(false);
                 $imageId = Yii::$app->db->getLastInsertID();
-                
+                return ['filepath' => $filePath,'imageid' => $imageId];
+            }else{
+                return false;
             }
-            return ['filepath' => $filePath,'imageid' => $imageId];
         } else {
             return false;
         }

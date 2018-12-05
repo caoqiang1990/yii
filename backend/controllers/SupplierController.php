@@ -18,7 +18,7 @@ use backend\models\SupplierFunds;
 use backend\models\UploadForm;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
-use backend\models\Images;
+use backend\models\Attachment;
 use common\models\AdminLog;
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -116,16 +116,16 @@ class SupplierController extends Controller
         if ($model->load($post) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $imageModel = new Images();
-        $image = $imageModel->getImageByID($model->enterprise_code);
+        $attachmentModel = new Attachment();
+        $image = $attachmentModel->getImageByID($model->enterprise_code);
         $model->enterprise_code_url = $image ? $image->url : '';
-        $image = $imageModel->getImageByID($model->enterprise_license);
+        $image = $attachmentModel->getImageByID($model->enterprise_license);
         $model->enterprise_license_url = $image ? $image->url : '';
-        $image = $imageModel->getImageByID($model->enterprise_license_relate);
+        $image = $attachmentModel->getImageByID($model->enterprise_license_relate);
         $model->enterprise_license_relate_url = $image ? $image->url : '';        
-        $image = $imageModel->getImageByID($model->enterprise_certificate);
+        $image = $attachmentModel->getImageByID($model->enterprise_certificate);
         $model->enterprise_certificate_url = $image ? $image->url : '';
-        $image = $imageModel->getImageByID($model->enterprise_certificate_etc);
+        $image = $attachmentModel->getImageByID($model->enterprise_certificate_etc);
         $model->enterprise_certificate_etc_url = $image ? $image->url : '';                
         $levelModel = new SupplierLevel;
         $categoryModel = new SupplierCategory;
