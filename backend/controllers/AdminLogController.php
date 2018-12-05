@@ -2,9 +2,9 @@
 
 namespace backend\controllers;
 
+use Yii;
 use yii\Web\Controller;
 use common\models\AdminLog;
-use yii;
 use yii\data\ActiveDataProvider;
 
 class AdminLogController extends Controller
