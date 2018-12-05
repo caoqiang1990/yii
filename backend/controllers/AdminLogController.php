@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\Web\Controller;
+use yii\web\Controller;
 use common\models\AdminLog;
 use yii\data\ActiveDataProvider;
 
