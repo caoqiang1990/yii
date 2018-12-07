@@ -64,14 +64,12 @@ return [
                 'encryption' => 'ssl',
             ],
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
         //	'view' => [
         //		'theme' => [
         //			'pathMap' => [

@@ -2,24 +2,23 @@
 
 namespace backend\controllers;
 
-use Yii;
+use backend\models\Attachment;
 use backend\models\Supplier;
-use backend\models\SupplierSearch;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
+use backend\models\SupplierLevel;
+use backend\models\SupplierSearch;
 use backend\models\SupplierTrade;
 use backend\models\SupplierType;
-use moonland\phpexcel\Excel;
-use backend\models\SupplierDetail;
-use backend\models\SupplierFunds;
 use backend\models\UploadForm;
-use yii\web\UploadedFile;
-use yii\helpers\Json;
-use backend\models\Attachment;
 use common\models\AdminLog;
+use moonland\phpexcel\Excel;
+use Yii;
+use yii\filters\VerbFilter;
+use yii\helpers\Json;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
+
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
  */
@@ -78,7 +77,7 @@ class SupplierController extends Controller
         $model = new Supplier;
         $model->scenario = 'add';
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            AdminLog::saveLog('supplier','create',$model->getByID($model->primaryKey),$model->primaryKey);
+            AdminLog::saveLog('supplier', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,11 +85,11 @@ class SupplierController extends Controller
         $categoryModel = new SupplierCategory;
         $tradeModel = new SupplierTrade;
         $typeModel = new SupplierType;
-        $level = $levelModel::getLevelByParams();//供应商等级
+        $level = $levelModel::getLevelByParams(); //供应商等级
         //$firm_nature = $categoryModel::getCategoryByParams();
-        $firm_nature = [1=>'国有',2=>'合资',3=>'独资'];//企业性质
-        $trade = $tradeModel::getTradeByParams();//所属行业
-        $type = $typeModel::getTypeByParams();//业务类型
+        $firm_nature = [1 => '国有', 2 => '合资', 3 => '独资']; //企业性质
+        $trade = $tradeModel::getTradeByParams(); //所属行业
+        $type = $typeModel::getTypeByParams(); //业务类型
         return $this->render('create', [
             'model' => $model,
             'level' => $level,
@@ -122,20 +121,20 @@ class SupplierController extends Controller
         $image = $attachmentModel->getImageByID($model->enterprise_license);
         $model->enterprise_license_url = $image ? $image->url : '';
         $image = $attachmentModel->getImageByID($model->enterprise_license_relate);
-        $model->enterprise_license_relate_url = $image ? $image->url : '';        
+        $model->enterprise_license_relate_url = $image ? $image->url : '';
         $image = $attachmentModel->getImageByID($model->enterprise_certificate);
         $model->enterprise_certificate_url = $image ? $image->url : '';
         $image = $attachmentModel->getImageByID($model->enterprise_certificate_etc);
-        $model->enterprise_certificate_etc_url = $image ? $image->url : '';                
+        $model->enterprise_certificate_etc_url = $image ? $image->url : '';
         $levelModel = new SupplierLevel;
         $categoryModel = new SupplierCategory;
         $tradeModel = new SupplierTrade;
         $typeModel = new SupplierType;
         $level = $levelModel::getLevelByParams();
         //$firm_nature = $categoryModel::getCategoryByParams();
-        $firm_nature = [1=>'国有',2=>'合资',3=>'独资'];
+        $firm_nature = [1 => '国有', 2 => '合资', 3 => '独资'];
         $trade = $tradeModel::getTradeByParams();
-        $type = $typeModel::getTypeByParams();//业务类型
+        $type = $typeModel::getTypeByParams(); //业务类型
         return $this->render('update', [
             'model' => $model,
             'level' => $level,
@@ -175,21 +174,20 @@ class SupplierController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-
     public function actionUploadxls()
     {
         $uploadForm = new UploadForm();
 
-        if(Yii::$app->request->isPost){
+        if (Yii::$app->request->isPost) {
             $upload = Yii::$app->request->post('UploadForm');
-            $filePath = $upload['imageFile'];
-            $data = Excel::import($filePath,[              
-            'setFirstRecordAsKeys' => true,               
-            'setIndexSheetByName' => true,               
-            'getOnlySheet' => 'sheet1',               
+            $filePath = $upload['excelFile'];
+            $data = Excel::import($filePath, [
+                'setFirstRecordAsKeys' => true,
+                'setIndexSheetByName' => true,
+                'getOnlySheet' => 'sheet1',
             ]);
             $supplierModel = new Supplier;
-            foreach($data as $vo) {
+            foreach ($data as $vo) {
                 $supplierModel->scenario = 'add';
                 $supplierModel->name = $vo['编号'];
                 $supplierModel->business_address = 'ddd';
@@ -200,13 +198,13 @@ class SupplierController extends Controller
                 $a = $supplierModel->save();
                 var_dump($a);die;
             }
-            echo json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);          
-        }else{
-          return $this->render('uploadxls',
+            echo json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        } else {
+            return $this->render('uploadxls',
                 [
                     'model' => $uploadForm,
                 ]
-            );          
+            );
         }
 
     }
@@ -214,27 +212,26 @@ class SupplierController extends Controller
     public function actionUpload()
     {
         $uploadForm = new UploadForm();
-
-        if(Yii::$app->request->isPost){
-            $uploadForm->imageFile = UploadedFile::getInstance($uploadForm, 'imageFile');
-
-            if($filePath = $uploadForm->upload()){
+        $uploadForm->scenario = 'file';
+        if (Yii::$app->request->isPost) {
+            $uploadForm->excelFile = UploadedFile::getInstance($uploadForm, 'excelFile');
+            if ($filePath = $uploadForm->upload('excelFile')) {
                 $this->actionImport($filePath);
                 echo Json::encode([
-                   'filepath'    => $filePath,
-                    'error'   => ''     //上传的error字段，如果没有错误就返回空字符串，否则返回错误信息，客户端会自动判定该字段来认定是否有错
+                    'filepath' => $filePath,
+                    'error' => '', //上传的error字段，如果没有错误就返回空字符串，否则返回错误信息，客户端会自动判定该字段来认定是否有错
                 ]);
-            }else{
+            } else {
                 echo Json::encode([
-                    'filepath'    => '',
-                    'error'   => '文件上传失败'
+                    'filepath' => '',
+                    'error' => '文件上传失败',
                 ]);
             }
-        }else{
+        } else {
             echo Json::encode([
-                    'filepath' => '',
-                    'error' => '文件上传失败'
-                ]);
+                'filepath' => '',
+                'error' => '文件上传失败',
+            ]);
         }
 
     }
@@ -245,13 +242,13 @@ class SupplierController extends Controller
      */
     public function actionImport($filePath = '')
     {
-        $data = Excel::import($filePath,[              
-        'setFirstRecordAsKeys' => true,               
-        'setIndexSheetByName' => true,               
-        'getOnlySheet' => 'sheet1',               
+        $data = Excel::import($filePath, [
+            'setFirstRecordAsKeys' => true,
+            'setIndexSheetByName' => true,
+            'getOnlySheet' => 'sheet1',
         ]);
         $supplierModel = new Supplier;
-        foreach($data as $vo) {
+        foreach ($data as $vo) {
             $supplierModel->scenario = 'add';
             $supplierModel->name = $vo['编号'];
             $supplierModel->business_address = 'ddd';
@@ -262,7 +259,7 @@ class SupplierController extends Controller
             $a = $supplierModel->save();
         }
         echo json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    }    
+    }
 
     /**
      * 上传附件
@@ -274,7 +271,7 @@ class SupplierController extends Controller
         $supplierModel = new Supplier();
         $supplierModel->scenario = 'upload';
 
-        if(Yii::$app->request->isPost){
+        if (Yii::$app->request->isPost) {
             switch ($field) {
                 case 'enterprise_code_image_id':
                     $supplierModel->enterprise_code = UploadedFile::getInstance($supplierModel, 'enterprise_code_image_id');
@@ -291,33 +288,33 @@ class SupplierController extends Controller
                 case 'enterprise_certificate_etc_image_id':
                     $supplierModel->enterprise_certificate_etc = UploadedFile::getInstance($supplierModel, 'enterprise_certificate_etc_image_id');
                     $field = 'enterprise_certificate_etc';
-                    break;  
+                    break;
                 case 'enterprise_license_relate_image_id':
                     $supplierModel->enterprise_license_relate = UploadedFile::getInstance($supplierModel, 'enterprise_license_relate_image_id');
-                    $field = 'enterprise_license_relate';                   
-                    break;          
+                    $field = 'enterprise_license_relate';
+                    break;
                 default:
                     # code...
                     break;
             }
-            if($uploadInfo = $supplierModel->upload($field)){
+            if ($uploadInfo = $supplierModel->upload($field)) {
                 echo Json::encode([
-                   'filepath' => $uploadInfo['filepath'],
-                   'imageid' => $uploadInfo['imageid'],
-                   'error' => ''     //上传的error字段，如果没有错误就返回空字符串，否则返回错误信息，客户端会自动判定该字段来认定是否有错
+                    'filepath' => $uploadInfo['filepath'],
+                    'imageid' => $uploadInfo['imageid'],
+                    'error' => '', //上传的error字段，如果没有错误就返回空字符串，否则返回错误信息，客户端会自动判定该字段来认定是否有错
                 ]);
-            }else{
+            } else {
                 echo Json::encode([
                     'filepath' => '',
                     'imageid' => '',
-                    'error' => '文件上传失败'
+                    'error' => '文件上传失败',
                 ]);
             }
-        }else{
+        } else {
             echo Json::encode([
-                    'filepath' => '',
-                    'error' => '文件上传失败'
-                ]);
+                'filepath' => '',
+                'error' => '文件上传失败',
+            ]);
         }
 
     }

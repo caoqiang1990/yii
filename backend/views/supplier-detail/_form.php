@@ -10,10 +10,10 @@ use yii\helpers\Url;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <?php  if($detail_obj_list){?>
-<div style="border:1px dashed #3c8dbc;padding:20px">
-<p>已填信息</p>
+<div style="padding:20px">
+<p><h4>已填信息</h4></p>
 <?php foreach($detail_obj_list as $detail){?>
-<div class="supplier-detail-form" style="border:1px dashed blue;margin-top: 20px">
+<div class="supplier-detail-form" style="margin-top: 20px;border-bottom:1px dashed #3c8dbc">
     <div class="row">
     <div class="col-xs-6">
         <div class="form-group">
