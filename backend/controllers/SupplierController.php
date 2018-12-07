@@ -17,6 +17,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\web\UploadedFile;
 
 /**
@@ -196,9 +197,11 @@ class SupplierController extends Controller
                 $supplierModel->business_mobile = '33321111';
                 $supplierModel->business_phone = '13811643823';
                 $a = $supplierModel->save();
-                var_dump($a);die;
             }
-            echo json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            echo Json::encode([
+                'data' => '上传成功！',
+                'error' => '',
+            ]);
         } else {
             return $this->render('uploadxls',
                 [
@@ -242,6 +245,7 @@ class SupplierController extends Controller
      */
     public function actionImport($filePath = '')
     {
+        Yii::$app->response->format = Response::FORMAT_JSON;
         $data = Excel::import($filePath, [
             'setFirstRecordAsKeys' => true,
             'setIndexSheetByName' => true,
@@ -258,7 +262,6 @@ class SupplierController extends Controller
             $supplierModel->business_phone = '13811643823';
             $a = $supplierModel->save();
         }
-        echo json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
     /**
