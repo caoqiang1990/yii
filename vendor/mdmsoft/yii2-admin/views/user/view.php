@@ -15,8 +15,6 @@ $controllerId = $this->context->uniqueId . '/';
 ?>
 <div class="user-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?php
         if ($model->status == 0 && Helper::checkRoute($controllerId . 'activate')) {
