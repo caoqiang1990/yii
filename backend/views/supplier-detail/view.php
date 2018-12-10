@@ -7,13 +7,11 @@ use backend\models\Supplier;
 /* @var $this yii\web\View */
 /* @var $model backend\models\SupplierDetail */
 
-$this->title = $model->name;
+$this->title = '';
 $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supplier-detail-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a(Yii::t('detail','Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
