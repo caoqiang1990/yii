@@ -141,7 +141,15 @@ class SupplierCategory extends ActiveRecord
       }
       return $list;
   }
-
+  /**
+   * 获取key-value键值对
+   * @return [type] [description]
+   */
+  public static function  getCategory(){
+      $category = self::find()->all();
+      $category = ArrayHelper::map($category, 'id', 'category_name');
+      return $category;
+  }
 }
 
 

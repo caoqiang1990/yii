@@ -29,7 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'value' => function($model){
                     return $model->status ? '有效' : '无效';
-                }
+                },
+                'filter'=>['无效','有效'],
             ],
             'order_no',
             [

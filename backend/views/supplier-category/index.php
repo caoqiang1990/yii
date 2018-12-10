@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use backend\models\SupplierCategory;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SupplierCategorySearch */
@@ -42,7 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             return '未选择';
                             break;
                     }
-                }
+                },
+                'filter' => [1=>'总类',2=>'大类',3=>'子类']
             ],
             [
                 'attribute' => 'pid',
@@ -53,13 +55,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     }else{
                         return $info['category_name'];
                     }
-                }
+                },
             ],
             [
                 'attribute' => 'status',
                 'value' => function($model){
                     return $model->status ? '有效' : '无效';
-                }
+                },
+                'filter' => ['无效','有效']
             ],
             [
                 'attribute' => 'created_at',

@@ -24,7 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'type_name',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => function($model){
+                    return $model->status ? '有效' : '无效';
+                },
+                'filter'=>['无效','有效'],
+            ],
             [
                 'attribute' => 'created_at',
                 'value' => function($model){
