@@ -18,7 +18,7 @@ class SupplierSearch extends Supplier
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'created_at', 'updated_at','level','trade'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -61,6 +61,8 @@ class SupplierSearch extends Supplier
         $query->andFilterWhere([
             'id' => $this->id,
             'name' => $this->name,
+            'level'=> $this->level,
+            'trade'=> $this->trade,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

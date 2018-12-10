@@ -4,6 +4,9 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
+use backend\models\SupplierLevel;
+use backend\models\SupplierTrade;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SuppliersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -33,6 +36,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     $options = ['title' => $model->name];
                     return Html::a($model->name,$url,$options);
                 }
+            ],
+            [
+                'attribute' => 'level',
+                'value' => function($model){
+                    $levelModel = new SupplierLevel;
+                    return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
+                },
+                'filter' => SupplierLevel::getLevel(),
+            ],
+            [
+                'attribute' => 'trade',
+                'value' => function($model){
+                    return SupplierTrade::getTradeById($model->trade) ? SupplierTrade::getTradeById($model->trade)->trade_name : '';
+                },
+                'filter' => SupplierTrade::getTrade(),
             ],
             [
                 'attribute' => 'total_fund',
@@ -68,18 +86,18 @@ $this->params['breadcrumbs'][] = $this->title;
             //'remarks:ntext',
             //'update_date',
             //'operator',
-            [
-                'attribute' => 'created_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->created_at);
-                }
-            ],
-            [
-                'attribute' => 'updated_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->updated_at);
-                }
-            ],
+            // [
+            //     'attribute' => 'created_at',
+            //     'value' => function($model){
+            //         return date('Y-m-d H:i:s',$model->created_at);
+            //     }
+            // ],
+            // [
+            //     'attribute' => 'updated_at',
+            //     'value' => function($model){
+            //         return date('Y-m-d H:i:s',$model->updated_at);
+            //     }
+            // ],
 
             [
                 'class' => 'yii\grid\ActionColumn',

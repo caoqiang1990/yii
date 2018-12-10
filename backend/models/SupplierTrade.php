@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 class SupplierTrade extends ActiveRecord
 {
@@ -121,6 +122,16 @@ class SupplierTrade extends ActiveRecord
     }
     $info = self::find()->where(['id'=>$id])->one();
     return $info ? $info : false;
+  }
+
+  /**
+   * 获取key-value键值对
+   * @return [type] [description]
+   */
+  public static function getTrade(){
+      $trade = self::find()->all();
+      $trade = ArrayHelper::map($trade, 'id', 'trade_name');
+      return $trade;
   }
 
 }

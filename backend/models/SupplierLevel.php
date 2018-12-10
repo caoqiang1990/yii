@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 class SupplierLevel extends ActiveRecord
 {
@@ -103,6 +104,15 @@ class SupplierLevel extends ActiveRecord
     return $info ? $info : false;
   }
 
+  /**
+   * 获取key-value键值对
+   * @return [type] [description]
+   */
+  public static function  getLevel(){
+      $level = self::find()->all();
+      $level = ArrayHelper::map($level, 'id', 'level_name');
+      return $level;
+  }
 }
 
 ?>
