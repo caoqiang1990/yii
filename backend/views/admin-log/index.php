@@ -15,6 +15,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'title',
             [
+                'attribute' => 'action',
+                'value' => function($model){
+                    $actions = ['create'=>'新增','update' => '更新','delete' =>'删除','login' => '登录','logout' =>'退出'];
+                    return isset($actions["$model->action"]) ? $actions["$model->action"] : '未知';
+                }
+            ],
+            [
                 'attribute'=>'addtime',
                 'value'=>function($model){
                     return date('Y-m-d H:i:s',$model->addtime);

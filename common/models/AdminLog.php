@@ -40,7 +40,7 @@ class AdminLog extends \yii\db\ActiveRecord
 
 
 
-    public static function saveLog($controller ,$action,$result,$objId){
+    public static function saveLog($controller,$action,$result,$objId,$original=''){
 
         $model = new self;
         $model->admin_ip = Yii::$app->request->userIP;
@@ -62,6 +62,7 @@ class AdminLog extends \yii\db\ActiveRecord
         $model->result = $result;
         $model->objId = $objId;
         $model->title =  $model->admin_name.' '.$model->action.' '.$model->controller;
+        $model->original = $original;
         $model->save(false);
 
     }

@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use backend\models\Supplier;
 use backend\models\SupplierFunds;
 use backend\models\SupplierLevel;
+use common\models\AdminLog;
 
 /**
  * SupplierDetailController implements the CRUD actions for SupplierDetail model.
@@ -76,6 +77,7 @@ class SupplierDetailController extends Controller
         $funds = array();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AdminLog::saveLog('supplierdetail', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
             if ($model->id) {
                 for($i=1;$i<=3;$i++) {
                     $funds[$i-1]["sid"] = $post['sid'];
@@ -133,7 +135,10 @@ class SupplierDetailController extends Controller
     {
         $model = $this->findModel($id);
         $model->scenario = 'edit';
+
+        $original = $model->getByID($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AdminLog::saveLog('supplierdetail', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $supplierModel = new Supplier;

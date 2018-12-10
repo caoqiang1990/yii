@@ -11,6 +11,8 @@ use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
 use backend\models\Attachment;
 use backend\models\SupplierFunds;
+use yii\behaviors\BlameableBehavior;
+
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
  */
@@ -237,7 +239,8 @@ class Supplier extends ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className()
+            TimestampBehavior::className(),
+            BlameableBehavior::className(),
         ];
     }
 

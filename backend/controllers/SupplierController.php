@@ -2,6 +2,13 @@
 
 namespace backend\controllers;
 
+use Yii;
+use yii\filters\VerbFilter;
+use yii\helpers\Json;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
+use yii\web\UploadedFile;
 use backend\models\Attachment;
 use backend\models\Supplier;
 use backend\models\SupplierCategory;
@@ -12,13 +19,6 @@ use backend\models\SupplierType;
 use backend\models\UploadForm;
 use common\models\AdminLog;
 use moonland\phpexcel\Excel;
-use Yii;
-use yii\filters\VerbFilter;
-use yii\helpers\Json;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\web\Response;
-use yii\web\UploadedFile;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -112,8 +112,9 @@ class SupplierController extends Controller
         $model = $this->findModel($id);
         $model->scenario = 'edit';
         $post = Yii::$app->request->post();
-
+        $original = $model->getByID($id);
         if ($model->load($post) && $model->save()) {
+            AdminLog::saveLog('supplier', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $attachmentModel = new Attachment();

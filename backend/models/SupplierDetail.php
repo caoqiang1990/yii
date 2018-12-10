@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
@@ -107,7 +108,21 @@ class SupplierDetail extends ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className()
+            TimestampBehavior::className(),
+            BlameableBehavior::className(),
         ];
     }
+
+    /**
+     * 根据id获取信息
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function getByID($id){
+        if (($model = self::findOne($id)) !== null) {
+            return json_encode($model->toArray());
+        } else {
+            throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
+        }
+    }     
 }
