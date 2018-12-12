@@ -327,4 +327,33 @@ class Supplier extends ActiveRecord
         return $fund;
     }
 
+    /**
+     * 插入前修改
+     * @param  [type] $insert [description]
+     * @return [type]         [description]
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($insert) { // 新增操作
+                $this->business_type = implode(',',$this->business_type);
+            }else{
+                $this->business_type = implode(',',$this->business_type);
+            }
+            return true;
+        } else {
+            return false;
+        }
+
+    } 
+
+    /**
+     * 查询后修改
+     * @return [type] [description]
+     */
+    public function afterFind()
+    {
+        $this->business_type = explode(',', $this->business_type);
+    }
+
 }

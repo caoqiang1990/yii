@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\datepicker\DatePicker;
 use kartik\file\FileInput;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Suppliers */
@@ -95,7 +96,18 @@ use kartik\file\FileInput;
     <?= $form->field($model, 'business_email')->textInput(['maxlength' => true]) ?>
     </div>    
     <div class="col-xs-6">
-    <?= $form->field($model, 'business_type')->dropDownList($type) ?>
+    <?= //$form->field($model, 'business_type')->dropDownList($type) 
+        $form->field($model, 'business_type')->widget(Select2::classname(), [
+            'data' => $type,
+            'options' => [
+                'placeholder' => '请选择业务类型',
+                'multiple' => true
+                ],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+    ?>
     </div>     
     <div class="col-xs-12">
     <?= $form->field($model, 'factory_summary')->textArea(['rows'=>6]) ?>
