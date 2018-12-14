@@ -12,6 +12,7 @@ use yii\helpers\FileHelper;
 use backend\models\Attachment;
 use backend\models\SupplierFunds;
 use yii\behaviors\BlameableBehavior;
+use backend\models\History;
 
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
@@ -335,10 +336,22 @@ class Supplier extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+
             if ($insert) { // 新增操作
                 $this->business_type = implode(',',$this->business_type);
             }else{
                 $this->business_type = implode(',',$this->business_type);
+                //对比，如果firm_nature有变更。记录下来
+                $old = $this->find()->where(['id' => $this->id])->one();
+                if ($old->firm_nature != $this->firm_nature) {
+                    $historyModel = new History;
+                    $object_id = $this->id;
+                    $field = 'firm_nature';
+                    $original = $old->firm_nature;
+                    $result = $this->firm_nature;
+                    $desc = "更新企业性质从{$original}到{$result}";
+                    $historyModel::history($object_id,$field,$original,$result,$desc);
+                }
             }
             return true;
         } else {

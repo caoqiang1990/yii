@@ -108,10 +108,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'更多操作',
                 'format'=>'raw',
                 'value' => function($model){
-                    $url = Url::to(['supplier-detail/create','sid'=>$model->id]);
-                    return Html::a('与我方关系', $url, ['title' => '审核']); 
+                    $url_1 = Url::to(['supplier-detail/create','sid'=>$model->id]);
+                    $url_2 = Url::to(['history/index','object_id'=>$model->id]);
+                    $operator_1 = Html::a('与我方关系', $url_1, ['title' => '与我方关系']);
+                    $operator_2 = Html::a('历史记录', $url_2, ['title' => '历史记录']);
+                    return $operator_1.' '.$operator_2; 
                 }
-            ]        
+            ],      
         ],
     ]); ?>
     <?php Pjax::end(); ?>
