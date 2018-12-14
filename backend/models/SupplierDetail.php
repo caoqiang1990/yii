@@ -8,6 +8,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use backend\models\History;
 
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
@@ -78,6 +79,7 @@ class SupplierDetail extends ActiveRecord
                 'reason',
                 'sid',
                 'coop_date',
+                'level',
             ],
             self::SCENARIO_EDIT => [
                 'one_level_department',
@@ -86,6 +88,7 @@ class SupplierDetail extends ActiveRecord
                 'mobile',
                 'reason',
                 'coop_date',
+                'level',
             ],
         ];
     }
@@ -125,4 +128,36 @@ class SupplierDetail extends ActiveRecord
             throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
         }
     }     
+
+
+    public function beforeSave($insert)
+    {
+      if (parent::beforeSave($insert)) {
+          if ($insert) { // 新增操作
+            $historyModel = new History;
+            $object_id = Yii::$app->request->get('sid');
+            $field = 'level';
+            $original = '';
+            $result = $this->level;
+            $desc = "新增供应商等级{$result}";
+            $historyModel::history($object_id,$field,$original,$result,$desc);
+          }else{
+              //对比，如果firm_nature有变更。记录下来
+              $old = $this->find()->where(['id' => $this->id])->one();
+              //如果level有变更，记录下来
+              if ($old->level != $this->level) {
+                  $historyModel = new History;
+                  $object_id = $this->id;
+                  $field = 'level';
+                  $original = $old->level;
+                  $result = $this->level;
+                  $desc = "更新供应商等级从{$original}到{$result}";
+                  $historyModel::history($object_id,$field,$original,$result,$desc);
+              }   
+          }
+          return true;
+      } else {
+          return false;
+      }
+    }
 }

@@ -338,7 +338,7 @@ class Supplier extends ActiveRecord
         if (parent::beforeSave($insert)) {
 
             if ($insert) { // 新增操作
-                $this->business_type = implode(',',$this->business_type);
+                $this->business_type = implode(',',$this->business_type);           
             }else{
                 $this->business_type = implode(',',$this->business_type);
                 //对比，如果firm_nature有变更。记录下来
@@ -368,5 +368,24 @@ class Supplier extends ActiveRecord
     {
         $this->business_type = explode(',', $this->business_type);
     }
+
+    /**
+    * @param bool $insert
+    * @param array $changedAttributes
+    */
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) { // 新增操作
+            $historyModel = new History;
+            $object_id = $this->id;
+            $field = 'firm_nature';
+            $original = '';
+            $result = $this->firm_nature;
+            $desc = "新增企业性质{$result}";
+            $historyModel::history($object_id,$field,$original,$result,$desc);
+        } else { // 编辑操作
+            // do other sth.
+        }
+    }    
 
 }
