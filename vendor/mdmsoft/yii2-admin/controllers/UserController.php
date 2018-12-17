@@ -17,6 +17,7 @@ use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\base\UserException;
 use yii\mail\BaseMailer;
+use common\models\AdminLog;
 
 /**
  * User controller
@@ -149,6 +150,7 @@ class UserController extends Controller
         $model = new Signup();
         if ($model->load(Yii::$app->getRequest()->post())) {
             if ($user = $model->signup()) {
+                AdminLog::saveLog('user', 'create', $user->getByID($user->id), $user->id);
                 return $this->goHome();
             }
         }

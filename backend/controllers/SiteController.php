@@ -8,6 +8,7 @@ use yii\filters\AccessControl;
 use common\models\LoginForm;
 use backend\models\PasswordResetRequestForm;
 use backend\models\ResetPasswordForm;
+use common\models\AdminLog;
 
 /**
  * Site controller
@@ -78,6 +79,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            AdminLog::saveLog('user', 'login', json_encode($model->user->toArray()), $model->user->id);
             return $this->goBack();
         } else {
             $model->password = '';
