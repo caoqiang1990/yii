@@ -150,6 +150,21 @@ class SupplierCategory extends ActiveRecord
       $category = ArrayHelper::map($category, 'id', 'category_name');
       return $category;
   }
+
+  /**
+   * 根据id获取信息
+   * @param  [type] $id [description]
+   * @return [type]     [description]
+   */
+  public function getByID($id){
+      if (($model = self::findOne($id)) !== null) {
+          return json_encode($model->toArray());
+      } else {
+          throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
+      }
+  }  
+
+
 }
 
 

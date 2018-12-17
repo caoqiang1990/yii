@@ -8,6 +8,7 @@ use backend\models\SupplierLevelSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\AdminLog;
 
 /**
  * SupplierLevelController implements the CRUD actions for SupplierLevel model.
@@ -67,6 +68,7 @@ class SupplierLevelController extends Controller
         $model = new SupplierLevel();
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AdminLog::saveLog('supplierlevel', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $status = [0=>'无效',1=>'有效'];
@@ -86,8 +88,9 @@ class SupplierLevelController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $original = $model->getByID($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AdminLog::saveLog('supplierlevel', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $status = [0=>'无效',1=>'有效'];

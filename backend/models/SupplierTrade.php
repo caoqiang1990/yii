@@ -41,10 +41,14 @@ class SupplierTrade extends ActiveRecord
   {
       return [
           self::SCENARIO_ADD => [
+            'trade_name',
+            'pid',
             'status',
             'order_no',
           ],
           self::SCENARIO_EDIT => [
+            'trade_name',
+            'pid',
             'status',
             'order_no',
           ],
@@ -133,6 +137,19 @@ class SupplierTrade extends ActiveRecord
       $trade = ArrayHelper::map($trade, 'id', 'trade_name');
       return $trade;
   }
+
+  /**
+   * 根据id获取信息
+   * @param  [type] $id [description]
+   * @return [type]     [description]
+   */
+  public function getByID($id){
+      if (($model = self::findOne($id)) !== null) {
+          return json_encode($model->toArray());
+      } else {
+          throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
+      }
+  }    
 
 }
 

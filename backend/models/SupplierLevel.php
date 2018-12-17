@@ -113,6 +113,20 @@ class SupplierLevel extends ActiveRecord
       $level = ArrayHelper::map($level, 'id', 'level_name');
       return $level;
   }
+
+  /**
+   * 根据id获取信息
+   * @param  [type] $id [description]
+   * @return [type]     [description]
+   */
+  public function getByID($id){
+      if (($model = self::findOne($id)) !== null) {
+          return json_encode($model->toArray());
+      } else {
+          throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
+      }
+  }  
+  
 }
 
 ?>

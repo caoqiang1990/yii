@@ -8,6 +8,7 @@ use backend\models\SupplierTypeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\AdminLog;
 
 /**
  * SupplierTypeController implements the CRUD actions for SupplierType model.
@@ -67,6 +68,7 @@ class SupplierTypeController extends Controller
         $model = new SupplierType();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AdminLog::saveLog('suppliertype', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $status = [0=>'无效',1=>'有效'];
@@ -86,8 +88,9 @@ class SupplierTypeController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $original = $model->getByID($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AdminLog::saveLog('suppliertype', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $status = [0=>'无效',1=>'有效'];

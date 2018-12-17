@@ -8,6 +8,7 @@ use backend\models\SupplierTradeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\AdminLog;
 
 /**
  * SupplierTradeController implements the CRUD actions for SupplierTrade model.
@@ -67,6 +68,7 @@ class SupplierTradeController extends Controller
         $model = new SupplierTrade();
         $model->scenario = 'add';
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AdminLog::saveLog('suppliertrade', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,7 +88,9 @@ class SupplierTradeController extends Controller
     {
         $model = $this->findModel($id);
         $model->scenario = 'edit';
+        $original = $model->getByID($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AdminLog::saveLog('suppliertrade', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

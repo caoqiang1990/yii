@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\SupplierType */
 
 $this->title = '';
-$this->params['breadcrumbs'][] = ['label' => 'Supplier Types', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('type','Supplier Types'), 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supplier-type-view">
