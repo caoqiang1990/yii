@@ -12,8 +12,6 @@ $this->params['breadcrumbs'][] = Yii::t('category', 'Update');
 ?>
 <div class="supplier-category-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
         'model' => $model,
         'level' => $level,
