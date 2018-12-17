@@ -1,10 +1,10 @@
 <?php
 
 return [
-  'trade_name' => '所属行业',
+  'trade_name' => '供应商所属行业',
   'status' => '状态',
-  'Supplier Trades' => '所属行业列表',
-  'Create Supplier Trade' => '新增所属行业',
+  'Supplier Trades' => '供应商所属行业列表',
+  'Create Supplier Trade' => '新增供应商所属行业',
   'Save' => '新增',
   'created_at' => '创建时间',
   'updated_at' => '修改时间',
@@ -13,7 +13,7 @@ return [
   'Delete' => '删除',
   'Are you sure you want to delete this item?' => '确认要删除吗?',
   'Order No' => '排序',
-  'Update Supplier Trade: ' => '更新行业',
+  'Update Supplier Trade: ' => '更新供应商行业',
 ];
 
 

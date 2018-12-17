@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\SupplierTypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '供应商业务类型';
+$this->title = '合作业务类型';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supplier-type-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('新增供应商业务类型', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('新增合作业务类型', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
