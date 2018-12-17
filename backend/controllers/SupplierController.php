@@ -19,6 +19,7 @@ use backend\models\SupplierType;
 use backend\models\UploadForm;
 use common\models\AdminLog;
 use moonland\phpexcel\Excel;
+use backend\models\SupplierNature;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -86,9 +87,10 @@ class SupplierController extends Controller
         $categoryModel = new SupplierCategory;
         $tradeModel = new SupplierTrade;
         $typeModel = new SupplierType;
+        $natureModel = new SupplierNature;
         $level = $levelModel::getLevelByParams(); //供应商等级
         //$firm_nature = $categoryModel::getCategoryByParams();
-        $firm_nature = [1 => '国有', 2 => '合资', 3 => '独资']; //企业性质
+        $firm_nature = $natureModel::getNatureByParams(); //企业性质
         $trade = $tradeModel::getTradeByParams(); //所属行业
         $type = $typeModel::getTypeByParams(); //业务类型
         return $this->render('create', [
@@ -132,9 +134,10 @@ class SupplierController extends Controller
         $categoryModel = new SupplierCategory;
         $tradeModel = new SupplierTrade;
         $typeModel = new SupplierType;
+        $natureModel = new SupplierNature;
         $level = $levelModel::getLevelByParams();
         //$firm_nature = $categoryModel::getCategoryByParams();
-        $firm_nature = [1 => '国有', 2 => '合资', 3 => '独资'];
+        $firm_nature = $natureModel::getNatureByParams(); //企业性质
         $trade = $tradeModel::getTradeByParams();
         $type = $typeModel::getTypeByParams(); //业务类型
         return $this->render('update', [
