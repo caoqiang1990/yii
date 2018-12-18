@@ -13,6 +13,7 @@ use backend\models\Attachment;
 use backend\models\SupplierFunds;
 use yii\behaviors\BlameableBehavior;
 use backend\models\History;
+use backend\models\SupplierNature;
 
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
@@ -349,7 +350,15 @@ class Supplier extends ActiveRecord
                     $field = 'firm_nature';
                     $original = $old->firm_nature;
                     $result = $this->firm_nature;
-                    $desc = "更新企业性质从{$original}到{$result}";
+                    if ($original) {
+                        $nature_original = SupplierNature::getNatureById($original);
+                        $original_value = $nature_original ? $nature_original->nature_name : '';
+                    }
+                    if ($result) {
+                        $nature_result = SupplierNature::getNatureById($result);
+                        $result_value = $nature_result ? $nature_result->nature_name : '';
+                    }
+                    $desc = "更新企业性质从{{$original_value}}到{{$result_value}}";
                     $historyModel::history($object_id,$field,$original,$result,$desc);
                 }
             }
@@ -381,7 +390,11 @@ class Supplier extends ActiveRecord
             $field = 'firm_nature';
             $original = '';
             $result = $this->firm_nature;
-            $desc = "新增企业性质{$result}";
+            if ($result) {
+                $nature_result = SupplierNature::getNatureById($this->firm_nature);
+                $result_value = $nature_result ? $nature_result->nature_name : '';
+            }
+            $desc = "新增企业性质{{$result_value}}";
             $historyModel::history($object_id,$field,$original,$result,$desc);
         } else { // 编辑操作
             // do other sth.
