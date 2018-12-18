@@ -139,7 +139,11 @@ class SupplierDetail extends ActiveRecord
             $field = 'level';
             $original = '';
             $result = $this->level;
-            $desc = "新增供应商等级{$result}";
+            if ($result) {
+              $level_result = SupplierLevel::getLevelById($result);
+              $result_value = $level_result ? $level_result->level_name : '';
+            }
+            $desc = "新增供应商等级{{$result_value}}";
             $historyModel::history($object_id,$field,$original,$result,$desc);
           }else{
               //对比，如果firm_nature有变更。记录下来
@@ -151,7 +155,15 @@ class SupplierDetail extends ActiveRecord
                   $field = 'level';
                   $original = $old->level;
                   $result = $this->level;
-                  $desc = "更新供应商等级从{$original}到{$result}";
+                  if ($original) {
+                    $level_original = SupplierLevel::getLevelById($original);
+                    $original_value = $level_original ? $level_original->level_name : '';
+                  }
+                  if ($result) {
+                    $level_result = SupplierLevel::getLevelById($result);
+                    $result_value = $level_result ? $level_result->level_name : '';
+                  }
+                  $desc = "更新供应商等级从{$original_value}到{$result_value}";
                   $historyModel::history($object_id,$field,$original,$result,$desc);
               }   
           }
