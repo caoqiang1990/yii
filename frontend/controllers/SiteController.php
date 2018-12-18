@@ -75,10 +75,10 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-        $countries = Country::find()->orderBy('name')->all();
-        foreach($countries as $v) {
-            var_dump($v->name);
-        }
+//        $countries = Country::find()->orderBy('name')->all();
+//        foreach($countries as $v) {
+//            var_dump($v->name);
+//        }
         return $this->render('index');
     }
 
