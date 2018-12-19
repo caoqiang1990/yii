@@ -27,6 +27,9 @@ return [
     'Update Supplier Detail：' => '更新供应商详情：',
     'coop_date' => '合作时间',
     'level' => '供应商等级',
+    'cate_id1' => '总类',
+    'cate_id2' => '大类',
+    'cate_id3' => '子类'
   ];
 
 

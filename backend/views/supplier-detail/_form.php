@@ -4,10 +4,37 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\datepicker\DatePicker;
 use yii\helpers\Url;
+use kartik\select2\Select2;
+use yii\web\JsExpression;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\SupplierDetail */
 /* @var $form yii\widgets\ActiveForm */
+
+$formatJS = <<<JS
+    var dataCateID_1 = function(params){
+        return {cate_id:'1'};
+    };
+    var dataCateID_2 = function(params){
+        var cate_id1 = $('#supplierdetail-cate_id1').val()
+        var cate_id = cate_id1.join('-');
+        return {cate_id1:cate_id};
+    };
+    var dataCateID_3 = function(params){
+        var cate_id2 = $('#supplierdetail-cate_id2').val()
+        var cate_id = cate_id2.join('-');
+        return {cate_id2:cate_id};
+    };    
+JS;
+
+
+$this->registerJs($formatJS, View::POS_HEAD);
+$resultsJs = <<<JS
+function (data,params) {
+    return data;
+}
+JS;
 ?>
 <?php  if($detail_obj_list){?>
 <div style="padding:20px">
@@ -100,6 +127,90 @@ use yii\helpers\Url;
     <?= $form->field($model, 'sid')->label(false)->hiddenInput(['value' => $sid]) ?>
 
     <div class="row">
+    <div class="col-xs-6">
+    <?= //$form->field($model, 'business_type')->dropDownList($type) 
+        $form->field($model, 'cate_id1')->widget(Select2::classname(), [
+            'data' => ['总类1','总类2','总类3'],
+            'options' => [
+                'placeholder' => '请选择总类',
+                'multiple' => true
+                ],
+            'pluginOptions' => [
+                'allowClear' => true,
+                'ajax' => [
+                    'url' => Url::to(['get-all-cate']),
+                    'dataType' => 'json',
+                    'data' => new JsExpression('dataCateID_1'),
+                    'processResults' => new JsExpression($resultsJs),
+                    //'cache' => true,
+                ],
+                'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                'templateResult' => new JsExpression('function(result) { return result.category_name; }'),
+                'templateSelection' => new JsExpression('function (select) { return select.category_name; }'),
+            ],
+            'pluginEvents' => [
+                "change" => "function() {}",
+            ]
+
+        ]);
+    ?>
+    </div>
+   <div class="col-xs-6">
+    <?= //$form->field($model, 'business_type')->dropDownList($type) 
+        $form->field($model, 'cate_id2')->widget(Select2::classname(), [
+            'data' => ['大类1','大类2','大类3'],
+            'options' => [
+                'placeholder' => '请选择大类',
+                'multiple' => true
+                ],
+            'pluginOptions' => [
+                'allowClear' => true,
+                'ajax' => [
+                    'url' => Url::to(['get-all-cate']),
+                    'dataType' => 'json',
+                    'data' =>  new JsExpression('dataCateID_2'),
+                    //'data' =>  {'qid':$('#supplierdetail-cate_id1').val()},
+                    'cache' => true,
+                ],
+                'escapeMarkup' => new JsExpression('function (markup) { console.log(markup);  return markup; }'),
+                'templateResult' => new JsExpression('function(result) { console.log(result); return result.category_name; }'),
+                'templateSelection' => new JsExpression('function (select) { console.log(select);  return select.category_name; }'),
+            ],
+            'pluginEvents' => [
+                "change" => "function() { console.log('change'); }",
+            ]
+
+        ]);
+    ?>
+    </div>    
+    <div class="col-xs-6">
+    <?= //$form->field($model, 'business_type')->dropDownList($type) 
+        $form->field($model, 'cate_id3')->widget(Select2::classname(), [
+            'data' => ['子类1','子类2','子类3'],
+            'options' => [
+                'placeholder' => '请选择大类',
+                'multiple' => true
+                ],
+            'pluginOptions' => [
+                'allowClear' => true,
+                'ajax' => [
+                    'url' => Url::to(['get-all-cate']),
+                    'dataType' => 'json',
+                    'data' =>  new JsExpression('dataCateID_3'),
+                    //'data' =>  {'qid':$('#supplierdetail-cate_id1').val()},
+                    'cache' => true,
+                ],
+                'escapeMarkup' => new JsExpression('function (markup) { console.log(markup);  return markup; }'),
+                'templateResult' => new JsExpression('function(result) { console.log(result); return result.category_name; }'),
+                'templateSelection' => new JsExpression('function (select) { console.log(select);  return select.category_name; }'),
+            ],
+            'pluginEvents' => [
+                "change" => "function() { console.log('change'); }",
+            ]
+
+        ]);
+    ?>
+    </div>        
     <div class="col-xs-6">
     <?= $form->field($model, 'level')->dropDownList($level) ?>
     </div>    

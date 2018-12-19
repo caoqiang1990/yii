@@ -61,6 +61,9 @@ class SupplierDetail extends ActiveRecord
         'trade_fund3' => Yii::t('detail','trade_fund3'),
         'sid' => Yii::t('detail','Sid'),
         'level' => Yii::t('detail','level'), 
+        'cate_id1' => Yii::t('detail','cate_id1'),
+        'cate_id2' => Yii::t('detail','cate_id2'),
+        'cate_id3' => Yii::t('detail','cate_id3'),
       ];
     }
 
@@ -80,6 +83,9 @@ class SupplierDetail extends ActiveRecord
                 'sid',
                 'coop_date',
                 'level',
+                'cate_id1',
+                'cate_id2',
+                'cate_id3',
             ],
             self::SCENARIO_EDIT => [
                 'one_level_department',
@@ -89,6 +95,9 @@ class SupplierDetail extends ActiveRecord
                 'reason',
                 'coop_date',
                 'level',
+                'cate_id1',
+                'cate_id2',
+                'cate_id3',                
             ],
         ];
     }
@@ -145,6 +154,10 @@ class SupplierDetail extends ActiveRecord
             }
             $desc = "新增供应商等级{{$result_value}}";
             $historyModel::history($object_id,$field,$original,$result,$desc);
+
+            //对于cate_id1 进行操作
+            $this->cate_id1 = implode(',', $this->cate_id1);
+            
           }else{
               //对比，如果firm_nature有变更。记录下来
               $old = $this->find()->where(['id' => $this->id])->one();
@@ -165,7 +178,9 @@ class SupplierDetail extends ActiveRecord
                   }
                   $desc = "更新供应商等级从{$original_value}到{$result_value}";
                   $historyModel::history($object_id,$field,$original,$result,$desc);
-              }   
+              }
+              //对于cate_id1 进行操作
+              $this->cate_id1 = implode(',', $this->cate_id1);                 
           }
           return true;
       } else {

@@ -61,17 +61,17 @@ class SupplierCategory extends ActiveRecord
   }
 
   /**
-   * 根据参数获取企业类别名称firm_nature
+   * 根据参数获取企业类别名称
    * @param  string $column [description]
    * @param  string $id     [description]
    * @return [type]         [description]
    */
-  public static function getCategoryByParams($column='',$id='')
+  public static function getCategoryByParams($column='',$level='')
   {
     $where = [];
     $field = '';
-    if ($id) {
-      $where['id'] = $id;
+    if ($level !== '') {
+      $where['level'] = $level;
     }
     if ($column) {
       $field = $column;

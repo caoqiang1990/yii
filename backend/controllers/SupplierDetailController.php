@@ -12,6 +12,8 @@ use backend\models\Supplier;
 use backend\models\SupplierFunds;
 use backend\models\SupplierLevel;
 use common\models\AdminLog;
+use yii\web\Response;
+use backend\models\SupplierCategory;
 
 /**
  * SupplierDetailController implements the CRUD actions for SupplierDetail model.
@@ -180,4 +182,46 @@ class SupplierDetailController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    /**
+     * 根据id获取分类键值对
+     * @return [type] [description]
+     */
+    public function actionGetAllCate()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $cate_id = Yii::$app->request->get('cate_id','');
+        //获取对应的大类
+        $cate_id1 = Yii::$app->request->get('cate_id1','');
+        //获取对应的子类
+        $cate_id2 = Yii::$app->request->get('cate_id2','');
+        $where = [];
+        if ($cate_id) {
+            $where['pid'] = 0;
+            $where['status'] = 1;
+        }
+        //获取对应总类的大类
+        if ($cate_id1) {
+            $cate_id1 = explode('-', $cate_id1);
+            $where['pid'] = $cate_id1;
+            $where['level'] = 2;
+            $where['status'] = 1;
+        }
+        if ($cate_id2) {
+            $cate_id2 = explode('-',$cate_id2);
+            $where['pid'] = $cate_id2;
+            $where['level'] = 3;
+            $where['status'] = 1;
+        }
+        if (empty($where)) {
+            $category = '';
+        }else{
+            $categoryModel = new SupplierCategory;
+            $category = $categoryModel::find()->select('id,category_name')->where($where)->asArray()->all();
+            //return $category;
+        }
+        $out = ['results' => $category];
+        return $out;
+    }
+
 }
