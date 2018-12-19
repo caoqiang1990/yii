@@ -157,7 +157,8 @@ class SupplierDetail extends ActiveRecord
 
             //对于cate_id1 进行操作
             $this->cate_id1 = implode(',', $this->cate_id1);
-            
+            $this->cate_id2 = implode(',', $this->cate_id2);
+            $this->cate_id3 = implode(',', $this->cate_id3);
           }else{
               //对比，如果firm_nature有变更。记录下来
               $old = $this->find()->where(['id' => $this->id])->one();
@@ -180,7 +181,9 @@ class SupplierDetail extends ActiveRecord
                   $historyModel::history($object_id,$field,$original,$result,$desc);
               }
               //对于cate_id1 进行操作
-              $this->cate_id1 = implode(',', $this->cate_id1);                 
+              $this->cate_id1 = implode(',', $this->cate_id1);       
+              $this->cate_id2 = implode(',', $this->cate_id2);
+              $this->cate_id3 = implode(',', $this->cate_id3);
           }
           return true;
       } else {

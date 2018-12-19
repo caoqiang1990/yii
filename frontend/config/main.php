@@ -66,6 +66,7 @@ return [
 		'class' => 'mdm\admin\components\AccessControl',
 		'allowActions' =>[
 			'site/*',
+            'supplierform/*'
 		],
 	],
     'params' => $params,

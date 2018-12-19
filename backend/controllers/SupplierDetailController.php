@@ -111,7 +111,10 @@ class SupplierDetailController extends Controller
                         $detail->{"trade_fund$id"} = $v->trade_fund;
                     }
                 }
-    
+                $detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
+                $detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
+                $detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
+
         }
         //前三年
         $model->fund_year1 = date('Y') - 3;

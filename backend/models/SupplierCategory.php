@@ -164,6 +164,18 @@ class SupplierCategory extends ActiveRecord
       }
   }  
 
+  /**
+   * 根据条件获取键值对
+   * @param  string $value [description]
+   * @return [type]        [description]
+   */
+  public static function getCategoryNameByParams($value='')
+  {
+    $where['id'] = explode(',',$value);
+    $lists = self::find()->select('id,category_name')->where($where)->asArray()->all();
+    $category = ArrayHelper::map($lists, 'id', 'category_name');
+    return $category;
+  }
 
 }
 

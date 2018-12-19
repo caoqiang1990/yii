@@ -44,6 +44,24 @@ JS;
     <div class="row">
     <div class="col-xs-6">
         <div class="form-group">
+        <label class="control-label"><?= Yii::t('detail','cate_id1') ?></label>
+        <input class="form-control" type="text" disabled="disabled" value=<?= $detail->cate_id1?> >
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="form-group">
+        <label class="control-label"><?= Yii::t('detail','cate_id2') ?></label>
+        <input class="form-control" type="text" disabled="disabled" value=<?= $detail->cate_id2?> >
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="form-group">
+        <label class="control-label"><?= Yii::t('detail','cate_id3') ?></label>
+        <input class="form-control" type="text" disabled="disabled" value=<?= $detail->cate_id3?> >
+        </div>
+    </div>            
+    <div class="col-xs-6">
+        <div class="form-group">
         <label class="control-label"><?= Yii::t('detail','one_level_department') ?></label>
         <input class="form-control" type="text" disabled="disabled" value=<?= $detail->one_level_department?> >
         </div>
@@ -130,7 +148,7 @@ JS;
     <div class="col-xs-6">
     <?= //$form->field($model, 'business_type')->dropDownList($type) 
         $form->field($model, 'cate_id1')->widget(Select2::classname(), [
-            'data' => ['总类1','总类2','总类3'],
+            //'value' => $model->cate_id1,
             'options' => [
                 'placeholder' => '请选择总类',
                 'multiple' => true
