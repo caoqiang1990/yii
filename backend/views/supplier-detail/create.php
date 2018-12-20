@@ -7,7 +7,6 @@ use yii\helpers\Html;
 /* @var $model backend\models\SupplierDetail */
 
 $this->title = '与我方关系';
-$this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supplier-detail-create">

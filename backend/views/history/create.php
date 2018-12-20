@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model backend\models\History */
 
 $this->title = Yii::t('history', 'Create History');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('history', 'Histories'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="history-create">

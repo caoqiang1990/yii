@@ -9,6 +9,7 @@ use mdm\admin\models\User;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('history', '修改记录');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="history-index">

@@ -26,6 +26,13 @@ $formatJS = <<<JS
         var cate_id = cate_id2.join('-');
         return {cate_id2:cate_id};
     };    
+    var unSelect_1 = function(){
+        $('#supplierdetail-cate_id2').select2('val',0);
+        $('#supplierdetail-cate_id3').select2('val',0);
+    }
+    var unSelect_2 = function(){
+        $('#supplierdetail-cate_id3').select2('val',0);
+    }    
 JS;
 
 
@@ -73,6 +80,12 @@ JS;
         <input class="form-control" type="text" disabled="disabled" value=<?= $detail->second_level_department?> >
         </div>
     </div>
+    <div class="col-xs-6">
+        <div class="form-group">
+        <label class="control-label"><?= Yii::t('detail','develop_department') ?></label>
+        <input class="form-control" type="text" disabled="disabled" value=<?= $detail->develop_department?> >
+        </div>
+    </div>    
     <div class="col-xs-6">
         <div class="form-group">
         <label class="control-label"><?= Yii::t('detail','coop_date') ?></label>
@@ -167,7 +180,15 @@ JS;
                 'templateSelection' => new JsExpression('function (select) { return select.category_name; }'),
             ],
             'pluginEvents' => [
-                "change" => "function() {}",
+                "change" => "function() { console.log('change'); }",
+                "select2:opening" => "function() { console.log('select2:opening'); }",
+                "select2:open" => "function() { console.log('open'); }",
+                "select2:closing" => "function() { console.log('close'); }",
+                "select2:close" => "function() { console.log('close'); }",
+                "select2:selecting" => "function() { console.log('selecting'); }",
+                "select2:select" => "function() { console.log('select'); }",
+                "select2:unselecting" => "function() { console.log('unselecting'); }",
+                "select2:unselect" => new JsExpression('unSelect_1')
             ]
 
         ]);
@@ -176,7 +197,6 @@ JS;
    <div class="col-xs-6">
     <?= //$form->field($model, 'business_type')->dropDownList($type) 
         $form->field($model, 'cate_id2')->widget(Select2::classname(), [
-            'data' => ['大类1','大类2','大类3'],
             'options' => [
                 'placeholder' => '请选择大类',
                 'multiple' => true
@@ -196,6 +216,14 @@ JS;
             ],
             'pluginEvents' => [
                 "change" => "function() { console.log('change'); }",
+                "select2:opening" => "function() { console.log('select2:opening'); }",
+                "select2:open" => "function() { console.log('open'); }",
+                "select2:closing" => "function() { console.log('close'); }",
+                "select2:close" => "function() { console.log('close'); }",
+                "select2:selecting" => "function() { console.log('selecting'); }",
+                "select2:select" => "function() { console.log('select'); }",
+                "select2:unselecting" => "function() { console.log('unselecting'); }",
+                "select2:unselect" => new JsExpression('unSelect_2')
             ]
 
         ]);
@@ -204,9 +232,8 @@ JS;
     <div class="col-xs-6">
     <?= //$form->field($model, 'business_type')->dropDownList($type) 
         $form->field($model, 'cate_id3')->widget(Select2::classname(), [
-            'data' => ['子类1','子类2','子类3'],
             'options' => [
-                'placeholder' => '请选择大类',
+                'placeholder' => '请选择子类',
                 'multiple' => true
                 ],
             'pluginOptions' => [
@@ -230,14 +257,16 @@ JS;
     ?>
     </div>        
     <div class="col-xs-6">
-    <?= $form->field($model, 'level')->dropDownList($level) ?>
+    <?= $form->field($model, 'level')->dropDownList($level,['prompt'=>'请选择等级']) ?>
     </div>    
     <div class="col-xs-6">
     <?= $form->field($model, 'one_level_department')->textInput(['maxlength' => true]) ?>
     </div>
-
     <div class="col-xs-6">
     <?= $form->field($model, 'second_level_department')->textInput(['maxlength' => true]) ?>
+    </div>
+    <div class="col-xs-6">
+    <?= $form->field($model, 'develop_department')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-6">
     <div class="form-group field-supplier-coop_date required">

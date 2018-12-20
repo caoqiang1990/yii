@@ -64,6 +64,7 @@ class SupplierDetail extends ActiveRecord
         'cate_id1' => Yii::t('detail','cate_id1'),
         'cate_id2' => Yii::t('detail','cate_id2'),
         'cate_id3' => Yii::t('detail','cate_id3'),
+        'develop_department' => Yii::t('detail','develop_department'),
       ];
     }
 
@@ -86,6 +87,13 @@ class SupplierDetail extends ActiveRecord
                 'cate_id1',
                 'cate_id2',
                 'cate_id3',
+                'coop_fund1',
+                'coop_fund2',
+                'coop_fund3',
+                'trade_fund1',
+                'trade_fund2',
+                'trade_fund3',
+                'develop_department',
             ],
             self::SCENARIO_EDIT => [
                 'one_level_department',
@@ -97,7 +105,14 @@ class SupplierDetail extends ActiveRecord
                 'level',
                 'cate_id1',
                 'cate_id2',
-                'cate_id3',                
+                'cate_id3',   
+                'coop_fund1',
+                'coop_fund2',
+                'coop_fund3',
+                'trade_fund1',
+                'trade_fund2',
+                'trade_fund3',           
+                'develop_department',
             ],
         ];
     }
@@ -109,7 +124,7 @@ class SupplierDetail extends ActiveRecord
     public function rules()
     {
         return [
-    
+          [['cate_id1','cate_id2','cate_id3','one_level_department','second_level_department','name','mobile','reason','coop_date','coop_fund1','coop_fund2','coop_fund3','trade_fund1','trade_fund2','trade_fund3','level'],'required'],
         ];
     }
 
@@ -156,9 +171,15 @@ class SupplierDetail extends ActiveRecord
             $historyModel::history($object_id,$field,$original,$result,$desc);
 
             //对于cate_id1 进行操作
-            $this->cate_id1 = implode(',', $this->cate_id1);
-            $this->cate_id2 = implode(',', $this->cate_id2);
-            $this->cate_id3 = implode(',', $this->cate_id3);
+            if ($this->cate_id1) {
+              $this->cate_id1 = implode(',', $this->cate_id1);
+            }
+            if ($this->cate_id2) {
+              $this->cate_id2 = implode(',', $this->cate_id2);
+            }
+            if ($this->cate_id3) {
+              $this->cate_id3 = implode(',', $this->cate_id3);
+            }
           }else{
               //对比，如果firm_nature有变更。记录下来
               $old = $this->find()->where(['id' => $this->id])->one();
@@ -181,9 +202,15 @@ class SupplierDetail extends ActiveRecord
                   $historyModel::history($object_id,$field,$original,$result,$desc);
               }
               //对于cate_id1 进行操作
-              $this->cate_id1 = implode(',', $this->cate_id1);       
-              $this->cate_id2 = implode(',', $this->cate_id2);
-              $this->cate_id3 = implode(',', $this->cate_id3);
+              if ($this->cate_id1) {
+                $this->cate_id1 = implode(',', $this->cate_id1);
+              }
+              if ($this->cate_id2) {
+                $this->cate_id2 = implode(',', $this->cate_id2);
+              }
+              if ($this->cate_id3) {
+                $this->cate_id3 = implode(',', $this->cate_id3);
+              }
           }
           return true;
       } else {

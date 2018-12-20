@@ -29,7 +29,8 @@ return [
     'level' => '供应商等级',
     'cate_id1' => '总类',
     'cate_id2' => '大类',
-    'cate_id3' => '子类'
+    'cate_id3' => '子类',
+    'develop_department' => '开发部门',
   ];
 
 
