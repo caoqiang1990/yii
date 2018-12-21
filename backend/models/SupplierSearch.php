@@ -58,15 +58,16 @@ class SupplierSearch extends Supplier
         }
 
         // grid filtering conditions
+        $query->andFilterWhere(['like', 'name', $this->name]);
         $query->andFilterWhere([
             'id' => $this->id,
-            'name' => $this->name,
+            //'name' => $this->name,
             'level'=> $this->level,
             'trade'=> $this->trade,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
-
+        
         return $dataProvider;
     }
 }
