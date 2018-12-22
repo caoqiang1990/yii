@@ -153,7 +153,10 @@ class Supplier extends ActiveRecord
                 'enterprise_license',
                 'enterprise_certificate',
                 'enterprise_certificate_etc', 
-                'enterprise_license_relate',               
+                'enterprise_license_relate',
+                'cate_id1',
+                'cate_id2',
+                'cate_id3',
             ],
             self::SCENARIO_EDIT => [
                 'name',
@@ -198,7 +201,7 @@ class Supplier extends ActiveRecord
                 'enterprise_license',
                 'enterprise_certificate',
                 'enterprise_certificate_etc',
-                'enterprise_license_relate',               
+                'enterprise_license_relate',
             ],
             self::SCENARIO_UPLOAD => [
                 'enterprise_code',
@@ -217,13 +220,13 @@ class Supplier extends ActiveRecord
     public function rules()
     {
         return [
-            [['name','business_address','business_scope','business_type'],'required','on'=>'add'],
-            ['url','url','on'=>'add'],
+            [['name'],'required','on'=>'add'],
+            //['url','url','on'=>'add'],
             ['headcount','integer','on' => 'add,edit'],
             ['register_fund','double','on' => 'add,edit'],
             [['level','enterprise_code','enterprise_license','enterprise_certificate','enterprise_certificate_etc','enterprise_license_relate'], 'safe'],
-            ['business_mobile','required','message'=>'联系人电话不能为空！','on'=>'add'],
-            ['business_phone','required','message'=>'联系人电话不能为空！','on'=>'add'],
+            //['business_mobile','required','message'=>'联系人电话不能为空！','on'=>'add'],
+            //['business_phone','required','message'=>'联系人电话不能为空！','on'=>'add'],
             ['business_phone','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'联系人手机号格式不正确！','on' => 'add,edit'],
             [['enterprise_code_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
             [['enterprise_license_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
@@ -339,9 +342,13 @@ class Supplier extends ActiveRecord
         if (parent::beforeSave($insert)) {
 
             if ($insert) { // 新增操作
-                $this->business_type = implode(',',$this->business_type);           
+                if (is_array($this->business_type)) {
+                    $this->business_type = implode(',',$this->business_type);
+                }
             }else{
-                $this->business_type = implode(',',$this->business_type);
+                if (is_array($this->business_type)) {
+                    $this->business_type = implode(',',$this->business_type);
+                }
                 //对比，如果firm_nature有变更。记录下来
                 $old = $this->find()->where(['id' => $this->id])->one();
                 if ($old->firm_nature != $this->firm_nature) {
@@ -393,9 +400,9 @@ class Supplier extends ActiveRecord
             if ($result) {
                 $nature_result = SupplierNature::getNatureById($this->firm_nature);
                 $result_value = $nature_result ? $nature_result->nature_name : '';
+                $desc = "新增企业性质{{$result_value}}";
+                $historyModel::history($object_id,$field,$original,$result,$desc);
             }
-            $desc = "新增企业性质{{$result_value}}";
-            $historyModel::history($object_id,$field,$original,$result,$desc);
         } else { // 编辑操作
             // do other sth.
         }

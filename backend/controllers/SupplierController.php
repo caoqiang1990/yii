@@ -116,7 +116,7 @@ class SupplierController extends Controller
         $post = Yii::$app->request->post();
         $original = $model->getByID($id);
         if ($model->load($post) && $model->save()) {
-            AdminLog::saveLog('supplier', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
+            AdminLog::saveLog('supplier', 'update', $model->getByID($model->primaryKey), $model->primaryKey, $original);
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $attachmentModel = new Attachment();
@@ -253,18 +253,173 @@ class SupplierController extends Controller
         $data = Excel::import($filePath, [
             'setFirstRecordAsKeys' => true,
             'setIndexSheetByName' => true,
-            'getOnlySheet' => 'sheet1',
+            'getOnlySheet' => 'Sheet1',
         ]);
         $supplierModel = new Supplier;
         foreach ($data as $vo) {
             $supplierModel->scenario = 'add';
-            $supplierModel->name = $vo['编号'];
-            $supplierModel->business_address = 'ddd';
-            $supplierModel->business_scope = 'ddd';
-            $supplierModel->business_type = 1;
-            $supplierModel->business_mobile = '33321111';
-            $supplierModel->business_phone = '13811643823';
-            $a = $supplierModel->save();
+            //供应商等级
+            if ($vo['供应商等级']) {
+                $level = SupplierLevel::getLevelByName($vo['供应商等级']);
+                if ($level) {
+                    $supplierModel->level = $level->id;
+                } else {
+                    //没有查到对应的供应商等级名称
+
+                }
+            } else {
+                //没有填写对应的供应商等级名称
+
+            }
+            //供应商总类
+            if ($vo['供应商类别-总类']) {
+                $category = SupplierCategory::getCategoryByName($vo['供应商类别-总类'], 1);
+                if ($category) {
+                    $supplierModel->cate_id1 = $category->id;
+                } else {
+
+                }
+            } else {
+
+            }
+            //供应商大类
+            if ($vo['供应商类别-大类']) {
+                $category = SupplierCategory::getCategoryByName($vo['供应商类别-大类'], 2);
+                if ($category) {
+                    $supplierModel->cate_id2 = $category->id;
+                } else {
+
+                }
+            } else {
+
+            }
+            //供应商子类
+            if ($vo['供应商类别-子类']) {
+                $category = SupplierCategory::getCategoryByName($vo['供应商类别-子类'], 3);
+                if ($category) {
+                    $supplierModel->cate_id3 = $category->id;
+                } else {
+
+                }
+            } else {
+
+            }
+            //供应商全称
+            $supplierModel->name = $vo['供应商全称'];
+            //企业性质
+            if ($vo['企业性质']) {
+                $nature = SupplierNature::getNatureByName($vo['企业性质']);
+                if ($nature) {
+                    $supplierModel->firm_nature = $nature->id;
+                } else {
+                    //没有查到对应的企业性质名称
+
+                }
+            } else {
+                //没有填写对应的企业性质名称
+
+            }
+            //营业范围
+            $supplierModel->business_scope = $vo['营业范围'];
+            //与爱慕已合作内容
+            $supplierModel->coop_content = $vo['与爱慕已合作内容'];
+            //经营地址
+            $supplierModel->business_address = $vo['经营地址'];
+            //官网
+            $supplierModel->url = $vo['官网'];
+            //供应商业务类型
+            if ($vo['供应商业务类型']) {
+                $type = SupplierType::getTypeByName($vo['供应商业务类型']);
+                if ($type) {
+                    $supplierModel->business_type = $type->id;
+                } else {
+                    //没有查到对应的供应商业务类型名称
+
+                }
+            } else {
+                //没有填写对应的供应商业务类型名称
+
+            }
+            //
+            if ($vo['所属行业（参照2017年国民经济行业分类与代码）']) {
+                $trade = SupplierTrade::getTradeByName($vo['所属行业（参照2017年国民经济行业分类与代码）']);
+                if ($trade) {
+                    $supplierModel->trade = $trade->id;
+                } else {
+                    //没有查到对应的供应商业务类型名称
+
+                }
+            } else {
+                //没有填写对应的供应商业务类型名称
+
+            }
+            //注册时间
+            $supplierModel->register_date = date('Y-m-d', strtotime($vo['注册时间']));
+            //注册资金（万元）
+            $supplierModel->register_fund = (float)$vo['注册资金（万元）'];
+            //雇员人数
+            $supplierModel->headcount = $vo['雇员人数'];
+            //工厂概况-概述
+            $supplierModel->factory_summary = $vo['工厂概况-概述'];
+            //工厂概况-土地面积（㎡）
+            $supplierModel->factory_land_area = $vo['工厂概况-土地面积（㎡）'];
+            //工厂概况-厂房面积（㎡）
+            $supplierModel->factory_work_area = $vo['工厂概况-厂房面积（㎡）'];
+            //主要服务客户1
+            $supplierModel->business_customer1 = $vo['主要服务客户1'];
+            //主要服务客户2
+            $supplierModel->business_customer2 = $vo['主要服务客户2'];
+            //主要服务客户3
+            $supplierModel->business_customer3 = $vo['主要服务客户3'];
+            //主要原材料来源1
+            $supplierModel->material_name1 = $vo['主要原材料来源1'];
+            //主要原材料来源2
+            $supplierModel->material_name1 = $vo['主要原材料来源2'];
+            //主要原材料来源3
+            $supplierModel->material_name1 = $vo['主要原材料来源3'];
+            //重要仪器设备情况1
+            $supplierModel->instrument_device1 = $vo['重要仪器设备情况1'];
+            //重要仪器设备情况2
+            $supplierModel->instrument_device2 = $vo['重要仪器设备情况2'];
+            //重要仪器设备情况3
+            $supplierModel->instrument_device3 = $vo['重要仪器设备情况3'];
+            //重要仪器设备情况4
+            $supplierModel->instrument_device4 = $vo['重要仪器设备情况4'];
+            //上一年度营业额（万元）
+            $supplierModel->sales_latest = (float)$vo['上一年度营业额（万元）'];
+            //上一年度纳税额（万元）
+            if ($vo['上一年度纳税额（万元）'] == '-') {
+                $supplierModel->tax_latest = 0;
+            } else {
+                $supplierModel->tax_latest = (float)$vo['上一年度纳税额（万元）'];
+            }
+            //企业近三年履行社会责任情况
+            $supplierModel->social_responsibility = $vo['企业近三年履行社会责任情况'];
+            //联系人
+            $supplierModel->business_contact = $vo['联系人'];
+            //联系人职务
+            $supplierModel->business_position = $vo['联系人职务'];
+            //联系人座机号
+            $supplierModel->business_phone = $vo['联系人座机号'];
+            //联系人手机号
+            $supplierModel->business_mobile = $vo['联系人手机号'];
+            //联系人email
+            $supplierModel->business_email = $vo['联系人email'];
+            //法人代表
+            $supplierModel->legal_person = $vo['法人代表'];
+            //法人职务
+            $supplierModel->legal_position = $vo['法人职务'];
+            //法人电话
+            $supplierModel->legal_phone = $vo['法人电话'];
+            //企业主要部门
+            $supplierModel->department_name = $vo['企业主要部门'];
+            //主要部门负责人
+            $supplierModel->department_manager = $vo['主要部门负责人'];
+            //主要部门负责人电话
+            $supplierModel->department_manager_phone = $vo['主要部门负责人电话'];
+            //
+            $supplierModel->isNewRecord = true;
+            $supplierModel->save() && $supplierModel->id = 0;
         }
     }
 
