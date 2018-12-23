@@ -113,6 +113,7 @@ class SupplierDetail extends ActiveRecord
                 'trade_fund2',
                 'trade_fund3',           
                 'develop_department',
+                'sid',
             ],
         ];
     }
@@ -124,7 +125,8 @@ class SupplierDetail extends ActiveRecord
     public function rules()
     {
         return [
-          [['cate_id1','cate_id2','cate_id3','one_level_department','second_level_department','name','mobile','reason','coop_date','coop_fund1','coop_fund2','coop_fund3','trade_fund1','trade_fund2','trade_fund3','level'],'required'],
+          //[['cate_id1','cate_id2','cate_id3','one_level_department','second_level_department','name','mobile','reason','coop_date','coop_fund1','coop_fund2','coop_fund3','trade_fund1','trade_fund2','trade_fund3','level'],'required'],
+          ['sid','safe']
         ];
     }
 
@@ -149,7 +151,7 @@ class SupplierDetail extends ActiveRecord
         if (($model = self::findOne($id)) !== null) {
             return json_encode($model->toArray());
         } else {
-            throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
+            return false;
         }
     }     
 
@@ -159,25 +161,24 @@ class SupplierDetail extends ActiveRecord
       if (parent::beforeSave($insert)) {
           if ($insert) { // 新增操作
             $historyModel = new History;
-            $object_id = Yii::$app->request->get('sid');
+            $object_id = $this->sid;
             $field = 'level';
             $original = '';
             $result = $this->level;
             if ($result) {
               $level_result = SupplierLevel::getLevelById($result);
               $result_value = $level_result ? $level_result->level_name : '';
+              $desc = "新增供应商等级{{$result_value}}";
+              $historyModel::history($object_id,$field,$original,$result,$desc);
             }
-            $desc = "新增供应商等级{{$result_value}}";
-            $historyModel::history($object_id,$field,$original,$result,$desc);
-
             //对于cate_id1 进行操作
-            if ($this->cate_id1) {
+            if (is_array($this->cate_id1)) {
               $this->cate_id1 = implode(',', $this->cate_id1);
             }
-            if ($this->cate_id2) {
+            if (is_array($this->cate_id2)) {
               $this->cate_id2 = implode(',', $this->cate_id2);
             }
-            if ($this->cate_id3) {
+            if (is_array($this->cate_id3)) {
               $this->cate_id3 = implode(',', $this->cate_id3);
             }
           }else{
@@ -190,6 +191,8 @@ class SupplierDetail extends ActiveRecord
                   $field = 'level';
                   $original = $old->level;
                   $result = $this->level;
+                  $original_value = '';
+                  $result_value = '';
                   if ($original) {
                     $level_original = SupplierLevel::getLevelById($original);
                     $original_value = $level_original ? $level_original->level_name : '';
@@ -198,23 +201,60 @@ class SupplierDetail extends ActiveRecord
                     $level_result = SupplierLevel::getLevelById($result);
                     $result_value = $level_result ? $level_result->level_name : '';
                   }
-                  $desc = "更新供应商等级从{$original_value}到{$result_value}";
-                  $historyModel::history($object_id,$field,$original,$result,$desc);
+                  if ($original_value && $result_value) {
+                    $desc = "更新供应商等级从{$original_value}到{$result_value}";
+                    $historyModel::history($object_id,$field,$original,$result,$desc);
+                  }
+               
               }
               //对于cate_id1 进行操作
-              if ($this->cate_id1) {
+              if (is_array($this->cate_id1)) {
                 $this->cate_id1 = implode(',', $this->cate_id1);
               }
-              if ($this->cate_id2) {
+              if (is_array($this->cate_id2)) {
                 $this->cate_id2 = implode(',', $this->cate_id2);
               }
-              if ($this->cate_id3) {
+              if (is_array($this->cate_id3)) {
                 $this->cate_id3 = implode(',', $this->cate_id3);
               }
           }
+          //追加cate_id1  cate_id2  cate_id3到主表中。
+          //TODO
           return true;
       } else {
           return false;
       }
     }
+
+    /**
+    * @param bool $insert
+    * @param array $changedAttributes
+    */
+    public function afterSave($insert, $changedAttributes)
+    {
+        //新增操作
+        if ($insert) {
+          $this->fund_year1 = date('Y') - 3;
+          $this->fund_year2 = date('Y') - 2;
+          $this->fund_year3 = date('Y') - 1;
+
+           $funds = array();
+           for($i=1;$i<=3;$i++) {
+              $funds[$i-1]["sid"] = $this->sid;
+              $funds[$i-1]["detail_id"] = $this->id;
+              $coop_fund = "coop_fund{$i}";
+              $trade_fund = "trade_fund{$i}";
+              $fund_year = "fund_year{$i}";
+              $funds[$i-1]["coop_fund"] = $this->{$coop_fund};
+              $funds[$i-1]["trade_fund"] = $this->{$trade_fund};
+              $funds[$i-1]["year"] = $this->{$fund_year};
+              $funds[$i-1]["created_at"] = time();
+              $funds[$i-1]["updated_at"] = time();
+          }     
+          Yii::$app->db->createCommand()->batchInsert('supplier_funds',['sid','detail_id','coop_fund','trade_fund','year','created_at','updated_at'],$funds)->execute();
+        } else { // 编辑操作
+            // do other sth.
+        }
+    }    
+
 }

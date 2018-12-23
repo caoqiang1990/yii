@@ -357,6 +357,8 @@ class Supplier extends ActiveRecord
                     $field = 'firm_nature';
                     $original = $old->firm_nature;
                     $result = $this->firm_nature;
+                    $original_value = '';
+                    $result_value = '';
                     if ($original) {
                         $nature_original = SupplierNature::getNatureById($original);
                         $original_value = $nature_original ? $nature_original->nature_name : '';
@@ -365,8 +367,10 @@ class Supplier extends ActiveRecord
                         $nature_result = SupplierNature::getNatureById($result);
                         $result_value = $nature_result ? $nature_result->nature_name : '';
                     }
-                    $desc = "更新企业性质从{{$original_value}}到{{$result_value}}";
-                    $historyModel::history($object_id,$field,$original,$result,$desc);
+                    if ($original_value && $result_value) {
+                        $desc = "更新企业性质从{{$original_value}}到{{$result_value}}";
+                        $historyModel::history($object_id,$field,$original,$result,$desc);
+                    }
                 }
             }
             return true;
@@ -406,6 +410,24 @@ class Supplier extends ActiveRecord
         } else { // 编辑操作
             // do other sth.
         }
+    }    
+
+    /*
+     *
+     * 根据名称获取企业等级
+     *
+     * **/
+    public static function getSupplierByName($name)
+    {
+        if (!$name) {
+            return false;
+        }
+        $where['name'] = $name;
+        $info = self::find()->where($where)->one();
+        if ($info) {
+            return $info;
+        }
+        return false;
     }    
 
 }

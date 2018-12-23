@@ -20,6 +20,8 @@ use backend\models\UploadForm;
 use common\models\AdminLog;
 use moonland\phpexcel\Excel;
 use backend\models\SupplierNature;
+use yii\web\BadRequestHttpException;
+use backend\models\SupplierDetail;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -249,28 +251,39 @@ class SupplierController extends Controller
      */
     public function actionImport($filePath = '')
     {
+        set_time_limit(1800);
         Yii::$app->response->format = Response::FORMAT_JSON;
         $data = Excel::import($filePath, [
             'setFirstRecordAsKeys' => true,
             'setIndexSheetByName' => true,
             'getOnlySheet' => 'Sheet1',
         ]);
+
         $supplierModel = new Supplier;
         foreach ($data as $vo) {
-            $supplierModel->scenario = 'add';
-            //供应商等级
-            if ($vo['供应商等级']) {
-                $level = SupplierLevel::getLevelByName($vo['供应商等级']);
-                if ($level) {
-                    $supplierModel->level = $level->id;
-                } else {
-                    //没有查到对应的供应商等级名称
-
+            if ($vo['供应商全称']) {
+                $supplier = Supplier::getSupplierByName($vo['供应商全称']);
+                if ($supplier) {
+                    continue;
                 }
-            } else {
-                //没有填写对应的供应商等级名称
-
             }
+            //供应商全称
+            $supplierModel->name = $vo['供应商全称'];
+
+            $supplierModel->scenario = 'add';
+            // //供应商等级
+            // if ($vo['供应商等级']) {
+            //     $level = SupplierLevel::getLevelByName($vo['供应商等级']);
+            //     if ($level) {
+            //         $supplierModel->level = $level->id;
+            //     } else {
+            //         //没有查到对应的供应商等级名称
+
+            //     }
+            // } else {
+            //     //没有填写对应的供应商等级名称
+
+            // }
             //供应商总类
             if ($vo['供应商类别-总类']) {
                 $category = SupplierCategory::getCategoryByName($vo['供应商类别-总类'], 1);
@@ -304,8 +317,7 @@ class SupplierController extends Controller
             } else {
 
             }
-            //供应商全称
-            $supplierModel->name = $vo['供应商全称'];
+
             //企业性质
             if ($vo['企业性质']) {
                 $nature = SupplierNature::getNatureByName($vo['企业性质']);
@@ -354,7 +366,12 @@ class SupplierController extends Controller
 
             }
             //注册时间
-            $supplierModel->register_date = date('Y-m-d', strtotime($vo['注册时间']));
+            if ($vo['注册时间'] && $vo['注册时间'] != '-') {
+                $register_date = date_parse_from_format('m-d-y', $vo['注册时间']);
+                $supplierModel->register_date = "{$register_date['year']}-{$register_date['month']}-{$register_date['day']}";
+            }else{
+                $supplierModel->register_date = $vo['注册时间'];
+            }
             //注册资金（万元）
             $supplierModel->register_fund = (float)$vo['注册资金（万元）'];
             //雇员人数
@@ -419,7 +436,70 @@ class SupplierController extends Controller
             $supplierModel->department_manager_phone = $vo['主要部门负责人电话'];
             //
             $supplierModel->isNewRecord = true;
-            $supplierModel->save() && $supplierModel->id = 0;
+            //$supplierModel->save() && $supplierModel->id = 0;
+            //添加供应商成功
+            if($supplierModel->save()) {
+                $supplierDetailModel = new SupplierDetail();
+                $supplierDetailModel->scenario = 'add';
+                //供应商id
+                $supplierDetailModel->sid = $supplierModel->id;
+                //cate_id1
+                $supplierDetailModel->cate_id1 = $supplierModel->cate_id1;
+                //cate_id2
+                $supplierDetailModel->cate_id2 = $supplierModel->cate_id2;
+                //cate_id3
+                $supplierDetailModel->cate_id3 = $supplierModel->cate_id3;
+                //供应商等级
+                if ($vo['供应商等级']) {
+                    $level = SupplierLevel::getLevelByName($vo['供应商等级']);
+                    if ($level) {
+                        $supplierDetailModel->level = $level->id;
+                    } else {
+                        //没有查到对应的供应商等级名称
+
+                    }
+                } else {
+                    //没有填写对应的供应商等级名称
+
+                }                
+                //一级部门
+                $supplierDetailModel->one_level_department = $vo['一级部门'];
+                //二级部门
+                $supplierDetailModel->second_level_department = $vo['二级部门'];
+                //开发部门（写二级部门）
+                $supplierDetailModel->develop_department = $vo['开发部门（写二级部门）'];
+                //合作起始时间（年月）
+                $supplierDetailModel->coop_date = $vo['合作起始时间（年月）'];
+                //2015年合同金额（万元）
+                $supplierDetailModel->coop_fund1 = $vo['2015年合同金额（万元）'];
+                //2015年交易金额（万元）
+                $supplierDetailModel->trade_fund1 = $vo['2015年交易金额（万元）'];
+                //2016年合同金额（万元）
+                $supplierDetailModel->coop_fund2 = $vo['2016年合同金额（万元）'];
+                //2016年交易金额（万元）
+                $supplierDetailModel->trade_fund2 = $vo['2016年交易金额（万元）'];
+                //2017年合同金额（万元）
+                $supplierDetailModel->coop_fund3 = $vo['2017年合同金额（万元）'];
+                //2017年交易金额（万元）
+                $supplierDetailModel->trade_fund3 = $vo['2017年交易金额（万元）'];
+                //我方对接人
+                $supplierDetailModel->name = $vo['我方对接人'];
+                //我方对接人手机号
+                $supplierDetailModel->mobile = $vo['我方对接人手机号'];
+                //爱慕选择合作原因
+                $supplierDetailModel->reason = $vo['爱慕选择合作原因'];
+
+                $supplierDetailModel->isNewRecord = true;
+
+
+                //保存
+                $supplierDetailModel->save();
+                var_dump($supplierModel->id);
+                echo '------';
+                var_dump($supplierDetailModel);die;
+
+                $supplierModel->id = 0;
+            }
         }
     }
 

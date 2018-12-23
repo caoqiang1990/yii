@@ -145,7 +145,6 @@ class SupplierLevel extends ActiveRecord
             return $info;
         }
         return false;
-
     }
 
 }
