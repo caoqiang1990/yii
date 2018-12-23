@@ -37,14 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model->name,$url,$options);
                 }
             ],
-            [
-                'attribute' => 'level',
-                'value' => function($model){
-                    $levelModel = new SupplierLevel;
-                    return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
-                },
-                'filter' => SupplierLevel::getLevel(),
-            ],
+            // [
+            //     'attribute' => 'level',
+            //     'value' => function($model){
+            //         $levelModel = new SupplierLevel;
+            //         return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
+            //     },
+            //     'filter' => SupplierLevel::getLevel(),
+            // ],
             [
                 'attribute' => 'trade',
                 'value' => function($model){
