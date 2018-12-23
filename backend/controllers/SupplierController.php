@@ -278,7 +278,7 @@ class SupplierController extends Controller
 
                     }
                 } else {
-
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商类别-总类不能为空!");
                 }
                 //供应商大类
                 if ($vo['供应商类别-大类']) {
@@ -289,7 +289,7 @@ class SupplierController extends Controller
 
                     }
                 } else {
-
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商类别-大类不能为空!");
                 }
                 //供应商子类
                 if ($vo['供应商类别-子类']) {
@@ -300,7 +300,7 @@ class SupplierController extends Controller
 
                     }
                 } else {
-
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商类别-子类不能为空!");
                 }
 
                 //企业性质
@@ -314,7 +314,7 @@ class SupplierController extends Controller
                     }
                 } else {
                     //没有填写对应的企业性质名称
-
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的企业性质不能为空!");
                 }
                 //营业范围
                 $supplierModel->business_scope = $vo['营业范围'];
@@ -335,7 +335,7 @@ class SupplierController extends Controller
                     }
                 } else {
                     //没有填写对应的供应商业务类型名称
-
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商业务类型不能为空!");
                 }
                 //
                 if ($vo['所属行业（参照2017年国民经济行业分类与代码）']) {
@@ -348,7 +348,7 @@ class SupplierController extends Controller
                     }
                 } else {
                     //没有填写对应的供应商业务类型名称
-
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的所属行业不能为空!");
                 }
                 //注册时间
                 if ($vo['注册时间'] && $vo['注册时间'] != '-') {
