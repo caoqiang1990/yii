@@ -250,7 +250,7 @@ class SupplierController extends Controller
                         continue;
                     }
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商不能为空!");
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商全称不能为空!");
                 }
                 //供应商全称
                 $supplierModel->name = $vo['供应商全称'];
@@ -319,9 +319,17 @@ class SupplierController extends Controller
                 //营业范围
                 $supplierModel->business_scope = $vo['营业范围'];
                 //与爱慕已合作内容
-                $supplierModel->coop_content = $vo['与爱慕已合作内容'];
+                if ($vo['与爱慕已合作内容']) {
+                    $supplierModel->coop_content = $vo['与爱慕已合作内容'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的与爱慕已合作内容不能为空!");
+                }
                 //经营地址
-                $supplierModel->business_address = $vo['经营地址'];
+                if ($vo['经营地址']) {
+                    $supplierModel->business_address = $vo['经营地址'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的经营地址不能为空!");
+                }
                 //官网
                 $supplierModel->url = $vo['官网'];
                 //供应商业务类型
@@ -358,7 +366,11 @@ class SupplierController extends Controller
                     $supplierModel->register_date = $vo['注册时间'];
                 }
                 //注册资金（万元）
-                $supplierModel->register_fund = (float)$vo['注册资金（万元）'];
+                if ((float)$vo['注册资金（万元）']) {
+                    $supplierModel->register_fund = (float)$vo['注册资金（万元）'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的注册资金（万元）不能为空!");
+                }
                 //雇员人数
                 $supplierModel->headcount = $vo['雇员人数'];
                 //工厂概况-概述
@@ -398,27 +410,72 @@ class SupplierController extends Controller
                 //企业近三年履行社会责任情况
                 $supplierModel->social_responsibility = $vo['企业近三年履行社会责任情况'];
                 //联系人
-                $supplierModel->business_contact = $vo['联系人'];
+                if ($vo['联系人']) {
+                    $supplierModel->business_contact = $vo['联系人'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的联系人不能为空!");
+                }
                 //联系人职务
-                $supplierModel->business_position = $vo['联系人职务'];
+                if ($vo['联系人职务']) {
+                    $supplierModel->business_position = $vo['联系人职务'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的联系人职务不能为空!");
+                }
                 //联系人座机号
-                $supplierModel->business_phone = $vo['联系人座机号'];
+                if ($vo['联系人座机号']) {
+                    $supplierModel->business_phone = $vo['联系人座机号'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的联系人职务不能为空!");
+                }
                 //联系人手机号
-                $supplierModel->business_mobile = $vo['联系人手机号'];
+                if ($vo['联系人手机号']) {
+                    $supplierModel->business_mobile = $vo['联系人手机号'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的联系人手机号不能为空!");
+                }
                 //联系人email
                 $supplierModel->business_email = $vo['联系人email'];
+                if ($vo['联系人email']) {
+                    $supplierModel->business_email = $vo['联系人email'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的联系人email不能为空!");
+                }
                 //法人代表
-                $supplierModel->legal_person = $vo['法人代表'];
+                if ($vo['法人代表']) {
+                    $supplierModel->legal_person = $vo['法人代表'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的法人代表不能为空!");
+                }
                 //法人职务
-                $supplierModel->legal_position = $vo['法人职务'];
+                if ($vo['法人职务']) {
+                    $supplierModel->legal_position = $vo['法人职务'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的法人职务不能为空!");
+                }
                 //法人电话
-                $supplierModel->legal_phone = $vo['法人电话'];
+                if ($vo['法人电话']) {
+                    $supplierModel->legal_phone = $vo['法人电话'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的法人电话不能为空!");
+                }
                 //企业主要部门
-                $supplierModel->department_name = $vo['企业主要部门'];
+                if ($vo['企业主要部门']) {
+                    $supplierModel->department_name = $vo['企业主要部门'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的企业主要部门不能为空!");
+                }
                 //主要部门负责人
-                $supplierModel->department_manager = $vo['主要部门负责人'];
+                if ($vo['主要部门负责人']) {
+                    $supplierModel->department_manager = $vo['主要部门负责人'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的主要部门负责人不能为空!");
+                }
                 //主要部门负责人电话
-                $supplierModel->department_manager_phone = $vo['主要部门负责人电话'];
+                if ($vo['主要部门负责人电话']) {
+                    $supplierModel->department_manager_phone = $vo['主要部门负责人电话'];
+                } else {
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的主要部门负责人电话不能为空!");
+                }
                 //
                 $supplierModel->isNewRecord = true;
                 //$supplierModel->save() && $supplierModel->id = 0;
