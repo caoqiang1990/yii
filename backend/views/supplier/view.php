@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
+use mdm\admin\components\Helper; 
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Suppliers */

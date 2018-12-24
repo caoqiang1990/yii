@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use backend\models\Supplier;
+use mdm\admin\components\Helper; 
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\SupplierDetail */

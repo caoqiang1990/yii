@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use mdm\admin\components\Helper; 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SupplierNatureSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */

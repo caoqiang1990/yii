@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use mdm\admin\components\Helper; 
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SupplierTradeSearch */
