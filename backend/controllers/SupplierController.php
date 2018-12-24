@@ -243,6 +243,7 @@ class SupplierController extends Controller
             ]);
 
             $supplierModel = new Supplier;
+            var_dump($data);die;
             foreach ($data as $vo) {
                 if ($vo['供应商全称']) {
                     $supplier = Supplier::getSupplierByName($vo['供应商全称']);

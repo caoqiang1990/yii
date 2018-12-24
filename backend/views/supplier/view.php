@@ -15,7 +15,10 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
 <div class="suppliers-view">
 
     <p>
+    <?php if(Helper::checkRoute('Update')) {  ?>
         <?= Html::a(Yii::t('suppliers', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    <?php } ?>
+    <?php if(Helper::checkRoute('Delete')) {  ?>
         <?= Html::a(Yii::t('suppliers', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -23,6 +26,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
                 'method' => 'post',
             ],
         ]) ?>
+    <?php }  ?>
     </p>
 
     <?= DetailView::widget([

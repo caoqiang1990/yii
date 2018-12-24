@@ -12,7 +12,10 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('nature', 'Supplier Natures'
 <div class="supplier-nature-view">
 
     <p>
+    <?php if(Helper::checkRoute('Update')) {  ?>
         <?= Html::a(Yii::t('nature', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    <?php }  ?>
+    <?php if(Helper::checkRoute('Delete')) {  ?>
         <?= Html::a(Yii::t('nature', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -20,6 +23,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('nature', 'Supplier Natures'
                 'method' => 'post',
             ],
         ]) ?>
+    <?php }  ?>
     </p>
 
     <?= DetailView::widget([

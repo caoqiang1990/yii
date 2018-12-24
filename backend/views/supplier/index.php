@@ -6,6 +6,7 @@ use yii\widgets\Pjax;
 use yii\helpers\Url;
 use backend\models\SupplierLevel;
 use backend\models\SupplierTrade;
+use mdm\admin\components\Helper; 
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SuppliersSearch */
@@ -20,8 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
+    <?php if(Helper::checkRoute('create')) {  ?>
         <?= Html::a(Yii::t('suppliers', 'Create Suppliers'), ['create'], ['class' => 'btn btn-success']) ?>
+    <?php } ?>
+    <?php if(Helper::checkRoute('uploadxls')) {  ?>
         <?= Html::a(Yii::t('suppliers', 'Import Suppliers'), ['uploadxls'], ['class' => 'btn btn-success']) ?>
+    <?php } ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -100,8 +105,9 @@ $this->params['breadcrumbs'][] = $this->title;
             // ],
 
             [
+                'header' => '操作',
                 'class' => 'yii\grid\ActionColumn',
-                'header' => '操作'
+                'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
 
             ],
             [

@@ -16,7 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
+    <?php if(Helper::checkRoute('create')) {  ?>
         <?= Html::a(Yii::t('category', 'Create Supplier Category'), ['create'], ['class' => 'btn btn-success']) ?>
+    <?php } ?>
     </p>
 
     <?= GridView::widget([
@@ -77,7 +79,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'header' => '操作',
+                'class' => 'yii\grid\ActionColumn',
+                'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
+
+            ],            
         ],
     ]); ?>
 </div>

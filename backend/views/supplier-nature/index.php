@@ -16,7 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
+    <?php if(Helper::checkRoute('create')) {  ?>
         <?= Html::a(Yii::t('nature', 'Create Supplier Nature'), ['create'], ['class' => 'btn btn-success']) ?>
+    <?php } ?>
     </p>
 
     <?= GridView::widget([
@@ -42,7 +44,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'header' => '操作',
+                'class' => 'yii\grid\ActionColumn',
+                'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
+
+            ],  
         ],
     ]); ?>
     <?php Pjax::end(); ?>

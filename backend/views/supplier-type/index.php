@@ -15,7 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
+    <?php if(Helper::checkRoute('create')) {  ?>
         <?= Html::a('新增合作业务类型', ['create'], ['class' => 'btn btn-success']) ?>
+    <?php }  ?>
     </p>
 
     <?= GridView::widget([
@@ -43,8 +45,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return date('Y-m-d H:i:s',$model->updated_at);
                 }
             ], 
+            [
+                'header' => '操作',
+                'class' => 'yii\grid\ActionColumn',
+                'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ],  
         ],
     ]); ?>
 </div>
