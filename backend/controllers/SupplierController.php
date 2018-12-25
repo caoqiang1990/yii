@@ -428,7 +428,7 @@ class SupplierController extends Controller
 
                 //注册资金（万元）
                 if ((float)$vo['注册资金（万元）']) {
-                    $supplierModel->register_fund = (float)$vo['注册资金（万元）'];
+                    $supplierModel->register_fund = $vo['注册资金（万元）'];
                 } else {
                     //throw new BadRequestHttpException("编号为{$vo['编号']}的注册资金（万元）不能为空!");
                 }
@@ -466,12 +466,12 @@ class SupplierController extends Controller
                 //重要仪器设备情况4
                 $supplierModel->instrument_device4 = $vo['重要仪器设备情况4'];
                 //上一年度营业额（万元）
-                $supplierModel->sales_latest = (float)$vo['上一年度营业额（万元）'];
+                $supplierModel->sales_latest = $vo['上一年度营业额（万元）'];
                 //上一年度纳税额（万元）
                 if ($vo['上一年度纳税额（万元）'] == '-') {
                     $supplierModel->tax_latest = 0;
                 } else {
-                    $supplierModel->tax_latest = (float)$vo['上一年度纳税额（万元）'];
+                    $supplierModel->tax_latest = $vo['上一年度纳税额（万元）'];
                 }
                 //企业近三年履行社会责任情况
                 $supplierModel->social_responsibility = $vo['企业近三年履行社会责任情况'];
