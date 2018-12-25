@@ -12,7 +12,7 @@ return [
   'DetailView' => '供应商详情',
   'Update Suppliers: ' => '更新供应商：',
   'id' => '序号',
-  'name' => '供应商名字(*)',
+  'name' => '供应商名字',
   'level' => '供应商等级',
   'firm_nature' => '企业性质',
   'legal_person' => '法人',

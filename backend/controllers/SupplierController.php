@@ -22,6 +22,7 @@ use moonland\phpexcel\Excel;
 use backend\models\SupplierNature;
 use yii\web\BadRequestHttpException;
 use backend\models\SupplierDetail;
+use mdm\admin\components\Configs;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -48,6 +49,28 @@ class SupplierController extends Controller
      * @return mixed
      */
     public function actionIndex()
+    {
+        $searchModel = new SupplierSearch();
+        $request = Yii::$app->request->queryParams;
+        $department = Yii::$app->user->identity->department;
+        //排除这几个一级部门
+        $filter_department = ['大数据信息中心','总裁办','品管部','供应链部'];
+        if (!in_array($department,$filter_department)) {
+            $request['SupplierSearch']['cate_id1'] = [13,14,16];
+        }
+        $dataProvider = $searchModel->search($request);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists all Suppliers models.
+     * @return mixed
+     */
+    public function actionAdmin()
     {
         $searchModel = new SupplierSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -244,14 +267,19 @@ class SupplierController extends Controller
 
             $supplierModel = new Supplier;
             foreach ($data as $vo) {
-                if ($vo['供应商全称']) {
-                    $supplier = Supplier::getSupplierByName($vo['供应商全称']);
-                    if ($supplier) {
-                        continue;
+                if (isset($vo['供应商全称'])) {
+                    if ($vo['供应商全称']) {
+                        $supplier = Supplier::getSupplierByName($vo['供应商全称']);
+                        if ($supplier) {
+                            continue;
+                        }
+                    } else {
+                        throw new BadRequestHttpException("编号为{$vo['编号']}的供应商全称不能为空!");
                     }
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商全称不能为空!");
+                    throw new BadRequestHttpException("供应商全称不存在");
                 }
+
                 //供应商全称
                 $supplierModel->name = $vo['供应商全称'];
 
@@ -270,83 +298,113 @@ class SupplierController extends Controller
 
                 // }
                 //供应商总类
+                if (isset($vo['供应商分类一级'])) {
+                    if ($vo['供应商分类一级']) {
+                        $category = SupplierCategory::getCategoryByName($vo['供应商分类一级'], 1);
+                        if ($category) {
+                            $supplierModel->cate_id1 = $category->id;
+                        } else {
 
-                if ($vo['供应商分类一级']) {
-                    $category = SupplierCategory::getCategoryByName($vo['供应商分类一级'], 1);
-                    if ($category) {
-                        $supplierModel->cate_id1 = $category->id;
+                        }
                     } else {
-
+                        throw new BadRequestHttpException("编号为{$vo['编号']}的供应商分类一级不能为空!");
                     }
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商分类一级不能为空!");
+                    throw new BadRequestHttpException("供应商分类一级不存在");
                 }
+
                 //供应商大类
-                if ($vo['供应商分类二级']) {
-                    $category = SupplierCategory::getCategoryByName($vo['供应商分类二级'], 2);
-                    if ($category) {
-                        $supplierModel->cate_id2 = $category->id;
-                    } else {
+                if (isset($vo['供应商分类二级'])) {
+                    if ($vo['供应商分类二级']) {
+                        $category = SupplierCategory::getCategoryByName($vo['供应商分类二级'], 2);
+                        if ($category) {
+                            $supplierModel->cate_id2 = $category->id;
+                        } else {
 
+                        }
+                    } else {
+                        throw new BadRequestHttpException("编号为{$vo['编号']}的供应商分类二级不能为空!");
                     }
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商分类二级不能为空!");
+                    throw new BadRequestHttpException("供应商分类二级不存在");
                 }
-                //供应商子类
-                if ($vo['供应商分类三级']) {
-                    $category = SupplierCategory::getCategoryByName($vo['供应商分类三级'], 3);
-                    if ($category) {
-                        $supplierModel->cate_id3 = $category->id;
-                    } else {
 
+                //供应商子类
+                if (isset($vo['供应商分类三级'])) {
+                    if ($vo['供应商分类三级']) {
+                        $category = SupplierCategory::getCategoryByName($vo['供应商分类三级'], 3);
+                        if ($category) {
+                            $supplierModel->cate_id3 = $category->id;
+                        } else {
+
+                        }
+                    } else {
+                        throw new BadRequestHttpException("编号为{$vo['编号']}的供应商分类三级不能为空!");
                     }
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商分类三级不能为空!");
+                    throw new BadRequestHttpException("供应商分类三级不存在");
                 }
 
                 //企业性质
-                if ($vo['企业性质']) {
-                    $nature = SupplierNature::getNatureByName($vo['企业性质']);
-                    if ($nature) {
-                        $supplierModel->firm_nature = $nature->id;
-                    } else {
-                        //没有查到对应的企业性质名称
+                if (isset($vo['企业性质'])) {
+                    if ($vo['企业性质']) {
+                        $nature = SupplierNature::getNatureByName($vo['企业性质']);
+                        if ($nature) {
+                            $supplierModel->firm_nature = $nature->id;
+                        } else {
+                            //没有查到对应的企业性质名称
 
+                        }
+                    } else {
+                        //没有填写对应的企业性质名称
+                        throw new BadRequestHttpException("编号为{$vo['编号']}的企业性质不能为空!");
                     }
                 } else {
-                    //没有填写对应的企业性质名称
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的企业性质不能为空!");
+                    throw new BadRequestHttpException("企业性质不存在");
                 }
+
                 //营业范围
-                $supplierModel->business_scope = $vo['营业范围'];
+                if (isset($vo['营业范围'])) {
+                    $supplierModel->business_scope = $vo['营业范围'];
+                } else {
+                    throw new BadRequestHttpException("营业范围不存在");
+                }
                 //与爱慕已合作内容
                 if ($vo['与爱慕已合作内容']) {
                     $supplierModel->coop_content = $vo['与爱慕已合作内容'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的与爱慕已合作内容不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的与爱慕已合作内容不能为空!");
                 }
+
                 //经营地址
                 if ($vo['经营地址']) {
                     $supplierModel->business_address = $vo['经营地址'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的经营地址不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的经营地址不能为空!");
                 }
+
                 //官网
                 $supplierModel->url = $vo['官网'];
+                
                 //供应商业务类型
-                if ($vo['供应商合作类型']) {
-                    $type = SupplierType::getTypeByName($vo['供应商合作类型']);
-                    if ($type) {
-                        $supplierModel->business_type = $type->id;
-                    } else {
-                        //没有查到对应的供应商业务类型名称
+                if (isset($vo['供应商合作类型'])) {
+                    if ($vo['供应商合作类型']) {
+                        $type = SupplierType::getTypeByName($vo['供应商合作类型']);
+                        if ($type) {
+                            $supplierModel->business_type = $type->id;
+                        } else {
+                            //没有查到对应的供应商业务类型名称
 
+                        }
+                    } else {
+                        //没有填写对应的供应商业务类型名称
+                        throw new BadRequestHttpException("编号为{$vo['编号']}的供应商业务类型不能为空!");
                     }
                 } else {
-                    //没有填写对应的供应商业务类型名称
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商业务类型不能为空!");
+                    throw new BadRequestHttpException("供应商合作类型不存在");
                 }
-                //
+
+                //所属行业（参照2017年国民经济行业分类与代码）
                 if ($vo['所属行业（参照2017年国民经济行业分类与代码）']) {
                     $trade = SupplierTrade::getTradeByName($vo['所属行业（参照2017年国民经济行业分类与代码）']);
                     if ($trade) {
@@ -357,8 +415,9 @@ class SupplierController extends Controller
                     }
                 } else {
                     //没有填写对应的供应商业务类型名称
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的所属行业不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的所属行业不能为空!");
                 }
+
                 //注册时间
                 if ($vo['注册时间'] && $vo['注册时间'] != '-') {
                     $register_date = date_parse_from_format('m-d-y', $vo['注册时间']);
@@ -366,12 +425,14 @@ class SupplierController extends Controller
                 }else{
                     $supplierModel->register_date = $vo['注册时间'];
                 }
+
                 //注册资金（万元）
                 if ((float)$vo['注册资金（万元）']) {
                     $supplierModel->register_fund = (float)$vo['注册资金（万元）'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的注册资金（万元）不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的注册资金（万元）不能为空!");
                 }
+
                 //雇员人数
                 $supplierModel->headcount = $vo['雇员人数'];
                 //工厂概况-概述
@@ -385,13 +446,17 @@ class SupplierController extends Controller
                 //主要服务客户2
                 $supplierModel->business_customer2 = $vo['主要服务客户2'];
                 //主要服务客户3
-                $supplierModel->business_customer3 = $vo['主要服务客户3'];
+                if (isset($vo['主要服务客户3'])) {
+                    $supplierModel->business_customer3 = $vo['主要服务客户3'];
+                } else {
+                    //throw new BadRequestHttpException("主要服务客户3不存在");
+                }
                 //主要原材料来源1
                 $supplierModel->material_name1 = $vo['主要原材料来源1'];
                 //主要原材料来源2
-                $supplierModel->material_name1 = $vo['主要原材料来源2'];
+                $supplierModel->material_name2 = $vo['主要原材料来源2'];
                 //主要原材料来源3
-                $supplierModel->material_name1 = $vo['主要原材料来源3'];
+                $supplierModel->material_name3 = $vo['主要原材料来源3'];
                 //重要仪器设备情况1
                 $supplierModel->instrument_device1 = $vo['重要仪器设备情况1'];
                 //重要仪器设备情况2
@@ -414,68 +479,74 @@ class SupplierController extends Controller
                 if ($vo['联系人']) {
                     $supplierModel->business_contact = $vo['联系人'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的联系人不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的联系人不能为空!");
                 }
+
                 //联系人职务
                 if ($vo['联系人职务']) {
                     $supplierModel->business_position = $vo['联系人职务'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的联系人职务不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的联系人职务不能为空!");
                 }
+
                 //联系人座机号
                 if ($vo['联系人座机号']) {
                     $supplierModel->business_phone = $vo['联系人座机号'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的联系人职务不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的联系人座机号不能为空!");
                 }
+
                 //联系人手机号
                 if ($vo['联系人手机号']) {
                     $supplierModel->business_mobile = $vo['联系人手机号'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的联系人手机号不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的联系人手机号不能为空!");
                 }
+
                 //联系人email
-                $supplierModel->business_email = $vo['联系人email'];
                 if ($vo['联系人email']) {
                     $supplierModel->business_email = $vo['联系人email'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的联系人email不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的联系人email不能为空!");
                 }
+
                 //法人代表
                 if ($vo['法人代表']) {
                     $supplierModel->legal_person = $vo['法人代表'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的法人代表不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的法人代表不能为空!");
                 }
                 //法人职务
                 if ($vo['法人职务']) {
                     $supplierModel->legal_position = $vo['法人职务'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的法人职务不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的法人职务不能为空!");
                 }
+
                 //法人电话
                 if ($vo['法人电话']) {
                     $supplierModel->legal_phone = $vo['法人电话'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的法人电话不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的法人电话不能为空!");
                 }
                 //企业主要部门
                 if ($vo['企业主要部门']) {
                     $supplierModel->department_name = $vo['企业主要部门'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的企业主要部门不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的企业主要部门不能为空!");
                 }
                 //主要部门负责人
                 if ($vo['主要部门负责人']) {
                     $supplierModel->department_manager = $vo['主要部门负责人'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的主要部门负责人不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的主要部门负责人不能为空!");
                 }
+
                 //主要部门负责人电话
                 if ($vo['主要部门负责人电话']) {
                     $supplierModel->department_manager_phone = $vo['主要部门负责人电话'];
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的主要部门负责人电话不能为空!");
+                    //throw new BadRequestHttpException("编号为{$vo['编号']}的主要部门负责人电话不能为空!");
                 }
                 //
                 $supplierModel->isNewRecord = true;
@@ -493,18 +564,23 @@ class SupplierController extends Controller
                     //cate_id3
                     $supplierDetailModel->cate_id3 = $supplierModel->cate_id3;
                     //供应商等级
-                    if ($vo['供应商等级']) {
-                        $level = SupplierLevel::getLevelByName($vo['供应商等级']);
-                        if ($level) {
-                            $supplierDetailModel->level = $level->id;
+                    if (isset($vo['供应商等级'])) {
+                       if ($vo['供应商等级']) {
+                            $level = SupplierLevel::getLevelByName($vo['供应商等级']);
+                            if ($level) {
+                                $supplierDetailModel->level = $level->id;
+                            } else {
+                                //没有查到对应的供应商等级名称
+
+                            }
                         } else {
-                            //没有查到对应的供应商等级名称
+                            //没有填写对应的供应商等级名称
 
-                        }
+                        } 
                     } else {
-                        //没有填写对应的供应商等级名称
-
-                    }                
+                        throw new BadRequestHttpException("供应商等级不存在");
+                    }
+                
                     //一级部门
                     $supplierDetailModel->one_level_department = $vo['一级部门'];
                     //二级部门

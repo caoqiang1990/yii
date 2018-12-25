@@ -126,7 +126,9 @@ class SupplierDetail extends ActiveRecord
     {
         return [
           //[['cate_id1','cate_id2','cate_id3','one_level_department','second_level_department','name','mobile','reason','coop_date','coop_fund1','coop_fund2','coop_fund3','trade_fund1','trade_fund2','trade_fund3','level'],'required'],
-          ['sid','safe']
+          ['sid','safe'],
+          ['one_level_department','safe']
+
         ];
     }
 

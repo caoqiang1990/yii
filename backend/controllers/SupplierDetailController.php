@@ -42,10 +42,14 @@ class SupplierDetailController extends Controller
     public function actionIndex()
     {
         $searchModel = new SupplierDetailSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        //与我方关系与部门相关
+        $department = Yii::$app->user->identity->department;
+        $request['SupplierDetailSearch'] = Yii::$app->request->queryParams;
+        $request['SupplierDetailSearch']['one_level_department'] = $department;
+        $dataProvider = $searchModel->search($request);
 
         $sid = Yii::$app->request->get('sid');
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

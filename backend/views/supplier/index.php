@@ -57,13 +57,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => SupplierTrade::getTrade(),
             ],
-            [
-                'attribute' => 'total_fund',
-                'value' => function($model){
-                    $fund = $model->getTotalFund($model->id);
-                    return $fund ? $fund->trade_fund : '';
-                }
-            ],
+            // [
+            //     'attribute' => 'total_fund',
+            //     'value' => function($model){
+            //         $fund = $model->getTotalFund($model->id);
+            //         return $fund ? $fund->trade_fund : '';
+            //     }
+            // ],
             'business_contact',  
             'business_email',
             //'business_license',
@@ -113,16 +113,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
             [
-                'label'=>  (Helper::checkRoute('supplier-detail/create') || Helper::checkRoute('history/index')) ? '更多操作' : '',
+                //'label'=>  (Helper::checkRoute('supplier-detail/create') || Helper::checkRoute('history/index')) ? '更多操作' : '',
+                'label'=>  (Helper::checkRoute('history/index')) ? '更多操作' : '',
                 'format'=>'raw',
                 'value' => function($model){
                 $operator_1 = '';
                 $operator_2 = '';
-                if (Helper::checkRoute('supplier-detail/create')) {
-                    $url_1 = Url::to(['supplier-detail/create','sid'=>$model->id]);
-                    $operator_1 = Html::a('与我方关系', $url_1, ['title' => '与我方关系']);
+                // if (Helper::checkRoute('supplier-detail/create')) {
+                //     $url_1 = Url::to(['supplier-detail/create','sid'=>$model->id]);
+                //     $operator_1 = Html::a('与我方关系', $url_1, ['title' => '与我方关系']);
 
-                }
+                // }
 
                 if (Helper::checkRoute('history/index')) {
                     $url_2 = Url::to(['history/index','object_id'=>$model->id]);

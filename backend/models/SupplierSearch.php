@@ -19,7 +19,7 @@ class SupplierSearch extends Supplier
     {
         return [
             [['id', 'created_at', 'updated_at','trade'], 'integer'],
-            [['name','business_contact','business_email'], 'safe'],
+            [['name','business_contact','business_email','cate_id1'], 'safe'],
         ];
     }
 
@@ -60,6 +60,7 @@ class SupplierSearch extends Supplier
         // grid filtering conditions
         $query->andFilterWhere(['like', 'name', $this->name]);
         $query->andFilterWhere(['like', 'business_contact', $this->business_contact]);
+        $query->andFilterWhere(['not in','cate_id1',$this->cate_id1]);
         $query->andFilterWhere([
             'id' => $this->id,
             //'name' => $this->name,
