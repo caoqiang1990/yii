@@ -243,7 +243,6 @@ class SupplierController extends Controller
             ]);
 
             $supplierModel = new Supplier;
-            var_dump($data);die;
             foreach ($data as $vo) {
                 if ($vo['供应商全称']) {
                     $supplier = Supplier::getSupplierByName($vo['供应商全称']);
@@ -271,37 +270,38 @@ class SupplierController extends Controller
 
                 // }
                 //供应商总类
-                if ($vo['供应商类别-总类']) {
-                    $category = SupplierCategory::getCategoryByName($vo['供应商类别-总类'], 1);
+
+                if ($vo['供应商分类一级']) {
+                    $category = SupplierCategory::getCategoryByName($vo['供应商分类一级'], 1);
                     if ($category) {
                         $supplierModel->cate_id1 = $category->id;
                     } else {
 
                     }
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商类别-总类不能为空!");
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商分类一级不能为空!");
                 }
                 //供应商大类
-                if ($vo['供应商类别-大类']) {
-                    $category = SupplierCategory::getCategoryByName($vo['供应商类别-大类'], 2);
+                if ($vo['供应商分类二级']) {
+                    $category = SupplierCategory::getCategoryByName($vo['供应商分类二级'], 2);
                     if ($category) {
                         $supplierModel->cate_id2 = $category->id;
                     } else {
 
                     }
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商类别-大类不能为空!");
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商分类二级不能为空!");
                 }
                 //供应商子类
-                if ($vo['供应商类别-子类']) {
-                    $category = SupplierCategory::getCategoryByName($vo['供应商类别-子类'], 3);
+                if ($vo['供应商分类三级']) {
+                    $category = SupplierCategory::getCategoryByName($vo['供应商分类三级'], 3);
                     if ($category) {
                         $supplierModel->cate_id3 = $category->id;
                     } else {
 
                     }
                 } else {
-                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商类别-子类不能为空!");
+                    throw new BadRequestHttpException("编号为{$vo['编号']}的供应商分类三级不能为空!");
                 }
 
                 //企业性质
@@ -334,8 +334,8 @@ class SupplierController extends Controller
                 //官网
                 $supplierModel->url = $vo['官网'];
                 //供应商业务类型
-                if ($vo['供应商业务类型']) {
-                    $type = SupplierType::getTypeByName($vo['供应商业务类型']);
+                if ($vo['供应商合作类型']) {
+                    $type = SupplierType::getTypeByName($vo['供应商合作类型']);
                     if ($type) {
                         $supplierModel->business_type = $type->id;
                     } else {
@@ -377,9 +377,9 @@ class SupplierController extends Controller
                 //工厂概况-概述
                 $supplierModel->factory_summary = $vo['工厂概况-概述'];
                 //工厂概况-土地面积（㎡）
-                $supplierModel->factory_land_area = $vo['工厂概况-土地面积（㎡）'];
+                $supplierModel->factory_land_area = $vo['工厂概况-土地面积'];
                 //工厂概况-厂房面积（㎡）
-                $supplierModel->factory_work_area = $vo['工厂概况-厂房面积（㎡）'];
+                $supplierModel->factory_work_area = $vo['工厂概况-厂房面积'];
                 //主要服务客户1
                 $supplierModel->business_customer1 = $vo['主要服务客户1'];
                 //主要服务客户2
