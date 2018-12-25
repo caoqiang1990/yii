@@ -10,7 +10,8 @@ return [
   'updated_at' => '更新时间',
   'Update' => '更新',
   'Delete' => '删除',
-  'Update Supplier Nature: ' => '更新企业企业性质'
+  'Update Supplier Nature: ' => '更新企业企业性质',
+  'id' => '序号'
 ];
 
 ?>

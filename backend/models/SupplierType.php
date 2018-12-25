@@ -53,6 +53,7 @@ class SupplierType extends ActiveRecord
             'created_at' => Yii::t('type', 'created_at'),
             'updated_at' => Yii::t('type', 'updated_at'),
             'order_no' => Yii::t('type', 'order_no'),
+            'id' => Yii::t('trade','id'),
         ];
     }
 

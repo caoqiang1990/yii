@@ -14,6 +14,7 @@ return [
   'Are you sure you want to delete this item?' => '确认要删除吗?',
   'Order No' => '排序',
   'Update Supplier Trade: ' => '更新供应商行业',
+  'id' => '序号',
 ];
 
 

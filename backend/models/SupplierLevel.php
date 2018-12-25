@@ -55,6 +55,7 @@ class SupplierLevel extends ActiveRecord
             'created_at' => Yii::t('level', 'created_at'),
             'updated_at' => Yii::t('level', 'updated_at'),
             'order_no' => Yii::t('level', 'order_no'),
+            'id' => Yii::t('trade','id'),
         ];
     }
 

@@ -13,7 +13,7 @@ return [
   'Delete' => '删除',
   'Are you sure you want to delete this item?' => '确认要删除吗?',
   'order_no' => '排序',
-
+  'id' => '序号',
 ];
 
 

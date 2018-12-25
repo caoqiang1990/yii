@@ -81,6 +81,7 @@ class SupplierTrade extends ActiveRecord
             'created_at' => Yii::t('trade', 'created_at'),
             'updated_at' => Yii::t('trade', 'updated_at'),
             'order_no' => Yii::t('trade', 'Order No'),
+            'id' => Yii::t('trade','id'),
         ];
     }
 

@@ -55,6 +55,7 @@ class SupplierNature extends ActiveRecord
             'created_at' => Yii::t('nature', 'created_at'),
             'updated_at' => Yii::t('nature', 'updated_at'),
             'order_no' => Yii::t('nature', 'order_no'),
+            'id' => Yii::t('trade','id'),
         ];
     }
 
