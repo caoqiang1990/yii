@@ -64,6 +64,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $fund ? $fund->trade_fund : '';
                 }
             ],
+            'business_contact',  
+            'business_email',
             //'business_license',
             //'tax_registration_certificate',
             //'orcc',
