@@ -101,6 +101,7 @@ return [
     'as access' =>[
 	'class' => 'mdm\admin\components\AccessControl',
 	'allowActions' => [
+        'site/reset'
 	]
     ],
     'params' => $params,
