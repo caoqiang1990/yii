@@ -151,7 +151,7 @@ class UserController extends Controller
         if ($model->load(Yii::$app->getRequest()->post())) {
             if ($user = $model->signup()) {
                 AdminLog::saveLog('user', 'create', $user->getByID($user->id), $user->id);
-                return $this->goHome();
+                return $this->redirect(['index']);
             }
         }
 
