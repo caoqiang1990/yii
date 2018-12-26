@@ -10,9 +10,8 @@ $this->title = Yii::t('rbac-admin', 'Change Password');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to change password:</p>
+    <p>请填写以下字段更改密码：</p>
 
     <div class="row">
         <div class="col-lg-5">

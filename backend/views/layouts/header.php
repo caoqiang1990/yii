@@ -35,7 +35,11 @@ use yii\helpers\Html;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">个人设置</a>
+                                <?= Html::a(
+                                    '修改密码',
+                                    ['admin/user/change-password'],
+                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                                ) ?>                            
                             </div>
                             <div class="pull-right">
                                 <?= Html::a(

@@ -71,4 +71,10 @@ return [
     'Create User' => '新增用户',
     'Signup' =>'新增用户',
     'Password' => '密码',
+    'oldPassword' => '旧密码',
+    'newPassword' => '新密码',
+    'retypePassword' => '再次确认',
+    'Change Password' => '修改密码',
+    'Change' => '修改密码',
+    'truename' => '真实姓名',
 ];

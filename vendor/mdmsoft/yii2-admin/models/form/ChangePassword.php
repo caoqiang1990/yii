@@ -63,4 +63,23 @@ class ChangePassword extends Model
 
         return false;
     }
+
+    /**
+     * 对应中文
+     * @return [type] [description]
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('rbac-admin','ID'),
+            'username' => Yii::t('rbac-admin','Username'),
+            'created_at' => Yii::t('rbac-admin','Created At'),
+            'email' => Yii::t('rbac-admin','Email'),
+            'status' => Yii::t('rbac-admin','Status'),
+            'oldPassword' => Yii::t('rbac-admin','oldPassword'),
+            'newPassword' => Yii::t('rbac-admin','newPassword'),
+            'retypePassword' => Yii::t('rbac-admin','retypePassword'),
+            'change' => Yii::t('rbac-admin','change'),
+        ];
+    }    
 }
