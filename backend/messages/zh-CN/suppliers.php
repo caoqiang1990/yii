@@ -3,7 +3,7 @@
 
 
 return [
-  'Suppliers' => '供应商列表',
+  'Suppliers' => '供应商名录',
   'Create Suppliers' => '新增供应商',
   'Save' => '保存',
   'Update' => '更新',
