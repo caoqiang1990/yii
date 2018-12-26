@@ -364,11 +364,8 @@ class SupplierController extends Controller
                 }
 
                 //营业范围
-                if (isset($vo['营业范围'])) {
-                    $supplierModel->business_scope = $vo['营业范围'];
-                } else {
-                    throw new BadRequestHttpException("营业范围不存在");
-                }
+                $supplierModel->business_scope = $vo['营业范围'];
+
                 //与爱慕已合作内容
                 if ($vo['与爱慕已合作内容']) {
                     $supplierModel->coop_content = $vo['与爱慕已合作内容'];
