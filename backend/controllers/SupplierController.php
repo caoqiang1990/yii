@@ -271,6 +271,62 @@ class SupplierController extends Controller
                     if ($vo['供应商全称']) {
                         $supplier = Supplier::getSupplierByName($vo['供应商全称']);
                         if ($supplier) {
+                            $supplierDetailModel = new SupplierDetail();
+                            $supplierDetailModel->scenario = 'add';
+                            //供应商id
+                            $supplierDetailModel->sid = $supplier->id;
+                            //cate_id1
+                            $supplierDetailModel->cate_id1 = $supplier->cate_id1;
+                            //cate_id2
+                            $supplierDetailModel->cate_id2 = $supplier->cate_id2;
+                            //cate_id3
+                            $supplierDetailModel->cate_id3 = $supplier->cate_id3;
+                            //供应商等级
+                           if ($vo['供应商等级']) {
+                                $level = SupplierLevel::getLevelByName($vo['供应商等级']);
+                                if ($level) {
+                                    $supplierDetailModel->level = $level->id;
+                                } else {
+                                    //没有查到对应的供应商等级名称
+
+                                }
+                            } else {
+                                //没有填写对应的供应商等级名称
+
+                            } 
+                                         
+                            //一级部门
+                            $supplierDetailModel->one_level_department = $vo['一级部门'];
+                            //二级部门
+                            $supplierDetailModel->second_level_department = $vo['二级部门'];
+                            //开发部门（写二级部门）
+                            $supplierDetailModel->develop_department = $vo['开发部门（写二级部门）'];
+                            //合作起始时间（年月）
+                            $supplierDetailModel->coop_date = $vo['合作起始时间（年月）'];
+                            //2015年合同金额（万元）
+                            $supplierDetailModel->coop_fund1 = $vo['2015年合同金额（万元）'];
+                            //2015年交易金额（万元）
+                            $supplierDetailModel->trade_fund1 = $vo['2015年交易金额（万元）'];
+                            //2016年合同金额（万元）
+                            $supplierDetailModel->coop_fund2 = $vo['2016年合同金额（万元）'];
+                            //2016年交易金额（万元）
+                            $supplierDetailModel->trade_fund2 = $vo['2016年交易金额（万元）'];
+                            //2017年合同金额（万元）
+                            $supplierDetailModel->coop_fund3 = $vo['2017年合同金额（万元）'];
+                            //2017年交易金额（万元）
+                            $supplierDetailModel->trade_fund3 = $vo['2017年交易金额（万元）'];
+                            //我方对接人
+                            $supplierDetailModel->name = $vo['我方对接人'];
+                            //我方对接人手机号
+                            $supplierDetailModel->mobile = $vo['我方对接人手机号'];
+                            //爱慕选择合作原因
+                            $supplierDetailModel->reason = $vo['爱慕选择合作原因'];
+
+                            $supplierDetailModel->isNewRecord = true;
+
+
+                            //保存
+                            $supplierDetailModel->save();
                             continue;
                         }
                     } else {
