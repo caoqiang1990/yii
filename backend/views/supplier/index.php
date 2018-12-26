@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use backend\models\SupplierLevel;
+use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
 use mdm\admin\components\Helper; 
 
@@ -42,6 +43,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model->name,$url,$options);
                 }
             ],
+             [
+                'attribute' => 'cate_id1',
+                'value' => function($model){
+                    $categoryModel = new SupplierCategory;
+                    return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
+                },
+                'filter' => SupplierCategory::getCategoryByParams('id,category_name',1),
+            ],
+            //'cate_id2',
+            //'cate_id3',
             // [
             //     'attribute' => 'level',
             //     'value' => function($model){

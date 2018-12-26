@@ -87,6 +87,9 @@ return [
   'enterprise_license_relate' => '企业相关资质',
   'enterprise_license_relate_image_id' => '企业相关资质',
   'total_fund' => '上一年交易金额',
+  'cate_id1' => '供应商一级',
+  'cate_id2' => '供应商二级',
+  'cate_id3' => '供应商三级',
 ];
 
 

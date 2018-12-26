@@ -56,7 +56,7 @@ class SupplierController extends Controller
         //排除这几个一级部门
         $filter_department = ['大数据信息中心','总裁办','品管部','供应链部'];
         if (!in_array($department,$filter_department)) {
-            $request['SupplierSearch']['cate_id1'] = [13,14,16];
+            $request['SupplierSearch']['filter_cate_id1'] = [13,14,16];
         }
         $dataProvider = $searchModel->search($request);
 

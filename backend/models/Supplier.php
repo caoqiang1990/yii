@@ -34,7 +34,7 @@ class Supplier extends ActiveRecord
     public $enterprise_certificate_etc_image_id;
     public $enterprise_license_relate_image_id;
     public $total_fund;//总
-
+    public $filter_cate_id1;
     /**
      * 返回表名
      * @return [type] [description]
@@ -100,6 +100,9 @@ class Supplier extends ActiveRecord
         'enterprise_license_relate' => Yii::t('suppliers','enterprise_license_relate'),
         'enterprise_license_relate_image_id' => Yii::t('suppliers','enterprise_license_relate_image_id'),
         'total_fund' => Yii::t('suppliers','total_fund'),
+        'cate_id1' =>Yii::t('suppliers','cate_id1'),
+        'cate_id2' =>Yii::t('suppliers','cate_id2'),
+        'cate_id3' =>Yii::t('suppliers','cate_id3'),
       ];
     }
 
