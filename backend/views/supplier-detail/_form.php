@@ -50,9 +50,12 @@ JS;
     <?= $form->field($model, 'sid')->label(false)->hiddenInput(['value' => $sid]) ?>
 
     <div class="row">
+    <?php
+        if ($model->isNewRecord) {
+    ?>
     <div class="col-xs-6">
     <?php //$form->field($model, 'business_type')->dropDownList($type) 
-        if ($model->isNewRecord) {
+        
             echo $form->field($model, 'cate_id1')->label('*供应商一级分类(如需添加请联系管理员)')->widget(Select2::classname(), [
                 'options' => [
                     'placeholder' => '请选择总类',
@@ -84,12 +87,16 @@ JS;
                 ]
 
             ]);
-        }
     ?>
     </div>
+    <?php 
+        }
+    ?>
+    <?php
+        if ($model->isNewRecord) {
+    ?>    
    <div class="col-xs-6">
     <?php //$form->field($model, 'business_type')->dropDownList($type) 
-        if ($model->isNewRecord) {
             echo $form->field($model, 'cate_id2')->label('*供应商二级分类(如需添加请联系管理员)')->widget(Select2::classname(), [
                 'options' => [
                     'placeholder' => '请选择大类',
@@ -121,9 +128,14 @@ JS;
                 ]
 
             ]);
-        }
     ?>
-    </div>    
+    </div> 
+    <?php 
+        }
+    ?>     
+    <?php
+        if ($model->isNewRecord) {
+    ?>          
     <div class="col-xs-6">
     <?php //$form->field($model, 'business_type')->dropDownList($type) 
         if ($model->isNewRecord) {
@@ -152,7 +164,10 @@ JS;
             ]);
         }
     ?>
-    </div>        
+    </div>   
+    <?php 
+        }
+    ?>              
     <div class="col-xs-6">
     <?= $form->field($model, 'level')->label('*供应商等级')->dropDownList($level,['prompt'=>'请选择等级']) ?>
     </div>    
