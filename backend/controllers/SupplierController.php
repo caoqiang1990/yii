@@ -264,23 +264,22 @@ class SupplierController extends Controller
                 'setIndexSheetByName' => true,
                 'getOnlySheet' => 'Sheet1',
             ]);
-
-            $supplierModel = new Supplier;
             foreach ($data as $vo) {
+                $supplierModel = new Supplier;
                 if (isset($vo['供应商全称'])) {
                     if ($vo['供应商全称']) {
-                        $supplier = Supplier::getSupplierByName($vo['供应商全称']);
-                        if ($supplier) {
+                        $supplier_o = Supplier::getSupplierByName($vo['供应商全称']);
+                        if ($supplier_o) {
                             $supplierDetailModel = new SupplierDetail();
                             $supplierDetailModel->scenario = 'add';
                             //供应商id
-                            $supplierDetailModel->sid = $supplier->id;
+                            $supplierDetailModel->sid = $supplier_o->id;
                             //cate_id1
-                            $supplierDetailModel->cate_id1 = $supplier->cate_id1;
+                            $supplierDetailModel->cate_id1 = $supplier_o->cate_id1;
                             //cate_id2
-                            $supplierDetailModel->cate_id2 = $supplier->cate_id2;
+                            $supplierDetailModel->cate_id2 = $supplier_o->cate_id2;
                             //cate_id3
-                            $supplierDetailModel->cate_id3 = $supplier->cate_id3;
+                            $supplierDetailModel->cate_id3 = $supplier_o->cate_id3;
                             //供应商等级
                            if ($vo['供应商等级']) {
                                 $level = SupplierLevel::getLevelByName($vo['供应商等级']);
@@ -295,14 +294,20 @@ class SupplierController extends Controller
 
                             } 
                                          
-                            //一级部门
-                            $supplierDetailModel->one_level_department = $vo['一级部门'];
+                            //一级部门（管理部门）
+                            $supplierDetailModel->one_level_department = $vo['一级部门（管理部门）'];
                             //二级部门
                             $supplierDetailModel->second_level_department = $vo['二级部门'];
                             //开发部门（写二级部门）
                             $supplierDetailModel->develop_department = $vo['开发部门（写二级部门）'];
                             //合作起始时间（年月）
-                            $supplierDetailModel->coop_date = $vo['合作起始时间（年月）'];
+                            //$supplierDetailModel->coop_date = $vo['合作起始时间（年月）'];
+                            if ($vo['合作起始时间（年月）'] && $vo['合作起始时间（年月）'] != '-') {
+                                $register_date = date_parse_from_format('Y/m/d', $vo['合作起始时间（年月）']);
+                                $supplierDetailModel->coop_date = "{$register_date['year']}-{$register_date['month']}-{$register_date['day']}";
+                            }else{
+                                $supplierDetailModel->coop_date = $vo['合作起始时间（年月）'];
+                            }                            
                             //2015年合同金额（万元）
                             $supplierDetailModel->coop_fund1 = $vo['2015年合同金额（万元）'];
                             //2015年交易金额（万元）
@@ -473,7 +478,7 @@ class SupplierController extends Controller
 
                 //注册时间
                 if ($vo['注册时间'] && $vo['注册时间'] != '-') {
-                    $register_date = date_parse_from_format('m-d-y', $vo['注册时间']);
+                    $register_date = date_parse_from_format('Y/m/d', $vo['注册时间']);
                     $supplierModel->register_date = "{$register_date['year']}-{$register_date['month']}-{$register_date['day']}";
                 }else{
                     $supplierModel->register_date = $vo['注册时间'];
@@ -601,7 +606,22 @@ class SupplierController extends Controller
                 } else {
                     //throw new BadRequestHttpException("编号为{$vo['编号']}的主要部门负责人电话不能为空!");
                 }
-                //
+                //企业代码
+                $supplierModel->enterprise_code_desc = $vo['企业代码（此栏填写代码即可，后期系统上传附件）'];
+                //开户许可证
+                $supplierModel->enterprise_license_desc = $vo['开户许可证代码（此栏填写代码即可，后期系统上传附件）'];
+                //相关资质证明
+                $supplierModel->enterprise_license_relate_desc = $vo['相关资质名称'];
+                //贸易商（中间商）代理资质
+                $supplierModel->enterprise_certificate_desc = $vo['贸易商（中间商）代理资质'];
+                //贸易商（中间商）其它相关资质
+                $supplierModel->enterprise_certificate_etc_desc = $vo['贸易商（中间商）其它相关资质'];
+                //供应商状态
+                $supplierModel->status = 10;
+                //供应商来源 
+                $supplierModel->source = 'import';
+                //是否共享
+                $supplierModel->public_flag = $vo['共享'] == '共享' ? 'y' : 'n';
                 $supplierModel->isNewRecord = true;
                 //$supplierModel->save() && $supplierModel->id = 0;
                 //添加供应商成功
@@ -634,14 +654,20 @@ class SupplierController extends Controller
                         throw new BadRequestHttpException("供应商等级不存在");
                     }
                 
-                    //一级部门
-                    $supplierDetailModel->one_level_department = $vo['一级部门'];
+                    //一级部门（管理部门）
+                    $supplierDetailModel->one_level_department = $vo['一级部门（管理部门）'];
                     //二级部门
                     $supplierDetailModel->second_level_department = $vo['二级部门'];
                     //开发部门（写二级部门）
                     $supplierDetailModel->develop_department = $vo['开发部门（写二级部门）'];
                     //合作起始时间（年月）
-                    $supplierDetailModel->coop_date = $vo['合作起始时间（年月）'];
+                    //$supplierDetailModel->coop_date = $vo['合作起始时间（年月）'];
+                    if ($vo['合作起始时间（年月）'] && $vo['合作起始时间（年月）'] != '-') {
+                        $register_date = date_parse_from_format('Y/m/d', $vo['合作起始时间（年月）']);
+                        $supplierDetailModel->coop_date = "{$register_date['year']}-{$register_date['month']}-{$register_date['day']}";
+                    }else{
+                        $supplierDetailModel->coop_date = $vo['合作起始时间（年月）'];
+                    }                            
                     //2015年合同金额（万元）
                     $supplierDetailModel->coop_fund1 = $vo['2015年合同金额（万元）'];
                     //2015年交易金额（万元）
