@@ -111,9 +111,29 @@ class SupplierDetailController extends Controller
             throw new NotFoundHttpException("您访问的页面不存在");
         }
         $supplierModel = Supplier::getSupplierById($model->sid);
+
+        $fundModel = new SupplierFunds;
+        $where['sid'] = $model->sid;
+        $detailObjList = SupplierDetail::find()->where($where)->all();
+        foreach ($detailObjList as $id => &$detail) {
+                $map['detail_id'] = $detail->id;
+                $funds = $fundModel->find()->where($map)->all();
+                if ($funds) {
+                    foreach ($funds as $k => $v) {
+                        $id = $k + 1;
+                        $detail->{"coop_fund$id"} = $v->coop_fund;
+                        $detail->{"trade_fund$id"} = $v->trade_fund;
+                    }
+                }
+                // $detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
+                // $detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
+                // $detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
+
+        }    
         return $this->render('admin-view', [
             'model' => $model,
             'supplier' => $supplierModel,
+            'detail_obj_list' => $detailObjList,
         ]);
     }
 
