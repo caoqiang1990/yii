@@ -103,6 +103,14 @@ class Supplier extends ActiveRecord
         'cate_id1' =>Yii::t('suppliers','cate_id1'),
         'cate_id2' =>Yii::t('suppliers','cate_id2'),
         'cate_id3' =>Yii::t('suppliers','cate_id3'),
+        'enterprise_code_desc' => Yii::t('suppliers','enterprise_code_desc'),
+        'enterprise_license_desc' => Yii::t('suppliers','enterprise_license_desc'),
+        'enterprise_certificate_desc' => Yii::t('suppliers','enterprise_certificate_desc'),
+        'enterprise_certificate_etc_desc' => Yii::t('suppliers','enterprise_certificate_etc_desc'),
+        'enterprise_license_relate_desc' => Yii::t('suppliers','enterprise_license_relate_desc'),
+        'status' =>Yii::t('suppliers','status'),
+        'source' =>Yii::t('suppliers','source'),
+        'public_flag' =>Yii::t('suppliers','public_flag'),
       ];
     }
 
@@ -160,6 +168,14 @@ class Supplier extends ActiveRecord
                 'cate_id1',
                 'cate_id2',
                 'cate_id3',
+                'status',
+                'source',
+                'public_flag',
+                'enterprise_code_desc',
+                'enterprise_license_desc',
+                'enterprise_certificate_desc',
+                'enterprise_certificate_etc_desc', 
+                'enterprise_license_relate_desc',
             ],
             self::SCENARIO_EDIT => [
                 'name',
@@ -205,6 +221,17 @@ class Supplier extends ActiveRecord
                 'enterprise_certificate',
                 'enterprise_certificate_etc',
                 'enterprise_license_relate',
+                'cate_id1',
+                'cate_id2',
+                'cate_id3',                
+                'status',
+                'source',
+                'public_flag',
+                'enterprise_code_desc',
+                'enterprise_license_desc',
+                'enterprise_certificate_desc',
+                'enterprise_certificate_etc_desc', 
+                'enterprise_license_relate_desc',                
             ],
             self::SCENARIO_UPLOAD => [
                 'enterprise_code',
@@ -433,4 +460,17 @@ class Supplier extends ActiveRecord
         return false;
     }    
 
+    /**
+     * 根据id获取供应商
+     * @param  string $id [description]
+     * @return [type]     [description]
+     */
+    public static function getSupplierById($id = '')
+    {
+        if (!$id) {
+            return false;
+        }
+        $info = self::find()->where(['id' => $id])->one();
+        return $info ? $info : false;
+    }
 }

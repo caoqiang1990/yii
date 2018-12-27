@@ -207,6 +207,8 @@ class User extends ActiveRecord implements IdentityInterface
             'created_at' => Yii::t('rbac-admin','Created At'),
             'email' => Yii::t('rbac-admin','Email'),
             'status' => Yii::t('rbac-admin','Status'),
+            'mobile' => Yii::t('rbac-admin','mobile'),
+            'department' => Yii::t('rbac-admin','department'),
         ];
     }
 

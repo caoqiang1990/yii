@@ -58,6 +58,28 @@ class SupplierDetailController extends Controller
     }
 
     /**
+     * Lists all SupplierDetail models.
+     * @return mixed
+     */
+    public function actionAdminIndex()
+    {
+        $searchModel = new SupplierDetailSearch();
+
+        //与我方关系与部门相关
+        $department = Yii::$app->user->identity->department;
+        $request['SupplierDetailSearch'] = Yii::$app->request->queryParams;
+        $request['SupplierDetailSearch']['one_level_department'] = $department;
+        $dataProvider = $searchModel->search($request);
+
+        $sid = Yii::$app->request->get('sid');
+        return $this->render('admin-index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'sid' => $sid,
+        ]);
+    }
+
+    /**
      * Displays a single SupplierDetail model.
      * @param integer $id
      * @return mixed
@@ -65,8 +87,14 @@ class SupplierDetailController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        if (!$model) {
+            throw new NotFoundHttpException("您访问的页面不存在");
+        }
+        $supplierModel = Supplier::getSupplierById($model->sid);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'supplier' => $supplierModel,
         ]);
     }
 

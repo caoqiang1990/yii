@@ -77,4 +77,6 @@ return [
     'Change Password' => '修改密码',
     'Change' => '修改密码',
     'truename' => '真实姓名',
+    'department' => '部门',
+    'mobile' => '手机号',
 ];
