@@ -18,18 +18,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
 <div class="suppliers-view">
 
     <p>
-    <?php if(Helper::checkRoute('Update')) {  ?>
-        <?= Html::a(Yii::t('suppliers', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-    <?php } ?>
-    <?php if(Helper::checkRoute('Delete')) {  ?>
-        <?= Html::a(Yii::t('suppliers', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('suppliers', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    <?php }  ?>
+        <?= Html::a('返回', ['admin-index'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -173,5 +162,8 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             ],
         ],
     ]) ?>
+    <p>
+        <?= Html::a('返回', ['admin-index'], ['class' => 'btn btn-primary']) ?>
+    </p>
 
 </div>

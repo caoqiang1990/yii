@@ -13,7 +13,8 @@ use mdm\admin\components\Helper;
 /* @var $searchModel backend\models\SuppliersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('suppliers', 'Suppliers');
+$this->title = '集团供应商';
+$this->params['breadcrumbs'][] = ['label' => '供应商名录查询', 'url' => \yii\helpers\Url::to(['supplier/admin-index'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="suppliers-index">
@@ -29,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'name',
                 'format' => 'raw',
                 'value' => function($model) {
-                    if(Helper::checkRoute('view')) {
-                        $url = Url::to(['view','id'=>$model->id]);
+                    if(Helper::checkRoute('admin-view')) {
+                        $url = Url::to(['admin-view','id'=>$model->id]);
                         $options = ['title' => $model->name];
                         return Html::a($model->name,$url,$options);
                     } else {

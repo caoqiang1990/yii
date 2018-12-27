@@ -2,59 +2,40 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use backend\models\Supplier;
+use mdm\admin\components\Helper; 
 use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
 use backend\models\SupplierType;
-use mdm\admin\components\Helper; 
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Suppliers */
+/* @var $model backend\models\SupplierDetail */
 
 $this->title = '';
-$this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details'), 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="suppliers-view">
+<div class="supplier-detail-view">
 
     <p>
-    <?php if(Helper::checkRoute('Update')) {  ?>
-        <?= Html::a(Yii::t('suppliers', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-    <?php } ?>
-    <?php if(Helper::checkRoute('Delete')) {  ?>
-        <?= Html::a(Yii::t('suppliers', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('suppliers', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    <?php }  ?>
+      <?= Html::a('返回', ['admin-index'], ['class' => 'btn btn-primary']) ?>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
+  <?= DetailView::widget([
+        'model' => $supplier,
         'attributes' => [
             //'id',
             'name',
             [
                 'attribute' => 'level',
                 'value' => function($model){
-                    $level = SupplierLevel::getLevelById($model->level);
-                    if (!$level) {
-                        return '';
-                    }
-                    return $level->level_name;
+                    return SupplierLevel::getLevelById($model->level)->level_name;
                 }
             ],
             [
                 'attribute' => 'trade',
                 'value' => function($model){
-                    $trade = SupplierTrade::getTradeById($model->trade);
-                    if (!$trade) {
-                        return '';
-                    }
-                    return $trade->trade_name;
+                    return SupplierTrade::getTradeById($model->trade)->trade_name;
                 }
             ],
             'cate_id1',
@@ -67,13 +48,9 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             'business_address',
             //'business_type',
             [
-                'attribute' => 'business_type',
+                'attribute' => 'trade',
                 'value' => function($model){
-                    $type = SupplierType::getTypeById($model->business_type);
-                    if (!$type) {
-                        return '';
-                    }
-                    return $type->type_name;
+                    return SupplierType::getTypeById($model->business_type)->type_name;
                 }
             ],            
             'business_email',
@@ -173,5 +150,30 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             ],
         ],
     ]) ?>
-
+    <p>与我方关系</p>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'one_level_department',
+            'second_level_department',
+            'name',
+            'mobile',
+            'reason:ntext',
+            [
+                'attribute' => 'created_at',
+                'value' => function($model){
+                    return date('Y-m-d H:i:s',$model->created_at);
+                }
+            ],
+            [
+                'attribute' => 'updated_at',
+                'value' => function($model){
+                    return date('Y-m-d H:i:s',$model->updated_at);
+                }
+            ],
+        ],
+    ]) ?>
+    <p>
+      <?= Html::a('返回', ['admin-index'], ['class' => 'btn btn-primary']) ?>
+    </p>
 </div>
