@@ -8,7 +8,7 @@ use yii\helpers\Html;
 <header class="main-header">
 
     <!-- <?= Html::a('<span class="logo-mini">供应商管理</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?> -->
-	<?= Html::a('<span class="logo-mini"><img src="' . $directoryAsset . '/img/aimer-logo-min.jpg" style="width:100%;max-width:230px;" alt="Aimer Logo"/></span><span class="logo-lg"><img src="' . $directoryAsset . '/img/aimer-logo.jpg" style="width:100%;max-width:230px;" alt="Aimer Logo"/></span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+	<?= Html::a('<span class="logo-mini"><img src="/static/images/aimer-logo-min.jpg" style="width:100%;max-width:230px;" alt="Aimer Logo"/></span><span class="logo-lg"><img src="/static/images/aimer-logo.jpg" style="width:100%;max-width:230px;" alt="Aimer Logo"/></span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -21,13 +21,13 @@ use yii\helpers\Html;
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/aimer_head.jpg" class="user-image" alt="User Image"/>
+                        <img src="/static/images/aimer_head.jpg" class="user-image" alt="User Image"/>
                         <span class="hidden-xs"><?= Yii::$app->user->identity->truename ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/aimer_head.jpg" class="img-circle"
+                            <img src="/static/images/aimer_head.jpg" class="img-circle"
                                  alt="User Image"/>
                             <p>
                                 <?= Yii::$app->user->identity->truename ?>
