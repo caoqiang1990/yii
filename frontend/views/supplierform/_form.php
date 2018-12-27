@@ -33,7 +33,7 @@ use kartik\file\FileInput;
     </div>    
     <div class="col-xs-6">
     <div class="form-group field-supplier-register_date required">
-    <label class="control-label" for="supplier-register_date">注册时间</label>
+    <label class="control-label" for="supplier-register_date">*注册时间<? =Yii::t('suppliers','register_date') ?></label>
     <?= DatePicker::widget([
     'model' => $model,
     'attribute' => 'register_date',
@@ -148,6 +148,21 @@ use kartik\file\FileInput;
     <div class="col-xs-6">
     <?= $form->field($model, 'department_manager_phone')->textInput(['maxlength' => true]) ?>
     </div>   
+    <div class="col-xs-12">
+    <?= $form->field($model, 'enterprise_code_desc')->textInput(['maxlength' => true]) ?>
+    </div> 
+    <div class="col-xs-12">
+    <?= $form->field($model, 'enterprise_license_desc')->textInput(['maxlength' => true]) ?>
+    </div> 
+    <div class="col-xs-12">
+    <?= $form->field($model, 'enterprise_license_relate_desc')->textInput(['maxlength' => true]) ?>
+    </div> 
+    <div class="col-xs-12">
+    <?= $form->field($model, 'enterprise_certificate_desc')->textInput(['maxlength' => true]) ?>
+    </div> 
+    <div class="col-xs-12">
+    <?= $form->field($model, 'enterprise_certificate_etc_desc')->textInput(['maxlength' => true]) ?>
+    </div> 
 	 <div class="col-xs-12">
     <?= $form->field($model,'enterprise_code')->hiddenInput()->label(false)?>
       <?php
@@ -334,12 +349,15 @@ use kartik\file\FileInput;
             ?>
     </div>                
       <div class="form-group">
-    <div class="col-xs-12">
+    <div class="col-xs-6">
 
-        <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => 'btn btn-success add']) ?>
         </div>
-    </div>
+        <!--div class="col-xs-6">
 
+          <?= Html::submitButton('保存', ['class' => 'btn btn-success save']) ?>
+          </div -->
+    </div>
     <?php ActiveForm::end(); ?>
     </div>
 
