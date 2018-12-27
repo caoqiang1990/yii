@@ -23,6 +23,7 @@ use backend\models\SupplierNature;
 use yii\web\BadRequestHttpException;
 use backend\models\SupplierDetail;
 use mdm\admin\components\Configs;
+use backend\models\AdminAdd;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -103,6 +104,51 @@ class SupplierController extends Controller
         ]);
     }
 
+    /**
+     * Lists all Suppliers models.
+     * @return mixed
+     */
+    public function actionAdminAdd()
+    {
+        $model = new AdminAdd();
+        //if (Yii::$app->request->isAjax) {
+        return $this->renderAjax('admin-add', [
+            'model' => $model,
+        ]);
+        //}
+
+        return $this->renderPartial('admin-add', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Lists all Suppliers models.
+     * @return mixed
+     */
+    public function actionAdminSave()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $model = new AdminAdd();
+        if ($model->load(Yii::$app->request->post())) {
+            $supplier = Supplier::getSupplierByName($model->name);
+            if ($supplier) {
+                $level = SupplierLevel::getLevelById($supplier->level);
+                $type = $level ? $level->level_name : '';
+                return ['code'=>'exist','id'=>$supplier->id,'type'=>$type];
+            }else{
+                $supplier = $model->add();
+                if ($supplier) {
+                    return ['code'=>'new','id'=>$supplier->id];
+                }else{
+                    return ['code'=>'error'];  
+                }
+            }
+        }  
+        else{  
+            return ['code'=>'error'];  
+        }  
+    }
     /**
      * Displays a single Suppliers model.
      * @param integer $id

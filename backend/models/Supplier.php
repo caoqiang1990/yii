@@ -23,6 +23,7 @@ class Supplier extends ActiveRecord
     const SCENARIO_ADD = 'add';
     const SCENARIO_EDIT = 'edit';
     const SCENARIO_UPLOAD = 'upload';
+    const SCENARIO_ADMIN_ADD = 'admin-add';
     public $enterprise_code_url;
     public $enterprise_license_url;
     public $enterprise_certificate_url;
@@ -240,6 +241,10 @@ class Supplier extends ActiveRecord
                 'enterprise_certificate_etc', 
                 'enterprise_license_relate',               
             ],
+            self::SCENARIO_ADMIN_ADD => [
+                'name',
+                'enterprise_code_desc',
+            ]
         ];
     }
 
