@@ -38,11 +38,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'name',
                 'format' => 'raw',
                 'value' => function($model) {
-                    $url = Url::to(['update','id'=>$model->id]);
-                    $options = ['title' => $model->name];
-                    return Html::a($model->name,$url,$options);
+                    if(Helper::checkRoute('view')) {
+                        $url = Url::to(['view','id'=>$model->id]);
+                        $options = ['title' => $model->name];
+                        return Html::a($model->name,$url,$options);
+                    } else {
+                        return $model->name;
+                    }
                 }
-            ],
+            ], 
              [
                 'attribute' => 'cate_id1',
                 'value' => function($model){

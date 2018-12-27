@@ -90,6 +90,14 @@ return [
   'cate_id1' => '供应商一级',
   'cate_id2' => '供应商二级',
   'cate_id3' => '供应商三级',
+  'enterprise_code_desc' => '企业代码',
+  'enterprise_license_desc' => '开户许可证',
+  'enterprise_certificate_desc' => '贸易商（中间商）代理资质',
+  'enterprise_license_relate_desc' => '企业相关资质',
+  'enterprise_certificate_etc_desc' => '贸易商（中间商）其他资质',
+  'status' => '状态',
+  'source' => '来源',
+  'public_flag' => '是否共享',
 ];
 
 
