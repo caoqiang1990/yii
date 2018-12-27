@@ -28,7 +28,7 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
-    NavBar::begin([
+    /*NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
@@ -57,13 +57,13 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
     ]);
-    NavBar::end();
+    NavBar::end();*/
     ?>
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
+  <div class="container" style="padding: 0px 15px 20px;">
+       <!-- <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+        ])  ?>-->
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
