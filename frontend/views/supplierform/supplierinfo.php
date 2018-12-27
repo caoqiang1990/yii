@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="suppliers-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <div style="width:1280px;align:right;"><img src="./images/logo.jpg" style="width:250px;height:250px;align:right;" /></div>
 
     <?= $this->render('_form', [
         'model' => $model,
