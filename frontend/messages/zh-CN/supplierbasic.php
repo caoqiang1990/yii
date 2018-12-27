@@ -88,7 +88,7 @@ return [
   'enterprise_license_relate_image_id' => '企业相关资质',
   'total_fund' => '上一年交易金额',
   'submit_confirm' => '提交确认',
-  'supplierbasic' => '供应商基础信息录入',
+  'supplierbasic' => '欢迎加入爱慕一家人！',
 ];
 
 
