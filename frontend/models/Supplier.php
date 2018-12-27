@@ -12,6 +12,8 @@ use yii\helpers\FileHelper;
 use backend\models\Attachment;
 use backend\models\SupplierFunds;
 use yii\behaviors\BlameableBehavior;
+use backend\models\History;
+use backend\models\SupplierNature;
 
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
@@ -32,6 +34,7 @@ class Supplier extends ActiveRecord
     public $enterprise_certificate_etc_image_id;
     public $enterprise_license_relate_image_id;
     public $total_fund;//总
+    public $filter_cate_id1;
 
     /**
      * 返回表名
@@ -98,6 +101,18 @@ class Supplier extends ActiveRecord
         'enterprise_license_relate' => Yii::t('suppliers','enterprise_license_relate'),
         'enterprise_license_relate_image_id' => Yii::t('suppliers','enterprise_license_relate_image_id'),
         'total_fund' => Yii::t('suppliers','total_fund'),
+        'total_fund' => Yii::t('suppliers','total_fund'),
+        'cate_id1' =>Yii::t('suppliers','cate_id1'),
+        'cate_id2' =>Yii::t('suppliers','cate_id2'),
+        'cate_id3' =>Yii::t('suppliers','cate_id3'),
+        'enterprise_code_desc' => Yii::t('suppliers','enterprise_code_desc'),
+        'enterprise_license_desc' => Yii::t('suppliers','enterprise_license_desc'),
+        'enterprise_certificate_desc' => Yii::t('suppliers','enterprise_certificate_desc'),
+        'enterprise_certificate_etc_desc' => Yii::t('suppliers','enterprise_certificate_etc_desc'),
+        'enterprise_license_relate_desc' => Yii::t('suppliers','enterprise_license_relate_desc'),
+        'status' =>Yii::t('suppliers','status'),
+        'source' =>Yii::t('suppliers','source'),
+        'public_flag' =>Yii::t('suppliers','public_flag'),
       ];
     }
 
@@ -109,6 +124,62 @@ class Supplier extends ActiveRecord
     {
         return [
             self::SCENARIO_ADD => [
+                'name',
+                'level',
+                'business_address',
+                'url',
+                'register_date',
+                'coop_content',
+                'firm_nature',
+                'register_fund',
+                'headcount',
+                'trade',
+                'sales_latest',
+                'tax_latest',
+                'business_contact',
+                'business_phone',
+                'business_mobile',
+                'business_scope',
+                'business_type',
+                'factory_summary',
+                'factory_land_area',
+                'factory_work_area',
+                'business_customer1',
+                'business_customer2',
+                'business_customer3',
+                'material1',
+                'material2',
+                'material3',
+                'instrument_device1',
+                'instrument_device2',
+                'instrument_device3',
+                'business_position',
+                'business_email',
+                'legal_person',
+                'legal_position',
+                'legal_phone',
+                'social_responsibility',
+                'department_name',
+                'department_manager',
+                'department_manager_phone',
+                'enterprise_code',
+                'enterprise_license',
+                'enterprise_certificate',
+                'enterprise_certificate_etc', 
+                'enterprise_license_relate',
+                'cate_id1',
+                'cate_id2',
+                'cate_id3',
+                'status',
+                'source',
+                'public_flag',
+                'enterprise_code_desc',
+                'enterprise_license_desc',
+                'enterprise_certificate_desc',
+                'enterprise_certificate_etc_desc', 
+                'enterprise_license_relate_desc',
+            ],
+            self::SCENARIO_EDIT => [
                 'name',
                 'level',
                 'business_address',
@@ -150,8 +221,19 @@ class Supplier extends ActiveRecord
                 'enterprise_code',
                 'enterprise_license',
                 'enterprise_certificate',
-                'enterprise_certificate_etc', 
-                'enterprise_license_relate',               
+                'enterprise_certificate_etc',
+                'enterprise_license_relate',
+                'cate_id1',
+                'cate_id2',
+                'cate_id3',                
+                'status',
+                'source',
+                'public_flag',
+                'enterprise_code_desc',
+                'enterprise_license_desc',
+                'enterprise_certificate_desc',
+                'enterprise_certificate_etc_desc', 
+                'enterprise_license_relate_desc',      
             ],
             self::SCENARIO_EDIT => [
                 'name',
@@ -215,8 +297,26 @@ class Supplier extends ActiveRecord
     public function rules()
     {
         return [
-            [['name','business_address','business_scope','business_type'],'required','on'=>'add'],
+            [['name','business_contact','business_address','business_scope','business_type','firm_nature'],'required','on'=>'add'],
+            [['register_date'],'required','on'=>'add'],
+            [['headcount'],'required','on'=>'add'],
+            [['register_fund'],'required','on'=>'add'],
+            [['legal_person'],'required','on'=>'add'],
+            [['legal_position','legal_phone'],'required','on'=>'add'],
+            [['sales_latest'],'required','on'=>'add'],
+            
+            [['tax_latest'],'required','on'=>'add'],
+            [['department_name'],'required','on'=>'add'],
+            [['department_manager'],'required','on'=>'add'],
+            [['department_manager_phone'],'required','on'=>'add'],
+            [['enterprise_code_desc'],'required','on'=>'add'],
+            [['enterprise_license_desc'],'required','on'=>'add'],
+            [['register_fund'],'required','on'=>'add'],
+            [['business_email'],'required','on'=>'add'],
+            [['business_position'],'required','on'=>'add'],
+            
             ['url','url','on'=>'add'],
+            
             ['headcount','integer','on' => 'add,edit'],
             ['register_fund','double','on' => 'add,edit'],
             [['level','enterprise_code','enterprise_license','enterprise_certificate','enterprise_certificate_etc','enterprise_license_relate'], 'safe'],
@@ -227,7 +327,7 @@ class Supplier extends ActiveRecord
             [['enterprise_license_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
             [['enterprise_certificate'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
             [['enterprise_certificate_etc'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
-               [['enterprise_license_relate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
+            [['enterprise_license_relate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
 
         ];
     }
