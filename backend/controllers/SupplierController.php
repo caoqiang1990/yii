@@ -117,9 +117,9 @@ class SupplierController extends Controller
         ]);
         //}
 
-        return $this->renderPartial('admin-add', [
-            'model' => $model,
-        ]);
+        // return $this->renderPartial('admin-add', [
+        //     'model' => $model,
+        // ]);
     }
 
     /**
@@ -145,13 +145,12 @@ class SupplierController extends Controller
             }else{
                 $supplier = $model->add();
                 if ($supplier) {
-                    return ['code'=>'new','id'=>$supplier->id,'url'=>'http://admin.gys.aimergroup.com:8090/?r=supplierform/update&id='.$supplier->id];
+                    return ['code'=>'new','id'=>$supplier->id,'url'=>'http://gys.aimergroup.com:8090/?r=supplierform/update&id='.$supplier->id];
                 }else{
                     return ['code'=>'error'];  
                 }
             }
-        }  
-        else{  
+        } else {  
             return ['code'=>'error'];  
         }  
     }

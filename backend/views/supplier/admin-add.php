@@ -10,41 +10,56 @@ use yii\helpers\Url;
 
 $js = <<<JS
 //此处点击按钮提交数据的jquery
-$('.btn').click(function () {
-var name = $('#adminadd-name').val();   
-var enterprise_code = $('#adminadd-enterprise_code').val();
-
-$.ajax({
-        url: "admin-save",
-        type: "POST",
-        dataType: "json",
-        data: $('form').serialize(),
-        success: function(data) {
-            if (data.code == 'name') {
-                alert(data.message);
+function save_detail(){
+    var name = $('#adminadd-name').val();   
+    var enterprise_code = $('#adminadd-enterprise_code').val();
+    
+    if (!name) {
+        $('.field-adminadd-name').addClass('has-error');
+        $('.field-adminadd-name .help-block').text('供应商全称不能为空!');
+        return false;
+    } else {
+        $('.field-adminadd-name').removeClass('has-error');
+        $('.field-adminadd-name .help-block').text('');
+    }
+    if (!enterprise_code) {
+        $('.field-adminadd-enterprise_code').addClass('has-error');
+        $('.field-adminadd-enterprise_code .help-block').text('企业代码不能为空!');
+        return false;
+    } else {
+        $('.field-adminadd-enterprise_code').removeClass('has-error');
+        $('.field-adminadd-enterprise_code .help-block').text('');        
+    }
+    $.ajax({
+            url: "admin-save",
+            type: "POST",
+            dataType: "json",
+            data: $('form').serialize(),
+            success: function(data) {
+                if (data.code == 'name') {
+                    alert(data.message);
+                }
+                if (data.code == 'code') {
+                    alert(data.message);
+                }    
+                if(data.code == 'exist') {
+                    alert('此供应商已经存在，等级为'+data.type);
+                    location.href = '/supplier/admin-index';
+                } 
+                if (data.code == 'new') {
+                    $('#update-prompt').text('您可以继续完善供应商信息，也可以将此链接发给供应商协助填写。');
+                    $('#update-supplier').attr('href',data.url);
+                }                    
+                if (data.code == 'fail') {
+                    alert('保存失败')
+                }
+            },
+            error: function() {
+                alert('网络错误！');
             }
-            if (data.code == 'code') {
-                alert(data.message);
-            }    
-            if(data.code == 'exist') {
-                alert('此供应商已经存在，等级为'+data.type);
-                location.href = '/supplier/admin-index';
-            } 
-            if (data.code == 'new') {
-                $('#update-prompt').text('您可以继续完善供应商信息，也可以将此链接发给供应商协助填写。');
-                $('#update-supplier').attr('href',data.url);
-            }                    
-            if (data.code == 'fail') {
-                alert('保存失败')
-            }
-        },
-        error: function() {
-            alert('网络错误！');
-        }
-    });
-    return false;
-});
-
+        });
+        return false;
+}
 JS;
 $this->registerJs($js);
 
@@ -52,8 +67,9 @@ $this->registerJs($js);
 <div class="suppliers-form">
     <?php $form = ActiveForm::begin([
         'id' => 'form-id',
+        'action' => '',
         'enableAjaxValidation' => true,
-        'validationUrl' => Url::to(['supplier/admin-add']),     //数据异步校验
+        //'validationUrl' => Url::to(['supplier/admin-add']),     //数据异步校验
     ]); ?>
     <div class="row">
     <div class="col-xs-6">
@@ -67,9 +83,8 @@ $this->registerJs($js);
     </div>   
     <div class="form-group">
     <div class="col-xs-12">
-
-        <?= Html::submitButton('新增', ['class' => 'btn btn-success']) ?>
-        </div>
+        <button onclick="save_detail()" class="btn btn-success">新增</button>
+    </div>
     </div>
 
     <?php ActiveForm::end(); ?>
