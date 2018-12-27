@@ -117,6 +117,19 @@ class SupplierController extends Controller
     }
 
     /**
+     * Displays a single Suppliers model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionAdminView($id)
+    {
+        return $this->render('admin-view', [
+            'model' => $this->findModel($id),
+        ]);
+    }    
+
+    /**
      * Creates a new Suppliers model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed

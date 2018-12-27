@@ -32,9 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     if (!$supplier) {
                         return '';
                     }
-                    if(Helper::checkRoute('view')) {
+                    if(Helper::checkRoute('admin-view')) {
                        
-                        $url = Url::to(['view','id'=>$model->id]);
+                        $url = Url::to(['admin-view','id'=>$model->id]);
                         $options = ['title' => $supplier->name];
                         return Html::a($supplier->name,$url,$options);
                     } else {

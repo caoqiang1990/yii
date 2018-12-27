@@ -30,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'name',
                 'format' => 'raw',
                 'value' => function($model) {
-                    if(Helper::checkRoute('view')) {
-                        $url = Url::to(['view','id'=>$model->id]);
+                    if(Helper::checkRoute('admin-view')) {
+                        $url = Url::to(['admin-view','id'=>$model->id]);
                         $options = ['title' => $model->name];
                         return Html::a($model->name,$url,$options);
                     } else {

@@ -99,6 +99,25 @@ class SupplierDetailController extends Controller
     }
 
     /**
+     * Displays a single SupplierDetail model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionAdminView($id)
+    {
+        $model = $this->findModel($id);
+        if (!$model) {
+            throw new NotFoundHttpException("您访问的页面不存在");
+        }
+        $supplierModel = Supplier::getSupplierById($model->sid);
+        return $this->render('admin-view', [
+            'model' => $model,
+            'supplier' => $supplierModel,
+        ]);
+    }
+
+    /**
      * Creates a new SupplierDetail model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
