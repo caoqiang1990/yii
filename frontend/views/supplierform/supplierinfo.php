@@ -11,8 +11,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\SuppliersBasic */
 
-$this->title = Yii::t('supplier', 'Suppliers');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('supplier', 'Suppliers'), 'url' => ['index']];
+$this->title = Yii::t('supplier', 'supplierbasic');
+//$this->params['breadcrumbs'][] = ['label' => Yii::t('supplier', 'Suppliers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="suppliers-create">
