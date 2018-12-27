@@ -10,8 +10,8 @@ use yii\helpers\Url;
 /* @var $searchModel backend\models\SupplierDetailSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('detail','Supplier Details');
-$this->params['breadcrumbs'][] = ['label' => '供应商列表', 'url' => \yii\helpers\Url::to(['supplier/index'])];
+$this->title = '部门供应商';
+$this->params['breadcrumbs'][] = ['label' => '供应商名录查询', 'url' => \yii\helpers\Url::to(['supplier/admin-index'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supplier-detail-index">
