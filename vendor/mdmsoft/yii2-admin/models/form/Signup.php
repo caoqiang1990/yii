@@ -13,6 +13,9 @@ class Signup extends Model
     public $username;
     public $email;
     public $password;
+    public $truename;
+    public $department;
+    public $mobile;
 
     /**
      * @inheritdoc
@@ -32,6 +35,10 @@ class Signup extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+            ['mobile','required'],
+            ['mobile','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'联系人手机号格式不正确！'],
+            ['department','required'],
+            ['truename', 'required'],
         ];
     }
 
@@ -47,6 +54,9 @@ class Signup extends Model
             $user->username = $this->username;
             $user->email = $this->email;
             $user->setPassword($this->password);
+            $user->mobile = $this->mobile;
+            $user->department = $this->department;
+            $user->truename = $this->truename;
             $user->generateAuthKey();
             if ($user->save()) {
                 return $user;
@@ -55,4 +65,22 @@ class Signup extends Model
 
         return null;
     }
+
+    /**
+     * 对应中文
+     * @return [type] [description]
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('rbac-admin','ID'),
+            'username' => Yii::t('rbac-admin','Username'),
+            'created_at' => Yii::t('rbac-admin','Created At'),
+            'email' => Yii::t('rbac-admin','Email'),
+            'status' => Yii::t('rbac-admin','Status'),
+            'mobile' => Yii::t('rbac-admin','mobile'),
+            'department' => Yii::t('rbac-admin','department'),
+            'truename' => Yii::t('rbac-admin','truename'),
+        ];
+    }    
 }
