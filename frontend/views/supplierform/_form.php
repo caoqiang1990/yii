@@ -11,7 +11,8 @@ use kartik\file\FileInput;
 ?>
 <div class="box box-solid box-default">
 <div class="box-header">
-  <h3 class="box-title">供应商基础信息录入</h3>
+  <!--h3 class="box-title">供应商基础信息录入</h3--><br/>
+  
 </div>
 </div>
 <div class="suppliers-form">
