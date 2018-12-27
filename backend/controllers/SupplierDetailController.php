@@ -131,7 +131,7 @@ class SupplierDetailController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             AdminLog::saveLog('supplierdetail', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
-            return $this->redirect(['supplier/index']);
+            return $this->redirect(['index']);
         }
         $supplierModel = new Supplier;
         $fundModel = new SupplierFunds;
@@ -150,9 +150,9 @@ class SupplierDetailController extends Controller
                         $detail->{"trade_fund$id"} = $v->trade_fund;
                     }
                 }
-                $detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
-                $detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
-                $detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
+                //$detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
+                //$detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
+                //$detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
 
         }
         //前三年
@@ -175,23 +175,45 @@ class SupplierDetailController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id,$sid='')
+    public function actionUpdate($id)
     {
         $model = $this->findModel($id);
         $model->scenario = 'edit';
-
+        $sid = $model->sid;
         $original = $model->getByID($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             AdminLog::saveLog('supplierdetail', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
             return $this->redirect(['view', 'id' => $model->id]);
         }
+
         $supplierModel = new Supplier;
-        $nameObject = $supplierModel->getNameByID($model->sid);
+        $fundModel = new SupplierFunds;
+        $levelModel = new SupplierLevel;
+        $supplierObj = $supplierModel->find($sid)->one();
+        $level = $levelModel::getLevelByParams();//供应商等级
+        $map['detail_id'] = $id;
+        $funds = $fundModel->find()->where($map)->all();
+        if ($funds) {
+            foreach ($funds as $k => $v) {
+                $id = $k + 1;
+                $model->{"coop_fund$id"} = $v->coop_fund;
+                $model->{"trade_fund$id"} = $v->trade_fund;
+            }
+                //$detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
+                //$detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
+                //$detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
+
+        }
+        //前三年
+        $model->fund_year1 = date('Y') - 3;
+        $model->fund_year2 = date('Y') - 2;
+        $model->fund_year3 = date('Y') - 1;
 
         return $this->render('update', [
             'model' => $model,
-            'name' => $nameObject->name,
+            'name' => $supplierObj->name,
             'sid' => $sid,
+            'level' => $level,
         ]);
     }
 

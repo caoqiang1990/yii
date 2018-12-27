@@ -6,16 +6,11 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\SupplierDetail */
 
-$this->title = '与我方关系';
+$this->title = '';
 $this->params['breadcrumbs'][] = ['label' => '供应商列表', 'url' => \yii\helpers\Url::to(['supplier/index'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supplier-detail-create">
-<div class="box box-solid box-default">
-<div class="box-header">
-  <h3 class="box-title"><?= Html::encode($this->title) ?></h3>
-</div>
-</div>
     <?= $this->render('_form', [
         'model' => $model,
         'name' => $name,

@@ -18,11 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-    <?php if(Helper::checkRoute('create')) {  ?>
-        <?= Html::a(Yii::t('detail','Create Supplier Detail'), ['create','sid'=>$sid], ['class' => 'btn btn-success']) ?>
-    <?php } ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -62,6 +57,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
 
             ],   
+            // [
+            //     'label'=>  (Helper::checkRoute('supplier-detail/create')) ? '更多操作' : '',
+            //     'format'=>'raw',
+            //     'value' => function($model){
+            //         $operator_1 = '';
+            //         if (Helper::checkRoute('supplier-detail/create')) {
+            //             $url_1 = Url::to(['supplier-detail/create','sid'=>$model->sid]);
+            //             $operator_1 = Html::a('与我方关系', $url_1, ['title' => '与我方关系']);
+
+            //         }
+            //        return $operator_1; 
+            //     }
+            // ],               
         ],
     ]); ?>
 </div>
