@@ -345,19 +345,19 @@ class SupplierController extends Controller
                 $supplierModel->name = $vo['供应商全称'];
 
                 $supplierModel->scenario = 'add';
-                // //供应商等级
-                // if ($vo['供应商等级']) {
-                //     $level = SupplierLevel::getLevelByName($vo['供应商等级']);
-                //     if ($level) {
-                //         $supplierModel->level = $level->id;
-                //     } else {
-                //         //没有查到对应的供应商等级名称
+                //供应商等级
+                if ($vo['供应商等级']) {
+                    $level = SupplierLevel::getLevelByName($vo['供应商等级']);
+                    if ($level) {
+                        $supplierModel->level = $level->id;
+                    } else {
+                        //没有查到对应的供应商等级名称
 
-                //     }
-                // } else {
-                //     //没有填写对应的供应商等级名称
+                    }
+                } else {
+                    //没有填写对应的供应商等级名称
 
-                // }
+                }
                 //供应商总类
                 if (isset($vo['供应商分类一级'])) {
                     if ($vo['供应商分类一级']) {
