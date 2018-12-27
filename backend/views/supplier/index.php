@@ -51,23 +51,37 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => SupplierCategory::getCategoryByParams('id,category_name',1),
             ],
-            //'cate_id2',
-            //'cate_id3',
-            // [
-            //     'attribute' => 'level',
-            //     'value' => function($model){
-            //         $levelModel = new SupplierLevel;
-            //         return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
-            //     },
-            //     'filter' => SupplierLevel::getLevel(),
-            // ],
             [
-                'attribute' => 'trade',
+                'attribute' => 'cate_id2',
                 'value' => function($model){
-                    return SupplierTrade::getTradeById($model->trade) ? SupplierTrade::getTradeById($model->trade)->trade_name : '';
+                    $categoryModel = new SupplierCategory;
+                    return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
                 },
-                'filter' => SupplierTrade::getTrade(),
+                'filter' => SupplierCategory::getCategoryByParams('id,category_name',2),
             ],
+            [
+                'attribute' => 'cate_id3',
+                'value' => function($model){
+                    $categoryModel = new SupplierCategory;
+                    return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
+                },
+                'filter' => SupplierCategory::getCategoryByParams('id,category_name',3),
+            ],
+            [
+                'attribute' => 'level',
+                'value' => function($model){
+                    $levelModel = new SupplierLevel;
+                    return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
+                },
+                'filter' => SupplierLevel::getLevel(),
+            ],
+            // [
+            //     'attribute' => 'trade',
+            //     'value' => function($model){
+            //         return SupplierTrade::getTradeById($model->trade) ? SupplierTrade::getTradeById($model->trade)->trade_name : '';
+            //     },
+            //     'filter' => SupplierTrade::getTrade(),
+            // ],
             // [
             //     'attribute' => 'total_fund',
             //     'value' => function($model){
@@ -76,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //     }
             // ],
             'business_contact',  
-            'business_email',
+            //'business_email',
             //'business_license',
             //'tax_registration_certificate',
             //'orcc',
