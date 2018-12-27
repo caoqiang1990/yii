@@ -18,7 +18,7 @@ class SupplierDetailSearch extends SupplierDetail
     public function rules()
     {
         return [
-            [['id', 'sid', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'created_at', 'updated_at'], 'integer'],
             [['one_level_department','second_level_department', 'name', 'mobile', 'reason'], 'safe'],
         ];
     }
