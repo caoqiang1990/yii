@@ -7,7 +7,6 @@ use yii\helpers\Html;
 $title = Yii::t('detail','Update Supplier Detail：');
 $this->title = '';
 $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('detail','Update');
 ?>
 <div class="supplier-detail-update">

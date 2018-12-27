@@ -150,15 +150,16 @@ class SupplierDetailController extends Controller
                         $detail->{"trade_fund$id"} = $v->trade_fund;
                     }
                 }
-                //$detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
-                //$detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
-                //$detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
+                // $detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
+                // $detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
+                // $detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
 
         }
         //前三年
         $model->fund_year1 = date('Y') - 3;
         $model->fund_year2 = date('Y') - 2;
         $model->fund_year3 = date('Y') - 1;
+        $model->one_level_department = Yii::$app->user->identity->department;
         return $this->render('create', [
             'model' => $model,
             'name' => $supplierObj->name,
@@ -199,11 +200,10 @@ class SupplierDetailController extends Controller
                 $model->{"coop_fund$id"} = $v->coop_fund;
                 $model->{"trade_fund$id"} = $v->trade_fund;
             }
-                //$detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
-                //$detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
-                //$detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
-
         }
+        $model->cate_id1 = implode(',', SupplierCategory::getCategoryNameByParams($model->cate_id1));
+        $model->cate_id2 = implode(',', SupplierCategory::getCategoryNameByParams($model->cate_id2));
+        $model->cate_id3 = implode(',', SupplierCategory::getCategoryNameByParams($model->cate_id3));        
         //前三年
         $model->fund_year1 = date('Y') - 3;
         $model->fund_year2 = date('Y') - 2;

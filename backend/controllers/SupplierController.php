@@ -131,6 +131,12 @@ class SupplierController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         $model = new AdminAdd();
         if ($model->load(Yii::$app->request->post())) {
+            if (!$model->name) {
+                return ['code'=>'name','message'=>'供应商全称不能为空!'];
+            }
+            if (!$model->enterprise_code) {
+                return ['code'=>'code','message'=>'企业代码不能为空!'];
+            }            
             $supplier = Supplier::getSupplierByName($model->name);
             if ($supplier) {
                 $level = SupplierLevel::getLevelById($supplier->level);
@@ -139,7 +145,7 @@ class SupplierController extends Controller
             }else{
                 $supplier = $model->add();
                 if ($supplier) {
-                    return ['code'=>'new','id'=>$supplier->id];
+                    return ['code'=>'new','id'=>$supplier->id,'url'=>'http://admin.gys.aimergroup.com:8090/?r=supplierform/update&id='.$supplier->id];
                 }else{
                     return ['code'=>'error'];  
                 }

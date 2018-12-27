@@ -10,9 +10,8 @@ use yii\helpers\Url;
 /* @var $searchModel backend\models\SupplierDetailSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('detail','Supplier Details');
-$this->params['breadcrumbs'][] = ['label' => '供应商列表', 'url' => \yii\helpers\Url::to(['supplier/index'])];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = '';
+$this->params['breadcrumbs'][] = ['label' => '与我方关系列表', 'url' => \yii\helpers\Url::to(['supplier/index'])];
 ?>
 <div class="supplier-detail-index">
 
@@ -57,19 +56,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
 
             ],   
-            // [
-            //     'label'=>  (Helper::checkRoute('supplier-detail/create')) ? '更多操作' : '',
-            //     'format'=>'raw',
-            //     'value' => function($model){
-            //         $operator_1 = '';
-            //         if (Helper::checkRoute('supplier-detail/create')) {
-            //             $url_1 = Url::to(['supplier-detail/create','sid'=>$model->sid]);
-            //             $operator_1 = Html::a('与我方关系', $url_1, ['title' => '与我方关系']);
+            [
+                'label'=>  (Helper::checkRoute('supplier-detail/create')) ? '更多操作' : '',
+                'format'=>'raw',
+                'value' => function($model){
+                    $operator_1 = '';
+                    if (Helper::checkRoute('supplier-detail/create')) {
+                        $url_1 = Url::to(['supplier-detail/create','sid'=>$model->sid]);
+                        $operator_1 = Html::a('与我方关系', $url_1, ['title' => '与我方关系']);
 
-            //         }
-            //        return $operator_1; 
-            //     }
-            // ],               
+                    }
+                   return $operator_1; 
+                }
+            ],               
         ],
     ]); ?>
 </div>

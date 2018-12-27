@@ -13,24 +13,27 @@ $js = <<<JS
 $('.btn').click(function () {
 var name = $('#adminadd-name').val();   
 var enterprise_code = $('#adminadd-enterprise_code').val();
-if (!name) {
-    $('.field-adminadd-name').addClass('has-error');
-}
-if (!enterprise_code) {
-    $('.field-adminadd-enterprise_code').addClass('has-error');
-}
+
 $.ajax({
         url: "admin-save",
         type: "POST",
         dataType: "json",
         data: $('form').serialize(),
         success: function(data) {
+            if (data.code == 'name') {
+                alert(data.message);
+            }
+            if (data.code == 'code') {
+                alert(data.message);
+            }    
             if(data.code == 'exist') {
                 alert('此供应商已经存在，等级为'+data.type);
+                location.href = '/supplier/admin-index';
             } 
             if (data.code == 'new') {
-                alert('您可以继续完善供应商信息，也可以将此链接发给供应商协助填写。');
-            }
+                $('#update-prompt').text('您可以继续完善供应商信息，也可以将此链接发给供应商协助填写。');
+                $('#update-supplier').attr('href',data.url);
+            }                    
             if (data.code == 'fail') {
                 alert('保存失败')
             }
@@ -58,7 +61,10 @@ $this->registerJs($js);
     </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'enterprise_code')->label('企业代码')->textInput(['maxlength' => true]) ?>
-    </div>    
+    </div> 
+    <div class="col-xs-12">
+        <a id="update-supplier" href=""><p id="update-prompt"></p></a>
+    </div>   
     <div class="form-group">
     <div class="col-xs-12">
 

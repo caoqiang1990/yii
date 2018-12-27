@@ -34,11 +34,11 @@ class AdminAdd extends Model
         if ($this->validate()) {
             $supplierModel = new Supplier();
      
-            $supplier->scenario = 'admin-add';
-            $supplier->name = $this->name;
-            $supplier->enterprise_code_desc = $this->enterprise_code;
-            if ($supplier->save()) {
-                return $supplier;
+            $supplierModel->scenario = 'admin-add';
+            $supplierModel->name = $this->name;
+            $supplierModel->enterprise_code_desc = $this->enterprise_code;
+            if ($supplierModel->save()) {
+                return $supplierModel;
             }
         }
 

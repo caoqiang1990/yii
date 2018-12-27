@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\SupplierDetail */
 
-$this->title = '';
+$this->title = '合作关系';
 $this->params['breadcrumbs'][] = ['label' => '供应商列表', 'url' => \yii\helpers\Url::to(['supplier/index'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
