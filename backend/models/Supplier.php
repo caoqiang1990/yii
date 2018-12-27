@@ -460,4 +460,17 @@ class Supplier extends ActiveRecord
         return false;
     }    
 
+    /**
+     * 根据id获取供应商
+     * @param  string $id [description]
+     * @return [type]     [description]
+     */
+    public static function getSupplierById($id = '')
+    {
+        if (!$id) {
+            return false;
+        }
+        $info = self::find()->where(['id' => $id])->one();
+        return $info ? $info : false;
+    }
 }
