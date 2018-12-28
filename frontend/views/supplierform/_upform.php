@@ -349,7 +349,7 @@ use kartik\file\FileInput;
       <div class="form-group">
     <div class="col-xs-6">
 
-        <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => 'btn btn-success add']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '新增' : '提交', ['class' => 'btn btn-success add']) ?>
         </div>
         <!--div class="col-xs-6">
 
