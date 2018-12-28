@@ -17,7 +17,7 @@ dmstr\web\AdminLteAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="login-page">
+<body class="login-page" style="background-image: url('/static/images/paper.jpg');background-repeat: no-repeat;background-size:100%">
 
 <?php $this->beginBody() ?>
 
