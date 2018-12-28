@@ -149,18 +149,6 @@ use kartik\file\FileInput;
     <div class="col-xs-6">
     <?= $form->field($model, 'department_manager_phone')->textInput(['maxlength' => true]) ?>
     </div>   
-    <div class="col-xs-12">
-    <?= $form->field($model, 'enterprise_license_desc')->textInput(['maxlength' => true]) ?>
-    </div> 
-    <div class="col-xs-12">
-    <?= $form->field($model, 'enterprise_license_relate_desc')->textInput(['maxlength' => true]) ?>
-    </div> 
-    <div class="col-xs-12">
-    <?= $form->field($model, 'enterprise_certificate_desc')->textInput(['maxlength' => true]) ?>
-    </div> 
-    <div class="col-xs-12">
-    <?= $form->field($model, 'enterprise_certificate_etc_desc')->textInput(['maxlength' => true]) ?>
-    </div> 
 	 <div class="col-xs-12">
     <?= $form->field($model,'enterprise_code')->hiddenInput()->label(false)?>
       <?php
@@ -197,7 +185,10 @@ use kartik\file\FileInput;
 
                     ]);
             ?>
-    </div>         
+    </div> 
+      <div class="col-xs-12">
+    <?= $form->field($model, 'enterprise_license_desc')->textInput(['maxlength' => true]) ?>
+    </div> 
     <div class="col-xs-12">
         <?= $form->field($model,'enterprise_license')->hiddenInput()->label(false)?>
 
@@ -234,8 +225,11 @@ use kartik\file\FileInput;
 
                     ]);
             ?>
-    </div>     
+    </div>
     <div class="col-xs-12">
+    <?= $form->field($model, 'enterprise_license_relate_desc')->textInput(['maxlength' => true]) ?>
+    </div> 
+      <div class="col-xs-12">
         <?= $form->field($model,'enterprise_license_relate')->hiddenInput()->label(false)?>
 
       <?php
@@ -271,8 +265,11 @@ use kartik\file\FileInput;
 
                     ]);
             ?>
-    </div>         
+    </div>  
     <div class="col-xs-12">
+    <?= $form->field($model, 'enterprise_certificate_desc')->textInput(['maxlength' => true]) ?>
+    </div> 
+       <div class="col-xs-12">
         <?= $form->field($model,'enterprise_certificate')->hiddenInput()->label(false)?>
 
       <?php
@@ -308,7 +305,10 @@ use kartik\file\FileInput;
 
                     ]);
             ?>
-    </div>    
+    </div> 
+    <div class="col-xs-12">
+    <?= $form->field($model, 'enterprise_certificate_etc_desc')->textInput(['maxlength' => true]) ?>
+    </div> 
     <div class="col-xs-12">
         <?= $form->field($model,'enterprise_certificate_etc')->hiddenInput()->label(false)?>
 
