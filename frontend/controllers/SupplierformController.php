@@ -24,6 +24,8 @@ use yii\helpers\Json;
 use common\models\AdminLog;
 use yii\web\UploadedFile;
 use backend\models\SupplierNature;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 class SupplierformController extends Controller
 {
@@ -32,14 +34,55 @@ class SupplierformController extends Controller
      * @return mixed
      */
     public $sid;
-    
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' =>   [
+                'class' => AccessControl::className(),
+                'only' => ['supplierinfo'],
+                'rules' => [
+                    [
+                        'actions' => ['supplierinfo'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['supplierinfo'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+                'denyCallback' => function ($rule, $action) {
+                    throw new \Exception('You are not allowed to access this page');
+                },
+            ],
+            
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'supplierinfo' => ['post','get'],
+                ],
+            ],
+        ];
+    }
     public function actionSupplierinfo()
     {
         $model = new Supplier;
         $model->scenario = 'add';
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            AdminLog::saveLog('supplier','create',$model->getByID($model->primaryKey),$model->primaryKey);
+//          $md = $_GET['md'];
+//          AdminLog::saveLog('supplier','create',$model->getByID($model->primaryKey),$model->primaryKey);
+//          if($md !="save")
+//          {
             return $this->redirect(['confirm', 'id' => $model->id]);
+//          }
+//          else
+//          {
+//            return $this->redirect(['update', 'id' => $model->id]);
+//          }
         }
 
         $levelModel = new SupplierLevel;
