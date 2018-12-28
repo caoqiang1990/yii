@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
 <div class="supplier-detail-view">
 
     <p>
-      <?= Html::a('返回', ['admin-index'], ['class' => 'btn btn-primary']) ?>
+      <?= Html::a('返回', ['/supplier-detail/admin-index'], ['class' => 'btn btn-primary']) ?>
     </p>
   <?= DetailView::widget([
         'model' => $supplier,
@@ -209,6 +209,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
         }
     ?>
     <p>
-      <?= Html::a('返回', ['admin-index'], ['class' => 'btn btn-primary']) ?>
+      <?= Html::a('返回', ['/supplier-detail/admin-index'], ['class' => 'btn btn-primary']) ?>
     </p>
 </div>
