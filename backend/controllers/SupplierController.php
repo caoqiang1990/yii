@@ -429,8 +429,8 @@ class SupplierController extends Controller
 
                 //供应商全称
                 $supplierModel->name = $vo['供应商全称'];
-
                 $supplierModel->scenario = 'add';
+                $supplierModel->department = $vo['一级部门（管理部门）'];
                 //供应商等级
                 if ($vo['供应商等级']) {
                     $level = SupplierLevel::getLevelByName($vo['供应商等级']);
