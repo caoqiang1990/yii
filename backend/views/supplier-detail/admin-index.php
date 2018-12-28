@@ -12,8 +12,8 @@ use mdm\admin\components\Helper;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SuppliersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = '集团供应商';
+$department = Yii::$app->user->identity->department;
+$this->title = '部门供应商' . $department;
 $this->params['breadcrumbs'][] = ['label' => '供应商名录查询', 'url' => \yii\helpers\Url::to(['supplier/admin-index'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
