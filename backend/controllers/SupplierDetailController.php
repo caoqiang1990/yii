@@ -71,6 +71,7 @@ class SupplierDetailController extends Controller
         $filter_department = ['大数据信息中心','总裁办','品管部','供应链部'];
         if (!in_array($department,$filter_department)) {
             $request['SupplierSearch']['public_flag'] = 'y';
+            $request['SupplierSearch']['department'] = $department;
         } else {
             $request['SupplierSearch']['department'] = $department;
         }
