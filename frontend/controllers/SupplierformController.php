@@ -7,24 +7,28 @@
  */
 namespace frontend\controllers;
 
-use yii;
+use Yii;
+use yii\filters\VerbFilter;
+use yii\helpers\Json;
 use yii\web\Controller;
-use frontend\models\Supplier;
-use app\models\SupplierExt;
-use backend\models\SupplierLevel;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
+use yii\web\UploadedFile;
+use backend\models\Attachment;
+use backend\models\Supplier;
 use backend\models\SupplierCategory;
+use backend\models\SupplierLevel;
+use backend\models\SupplierSearch;
 use backend\models\SupplierTrade;
 use backend\models\SupplierType;
-use backend\models\Attachment;
-use moonland\phpexcel\Excel;
-use backend\models\SupplierDetail;
-use backend\models\SupplierFunds;
 use backend\models\UploadForm;
-use yii\helpers\Json;
 use common\models\AdminLog;
-use yii\web\UploadedFile;
+use moonland\phpexcel\Excel;
 use backend\models\SupplierNature;
-use yii\filters\VerbFilter;
+use yii\web\BadRequestHttpException;
+use backend\models\SupplierDetail;
+use mdm\admin\components\Configs;
+use backend\models\AdminAdd;
 use yii\filters\AccessControl;
 
 class SupplierformController extends Controller
@@ -102,12 +106,10 @@ class SupplierformController extends Controller
             'type' => $type,
         ]);
     }
-    public function actionConfirm($id)
+    public function actionConfirm()
     {
         
-        return $this->render('confirm', [
-            'model' => $this->findModel($id),
-        ]);
+        return $this->render('confirm');
     }
     public function actionView($id)
     {
@@ -129,30 +131,16 @@ class SupplierformController extends Controller
         $model->scenario = 'edit';
         $post = Yii::$app->request->post();
         $original = $model->getByID($id);
-//        var_dump($model);
-//        var_dump($post);
-//        exit;
         if ($model->load($post) && $model->save()) {
-            AdminLog::saveLog('supplier', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
-            return $this->redirect(['view', 'id' => $model->id]);
+//            AdminLog::saveLog('supplier', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
+            return $this->redirect(['confirm', 'model' => $model]);
         }
         $attachmentModel = new Attachment();
         $image = $attachmentModel->getImageByID($model->enterprise_code);
-        
-//        //attachment表中增加一个供应商Id防止更新后以前的记录成为死记录
-//        $image1Model = $attachmentModel::findOne($model->enterprise_code)->sid = $model->id;
-//        $image1Model->sid = $model->id;
-//        $image1Model->save();
         $model->enterprise_code_url = $image ? $image->url : '';
         $image = $attachmentModel->getImageByID($model->enterprise_license);
-//        $image1Mode2 = $attachmentModel::findOne($model->enterprise_license)->sid = $model->id;
-//        $image1Mode2->sid = $model->id;
-//        $image1Mode2->save();
         $model->enterprise_license_url = $image ? $image->url : '';
         $image = $attachmentModel->getImageByID($model->enterprise_license_relate);
-//        $image1Mode3 = $attachmentModel::findOne($model->enterprise_license_relate)->sid = $model->id;
-//        $image1Mode3->sid = $model->id;
-//        $image1Mode3->save();
         $model->enterprise_license_relate_url = $image ? $image->url : '';
         $image = $attachmentModel->getImageByID($model->enterprise_certificate);
         $model->enterprise_certificate_url = $image ? $image->url : '';
@@ -162,9 +150,10 @@ class SupplierformController extends Controller
         $categoryModel = new SupplierCategory;
         $tradeModel = new SupplierTrade;
         $typeModel = new SupplierType;
+        $natureModel = new SupplierNature;
         $level = $levelModel::getLevelByParams();
-        //$firm_nature = $categoryModel::getCategoryByParams();
-        $firm_nature = [1 => '国有', 2 => '合资', 3 => '独资'];
+
+        $firm_nature = $natureModel::getNatureByParams(); //企业性质
         $trade = $tradeModel::getTradeByParams();
         $type = $typeModel::getTypeByParams(); //业务类型
         return $this->render('update', [
