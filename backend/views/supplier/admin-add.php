@@ -49,6 +49,7 @@ function save_detail(){
                 if (data.code == 'new') {
                     $('#update-prompt').text('您可以继续完善供应商信息，也可以将此链接发给供应商协助填写。');
                     $('#update-supplier').attr('href',data.url);
+                    $('#update-text').text(data.url);
                 }                    
                 if (data.code == 'fail') {
                     alert('保存失败')
@@ -80,10 +81,11 @@ $this->registerJs($js);
     </div> 
     <div class="col-xs-12">
         <a id="update-supplier" href=""><p id="update-prompt"></p></a>
+        <p id="update-text"></p>
     </div>   
     <div class="form-group">
     <div class="col-xs-12">
-        <button onclick="save_detail()" class="btn btn-success">新增</button>
+        <button onclick="save_detail()" class="btn btn-success">确认</button>
     </div>
     </div>
 
