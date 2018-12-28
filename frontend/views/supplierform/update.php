@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = Yii::t('suppliers', 'Update');
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
+    <?= $this->render('_upform', [
         'model' => $model,
         'level' => $level,
         'firm_nature' => $firm_nature,
