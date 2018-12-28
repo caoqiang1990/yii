@@ -16,10 +16,7 @@ $this->title = Yii::t('supplier', 'supplierbasic');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="suppliers-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <div style="width:1280px;align:right;"><img src="./images/logo.jpg" style="width:250px;height:250px;align:right;" /></div>
-
+  <table style="width:100%"><tr><td colspan="3"><h1><?= Html::encode($this->title) ?></h1></td><td><img src="./images/logo.jpg" style="width:110px;height:110px;align:right;" /></td></tr></table>
     <?= $this->render('_form', [
         'model' => $model,
         'level' => $level,
