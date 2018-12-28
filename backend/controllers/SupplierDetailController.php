@@ -14,6 +14,7 @@ use backend\models\SupplierLevel;
 use common\models\AdminLog;
 use yii\web\Response;
 use backend\models\SupplierCategory;
+use backend\models\SupplierSearch;
 
 /**
  * SupplierDetailController implements the CRUD actions for SupplierDetail model.
@@ -63,19 +64,22 @@ class SupplierDetailController extends Controller
      */
     public function actionAdminIndex()
     {
-        $searchModel = new SupplierDetailSearch();
-
-        //与我方关系与部门相关
+        $searchModel = new SupplierSearch();
+        $request = Yii::$app->request->queryParams;
         $department = Yii::$app->user->identity->department;
-        $request['SupplierDetailSearch'] = Yii::$app->request->queryParams;
-        $request['SupplierDetailSearch']['one_level_department'] = $department;
+        //排除这几个一级部门
+        $filter_department = ['大数据信息中心','总裁办','品管部','供应链部'];
+        if (!in_array($department,$filter_department)) {
+            $request['SupplierSearch']['public_flag'] = 'y';
+            $request['SupplierSearch']['department'] = $department;
+        } else {
+            $request['SupplierSearch']['department'] = $department;
+        }
         $dataProvider = $searchModel->search($request);
 
-        $sid = Yii::$app->request->get('sid');
         return $this->render('admin-index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'sid' => $sid,
         ]);
     }
 

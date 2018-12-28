@@ -29,13 +29,15 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             [
                 'attribute' => 'level',
                 'value' => function($model){
-                    return SupplierLevel::getLevelById($model->level)->level_name;
+                    $level = SupplierLevel::getLevelById($model->level);
+                    return $level ? $level->level_name : '';
                 }
             ],
             [
                 'attribute' => 'trade',
                 'value' => function($model){
-                    return SupplierTrade::getTradeById($model->trade)->trade_name;
+                    $trade = SupplierTrade::getTradeById($model->trade);
+                    return $trade ? $trade->trade_name : '';
                 }
             ],
              [
@@ -66,9 +68,10 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             'business_address',
             //'business_type',
             [
-                'attribute' => 'trade',
+                'attribute' => 'business_type',
                 'value' => function($model){
-                    return SupplierType::getTypeById($model->business_type)->type_name;
+                    $business = SupplierType::getTypeById($model->business_type);
+                    return $business ? $business->type_name : '';
                 }
             ],            
             'business_email',

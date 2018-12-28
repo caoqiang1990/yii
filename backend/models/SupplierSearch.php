@@ -19,7 +19,7 @@ class SupplierSearch extends Supplier
     {
         return [
             [['id', 'created_at', 'updated_at','trade'], 'integer'],
-            [['name','business_contact','business_email','cate_id1','filter_cate_id1','cate_id2','cate_id3','level','public_flag'], 'safe'],
+            [['name','business_contact','business_email','cate_id1','filter_cate_id1','cate_id2','cate_id3','level','public_flag','department'], 'safe'],
         ];
     }
 
@@ -65,6 +65,7 @@ class SupplierSearch extends Supplier
             'id' => $this->id,
             //'name' => $this->name,
             'level'=> $this->level,
+            'department' => $this->department,
             'cate_id1'=> $this->cate_id1,
             'cate_id2'=> $this->cate_id2,
             'cate_id3'=> $this->cate_id3,

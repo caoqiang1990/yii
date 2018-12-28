@@ -177,6 +177,7 @@ class Supplier extends ActiveRecord
                 'enterprise_certificate_desc',
                 'enterprise_certificate_etc_desc', 
                 'enterprise_license_relate_desc',
+                'department',
             ],
             self::SCENARIO_EDIT => [
                 'name',
@@ -232,7 +233,8 @@ class Supplier extends ActiveRecord
                 'enterprise_license_desc',
                 'enterprise_certificate_desc',
                 'enterprise_certificate_etc_desc', 
-                'enterprise_license_relate_desc',                
+                'enterprise_license_relate_desc',   
+                'department',             
             ],
             self::SCENARIO_UPLOAD => [
                 'enterprise_code',

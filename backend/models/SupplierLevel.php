@@ -101,7 +101,7 @@ class SupplierLevel extends ActiveRecord
         if (!$id) {
             return false;
         }
-        $info = self::find()->where(['id' => $id])->one();
+        $info = self::find()->where(['id' => $id])->orderBy('order_no asc')->one();
         return $info ? $info : false;
     }
 

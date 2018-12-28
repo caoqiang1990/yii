@@ -140,15 +140,23 @@ class SupplierController extends Controller
             $supplier = Supplier::getSupplierByName($model->name);
             if ($supplier) {
                 $level = SupplierLevel::getLevelById($supplier->level);
-                $type = $level ? $level->level_name : '';
+                $type = $level ? $level->level_name : '未合作';
                 return ['code'=>'exist','id'=>$supplier->id,'type'=>$type];
             }else{
-                $supplier = $model->add();
-                if ($supplier) {
-                    return ['code'=>'new','id'=>$supplier->id,'url'=>'http://gys.aimergroup.com:8090/?r=supplierform/update&id='.$supplier->id];
-                }else{
-                    return ['code'=>'error'];  
+                $where['enterprise_code_desc'] = $model->enterprise_code;
+                $supplier_o = Supplier::find()->where($where)->one();
+                if ($supplier_o) {
+                    $level = SupplierLevel::getLevelById($supplier_o->level);
+                    $type = $level ? $level->level_name : '未合作';
+                    return ['code'=>'exist','id'=>$supplier_o->id,'type'=>$type];
+                } else {
+                    if ($new = $model->add()) {
+                        return ['code'=>'new','id'=>$new->id,'url'=>'http://gys.aimergroup.com:8090/?r=supplierform/update&id='.$new->id];
+                    }else{
+                        return ['code'=>'error'];  
+                    }                    
                 }
+
             }
         } else {  
             return ['code'=>'error'];  
@@ -429,8 +437,8 @@ class SupplierController extends Controller
 
                 //供应商全称
                 $supplierModel->name = $vo['供应商全称'];
-
                 $supplierModel->scenario = 'add';
+                $supplierModel->department = $vo['一级部门（管理部门）'];
                 //供应商等级
                 if ($vo['供应商等级']) {
                     $level = SupplierLevel::getLevelByName($vo['供应商等级']);
