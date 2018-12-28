@@ -20,10 +20,11 @@ use kartik\file\FileInput;
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data'],'id'=>'supplier_form']); ?>
     <div class="row">
     <div class="col-xs-6">
-    <?= Html::tag('label', Html::encode($model->name), ['class' => 'suppliername']) ?>
+    <?= Html::tag('label', Html::encode($model->name), ['class' => 'suppliername']) ?><br/><br/><br/>
     </div>
     <div class="col-xs-6">
-    <?= Html::tag('label', Html::encode($model->enterprise_code_desc), ['class' => 'enterprisecoddesc']) ?>
+    <?= Html::tag('label', Html::encode("企业代码："), ['class' => 'enterprisecode']) ?>
+    <?= Html::tag('label', Html::encode($model->enterprise_code_desc), ['class' => 'enterprisecoddesc']) ?><br/><br/><br/>
     </div> 
     <div class="col-xs-6">
     <?= $form->field($model, 'business_address')->textInput(['maxlength' => true]) ?>
