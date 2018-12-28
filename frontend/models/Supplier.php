@@ -233,7 +233,7 @@ class Supplier extends ActiveRecord
                 'enterprise_license_desc',
                 'enterprise_certificate_desc',
                 'enterprise_certificate_etc_desc', 
-                'enterprise_license_relate_desc',      
+                'enterprise_license_relate_desc',                
             ],
             self::SCENARIO_EDIT => [
                 'name',
@@ -334,7 +334,7 @@ class Supplier extends ActiveRecord
         ];
     }
 
-    /**
+     /**
      * *
      * @return [type] [description]
      */
@@ -427,6 +427,118 @@ class Supplier extends ActiveRecord
         $where['year'] = date('Y') - 1;
         $fund = $supplierFundModel::find()->where($where)->one();
         return $fund;
+    }
+
+    /**
+     * 插入前修改
+     * @param  [type] $insert [description]
+     * @return [type]         [description]
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+
+            if ($insert) { // 新增操作
+                if (is_array($this->business_type)) {
+                    $this->business_type = implode(',',$this->business_type);
+                }
+            }else{
+                if (is_array($this->business_type)) {
+                    $this->business_type = implode(',',$this->business_type);
+                }
+                //对比，如果firm_nature有变更。记录下来
+                $old = $this->find()->where(['id' => $this->id])->one();
+                if ($old->firm_nature != $this->firm_nature) {
+                    $historyModel = new History;
+                    $object_id = $this->id;
+                    $field = 'firm_nature';
+                    $original = $old->firm_nature;
+                    $result = $this->firm_nature;
+                    $original_value = '';
+                    $result_value = '';
+                    if ($original) {
+                        $nature_original = SupplierNature::getNatureById($original);
+                        $original_value = $nature_original ? $nature_original->nature_name : '';
+                    }
+                    if ($result) {
+                        $nature_result = SupplierNature::getNatureById($result);
+                        $result_value = $nature_result ? $nature_result->nature_name : '';
+                    }
+                    if ($original_value && $result_value) {
+                        $desc = "更新企业性质从{{$original_value}}到{{$result_value}}";
+                        $historyModel::history($object_id,$field,$original,$result,$desc);
+                    }
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+
+    } 
+
+    /**
+     * 查询后修改
+     * @return [type] [description]
+     */
+    public function afterFind()
+    {
+        $this->business_type = explode(',', $this->business_type);
+    }
+
+    /**
+    * @param bool $insert
+    * @param array $changedAttributes
+    */
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) { // 新增操作
+            $historyModel = new History;
+            $object_id = $this->id;
+            $field = 'firm_nature';
+            $original = '';
+            $result = $this->firm_nature;
+            if ($result) {
+                $nature_result = SupplierNature::getNatureById($this->firm_nature);
+                $result_value = $nature_result ? $nature_result->nature_name : '';
+                $desc = "新增企业性质{{$result_value}}";
+                $historyModel::history($object_id,$field,$original,$result,$desc);
+            }
+        } else { // 编辑操作
+            // do other sth.
+        }
+    }    
+
+    /*
+     *
+     * 根据名称获取企业等级
+     *
+     * **/
+    public static function getSupplierByName($name)
+    {
+        if (!$name) {
+            return false;
+        }
+        $where['name'] = $name;
+        $info = self::find()->where($where)->one();
+        if ($info) {
+            return $info;
+        }
+        return false;
+    }    
+
+    /**
+     * 根据id获取供应商
+     * @param  string $id [description]
+     * @return [type]     [description]
+     */
+    public static function getSupplierById($id = '')
+    {
+        if (!$id) {
+            return false;
+        }
+        $info = self::find()->where(['id' => $id])->one();
+        return $info ? $info : false;
     }
 
 }
