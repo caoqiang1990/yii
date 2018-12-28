@@ -41,9 +41,27 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
                     return SupplierTrade::getTradeById($model->trade)->trade_name;
                 }
             ],
-            'cate_id1',
-            'cate_id2',
-            'cate_id3',
+             [
+                'attribute' => 'cate_id1',
+                'value' => function($model){
+                    $categoryModel = new SupplierCategory;
+                    return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
+                },
+            ],
+            [
+                'attribute' => 'cate_id2',
+                'value' => function($model){
+                    $categoryModel = new SupplierCategory;
+                    return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
+                },
+            ],
+            [
+                'attribute' => 'cate_id3',
+                'value' => function($model){
+                    $categoryModel = new SupplierCategory;
+                    return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
+                },
+            ],
             'business_contact',
             'business_position',
             'business_phone',
