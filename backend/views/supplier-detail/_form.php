@@ -43,114 +43,6 @@ function (data,params) {
 }
 JS;
 ?>
-<?php  if($detail_obj_list){?>
-<div style="padding:20px">
-<p><h4>已填信息</h4></p>
-<?php foreach($detail_obj_list as $detail){?>
-<div class="supplier-detail-form" style="margin-top: 20px;border-bottom:1px dashed #3c8dbc">
-    <div class="row">
-    <div class="col-xs-6">
-        <div class="form-group">
-        <label class="control-label"><?= Yii::t('detail','cate_id1') ?></label>
-        <input class="form-control" type="text" disabled="disabled" value=<?= $detail->cate_id1?> >
-        </div>
-    </div>
-    <div class="col-xs-6">
-        <div class="form-group">
-        <label class="control-label"><?= Yii::t('detail','cate_id2') ?></label>
-        <input class="form-control" type="text" disabled="disabled" value=<?= $detail->cate_id2?> >
-        </div>
-    </div>
-    <div class="col-xs-6">
-        <div class="form-group">
-        <label class="control-label"><?= Yii::t('detail','cate_id3') ?></label>
-        <input class="form-control" type="text" disabled="disabled" value=<?= $detail->cate_id3?> >
-        </div>
-    </div>            
-    <div class="col-xs-6">
-        <div class="form-group">
-        <label class="control-label"><?= Yii::t('detail','one_level_department') ?></label>
-        <input class="form-control" type="text" disabled="disabled" value=<?= $detail->one_level_department?> >
-        </div>
-    </div>
-
-    <div class="col-xs-6">
-        <div class="form-group">
-        <label class="control-label"><?= Yii::t('detail','second_level_department') ?></label>
-        <input class="form-control" type="text" disabled="disabled" value=<?= $detail->second_level_department?> >
-        </div>
-    </div>
-    <div class="col-xs-6">
-        <div class="form-group">
-        <label class="control-label"><?= Yii::t('detail','develop_department') ?></label>
-        <input class="form-control" type="text" disabled="disabled" value=<?= $detail->develop_department?> >
-        </div>
-    </div>    
-    <div class="col-xs-6">
-        <div class="form-group">
-        <label class="control-label"><?= Yii::t('detail','coop_date') ?></label>
-        <input class="form-control" type="text" disabled="disabled" value=<?= $detail->coop_date ?>>
-        </div>
-    </div>
-    <div class="col-xs-6">
-    <div class="form-group">
-    <label class="control-label"><?= Yii::t('detail','coop_fund1') ?></label>
-    <input class="form-control" type="text" disabled="disabled" value=<?= $detail->coop_fund1?> >
-    </div>
-    </div>
-    <div class="col-xs-6">
-    <div class="form-group">
-    <label class="control-label"><?= Yii::t('detail','trade_fund1') ?></label>
-    <input class="form-control" type="text" disabled="disabled" value=<?= $detail->trade_fund1?> >
-    </div>
-    </div>
-    <div class="col-xs-6">
-    <div class="form-group">
-    <label class="control-label"><?= Yii::t('detail','coop_fund2') ?></label>
-    <input class="form-control" type="text" disabled="disabled" value=<?= $detail->coop_fund2?> >
-    </div>
-    </div>
-    <div class="col-xs-6">
-    <div class="form-group">
-    <label class="control-label"><?= Yii::t('detail','trade_fund2') ?></label>
-    <input class="form-control" type="text" disabled="disabled" value=<?= $detail->trade_fund2?> >
-    </div>
-    </div>
-    <div class="col-xs-6">
-    <div class="form-group">
-    <label class="control-label"><?= Yii::t('detail','coop_fund3') ?></label>
-    <input class="form-control" type="text" disabled="disabled" value=<?= $detail->coop_fund3?> >
-    </div>
-    </div>
-    <div class="col-xs-6">
-    <div class="form-group">
-    <label class="control-label"><?= Yii::t('detail','trade_fund3') ?></label>
-    <input class="form-control" type="text" disabled="disabled" value=<?= $detail->trade_fund3?> >
-    </div>
-    </div>   
-    <div class="col-xs-6">
-    <div class="form-group">
-    <label class="control-label"><?= Yii::t('detail','name') ?></label>
-    <input class="form-control" type="text" disabled="disabled" value=<?= $detail->name?> >
-    </div>
-    </div> 
-    <div class="col-xs-6">
-    <div class="form-group">
-    <label class="control-label"><?= Yii::t('detail','mobile') ?></label>
-    <input class="form-control" type="text" disabled="disabled" value=<?= $detail->mobile?> >
-    </div>
-    </div>
-    <div class="col-xs-12">
-    <div class="form-group">
-    <label class="control-label"><?= Yii::t('detail','reason') ?></label>
-    <textarea class="form-control" type="text" disabled="disabled" rows="6"> <?=$detail->reason?></textarea>
-    </div>
-    </div>              
-    </div>
-</div>
-<?php } ?>
-</div>
-<?php } ?>
 
 <div class="supplier-detail-form">
 
@@ -158,119 +50,139 @@ JS;
     <?= $form->field($model, 'sid')->label(false)->hiddenInput(['value' => $sid]) ?>
 
     <div class="row">
+    <?php
+        if ($model->isNewRecord) {
+    ?>
     <div class="col-xs-6">
-    <?= //$form->field($model, 'business_type')->dropDownList($type) 
-        $form->field($model, 'cate_id1')->widget(Select2::classname(), [
-            //'value' => $model->cate_id1,
-            'options' => [
-                'placeholder' => '请选择总类',
-                'multiple' => true
+    <?php //$form->field($model, 'business_type')->dropDownList($type) 
+        
+            echo $form->field($model, 'cate_id1')->label('*供应商一级分类(如需添加请联系管理员)')->widget(Select2::classname(), [
+                'options' => [
+                    'placeholder' => '请选择总类',
+                    'multiple' => true
+                    ],
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'ajax' => [
+                        'url' => Url::to(['get-all-cate']),
+                        'dataType' => 'json',
+                        'data' => new JsExpression('dataCateID_1'),
+                        'processResults' => new JsExpression($resultsJs),
+                        //'cache' => true,
+                    ],
+                    'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                    'templateResult' => new JsExpression('function(result) { return result.category_name; }'),
+                    'templateSelection' => new JsExpression('function (select) { return select.category_name; }'),
                 ],
-            'pluginOptions' => [
-                'allowClear' => true,
-                'ajax' => [
-                    'url' => Url::to(['get-all-cate']),
-                    'dataType' => 'json',
-                    'data' => new JsExpression('dataCateID_1'),
-                    'processResults' => new JsExpression($resultsJs),
-                    //'cache' => true,
-                ],
-                'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-                'templateResult' => new JsExpression('function(result) { return result.category_name; }'),
-                'templateSelection' => new JsExpression('function (select) { return select.category_name; }'),
-            ],
-            'pluginEvents' => [
-                "change" => "function() { console.log('change'); }",
-                "select2:opening" => "function() { console.log('select2:opening'); }",
-                "select2:open" => "function() { console.log('open'); }",
-                "select2:closing" => "function() { console.log('close'); }",
-                "select2:close" => "function() { console.log('close'); }",
-                "select2:selecting" => "function() { console.log('selecting'); }",
-                "select2:select" => "function() { console.log('select'); }",
-                "select2:unselecting" => "function() { console.log('unselecting'); }",
-                "select2:unselect" => new JsExpression('unSelect_1')
-            ]
+                'pluginEvents' => [
+                    "change" => "function() { console.log('change'); }",
+                    "select2:opening" => "function() { console.log('select2:opening'); }",
+                    "select2:open" => "function() { console.log('open'); }",
+                    "select2:closing" => "function() { console.log('close'); }",
+                    "select2:close" => "function() { console.log('close'); }",
+                    "select2:selecting" => "function() { console.log('selecting'); }",
+                    "select2:select" => "function() { console.log('select'); }",
+                    "select2:unselecting" => "function() { console.log('unselecting'); }",
+                    "select2:unselect" => new JsExpression('unSelect_1')
+                ]
 
-        ]);
+            ]);
     ?>
     </div>
+    <?php 
+        }
+    ?>
+    <?php
+        if ($model->isNewRecord) {
+    ?>    
    <div class="col-xs-6">
-    <?= //$form->field($model, 'business_type')->dropDownList($type) 
-        $form->field($model, 'cate_id2')->widget(Select2::classname(), [
-            'options' => [
-                'placeholder' => '请选择大类',
-                'multiple' => true
+    <?php //$form->field($model, 'business_type')->dropDownList($type) 
+            echo $form->field($model, 'cate_id2')->label('*供应商二级分类(如需添加请联系管理员)')->widget(Select2::classname(), [
+                'options' => [
+                    'placeholder' => '请选择大类',
+                    'multiple' => true
+                    ],
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'ajax' => [
+                        'url' => Url::to(['get-all-cate']),
+                        'dataType' => 'json',
+                        'data' =>  new JsExpression('dataCateID_2'),
+                        //'data' =>  {'qid':$('#supplierdetail-cate_id1').val()},
+                        'cache' => true,
+                    ],
+                    'escapeMarkup' => new JsExpression('function (markup) { console.log(markup);  return markup; }'),
+                    'templateResult' => new JsExpression('function(result) { console.log(result); return result.category_name; }'),
+                    'templateSelection' => new JsExpression('function (select) { console.log(select);  return select.category_name; }'),
                 ],
-            'pluginOptions' => [
-                'allowClear' => true,
-                'ajax' => [
-                    'url' => Url::to(['get-all-cate']),
-                    'dataType' => 'json',
-                    'data' =>  new JsExpression('dataCateID_2'),
-                    //'data' =>  {'qid':$('#supplierdetail-cate_id1').val()},
-                    'cache' => true,
-                ],
-                'escapeMarkup' => new JsExpression('function (markup) { console.log(markup);  return markup; }'),
-                'templateResult' => new JsExpression('function(result) { console.log(result); return result.category_name; }'),
-                'templateSelection' => new JsExpression('function (select) { console.log(select);  return select.category_name; }'),
-            ],
-            'pluginEvents' => [
-                "change" => "function() { console.log('change'); }",
-                "select2:opening" => "function() { console.log('select2:opening'); }",
-                "select2:open" => "function() { console.log('open'); }",
-                "select2:closing" => "function() { console.log('close'); }",
-                "select2:close" => "function() { console.log('close'); }",
-                "select2:selecting" => "function() { console.log('selecting'); }",
-                "select2:select" => "function() { console.log('select'); }",
-                "select2:unselecting" => "function() { console.log('unselecting'); }",
-                "select2:unselect" => new JsExpression('unSelect_2')
-            ]
+                'pluginEvents' => [
+                    "change" => "function() { console.log('change'); }",
+                    "select2:opening" => "function() { console.log('select2:opening'); }",
+                    "select2:open" => "function() { console.log('open'); }",
+                    "select2:closing" => "function() { console.log('close'); }",
+                    "select2:close" => "function() { console.log('close'); }",
+                    "select2:selecting" => "function() { console.log('selecting'); }",
+                    "select2:select" => "function() { console.log('select'); }",
+                    "select2:unselecting" => "function() { console.log('unselecting'); }",
+                    "select2:unselect" => new JsExpression('unSelect_2')
+                ]
 
-        ]);
+            ]);
     ?>
+    </div> 
+    <?php 
+        }
+    ?>     
+    <?php
+        if ($model->isNewRecord) {
+    ?>          
+    <div class="col-xs-6">
+    <?php //$form->field($model, 'business_type')->dropDownList($type) 
+        if ($model->isNewRecord) {
+            echo $form->field($model, 'cate_id3')->label('*供应商三级分类(如需添加请联系管理员)')->widget(Select2::classname(), [
+                'options' => [
+                    'placeholder' => '请选择子类',
+                    'multiple' => true
+                    ],
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'ajax' => [
+                        'url' => Url::to(['get-all-cate']),
+                        'dataType' => 'json',
+                        'data' =>  new JsExpression('dataCateID_3'),
+                        //'data' =>  {'qid':$('#supplierdetail-cate_id1').val()},
+                        'cache' => true,
+                    ],
+                    'escapeMarkup' => new JsExpression('function (markup) { console.log(markup);  return markup; }'),
+                    'templateResult' => new JsExpression('function(result) { console.log(result); return result.category_name; }'),
+                    'templateSelection' => new JsExpression('function (select) { console.log(select);  return select.category_name; }'),
+                ],
+                'pluginEvents' => [
+                    "change" => "function() { console.log('change'); }",
+                ]
+
+            ]);
+        }
+    ?>
+    </div>   
+    <?php 
+        }
+    ?>              
+    <div class="col-xs-6">
+    <?= $form->field($model, 'level')->label('*供应商等级')->dropDownList($level,['prompt'=>'请选择等级']) ?>
     </div>    
     <div class="col-xs-6">
-    <?= //$form->field($model, 'business_type')->dropDownList($type) 
-        $form->field($model, 'cate_id3')->widget(Select2::classname(), [
-            'options' => [
-                'placeholder' => '请选择子类',
-                'multiple' => true
-                ],
-            'pluginOptions' => [
-                'allowClear' => true,
-                'ajax' => [
-                    'url' => Url::to(['get-all-cate']),
-                    'dataType' => 'json',
-                    'data' =>  new JsExpression('dataCateID_3'),
-                    //'data' =>  {'qid':$('#supplierdetail-cate_id1').val()},
-                    'cache' => true,
-                ],
-                'escapeMarkup' => new JsExpression('function (markup) { console.log(markup);  return markup; }'),
-                'templateResult' => new JsExpression('function(result) { console.log(result); return result.category_name; }'),
-                'templateSelection' => new JsExpression('function (select) { console.log(select);  return select.category_name; }'),
-            ],
-            'pluginEvents' => [
-                "change" => "function() { console.log('change'); }",
-            ]
-
-        ]);
-    ?>
-    </div>        
-    <div class="col-xs-6">
-    <?= $form->field($model, 'level')->dropDownList($level,['prompt'=>'请选择等级']) ?>
-    </div>    
-    <div class="col-xs-6">
-    <?= $form->field($model, 'one_level_department')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'one_level_department')->label('*供应商管理部门(一级部门)')->textInput(['maxlength' => true,'readonly'=>true]) ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'second_level_department')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'second_level_department')->label('*供应商管理部门(二级部门)')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'develop_department')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'develop_department')->label('*开发部门(供应商首次引入部门)')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-6">
     <div class="form-group field-supplier-coop_date required">
-    <label class="control-label" for="supplier-coop_date">合作起始时间</label>
+    <label class="control-label" for="supplier-coop_date">*合作起始时间(合同签订日期)</label>
     <?= DatePicker::widget([
     'model' => $model,
     'attribute' => 'coop_date',
@@ -305,13 +217,13 @@ JS;
     
     </div>                    
     <div class="col-xs-6">
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->label('*我方对接人')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'mobile')->label('*我方对接人电话')->textInput(['maxlength' => true]) ?>
     </div>    
     <div class="col-xs-12"> 
-    <?= $form->field($model, 'reason')->textArea(['rows'=>6]) ?>
+    <?= $form->field($model, 'reason')->label('*爱慕选择合作的原因')->textArea(['rows'=>6]) ?>
     </div>    
     <div class="form-group">
     <div class="col-xs-12">

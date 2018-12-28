@@ -23,6 +23,7 @@ use backend\models\SupplierNature;
 use yii\web\BadRequestHttpException;
 use backend\models\SupplierDetail;
 use mdm\admin\components\Configs;
+use backend\models\AdminAdd;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -56,7 +57,7 @@ class SupplierController extends Controller
         //排除这几个一级部门
         $filter_department = ['大数据信息中心','总裁办','品管部','供应链部'];
         if (!in_array($department,$filter_department)) {
-            $request['SupplierSearch']['filter_cate_id1'] = [13,14,16];
+            $request['SupplierSearch']['public_flag'] = 'y';
         }
         $dataProvider = $searchModel->search($request);
 
@@ -78,7 +79,7 @@ class SupplierController extends Controller
         //排除这几个一级部门
         $filter_department = ['大数据信息中心','总裁办','品管部','供应链部'];
         if (!in_array($department,$filter_department)) {
-            $request['SupplierSearch']['filter_cate_id1'] = [13,14,16];
+            $request['SupplierSearch']['public_flag'] = 'y';
         }
         $dataProvider = $searchModel->search($request);
 
@@ -97,12 +98,62 @@ class SupplierController extends Controller
         $searchModel = new SupplierSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('admin', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
+    /**
+     * Lists all Suppliers models.
+     * @return mixed
+     */
+    public function actionAdminAdd()
+    {
+        $model = new AdminAdd();
+        //if (Yii::$app->request->isAjax) {
+        return $this->renderAjax('admin-add', [
+            'model' => $model,
+        ]);
+        //}
+
+        // return $this->renderPartial('admin-add', [
+        //     'model' => $model,
+        // ]);
+    }
+
+    /**
+     * Lists all Suppliers models.
+     * @return mixed
+     */
+    public function actionAdminSave()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $model = new AdminAdd();
+        if ($model->load(Yii::$app->request->post())) {
+            if (!$model->name) {
+                return ['code'=>'name','message'=>'供应商全称不能为空!'];
+            }
+            if (!$model->enterprise_code) {
+                return ['code'=>'code','message'=>'企业代码不能为空!'];
+            }            
+            $supplier = Supplier::getSupplierByName($model->name);
+            if ($supplier) {
+                $level = SupplierLevel::getLevelById($supplier->level);
+                $type = $level ? $level->level_name : '';
+                return ['code'=>'exist','id'=>$supplier->id,'type'=>$type];
+            }else{
+                $supplier = $model->add();
+                if ($supplier) {
+                    return ['code'=>'new','id'=>$supplier->id,'url'=>'http://gys.aimergroup.com:8090/?r=supplierform/update&id='.$supplier->id];
+                }else{
+                    return ['code'=>'error'];  
+                }
+            }
+        } else {  
+            return ['code'=>'error'];  
+        }  
+    }
     /**
      * Displays a single Suppliers model.
      * @param integer $id

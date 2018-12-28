@@ -150,7 +150,12 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             ],
         ],
     ]) ?>
-    <p>与我方关系</p>
+    <?php
+        $key = 0;
+        foreach($detail_obj_list as $model) {
+            $key++;
+    ?>
+    <p>合作关系<?= $key ?></p>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -158,6 +163,12 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             'second_level_department',
             'name',
             'mobile',
+            'coop_fund1',
+            'trade_fund1',
+            'coop_fund2',
+            'trade_fund2',
+            'coop_fund3',
+            'trade_fund3',                        
             'reason:ntext',
             [
                 'attribute' => 'created_at',
@@ -173,6 +184,9 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             ],
         ],
     ]) ?>
+    <?php
+        }
+    ?>
     <p>
       <?= Html::a('返回', ['admin-index'], ['class' => 'btn btn-primary']) ?>
     </p>

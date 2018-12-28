@@ -9,6 +9,7 @@ use yii\data\ActiveDataProvider;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use backend\models\History;
+use backend\models\SupplierFunds;
 
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
@@ -125,7 +126,7 @@ class SupplierDetail extends ActiveRecord
     public function rules()
     {
         return [
-          //[['cate_id1','cate_id2','cate_id3','one_level_department','second_level_department','name','mobile','reason','coop_date','coop_fund1','coop_fund2','coop_fund3','trade_fund1','trade_fund2','trade_fund3','level'],'required'],
+          [['cate_id1','cate_id2','cate_id3','second_level_department','name','mobile','reason','coop_date','level','develop_department'],'required'],
           ['sid','safe'],
           ['one_level_department','safe']
 
@@ -235,10 +236,11 @@ class SupplierDetail extends ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         //新增操作
+        $this->fund_year1 = date('Y') - 3;
+        $this->fund_year2 = date('Y') - 2;
+        $this->fund_year3 = date('Y') - 1;        
         if ($insert) {
-          $this->fund_year1 = date('Y') - 3;
-          $this->fund_year2 = date('Y') - 2;
-          $this->fund_year3 = date('Y') - 1;
+
 
            $funds = array();
            for($i=1;$i<=3;$i++) {
@@ -255,7 +257,33 @@ class SupplierDetail extends ActiveRecord
           }     
           Yii::$app->db->createCommand()->batchInsert('supplier_funds',['sid','detail_id','coop_fund','trade_fund','year','created_at','updated_at'],$funds)->execute();
         } else { // 编辑操作
-            // do other sth.
+          //2015
+          $fundModel = new SupplierFunds;
+          $where['detail_id'] = $this->id;
+          $where['year'] = $this->fund_year1;
+          $fundModel = SupplierFunds::find()->where($where)->one();
+          $fundModel->scenario = 'edit';
+          $fundModel->coop_fund = $this->coop_fund1;
+          $fundModel->trade_fund = $this->trade_fund1;
+          $fundModel->save();
+          //2016
+          $fundModel = '';
+          $where['detail_id'] = $this->id;
+          $where['year'] = $this->fund_year2;
+          $fundModel = SupplierFunds::find()->where($where)->one();
+          $fundModel->scenario = 'edit';
+          $fundModel->coop_fund = $this->coop_fund2;
+          $fundModel->trade_fund = $this->trade_fund2;
+          $fundModel->save();
+          //2017
+          $fundModel = '';
+          $where['detail_id'] = $this->id;
+          $where['year'] = $this->fund_year3;
+          $fundModel = SupplierFunds::find()->where($where)->one();
+          $fundModel->scenario = 'edit';
+          $fundModel->coop_fund = $this->coop_fund3;
+          $fundModel->trade_fund = $this->trade_fund3;
+          $fundModel->save();          
         }
     }    
 
