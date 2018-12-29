@@ -7,6 +7,10 @@
  */
 use yii\helpers\Html;
 
+$headers = Yii::$app->response->headers;
+
+// 增加一个 Pragma 头，已存在的Pragma 头不会被覆盖。
+$headers->add('Pragma', 'no-cache');
 
 /* @var $this yii\web\View */
 /* @var $model app\models\SuppliersBasic */
