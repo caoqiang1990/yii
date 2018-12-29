@@ -18,6 +18,8 @@ use yii\web\NotFoundHttpException;
 use yii\base\UserException;
 use yii\mail\BaseMailer;
 use common\models\AdminLog;
+use backend\models\Department;
+use mdm\admin\models\form\ModifyUser;
 
 /**
  * User controller
@@ -154,9 +156,10 @@ class UserController extends Controller
                 return $this->redirect(['index']);
             }
         }
-
+        $department = Department::getDepartment();
         return $this->render('signup', [
                 'model' => $model,
+                'department' => $department,
         ]);
     }
 
@@ -259,4 +262,26 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    /**
+     * 修改用户信息
+     * @return [type] [description]
+     */
+    public function actionUpdate($id)
+    {
+        $model = new ModifyUser();
+        $user = $this->findModel($id);
+        $model->truename = $user->truename;
+        $model->email = $user->email;
+        $model->mobile = $user->mobile;
+        $model->department = $user->department;
+        if ($model->load(Yii::$app->getRequest()->post()) && $model->change()) {
+            $this->redirect(['index']);
+        }
+
+        $department = Department::getDepartment();
+        return $this->render('update', [
+                'model' => $model,
+                'department' => $department,
+        ]);
+    }    
 }
