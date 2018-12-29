@@ -292,13 +292,13 @@ class SupplierDetail extends ActiveRecord
      * 根据部门id来获取对应的部门集合
      * 
      */
-    public function getDepartmentIdsByDepartment($id)
+    public static function getDepartmentIdsByDepartment($id)
     {
       if (!$id) {
         return false;
       }
       $where['one_level_department'] = $id;
-      $supplier_ids = $this::find()->select('department')
+      $supplier_ids = self::find()->select('department')
       ->leftJoin('supplier','`supplier`.`id` = `sid`')
       ->where($where)
       ->andwhere(['not',['department' => null]])

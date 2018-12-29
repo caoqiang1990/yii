@@ -100,13 +100,13 @@ class SupplierController extends Controller
 
         $searchModel = new SupplierSearch();
         $request = Yii::$app->request->queryParams;
+        //获取用户的对应的部门id
         $department = Yii::$app->user->identity->department;
         $department_info = Department::getDepartmentById($department);
         if (!$department_info) {
             throw new NotFoundHttpException("此用户不包含管理部门");
         }
-        $supplier_detail = new SupplierDetail;
-        $department_ids = $supplier_detail->getDepartmentIdsByDepartment($department);
+        $department_ids = SupplierDetail::getDepartmentIdsByDepartment($department);
         if (!in_array($department,$department_ids)) {
             array_push($department_ids, $department);   
         }
