@@ -9,6 +9,26 @@ use kartik\file\FileInput;
 /* @var $model backend\models\Suppliers */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<script><?php $this->beginBlock('js_end') ?> 
+
+$(document).on('click','.add',function(){
+    if($("#supplier-business_type").val()== 1){
+      //if()
+      alert("工厂信息，原材料和仪器信息！均为必填项！谢谢合作！");
+    }
+    if($("#supplier-business_type").val()== 3){
+      //if()
+      alert("工厂信息，原材料和仪器信息！均为必填项！谢谢合作！");
+    }
+
+
+   })
+
+<?php $this->endBlock() ?>
+
+</script>
+
+<?php $this->registerJs($this->blocks['js_end'],\yii\web\View::POS_END); ?>
 <div class="box box-solid box-default">
 <div class="box-header">
   <!--h3 class="box-title">供应商基础信息录入</h3--><br/>
@@ -20,17 +40,19 @@ use kartik\file\FileInput;
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data'],'id'=>'supplier_form']); ?>
     <div class="row">
     <div class="col-xs-6">
-    <?= Html::tag('label', Html::encode($model->name), ['class' => 'suppliername']) ?><br/><br/><br/>
+    <?= Html::tag('label', Html::encode($model->name), ['class' => 'suppliername']) ?><br/>
+    <?= $form->field($model, 'name')->textInput()->hiddenInput()->label('') ?>
     </div>
     <div class="col-xs-6">
     <?= Html::tag('label', Html::encode("企业代码："), ['class' => 'enterprisecode']) ?>
-    <?= Html::tag('label', Html::encode($model->enterprise_code_desc), ['class' => 'enterprisecoddesc']) ?><br/><br/><br/>
+    <?= Html::tag('label', Html::encode($model->enterprise_code_desc), ['class' => 'enterprisecoddesc']) ?><br/>
+    <?= $form->field($model, 'enterprise_code_desc')->textInput()->hiddenInput()->label('') ?>
     </div> 
     <div class="col-xs-6">
     <?= $form->field($model, 'business_address')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'firm_nature')->dropDownList($firm_nature) ?>
+    <?= $form->field($model, 'firm_nature')->dropDownList($firm_nature,['prompt'=>'请选择']) ?>
     </div>    
     <div class="col-xs-6">
     <div class="form-group field-supplier-register_date required">
@@ -99,7 +121,7 @@ use kartik\file\FileInput;
     <?= $form->field($model, 'business_email')->textInput(['maxlength' => true]) ?>
     </div>    
     <div class="col-xs-6">
-    <?= $form->field($model, 'business_type')->dropDownList($type) ?>
+    <?= $form->field($model, 'business_type',['options'=>['id'=>'business_type']])->dropDownList($type) ?>
     </div>     
     <div class="col-xs-12">
     <?= $form->field($model, 'factory_summary')->textArea(['rows'=>6]) ?>
