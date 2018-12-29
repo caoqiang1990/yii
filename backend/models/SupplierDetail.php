@@ -29,7 +29,7 @@ class SupplierDetail extends ActiveRecord
     public $fund_year1;
     public $fund_year2;
     public $fund_year3;
-
+    public $department;
     /**
      * 返回表名
      * @return [type] [description]
@@ -286,5 +286,32 @@ class SupplierDetail extends ActiveRecord
           $fundModel->save();          
         }
     }    
+
+    /**
+     *
+     * 根据部门id来获取对应的部门集合
+     * 
+     */
+    public function getDepartmentIdsByDepartment($id)
+    {
+      if (!$id) {
+        return false;
+      }
+      $where['one_level_department'] = $id;
+      $supplier_ids = $this::find()->select('department')
+      ->leftJoin('supplier','`supplier`.`id` = `sid`')
+      ->where($where)
+      ->andwhere(['not',['department' => null]])
+      ->all();
+      if ($supplier_ids) {
+        $ids = array_column($supplier_ids, 'department');
+        $ids = array_unique($ids);
+        return  $ids;
+      } else {
+        return false;
+      }
+
+    }
+
 
 }

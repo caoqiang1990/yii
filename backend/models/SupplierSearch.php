@@ -61,11 +61,12 @@ class SupplierSearch extends Supplier
         $query->andFilterWhere(['like', 'name', $this->name]);
         $query->andFilterWhere(['like', 'business_contact', $this->business_contact]);
         //$query->andFilterWhere(['not in','cate_id1',$this->filter_cate_id1]);
+        $query->andFilterWhere(['in','department',$this->department]);
         $query->andFilterWhere([
             'id' => $this->id,
             //'name' => $this->name,
             'level'=> $this->level,
-            'department' => $this->department,
+            //'department' => $this->department,
             'cate_id1'=> $this->cate_id1,
             'cate_id2'=> $this->cate_id2,
             'cate_id3'=> $this->cate_id3,

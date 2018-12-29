@@ -24,6 +24,7 @@ use yii\web\BadRequestHttpException;
 use backend\models\SupplierDetail;
 use mdm\admin\components\Configs;
 use backend\models\AdminAdd;
+use backend\models\Department;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -89,6 +90,52 @@ class SupplierController extends Controller
         ]);
     }
 
+    /**
+     * Lists all Suppliers models.
+     * @return mixed
+     */
+    public function actionDepartmentIndex()
+    {
+
+
+        $searchModel = new SupplierSearch();
+        $request = Yii::$app->request->queryParams;
+        $department = Yii::$app->user->identity->department;
+        $department_info = Department::getDepartmentById($department);
+        if (!$department_info) {
+            throw new NotFoundHttpException("此用户不包含管理部门");
+        }
+        $supplier_detail = new SupplierDetail;
+        $department_ids = $supplier_detail->getDepartmentIdsByDepartment($department);
+        if (!in_array($department,$department_ids)) {
+            array_push($department_ids, $department);   
+        }
+        $request['SupplierSearch']['department'] = $department_ids;
+        $dataProvider = $searchModel->search($request);
+
+        //var_dump($ids);die;
+        return $this->render('department-index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'department_info' => $department_info,
+        ]);
+    }    
+
+    /**
+     * Displays a single Suppliers model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDepartmentView($id)
+    {
+        $where['sid'] = $id;
+        $supplier_detail = SupplierDetail::find()->where($where)->all();
+        return $this->render('department-view', [
+            'supplier' => $this->findModel($id),
+            'supplier_detail' => $supplier_detail
+        ]);
+    }    
     /**
      * Lists all Suppliers models.
      * @return mixed
