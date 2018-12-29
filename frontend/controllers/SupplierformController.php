@@ -15,7 +15,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
 use backend\models\Attachment;
-use backend\models\Supplier;
+use frontend\models\Supplier;
 use backend\models\SupplierCategory;
 use backend\models\SupplierLevel;
 use backend\models\SupplierSearch;
@@ -129,11 +129,14 @@ class SupplierformController extends Controller
     {
         $model = $this->findModel($id);
         $model->scenario = 'edit';
+//        var_dump($model->scenario);
+//    var_dump($model->validate());
+//        exit;
         $post = Yii::$app->request->post();
         $original = $model->getByID($id);
-        if ($model->load($post) && $model->save()) {
+        if ($model->load($post) && $model->save()) {//($model->status == 'wait')
 //            AdminLog::saveLog('supplier', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
-            return $this->redirect(['confirm', 'model' => $model]);
+            return $this->redirect([Url::home(), 'model' => $model]);
         }
         $attachmentModel = new Attachment();
         $image = $attachmentModel->getImageByID($model->enterprise_code);
