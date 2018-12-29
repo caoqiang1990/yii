@@ -272,7 +272,7 @@ class UserController extends Controller
         $user = $this->findModel($id);
         $model->truename = $user->truename;
         $model->email = $user->email;
-        $model->mobile = $user->mobile;
+        //$model->mobile = $user->mobile;
         $model->department = $user->department;
         if ($model->load(Yii::$app->getRequest()->post()) && $model->change()) {
             $this->redirect(['index']);

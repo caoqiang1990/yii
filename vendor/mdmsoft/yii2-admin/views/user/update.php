@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
                 <?= $form->field($model, 'truename')->label(\Yii::t('rbac-admin','truename')) ?>
                 <?= $form->field($model, 'department')->label(\Yii::t('rbac-admin','department'))->dropDownList($department,['prompt'=>'请选择部门']) ?>
-                <?= $form->field($model, 'mobile')->label(\Yii::t('rbac-admin','mobile')) ?>
                 <?= $form->field($model, 'email')->label(\Yii::t('rbac-admin','Email')) ?>
                 <div class="form-group">
                     <?= Html::submitButton('更新', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>

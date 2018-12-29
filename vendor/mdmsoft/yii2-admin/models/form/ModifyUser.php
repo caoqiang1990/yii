@@ -15,7 +15,7 @@ use yii\base\Model;
 class ModifyUser extends Model
 {
 
-    public $mobile;
+    //public $mobile;
     public $truename;
     public $email;
     public $department;
@@ -27,7 +27,7 @@ class ModifyUser extends Model
     {
         return [
             ['truename','required'],
-            ['mobile','required'],
+            //['mobile','safe'],
             ['email','required'],
             ['department','required'],
 
@@ -45,7 +45,7 @@ class ModifyUser extends Model
             /* @var $user User */
             $user = Yii::$app->user->identity;
             $user->truename = $this->truename;
-            $user->mobile = $this->mobile;
+            //$user->mobile = $this->mobile;
             $user->department = $this->department;
             if ($user->save()) {
                 return true;
