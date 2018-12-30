@@ -23,7 +23,7 @@ $this->registerCss($cssString);
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-    <?php if(Helper::checkRoute('create')) {  ?>
+    <?php if(Helper::checkRoute('admin-add')) {  ?>
         <?php 
             echo Html::a('创建',['admin-add'], [
                 'id' => 'create',

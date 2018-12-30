@@ -86,6 +86,7 @@ $this->registerJs($js);
     <div class="form-group">
     <div class="col-xs-12">
         <button onclick="save_detail()" class="btn btn-success">确认</button>
+        <a href="#" class="btn btn-primary" data-dismiss="modal">取消</a>
     </div>
     </div>
 

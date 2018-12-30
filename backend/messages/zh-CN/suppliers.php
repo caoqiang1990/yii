@@ -51,7 +51,7 @@ return [
   'business_phone' => '联系人手机号',
   'business_mobile' => '联系人电话',
   'business_scope' => '经营范围',
-  'business_type' => '业务类型',
+  'business_type' => '与爱慕已合作内容',
   'factory_summary' => '工厂概述',
   'factory_land_area' => '工厂土地面积(m²)',
   'factory_work_area' => '工厂厂房面积(m²)',

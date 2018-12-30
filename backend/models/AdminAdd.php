@@ -21,6 +21,7 @@ class AdminAdd extends Model
         return [
             ['name', 'required'],
             ['enterprise_code', 'required'],
+            ['enterprise_code','string','length'=>[18,18],'message'=>'营业执照长度为18位']
         ];
     }
 
@@ -36,12 +37,14 @@ class AdminAdd extends Model
      
             $supplierModel->scenario = 'admin-add';
             $supplierModel->name = $this->name;
+            $supplierModel->public_flag = 'y';
+            $supplierModel->department = Yii::$app->user->identity->department;
+            $supplierModel->source = 'add';
             $supplierModel->enterprise_code_desc = $this->enterprise_code;
             if ($supplierModel->save()) {
                 return $supplierModel;
             }
         }
-
         return null;
     }
 

@@ -208,6 +208,7 @@ class SupplierController extends Controller
                     if ($new = $model->add()) {
                         return ['code'=>'new','id'=>$new->id,'url'=>'http://gys.aimergroup.com:8090/?r=supplierform/update&id='.$new->id];
                     }else{
+                        $error = $model->getErrors();
                         return ['code'=>'error'];  
                     }                    
                 }
@@ -243,6 +244,32 @@ class SupplierController extends Controller
         return $this->render('admin-view', [
             'model' => $this->findModel($id),
             'supplier_detail' => $supplier_detail,
+        ]);
+    }    
+
+    /**
+     * Lists all Suppliers models.
+     * @return mixed
+     */
+    public function actionBasic()
+    {
+        $searchModel = new SupplierSearch();
+        $request = Yii::$app->request->queryParams;
+        //获取用户的对应的部门id
+        $department = Yii::$app->user->identity->department;
+        $department_info = Department::getDepartmentById($department);
+        if (!$department_info) {
+            throw new NotFoundHttpException("此用户不包含管理部门");
+        }
+
+        $request['SupplierSearch']['department'] = $department;
+        $dataProvider = $searchModel->search($request);
+
+        //var_dump($ids);die;
+        return $this->render('basic', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'department_info' => $department_info,
         ]);
     }    
 

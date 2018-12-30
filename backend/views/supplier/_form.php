@@ -10,28 +10,23 @@ use kartik\select2\Select2;
 /* @var $model backend\models\Suppliers */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<div class="box box-solid box-default">
-<div class="box-header">
-  <h3 class="box-title">基础信息</h3>
-</div>
-</div>
 <div class="suppliers-form">
 
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
     <div class="col-xs-6">
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('*供应商名录') ?>
     </div>
 
     <div class="col-xs-6">
-    <?= $form->field($model, 'business_address')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'business_address')->textInput(['maxlength' => true])->label('*经营地址') ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'firm_nature')->dropDownList($firm_nature) ?>
+    <?= $form->field($model, 'firm_nature')->dropDownList($firm_nature)->label('*企业性质') ?>
     </div>    
     <div class="col-xs-6">
     <div class="form-group field-supplier-register_date required">
-    <label class="control-label" for="supplier-register_date">注册时间</label>
+    <label class="control-label" for="supplier-register_date">*注册时间</label>
     <?= DatePicker::widget([
     'model' => $model,
     'attribute' => 'register_date',
@@ -48,52 +43,52 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-12">
-    <?= $form->field($model, 'business_scope')->textArea(['rows'=>6]) ?>
+    <?= $form->field($model, 'business_scope')->textArea(['rows'=>6])->label('*经营范围（企业注册的经营范围）') ?>
     </div>    
     <div class="col-xs-12">
     <?= $form->field($model, 'coop_content')->textArea(['rows'=>6]) ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'register_fund')->textInput(['maxlength' => true,'placeholder' => '万元']) ?>
+    <?= $form->field($model, 'register_fund')->textInput(['maxlength' => true,'placeholder' => '万元'])->label('*注册资金') ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'legal_person')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'legal_person')->textInput(['maxlength' => true])->label('*法人') ?>
     </div>     
     <div class="col-xs-6">
-    <?= $form->field($model, 'legal_position')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'legal_position')->textInput(['maxlength' => true])->label('*法人职务') ?>
     </div>  
     <div class="col-xs-6">
-    <?= $form->field($model, 'legal_phone')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'legal_phone')->textInput(['maxlength' => true])->label('*法人电话') ?>
     </div>         
     <div class="col-xs-6">
-    <?= $form->field($model, 'sales_latest')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'sales_latest')->textInput(['maxlength' => true])->label('*上一年度营业额') ?>
     </div>   
     <div class="col-xs-6">
-    <?= $form->field($model, 'tax_latest')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'tax_latest')->textInput(['maxlength' => true])->label('*上一年度纳税额') ?>
     </div>               
     <div class="col-xs-12">
     <?= $form->field($model, 'social_responsibility')->textArea(['rows'=>6]) ?>
     </div>     
     <div class="col-xs-6">
-    <?= $form->field($model, 'headcount')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'headcount')->textInput(['maxlength' => true])->label('*员工人数') ?>
     </div> 
     <div class="col-xs-6">
-    <?= $form->field($model, 'trade')->dropDownList($trade) ?>
+    <?= $form->field($model, 'trade')->dropDownList($trade)->label('*所属行业') ?>
     </div>    
     <div class="col-xs-6">
-    <?= $form->field($model, 'business_contact')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'business_contact')->textInput(['maxlength' => true])->label('*业务联系人') ?>
     </div>    
     <div class="col-xs-6">
-    <?= $form->field($model, 'business_position')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'business_position')->textInput(['maxlength' => true])->label('*联系人职务') ?>
     </div>        
     <div class="col-xs-6">
-    <?= $form->field($model, 'business_phone')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'business_phone')->textInput(['maxlength' => true])->label('*联系人手机号') ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'business_mobile')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'business_mobile')->textInput(['maxlength' => true])->label('*联系人电话') ?>
     </div>    
     <div class="col-xs-6">
-    <?= $form->field($model, 'business_email')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'business_email')->textInput(['maxlength' => true])->label('*联系人邮箱') ?>
     </div>    
     <div class="col-xs-6">
     <?= //$form->field($model, 'business_type')->dropDownList($type) 
@@ -106,7 +101,7 @@ use kartik\select2\Select2;
             'pluginOptions' => [
                 'allowClear' => true
             ],
-        ]);
+        ])->label('*与爱慕已合作内容');
     ?>
     </div>     
     <div class="col-xs-12">
@@ -149,16 +144,16 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'instrument_device4')->textArea(['rows'=>6]) ?>
     </div>    
     <div class="col-xs-6">
-    <?= $form->field($model, 'department_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'department_name')->textInput(['maxlength' => true])->label('*业务相关主要部门') ?>
     </div>      
     <div class="col-xs-6">
-    <?= $form->field($model, 'department_manager')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'department_manager')->textInput(['maxlength' => true])->label('*业务相关部门负责人') ?>
     </div> 
     <div class="col-xs-6">
-    <?= $form->field($model, 'department_manager_phone')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'department_manager_phone')->textInput(['maxlength' => true])->label('*业务相关部门负责人电话') ?>
     </div>  
     <div class="col-xs-12">
-    <?= $form->field($model,'enterprise_code')->hiddenInput()->label(false)?>
+    <?= $form->field($model,'enterprise_code')->hiddenInput()->label('企业许可证')?>
       <?php
                 echo $form->field($model,'enterprise_code_image_id')->widget(FileInput::className(),[
                     'options' => [
