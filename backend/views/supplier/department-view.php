@@ -9,6 +9,7 @@ use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
 use backend\models\SupplierType;
 use backend\models\Department;
+use backend\models\SupplierNature;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\SupplierDetail */
@@ -20,7 +21,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
 <div class="supplier-detail-view">
 
     <p>
-      <?= Html::a('返回', ['/supplier-detail/admin-index'], ['class' => 'btn btn-primary']) ?>
+      <?= Html::a('返回', ['/supplier/department-index'], ['class' => 'btn btn-primary']) ?>
     </p>
   <?= DetailView::widget([
         'model' => $supplier,
@@ -87,7 +88,13 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             'instrument_device2',
             'instrument_device3',
             'instrument_device4',
-            'firm_nature',
+            [
+                'attribute' => 'firm_nature',
+                'value' => function($model) {
+                    $nature = SupplierNature::getNatureById($model);
+                    return $nature ? $nature->nature_name : '';
+                } 
+            ],         
             'coop_content',
             'url',
             'headcount',
@@ -222,6 +229,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
         }
     ?>
     <p>
-      <?= Html::a('返回', ['/supplier-detail/admin-index'], ['class' => 'btn btn-primary']) ?>
+      <?= Html::a('返回', ['/supplier/department-index'], ['class' => 'btn btn-primary']) ?>
     </p>
 </div>

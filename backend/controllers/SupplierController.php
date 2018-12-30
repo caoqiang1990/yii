@@ -238,8 +238,11 @@ class SupplierController extends Controller
      */
     public function actionAdminView($id)
     {
+        $where['sid'] = $id;
+        $supplier_detail = SupplierDetail::find()->where($where)->all();       
         return $this->render('admin-view', [
             'model' => $this->findModel($id),
+            'supplier_detail' => $supplier_detail,
         ]);
     }    
 
