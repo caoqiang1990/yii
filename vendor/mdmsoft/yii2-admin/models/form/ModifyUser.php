@@ -39,11 +39,11 @@ class ModifyUser extends Model
      *
      * @return User|null the saved model or null if saving fails
      */
-    public function change()
+    public function change($id)
     {
         if ($this->validate()) {
             /* @var $user User */
-            $user = Yii::$app->user->identity;
+            $user = User::findOne($id);
             $user->truename = $this->truename;
             //$user->mobile = $this->mobile;
             $user->department = $this->department;

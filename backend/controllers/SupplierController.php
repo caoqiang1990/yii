@@ -77,9 +77,13 @@ class SupplierController extends Controller
         $searchModel = new SupplierSearch();
         $request = Yii::$app->request->queryParams;
         $department = Yii::$app->user->identity->department;
+        $department_info = Department::getDepartmentById($department);
+        if (!$department_info) {
+            throw new NotFoundHttpException("此用户不包含管理部门");
+        }
         //排除这几个一级部门
         $filter_department = ['大数据信息中心','总裁办','品管部','供应链部'];
-        if (!in_array($department,$filter_department)) {
+        if (!in_array($department_info->department_name,$filter_department)) {
             $request['SupplierSearch']['public_flag'] = 'y';
         }
         $dataProvider = $searchModel->search($request);
