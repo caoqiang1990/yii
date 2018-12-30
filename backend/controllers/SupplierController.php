@@ -406,6 +406,7 @@ class SupplierController extends Controller
                 'getOnlySheet' => 'Sheet1',
             ]);
             foreach ($data as $vo) {
+                $supplierModel = '';
                 $supplierModel = new Supplier;
                 if (isset($vo['供应商全称'])) {
                     if ($vo['供应商全称']) {
@@ -436,9 +437,19 @@ class SupplierController extends Controller
                             } 
                                          
                             //一级部门（管理部门）
-                            $supplierDetailModel->one_level_department = $vo['一级部门（管理部门）'];
+                            if ($vo['一级部门（管理部门）']) {
+                                $department = Department::getDepartmentByName($vo['一级部门（管理部门）'],1);
+                                $supplierDetailModel->one_level_department = $department->id;
+                            } else {
+                                $supplierDetailModel->one_level_department = $vo['一级部门（管理部门）'];
+                            }
                             //二级部门
-                            $supplierDetailModel->second_level_department = $vo['二级部门'];
+                            if ($vo['二级部门']) {
+                                $department = Department::getDepartmentByName($vo['二级部门'],2);
+                                $supplierDetailModel->second_level_department = $department->id;
+                            } else {
+                                $supplierDetailModel->second_level_department = $vo['二级部门'];
+                            }
                             //开发部门（写二级部门）
                             $supplierDetailModel->develop_department = $vo['开发部门（写二级部门）'];
                             //合作起始时间（年月）
@@ -485,7 +496,13 @@ class SupplierController extends Controller
                 //供应商全称
                 $supplierModel->name = $vo['供应商全称'];
                 $supplierModel->scenario = 'add';
-                $supplierModel->department = $vo['一级部门（管理部门）'];
+                //$supplierModel->department = $vo['一级部门（管理部门）'];
+                if ($vo['一级部门（管理部门）']) {
+                    $department = Department::getDepartmentByName($vo['一级部门（管理部门）'],1);
+                    $supplierModel->department = $department->id;
+                } else {
+                    $supplierModel->department = $vo['一级部门（管理部门）'];
+                }                
                 //供应商等级
                 if ($vo['供应商等级']) {
                     $level = SupplierLevel::getLevelByName($vo['供应商等级']);
@@ -767,6 +784,7 @@ class SupplierController extends Controller
                 //$supplierModel->save() && $supplierModel->id = 0;
                 //添加供应商成功
                 if($supplierModel->save()) {
+                    $supplierDetailModel = '';
                     $supplierDetailModel = new SupplierDetail();
                     $supplierDetailModel->scenario = 'add';
                     //供应商id
@@ -796,9 +814,22 @@ class SupplierController extends Controller
                     }
                 
                     //一级部门（管理部门）
-                    $supplierDetailModel->one_level_department = $vo['一级部门（管理部门）'];
+                    //$supplierDetailModel->one_level_department = $vo['一级部门（管理部门）'];
                     //二级部门
-                    $supplierDetailModel->second_level_department = $vo['二级部门'];
+                    //$supplierDetailModel->second_level_department = $vo['二级部门'];
+                    if ($vo['一级部门（管理部门）']) {
+                        $department = Department::getDepartmentByName($vo['一级部门（管理部门）'],1);
+                        $supplierDetailModel->one_level_department = $department->id;
+                    } else {
+                        $supplierDetailModel->one_level_department = $vo['一级部门（管理部门）'];
+                    }
+                    //二级部门
+                    if ($vo['二级部门']) {
+                        $department = Department::getDepartmentByName($vo['二级部门'],2);
+                        $supplierDetailModel->second_level_department = $department->id;
+                    } else {
+                        $supplierDetailModel->second_level_department = $vo['二级部门'];
+                    }                    
                     //开发部门（写二级部门）
                     $supplierDetailModel->develop_department = $vo['开发部门（写二级部门）'];
                     //合作起始时间（年月）

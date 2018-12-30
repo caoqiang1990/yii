@@ -126,7 +126,7 @@ class SupplierDetail extends ActiveRecord
     public function rules()
     {
         return [
-          [['cate_id1','cate_id2','cate_id3','second_level_department','name','mobile','reason','coop_date','level','develop_department'],'required'],
+          [['cate_id1','cate_id2','cate_id3','second_level_department','name','mobile','reason','coop_date','level','develop_department'],'safe'],
           ['sid','safe'],
           ['one_level_department','safe']
 
