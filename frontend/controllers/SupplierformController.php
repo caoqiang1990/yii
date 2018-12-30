@@ -30,6 +30,7 @@ use backend\models\SupplierDetail;
 use mdm\admin\components\Configs;
 use backend\models\AdminAdd;
 use yii\filters\AccessControl;
+use yii\web\Cookie;
 
 class SupplierformController extends Controller
 {
@@ -127,6 +128,20 @@ class SupplierformController extends Controller
      */
     public function actionUpdate($id)
     {
+        $cookies = Yii::$app->request->cookies;
+        if (($cookie = $cookies->get('supplier_id')) !== null) {
+            $supplier_id = $cookie->value;
+            if($id != $supplier_id);
+            $id = $supplier_id;
+         }
+         else{
+           $response_cookies = Yii::$app->response->cookies;
+           $response_cookies->add(new \yii\web\Cookie([
+            'name' => 'supplier_id',
+            'value' => $id,
+          ]));
+         }
+//         var_dump($id);die;
         $model = $this->findModel($id);
         $model->scenario = 'edit';
 //        var_dump($model->scenario);
