@@ -8,6 +8,7 @@ use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
 use backend\models\SupplierType;
+use backend\models\Department;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\SupplierDetail */
@@ -180,8 +181,20 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'one_level_department',
-            'second_level_department',
+            [
+                'attribute' => 'one_level_department',
+                'value' => function($model) {
+                    $department = Department::getDepartmentById($model->one_level_department);
+                    return $department ? $department->department_name : '';
+                }
+            ],
+            [
+                'attribute' => 'second_level_department',
+                'value' => function($model) {
+                    $department = Department::getDepartmentById($model->second_level_department);
+                    return $department ? $department->department_name : '';
+                }
+            ],
             'name',
             'mobile',
             'coop_fund1',

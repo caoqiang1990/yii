@@ -100,8 +100,6 @@ class SupplierController extends Controller
      */
     public function actionDepartmentIndex()
     {
-
-
         $searchModel = new SupplierSearch();
         $request = Yii::$app->request->queryParams;
         //获取用户的对应的部门id
@@ -110,11 +108,17 @@ class SupplierController extends Controller
         if (!$department_info) {
             throw new NotFoundHttpException("此用户不包含管理部门");
         }
-        $department_ids = SupplierDetail::getDepartmentIdsByDepartment($department);
-        if (!in_array($department,$department_ids)) {
-            array_push($department_ids, $department);   
+        $sids = SupplierDetail::getSupplierByDepartment($department);
+        $where['department'] = $department;
+        $admin_ids = Supplier::find()->select('id')->distinct()->where($where)->asArray()->all();
+        if ($admin_ids) {
+            $ids = array_column($admin_ids,'id');
+            $supplier_ids = array_keys(array_flip($sids) + array_flip($ids));
+        } else {
+            $supplier_ids = $sids;
         }
-        $request['SupplierSearch']['department'] = $department_ids;
+
+        $request['SupplierSearch']['id'] = $supplier_ids;
         $dataProvider = $searchModel->search($request);
 
         //var_dump($ids);die;

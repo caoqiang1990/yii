@@ -184,6 +184,8 @@ class SupplierDetail extends ActiveRecord
             if (is_array($this->cate_id3)) {
               $this->cate_id3 = implode(',', $this->cate_id3);
             }
+            $department = Department::getDepartmentByName($this->one_level_department);
+            $this->one_level_department = $department ? $department->id : $thi->one_level_department;
           }else{
               //对比，如果firm_nature有变更。记录下来
               $old = $this->find()->where(['id' => $this->id])->one();
@@ -313,5 +315,20 @@ class SupplierDetail extends ActiveRecord
 
     }
 
+
+    public static function getSupplierByDepartment($department)
+    {
+        if (!$department) {
+            return false;
+        }
+        $where['one_level_department'] = $department;
+        $ids = self::find()->select('sid')->distinct()->where($where)->asArray()->all();
+        if ($ids) {
+          return array_column($ids,'sid');
+        } else {
+          return false;
+        }
+
+    }
 
 }

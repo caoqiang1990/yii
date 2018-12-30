@@ -18,8 +18,8 @@ class SupplierSearch extends Supplier
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at','trade'], 'integer'],
-            [['name','business_contact','business_email','cate_id1','filter_cate_id1','cate_id2','cate_id3','level','public_flag','department'], 'safe'],
+            [['created_at', 'updated_at','trade'], 'integer'],
+            [['id','name','business_contact','business_email','cate_id1','filter_cate_id1','cate_id2','cate_id3','level','public_flag','department'], 'safe'],
         ];
     }
 
@@ -61,9 +61,14 @@ class SupplierSearch extends Supplier
         $query->andFilterWhere(['like', 'name', $this->name]);
         $query->andFilterWhere(['like', 'business_contact', $this->business_contact]);
         //$query->andFilterWhere(['not in','cate_id1',$this->filter_cate_id1]);
-        $query->andFilterWhere(['in','department',$this->department]);
+        if (is_array($this->id)) {
+            $query->andFilterWhere(['in','id',$this->id]);
+        } else {
+            $query->andFilterWhere([
+                'id' => $this->id,
+            ]);
+        }
         $query->andFilterWhere([
-            'id' => $this->id,
             //'name' => $this->name,
             'level'=> $this->level,
             //'department' => $this->department,

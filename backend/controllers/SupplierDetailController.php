@@ -15,6 +15,7 @@ use common\models\AdminLog;
 use yii\web\Response;
 use backend\models\SupplierCategory;
 use backend\models\SupplierSearch;
+use backend\models\Department;
 
 /**
  * SupplierDetailController implements the CRUD actions for SupplierDetail model.
@@ -202,13 +203,18 @@ class SupplierDetailController extends Controller
         $model->fund_year1 = date('Y') - 3;
         $model->fund_year2 = date('Y') - 2;
         $model->fund_year3 = date('Y') - 1;
-        $model->one_level_department = Yii::$app->user->identity->department;
+        $department = Yii::$app->user->identity->department;
+        $department_info = Department::getDepartmentById($department);
+        $model->one_level_department = $department_info ? $department_info->department_name : '';
+        //部门列表
+        $second_level_department = Department::getDepartmentByParams('id,department_name',2);
         return $this->render('create', [
             'model' => $model,
             'name' => $supplierObj->name,
             'sid' => $sid,
             'detail_obj_list' => $detailObjList,
             'level' => $level,
+            'second_level_department' => $second_level_department
         ]);
     }
 
@@ -251,12 +257,13 @@ class SupplierDetailController extends Controller
         $model->fund_year1 = date('Y') - 3;
         $model->fund_year2 = date('Y') - 2;
         $model->fund_year3 = date('Y') - 1;
-
+        $second_level_department = Department::getDepartmentByParams('id,department_name',2);
         return $this->render('update', [
             'model' => $model,
             'name' => $supplierObj->name,
             'sid' => $sid,
             'level' => $level,
+            'second_level_department' => $second_level_department
         ]);
     }
 

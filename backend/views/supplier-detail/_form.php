@@ -175,7 +175,7 @@ JS;
     <?= $form->field($model, 'one_level_department')->label('*供应商管理部门(一级部门)')->textInput(['maxlength' => true,'readonly'=>true]) ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'second_level_department')->label('*供应商管理部门(二级部门)')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'second_level_department')->label('*供应商管理部门(二级部门)')->dropDownList($second_level_department,['prompt' => '请选择二级部门']) ?>
     </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'develop_department')->label('*开发部门(供应商首次引入部门)')->textInput(['maxlength' => true]) ?>
