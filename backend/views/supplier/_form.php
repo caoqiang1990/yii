@@ -362,7 +362,7 @@ use kartik\select2\Select2;
     <div class="col-xs-12">
 
         <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::a('取消', ['basic'], ['class' => 'btn btn-primary']) ?>
+        <a class="btn btn-primary" href="javascript:history.go(-1)">取消</a>
         </div>
     </div>
 

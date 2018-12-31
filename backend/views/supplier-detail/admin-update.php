@@ -1,49 +1,42 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\tabs\TabsX;
-
-$content1 = 'd';
-$content2 = 'd';
-$content3 = 'd';
-$content4 = 'd';
+//use kartik\tabs\TabsX;
+use yii\helpers\Url;
+use yii\bootstrap\Tabs;
+$this->title = '合作关系';
+$content = '<div style="margin-top:10px"></div>';
 
 $items = [
-    [
-        'label'=>'<i class="fas fa-home"></i> Home',
-        'content'=>$content1,
-        'active'=>true
-    ],
-    [
-        'label'=>'<i class="fas fa-user"></i> Profile',
-        'content'=>$content2,
-        'linkOptions'=>['data-url'=>\yii\helpers\Url::to(['/site/tabs-data'])]
-    ],
-    [
-        'label'=>'<i class="fas fa-list-alt"></i> Menu',
-        'items'=>[
-             [
-                 'label'=>'Option 1',
-                 'encode'=>false,
-                 'content'=>$content3,
-             ],
-             [
-                 'label'=>'Option 2',
-                 'encode'=>false,
-                 'content'=>$content4,
-             ],
-        ],
-    ],
-    [
-        'label'=>'<i class="fas fa-king"></i> Disabled',
-        'linkOptions' => ['class'=>'disabled']
-    ],
+    // [
+    //     'label'=>'<i class="fa fa-users"></i> 基础信息',
+    //     'content'=> $content.$this->render('/supplier/view',['model'=>$model]),
+    //     'active'=>true,
+    // ],
+
 ];
+if ($supplier_detail) {
+  $i = 1;
+  foreach ($supplier_detail as $detail) {
+    $items[] = [
+          'label'=>'<i class="fa fa-users"></i> 合作关系'.$i,
+          'content'=> $content.$this->render('/supplier-detail/view',['model'=>$detail]),
+      ];
+    $i++;
+  }
+} else {
+  $items = [
+    [
+        'label'=>'<i class="fa fa-users"></i> 合作关系',
+        'content'=> $content.'<a class="btn btn-primary" href="javascript:history.go(-1)">返回</a><br />'.$content.'暂无合作',
+        'active'=>true,
+    ],
 
+  ];
+}
 
-echo TabsX::widget([
+echo Tabs::widget([
     'items'=>$items,
-    'position'=>TabsX::POS_ABOVE,
     'encodeLabels'=>false
 ]);
 

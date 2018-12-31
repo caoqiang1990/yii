@@ -105,29 +105,29 @@ class SupplierDetailController extends Controller
         if (!$model) {
             throw new NotFoundHttpException("您访问的页面不存在");
         }
-        $supplierModel = Supplier::getSupplierById($model->sid);
-        $fundModel = new SupplierFunds;
-        $where['sid'] = $model->sid;
-        $detailObjList = SupplierDetail::find()->where($where)->all();
-        foreach ($detailObjList as $id => &$detail) {
-                $map['detail_id'] = $detail->id;
-                $funds = $fundModel->find()->where($map)->all();
-                if ($funds) {
-                    foreach ($funds as $k => $v) {
-                        $id = $k + 1;
-                        $detail->{"coop_fund$id"} = $v->coop_fund;
-                        $detail->{"trade_fund$id"} = $v->trade_fund;
-                    }
-                }
-                // $detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
-                // $detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
-                // $detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
+        // $supplierModel = Supplier::getSupplierById($model->sid);
+        // $fundModel = new SupplierFunds;
+        // $where['sid'] = $model->sid;
+        // $detailObjList = SupplierDetail::find()->where($where)->all();
+        // foreach ($detailObjList as $id => &$detail) {
+        //         $map['detail_id'] = $detail->id;
+        //         $funds = $fundModel->find()->where($map)->all();
+        //         if ($funds) {
+        //             foreach ($funds as $k => $v) {
+        //                 $id = $k + 1;
+        //                 $detail->{"coop_fund$id"} = $v->coop_fund;
+        //                 $detail->{"trade_fund$id"} = $v->trade_fund;
+        //             }
+        //         }
+        //         // $detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
+        //         // $detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
+        //         // $detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
 
-        }            
+        // }            
         return $this->render('view', [
             'model' => $model,
-            'supplier' => $supplierModel,
-            'detail_obj_list' => $detailObjList,
+            //'supplier' => $supplierModel,
+            //'detail_obj_list' => $detailObjList,
         ]);
     }
 
@@ -279,8 +279,12 @@ class SupplierDetailController extends Controller
     public function actionAdminUpdate($id)
     {
         $model = Supplier::findOne($id);
+        $where['sid'] = $id;
+        $where['one_level_department'] = Yii::$app->user->identity->department;
+        $supplier_detail = SupplierDetail::find()->where($where)->all();       
         return $this->render('admin-update',[
                 'model' => $model,
+                'supplier_detail' => $supplier_detail,
             ]);
     }
 

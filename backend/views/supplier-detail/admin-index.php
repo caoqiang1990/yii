@@ -129,9 +129,9 @@ $this->params['breadcrumbs'][] = '变更合作信息';
             [
                 'header' => '操作',
                 'class' => 'yii\grid\ActionColumn',
-                'template' => Helper::filterActionColumn('{view}{detail-update}{delete}'), 
-                'buttons' => [
-                    'detail-update' => function ($url, $model, $key) {
+                'template' => Helper::filterActionColumn('{view}{admin-update}{delete}'), 
+                'buttons' => [          
+                    'admin-update' => function ($url, $model, $key) {
                         $options = [
                             'title' => Yii::t('yii', 'Update'),
                             'aria-label' => Yii::t('yii', 'Update'),
