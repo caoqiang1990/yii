@@ -24,6 +24,7 @@ class Supplier extends ActiveRecord
     const SCENARIO_EDIT = 'edit';
     const SCENARIO_UPLOAD = 'upload';
     const SCENARIO_ADMIN_ADD = 'admin-add';
+    const SCENARIO_AUDIT = 'audit';
     public $enterprise_code_url;
     public $enterprise_license_url;
     public $enterprise_certificate_url;
@@ -252,6 +253,10 @@ class Supplier extends ActiveRecord
                 'department',
                 'source',
                 'status',
+            ],
+            self::SCENARIO_AUDIT => [
+                'status',
+                'public_flag',
             ]
         ];
     }
