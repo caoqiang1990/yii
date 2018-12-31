@@ -8,11 +8,11 @@ $this->title = '合作关系';
 $content = '<div style="margin-top:10px"></div>';
 
 $items = [
-    // [
-    //     'label'=>'<i class="fa fa-users"></i> 基础信息',
-    //     'content'=> $content.$this->render('/supplier/view',['model'=>$model]),
-    //     'active'=>true,
-    // ],
+    [
+        'label'=>'<i class="fa fa-users"></i> 基础信息',
+        'content'=> $content.$this->render('/supplier/view',['model'=>$model]),
+        'active'=>true,
+    ],
 
 ];
 if ($supplier_detail) {
@@ -25,7 +25,7 @@ if ($supplier_detail) {
     $i++;
   }
 } else {
-  $items = [
+  $items[] = [
     [
         'label'=>'<i class="fa fa-users"></i> 合作关系',
         'content'=> $content.'<a class="btn btn-primary" href="javascript:history.go(-1)">返回</a><br />'.$content.'暂无合作',

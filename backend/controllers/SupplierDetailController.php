@@ -150,7 +150,9 @@ class SupplierDetailController extends Controller
         $detailObjList = SupplierDetail::find()->where($where)->all();
         foreach ($detailObjList as $id => &$detail) {
                 $map['detail_id'] = $detail->id;
-                $funds = $fundModel->find()->where($map)->all();
+                $funds = $fundModel->find()->where($map)
+                ->andfilterwhere(['in','year',[date('Y') - 3,date('Y') - 2,date('Y') - 1]])
+                ->orderBy('year asc')->all();
                 if ($funds) {
                     foreach ($funds as $k => $v) {
                         $id = $k + 1;
@@ -251,7 +253,9 @@ class SupplierDetailController extends Controller
         $supplierObj = $supplierModel->find($sid)->one();
         $level = $levelModel::getLevelByParams();//供应商等级
         $map['detail_id'] = $id;
-        $funds = $fundModel->find()->where($map)->all();
+        $funds = $fundModel->find()->where($map)
+        ->andfilterwhere(['in','year',[date('Y') - 3,date('Y') - 2,date('Y') - 1]])
+        ->orderBy('year asc')->all();
         if ($funds) {
             foreach ($funds as $k => $v) {
                 $id = $k + 1;
@@ -281,7 +285,21 @@ class SupplierDetailController extends Controller
         $model = Supplier::findOne($id);
         $where['sid'] = $id;
         $where['one_level_department'] = Yii::$app->user->identity->department;
-        $supplier_detail = SupplierDetail::find()->where($where)->all();       
+        $supplier_detail = SupplierDetail::find()->where($where)->all();
+        $fundModel = new SupplierFunds;
+        foreach($supplier_detail as &$detail) {
+            $map['detail_id'] = $detail->id;
+            $funds = $fundModel->find()->where($map)
+            ->andfilterwhere(['in','year',[date('Y') - 3,date('Y') - 2,date('Y') - 1]])
+            ->orderBy('year asc')->all();
+            if ($funds) {
+                foreach ($funds as $k => $v) {
+                    $id = $k + 1;
+                    $detail->{"coop_fund$id"} = $v->coop_fund;
+                    $detail->{"trade_fund$id"} = $v->trade_fund;
+                }
+            }
+        }  
         return $this->render('admin-update',[
                 'model' => $model,
                 'supplier_detail' => $supplier_detail,
