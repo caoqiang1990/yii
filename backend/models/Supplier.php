@@ -112,6 +112,8 @@ class Supplier extends ActiveRecord
         'status' =>Yii::t('suppliers','status'),
         'source' =>Yii::t('suppliers','source'),
         'public_flag' =>Yii::t('suppliers','public_flag'),
+        'created_by' => Yii::t('suppliers','created_by'),
+        'updated_by' => Yii::t('suppliers','updated_by'),
       ];
     }
 
@@ -155,8 +157,8 @@ class Supplier extends ActiveRecord
                 'legal_person',
                 'legal_position',
                 'legal_phone',
-                'last_sale',
-                'last_tax',
+                'sales_latest',
+                'tax_latest',
                 'social_responsibility',
                 'department_name',
                 'department_manager',
@@ -212,8 +214,8 @@ class Supplier extends ActiveRecord
                 'legal_person',
                 'legal_position',
                 'legal_phone',
-                'last_sale',
-                'last_tax',
+                'sales_latest',
+                'tax_latest',
                 'social_responsibility',
                 'department_name',
                 'department_manager',

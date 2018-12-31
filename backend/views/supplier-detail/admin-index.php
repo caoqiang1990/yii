@@ -12,10 +12,10 @@ use mdm\admin\components\Helper;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SuppliersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$department = Yii::$app->user->identity->department;
-$this->title = '部门供应商' . '-' . $department;
-$this->params['breadcrumbs'][] = ['label' => '供应商名录查询', 'url' => \yii\helpers\Url::to(['supplier/admin-index'])];
-$this->params['breadcrumbs'][] = '部门供应商';
+$department = $department_info->department_name;
+$this->title = '变更合作信息' . '-' . $department;
+$this->params['breadcrumbs'][] = ['label' => '供应商名录变更', 'url' => \yii\helpers\Url::to(['supplier/admin-index'])];
+$this->params['breadcrumbs'][] = '变更合作信息';
 ?>
 <div class="suppliers-index">
 
@@ -126,6 +126,22 @@ $this->params['breadcrumbs'][] = '部门供应商';
             //         return date('Y-m-d H:i:s',$model->updated_at);
             //     }
             // ],
+            [
+                'header' => '操作',
+                'class' => 'yii\grid\ActionColumn',
+                'template' => Helper::filterActionColumn('{view}{detail-update}{delete}'), 
+                'buttons' => [
+                    'detail-update' => function ($url, $model, $key) {
+                        $options = [
+                            'title' => Yii::t('yii', 'Update'),
+                            'aria-label' => Yii::t('yii', 'Update'),
+                            'data-pjax' => '0',
+                        ];
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                    },                
+                ]
+
+            ],            
         ],
     ]); ?>
     <?php Pjax::end(); ?>

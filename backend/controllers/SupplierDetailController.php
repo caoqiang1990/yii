@@ -67,20 +67,29 @@ class SupplierDetailController extends Controller
     {
         $searchModel = new SupplierSearch();
         $request = Yii::$app->request->queryParams;
+        //获取用户的对应的部门id
         $department = Yii::$app->user->identity->department;
-        //排除这几个一级部门
-        $filter_department = ['大数据信息中心','总裁办','品管部','供应链部'];
-        if (!in_array($department,$filter_department)) {
-            $request['SupplierSearch']['public_flag'] = 'y';
-            $request['SupplierSearch']['department'] = $department;
-        } else {
-            $request['SupplierSearch']['department'] = $department;
+        $department_info = Department::getDepartmentById($department);
+        if (!$department_info) {
+            throw new NotFoundHttpException("此用户不包含管理部门");
         }
+        $sids = SupplierDetail::getSupplierByDepartment($department);
+        $where['department'] = $department;
+        $admin_ids = Supplier::find()->select('id')->distinct()->where($where)->asArray()->all();
+        if ($admin_ids) {
+            $ids = array_column($admin_ids,'id');
+            $supplier_ids = array_keys(array_flip($sids) + array_flip($ids));
+        } else {
+            $supplier_ids = $sids;
+        }
+
+        $request['SupplierSearch']['id'] = $supplier_ids;
         $dataProvider = $searchModel->search($request);
 
         return $this->render('admin-index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'department_info' => $department_info,
         ]);
     }
 
@@ -265,6 +274,14 @@ class SupplierDetailController extends Controller
             'level' => $level,
             'second_level_department' => $second_level_department
         ]);
+    }
+
+    public function actionAdminUpdate($id)
+    {
+        $model = Supplier::findOne($id);
+        return $this->render('admin-update',[
+                'model' => $model,
+            ]);
     }
 
     /**

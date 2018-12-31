@@ -7,6 +7,7 @@ use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
 use backend\models\SupplierType;
 use mdm\admin\components\Helper; 
+use backend\models\SupplierNature;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Suppliers */
@@ -19,17 +20,10 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
 
     <p>
     <?php if(Helper::checkRoute('Update')) {  ?>
-        <?= Html::a(Yii::t('suppliers', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('修改', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     <?php } ?>
-    <?php if(Helper::checkRoute('Delete')) {  ?>
-        <?= Html::a(Yii::t('suppliers', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('suppliers', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    <?php }  ?>
+
+    <?= Html::a('返回', ['basic'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -106,7 +100,13 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             'instrument_device2',
             'instrument_device3',
             'instrument_device4',
-            'firm_nature',
+            [
+                'attribute' => 'firm_nature',
+                'value' => function($model) {
+                    $nature = SupplierNature::getNatureById($model->firm_nature);
+                    return $nature ? $nature->nature_name : '';
+                }
+            ],
             'coop_content',
             'url',
             'headcount',
@@ -191,5 +191,11 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             ],
         ],
     ]) ?>
+    <p>
+    <?php if(Helper::checkRoute('Update')) {  ?>
+        <?= Html::a('修改', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    <?php } ?>
 
+    <?= Html::a('返回', ['basic'], ['class' => 'btn btn-primary']) ?>
+    </p>
 </div>
