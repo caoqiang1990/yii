@@ -44,7 +44,7 @@ function save_detail(){
                 }    
                 if(data.code == 'exist') {
                     alert('此供应商已经存在，等级为'+data.type);
-                    location.href = '/supplier/admin-index';
+                    //location.href = '/supplier/admin-index';
                 } 
                 if (data.code == 'new') {
                     $('#update-prompt').text('您可以继续完善供应商信息，也可以将此链接发给供应商协助填写。');
@@ -73,6 +73,11 @@ $this->registerJs($js);
         //'validationUrl' => Url::to(['supplier/admin-add']),     //数据异步校验
     ]); ?>
     <div class="row">
+    <div class="col-xs-12">
+        <blockquote>
+            新增供应商
+        </blockquote>
+    </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'name')->label('供应商全称')->textInput(['maxlength' => true]) ?>
     </div>

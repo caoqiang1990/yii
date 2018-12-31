@@ -20,6 +20,9 @@ class AdminAdd extends Model
     {
         return [
             ['name', 'required'],
+            [
+                'name','unique','targetClass'=>'backend\models\Supplier','message'=>'供应商名称已经存在'
+            ],
             ['enterprise_code', 'required'],
             ['enterprise_code','string','length'=>[18,18],'message'=>'营业执照长度为18位']
         ];
@@ -41,6 +44,7 @@ class AdminAdd extends Model
             $supplierModel->department = Yii::$app->user->identity->department;
             $supplierModel->source = 'add';
             $supplierModel->enterprise_code_desc = $this->enterprise_code;
+            $supplierModel->status = 'wait';
             if ($supplierModel->save()) {
                 return $supplierModel;
             }

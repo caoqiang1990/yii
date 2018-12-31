@@ -249,6 +249,7 @@ class Supplier extends ActiveRecord
                 'public_flag',
                 'department',
                 'source',
+                'status',
             ]
         ];
     }
@@ -261,6 +262,7 @@ class Supplier extends ActiveRecord
     {
         return [
             [['name'],'required','on'=>'add'],
+            ['name','unique'],
             //['url','url','on'=>'add'],
             ['headcount','integer','on' => 'add,edit'],
             ['register_fund','double','on' => 'add,edit'],
