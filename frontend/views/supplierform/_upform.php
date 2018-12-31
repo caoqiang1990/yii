@@ -14,31 +14,32 @@ use kartik\file\FileInput;
 $(document).on('click','.add',function(){
     if($("#supplier-business_type").val()== 1){
       var info=0;
-      if($('supplier-factory_summary').val()== undefined || $('supplier-factory_summary').val()== '')
+      if($('#supplier-factory_summary').val()== undefined || $('#supplier-factory_summary').val()== '')
         info = 1;
-      if($('supplier-material_name1').val()== undefined || $('supplier-material_name1').val()== '')
+      if($('#supplier-material_name1').val()== undefined || $('#supplier-material_name1').val()== '')
         info = 1;
-      if($('supplier-material_name2').val()== undefined || $('supplier-material_name2').val()== '')
+      if($('#supplier-material_name2').val()== undefined || $('#supplier-material_name2').val()== '')
         info = 1;
-      if($('supplier-material_name3').val()== undefined || $('supplier-material_name3').val()== '')
+      if($('#supplier-material_name3').val()== undefined || $('#supplier-material_name3').val()== '')
         info = 1;
-      if($('supplier-instrument_device1').val()== undefined || $('supplier-instrument_device1').val()== '')
+      if($('#supplier-instrument_device1').val()== undefined || $('#supplier-instrument_device1').val()== '')
         info = 1;
-      if($('supplier-instrument_device2').val()== undefined || $('supplier-instrument_device2').val()== '')
+      if($('#supplier-instrument_device2').val()== undefined || $('#supplier-instrument_device2').val()== '')
         info = 1;
-      if($('supplier-instrument_device3').val()== undefined || $('supplier-instrument_device3').val()== '')
+      if($('#supplier-instrument_device3').val()== undefined || $('#supplier-instrument_device3').val()== '')
         info = 1;
-      if($('supplier-instrument_device4').val()== undefined || $('supplier-instrument_device4').val()== '')
+      if($('#supplier-instrument_device4').val()== undefined || $('#supplier-instrument_device4').val()== '')
         info = 1;
-      if($('supplier-factory_land_area').val()== undefined || $('supplier-factory_land_area').val()== '')
+      if($('#supplier-factory_land_area').val()== undefined || $('#supplier-factory_land_area').val()== '')
         info = 1;
-      if($('supplier-factory_work_area').val()== undefined || $('supplier-factory_work_area').val()== '')
+      if($('#supplier-factory_work_area').val()== undefined || $('#supplier-factory_work_area').val()== '')
         info = 1;
-      if(info)
+      if(info)//
         alert("工厂信息，原材料和仪器信息！均为必填项！谢谢合作！");
     }
     if($("#supplier-business_type").val()== 3){
-      alert("贸易商（中间商）代理资质为必填项！谢谢合作！");
+      if($('#supplier-enterprise_certificate_desc').val()== undefined || $('#supplier-enterprise_certificate_desc').val()== '')
+        alert("贸易商（中间商）代理资质为必填项！谢谢合作！");
     }
 
 
