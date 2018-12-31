@@ -129,4 +129,13 @@ return array (
       '@kartik/select2' => $vendorDir . '/kartik-v/yii2-widget-select2/src',
     ),
   ),
+  'kartik-v/yii2-tabs-x' => 
+  array (
+    'name' => 'kartik-v/yii2-tabs-x',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@kartik/tabs' => $vendorDir . '/kartik-v/yii2-tabs-x/src',
+    ),
+  ),
 );
