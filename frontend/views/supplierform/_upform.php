@@ -34,12 +34,16 @@ $(document).on('click','.add',function(){
         info = 1;
       if($('#supplier-factory_work_area').val()== undefined || $('#supplier-factory_work_area').val()== '')
         info = 1;
-      if(info)//
+      if(info){
         alert("工厂信息，原材料和仪器信息！均为必填项！谢谢合作！");
+        $("html,body").animate({scrollTop:$("#factory").offset().top},1000);
+      }
     }
     if($("#supplier-business_type").val()== 3){
-      if($('#supplier-enterprise_certificate_desc').val()== undefined || $('#supplier-enterprise_certificate_desc').val()== '')
+      if($('#supplier-enterprise_certificate_desc').val()== undefined || $('#supplier-enterprise_certificate_desc').val()== ''){
         alert("贸易商（中间商）代理资质为必填项！谢谢合作！");
+        $("html,body").animate({scrollTop:$("#enter_cert").offset().top},1000);
+      }
     }
 
 
@@ -145,6 +149,7 @@ $(document).on('click','.add',function(){
     <?= $form->field($model, 'business_type',['options'=>['id'=>'business_type']])->dropDownList($type) ?>
     </div>     
     <div class="col-xs-12">
+      <a id="factory"></a>
     <?= $form->field($model, 'factory_summary')->textArea(['rows'=>6]) ?>
     </div>      
     <div class="col-xs-6">
@@ -310,6 +315,7 @@ $(document).on('click','.add',function(){
             ?>
     </div>  
     <div class="col-xs-12">
+    <a id="enter_cert"></a>
     <?= $form->field($model, 'enterprise_certificate_desc')->textInput(['maxlength' => true]) ?>
     </div> 
        <div class="col-xs-12">
