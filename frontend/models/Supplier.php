@@ -298,12 +298,11 @@ class Supplier extends ActiveRecord
             ['business_mobile','required','message'=>'联系人电话不能为空！','on'=>['add,edit']],
             ['business_phone','required','message'=>'联系人电话不能为空！','on'=>['add,edit']],
             ['business_phone','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'联系人手机号格式不正确！','on' => ['add,edit']],
-            [['enterprise_code_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload']],
-            [['enterprise_license_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload']],
-            [['enterprise_certificate'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload']],
-            [['enterprise_certificate_etc'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload']],
-            [['enterprise_license_relate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' =>['add,edit,upload']],
-
+            [['enterprise_code_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*0.5],
+            [['enterprise_license_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*0.5],
+            [['enterprise_certificate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*0.5],
+            [['enterprise_certificate_etc_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*0.5],
+            [['enterprise_license_relate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' =>['add,edit,upload'],'maxSize' => 1024*1024*0.5],
         ];
     }
 
