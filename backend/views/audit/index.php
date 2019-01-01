@@ -39,30 +39,30 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 }
             ], 
-             [
-                'attribute' => 'cate_id1',
-                'value' => function($model){
-                    $categoryModel = new SupplierCategory;
-                    return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
-                },
-                'filter' => SupplierCategory::getCategoryByParams('id,category_name',1),
-            ],
-            [
-                'attribute' => 'cate_id2',
-                'value' => function($model){
-                    $categoryModel = new SupplierCategory;
-                    return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
-                },
-                'filter' => SupplierCategory::getCategoryByParams('id,category_name',2),
-            ],
-            [
-                'attribute' => 'cate_id3',
-                'value' => function($model){
-                    $categoryModel = new SupplierCategory;
-                    return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
-                },
-                'filter' => SupplierCategory::getCategoryByParams('id,category_name',3),
-            ],
+            //  [
+            //     'attribute' => 'cate_id1',
+            //     'value' => function($model){
+            //         $categoryModel = new SupplierCategory;
+            //         return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
+            //     },
+            //     'filter' => SupplierCategory::getCategoryByParams('id,category_name',1),
+            // ],
+            // [
+            //     'attribute' => 'cate_id2',
+            //     'value' => function($model){
+            //         $categoryModel = new SupplierCategory;
+            //         return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
+            //     },
+            //     'filter' => SupplierCategory::getCategoryByParams('id,category_name',2),
+            // ],
+            // [
+            //     'attribute' => 'cate_id3',
+            //     'value' => function($model){
+            //         $categoryModel = new SupplierCategory;
+            //         return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
+            //     },
+            //     'filter' => SupplierCategory::getCategoryByParams('id,category_name',3),
+            // ],
             // [
             //     'attribute' => 'level',
             //     'value' => function($model){

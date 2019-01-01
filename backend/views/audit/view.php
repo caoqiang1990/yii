@@ -132,8 +132,12 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
                         case 10:
                             $text = '正常';
                             break;
-                        case 0:
-                            $text = '';
+                        case 'wait':
+                            $text = '待完善';
+                            break;
+                        case 'auditing':
+                            $text = '待审核';
+                            break;
                         default:
                             $text = '';
                             break;
