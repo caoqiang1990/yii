@@ -84,6 +84,7 @@ class SupplierDetailController extends Controller
         }
 
         $request['SupplierSearch']['id'] = $supplier_ids;
+        $request['SupplierSearch']['supplier_status'] = '10';
         $dataProvider = $searchModel->search($request);
 
         return $this->render('admin-index', [
