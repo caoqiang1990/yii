@@ -12,15 +12,15 @@ use mdm\admin\components\Helper;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SuppliersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$department = $department_info->department_name;
-$this->title = '变更合作信息' . '-' . $department;
-$this->params['breadcrumbs'][] = ['label' => '供应商名录变更', 'url' => \yii\helpers\Url::to(['supplier/admin-index'])];
-$this->params['breadcrumbs'][] = '变更合作信息';
+
+$this->title = '待审核';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="suppliers-index">
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -30,8 +30,8 @@ $this->params['breadcrumbs'][] = '变更合作信息';
                 'attribute' => 'name',
                 'format' => 'raw',
                 'value' => function($model) {
-                    if(Helper::checkRoute('admin-view')) {
-                        $url = Url::to(['/supplier/admin-view','id'=>$model->id]);
+                    if(Helper::checkRoute('view')) {
+                        $url = Url::to(['view','id'=>$model->id]);
                         $options = ['title' => $model->name];
                         return Html::a($model->name,$url,$options);
                     } else {
@@ -63,14 +63,14 @@ $this->params['breadcrumbs'][] = '变更合作信息';
                 },
                 'filter' => SupplierCategory::getCategoryByParams('id,category_name',3),
             ],
-            [
-                'attribute' => 'level',
-                'value' => function($model){
-                    $levelModel = new SupplierLevel;
-                    return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
-                },
-                'filter' => SupplierLevel::getLevel(),
-            ],
+            // [
+            //     'attribute' => 'level',
+            //     'value' => function($model){
+            //         $levelModel = new SupplierLevel;
+            //         return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
+            //     },
+            //     'filter' => SupplierLevel::getLevel(),
+            // ],
             // [
             //     'attribute' => 'trade',
             //     'value' => function($model){
@@ -85,7 +85,27 @@ $this->params['breadcrumbs'][] = '变更合作信息';
             //         return $fund ? $fund->trade_fund : '';
             //     }
             // ],
-            'business_contact',  
+            [
+              'attribute' => 'status',
+              'value' => function($model) {
+                switch ($model->status) {
+                  case '10':
+                    $text = '正常';
+                    break;
+                  case 'wait':
+                    $text = '待完善';
+                    break;
+                  case 'auditing':
+                    $text = '待审核';
+                    break;  
+                  default:
+                    $text = '';
+                    break;
+                }
+                return $text;
+              },
+              'filter' => $status, 
+            ],
             //'business_email',
             //'business_license',
             //'tax_registration_certificate',
@@ -126,22 +146,33 @@ $this->params['breadcrumbs'][] = '变更合作信息';
             //         return date('Y-m-d H:i:s',$model->updated_at);
             //     }
             // ],
-            [
-                'header' => '操作',
-                'class' => 'yii\grid\ActionColumn',
-                'template' => Helper::filterActionColumn('{view}{admin-update}{delete}'), 
-                'buttons' => [          
-                    'admin-update' => function ($url, $model, $key) {
-                        $options = [
-                            'title' => Yii::t('yii', 'Update'),
-                            'aria-label' => Yii::t('yii', 'Update'),
-                            'data-pjax' => '0',
-                        ];
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
-                    },                
-                ]
 
-            ],            
+            // [
+            //     'header' => '操作',
+            //     'class' => 'yii\grid\ActionColumn',
+            //     'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
+
+            // ],
+            [
+                //'label'=>  (Helper::checkRoute('supplier-detail/create') || Helper::checkRoute('history/index')) ? '更多操作' : '',
+                'label'=>  '更多操作',
+                'format'=>'raw',
+                'value' => function($model){
+                $operator_1 = '';
+                $operator_2 = '';
+                if (Helper::checkRoute('audit')) {
+                    $url_1 = Url::to(['audit','id'=>$model->id]);
+                    $operator_1 = Html::a('审核', $url_1, ['title' => '审核']);
+
+                }
+
+                // if (Helper::checkRoute('history/index')) {
+                //     $url_2 = Url::to(['history/index','object_id'=>$model->id]);
+                //     $operator_2 = Html::a('历史记录', $url_2, ['title' => '历史记录']);
+                // }
+                    return $operator_1.' '.$operator_2; 
+                }
+            ],   
         ],
     ]); ?>
     <?php Pjax::end(); ?>

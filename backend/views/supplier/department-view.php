@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
 <div class="supplier-detail-view">
 
     <p>
-      <?= Html::a('返回', ['/supplier/department-index'], ['class' => 'btn btn-primary']) ?>
+        <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
     </p>
   <?= DetailView::widget([
         'model' => $supplier,

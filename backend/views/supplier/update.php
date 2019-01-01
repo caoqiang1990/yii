@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model backend\models\Suppliers */
 $this->title = '';
 $this->params['breadcrumbs'][] = ['label' => '更新基本信息', 'url' => ['basic']];
-$this->params['breadcrumbs'][] = Yii::t('suppliers', 'Update');
+$this->params['breadcrumbs'][] = $model->name;
 ?>
 <div class="suppliers-update">
 

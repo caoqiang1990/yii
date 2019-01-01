@@ -153,7 +153,7 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'department_manager_phone')->textInput(['maxlength' => true])->label('*业务相关部门负责人电话') ?>
     </div>  
     <div class="col-xs-12">
-    <?= $form->field($model,'enterprise_code')->hiddenInput()->label('企业许可证')?>
+    <?= $form->field($model,'enterprise_code')->hiddenInput()->label(false)?>
       <?php
                 echo $form->field($model,'enterprise_code_image_id')->widget(FileInput::className(),[
                     'options' => [
@@ -188,7 +188,10 @@ use kartik\select2\Select2;
 
                     ]);
             ?>
-    </div>         
+    </div>   
+    <div class="col-xs-12">
+        <?= $form->field($model,'enterprise_code_desc')->textInput()?>
+    </div>      
     <div class="col-xs-12">
         <?= $form->field($model,'enterprise_license')->hiddenInput()->label(false)?>
 
@@ -227,6 +230,9 @@ use kartik\select2\Select2;
             ?>
     </div>     
     <div class="col-xs-12">
+        <?= $form->field($model,'enterprise_license_desc')->textInput()?>
+    </div>         
+    <div class="col-xs-12">
         <?= $form->field($model,'enterprise_license_relate')->hiddenInput()->label(false)?>
 
       <?php
@@ -262,7 +268,10 @@ use kartik\select2\Select2;
 
                     ]);
             ?>
-    </div>         
+    </div> 
+    <div class="col-xs-12">
+        <?= $form->field($model,'enterprise_license_relate_desc')->textInput()?>
+    </div>             
     <div class="col-xs-12">
         <?= $form->field($model,'enterprise_certificate')->hiddenInput()->label(false)?>
 
@@ -299,7 +308,10 @@ use kartik\select2\Select2;
 
                     ]);
             ?>
-    </div>    
+    </div>   
+    <div class="col-xs-12">
+        <?= $form->field($model,'enterprise_certificate_desc')->textInput()?>
+    </div>         
     <div class="col-xs-12">
         <?= $form->field($model,'enterprise_certificate_etc')->hiddenInput()->label(false)?>
 
@@ -336,11 +348,21 @@ use kartik\select2\Select2;
 
                     ]);
             ?>
-    </div>                                           
+    </div>             
+    <div class="col-xs-12">
+        <?= $form->field($model,'enterprise_certificate_etc_desc')->textInput()?>
+    </div>            
+    <div class="col-xs-12">
+        <?= $form->field($model,'public_flag')->radioList([
+            'y' => '共享',
+            'n' => '不共享'
+        ]) ?>
+    </div>                               
     <div class="form-group">
     <div class="col-xs-12">
 
         <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <a class="btn btn-primary" href="javascript:history.go(-1)">取消</a>
         </div>
     </div>
 

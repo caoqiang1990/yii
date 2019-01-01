@@ -18,8 +18,8 @@ class SupplierSearch extends Supplier
     public function rules()
     {
         return [
-            [['created_at', 'updated_at','trade'], 'integer'],
-            [['id','name','business_contact','business_email','cate_id1','filter_cate_id1','cate_id2','cate_id3','level','public_flag','department'], 'safe'],
+            [['created_at','trade'], 'integer'],
+            [['id','name','business_contact','business_email','cate_id1','filter_cate_id1','cate_id2','cate_id3','level','public_flag','department','status'], 'safe'],
         ];
     }
 
@@ -78,8 +78,10 @@ class SupplierSearch extends Supplier
             'public_flag' => $this->public_flag,
             'business_email'=> $this->business_email,
             'trade'=> $this->trade,
+            'status'=>$this->status,
+            //'updated_by' => $this->created_by,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            //'updated_at' => $this->updated_at,
         ]);
         
         return $dataProvider;

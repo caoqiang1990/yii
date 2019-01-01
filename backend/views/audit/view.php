@@ -19,10 +19,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
 <div class="suppliers-view">
 
     <p>
-    <?php if(Helper::checkRoute('Update')) {  ?>
-        <?= Html::a('修改', ['/supplier/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-    <?php } ?>
-
     <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
     </p>
 
@@ -192,10 +188,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
         ],
     ]) ?>
     <p>
-    <?php if(Helper::checkRoute('Update')) {  ?>
-        <?= Html::a('修改', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-    <?php } ?>
-
     <?= Html::a('返回', ['basic'], ['class' => 'btn btn-primary']) ?>
     </p>
 </div>

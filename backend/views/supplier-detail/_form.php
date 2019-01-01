@@ -229,6 +229,7 @@ JS;
     <div class="col-xs-12">
 
         <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>    
+        <a class="btn btn-primary" href="javascript:history.go(-1)">取消</a>
         <?php  if($detail_obj_list){?>
         <?php //Html::a('追加一个与我方关系',Url::to(['supplier-detail/create','sid'=>$sid]))
         ?>
