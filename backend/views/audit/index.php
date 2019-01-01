@@ -86,7 +86,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //     }
             // ],
             [
-              'attribute' => 'status',
+              'attribute' => 'supplier_status',
+              'label' => '状态',
               'value' => function($model) {
                 switch ($model->status) {
                   case '10':
@@ -166,10 +167,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
 
-                // if (Helper::checkRoute('history/index')) {
-                //     $url_2 = Url::to(['history/index','object_id'=>$model->id]);
-                //     $operator_2 = Html::a('历史记录', $url_2, ['title' => '历史记录']);
-                // }
+                if (Helper::checkRoute('audit/qrcode')) {
+                    $url_2 = Url::to(['audit/qrcode','id'=>$model->id]);
+                    $operator_2 = Html::a('生成二维码', $url_2, ['title' => '生成二维码']);
+                }
                     return $operator_1.' '.$operator_2; 
                 }
             ],   

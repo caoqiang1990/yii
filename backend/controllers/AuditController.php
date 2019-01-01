@@ -7,6 +7,7 @@ use yii\web\Controller;
 use backend\models\Supplier;
 use backend\models\SupplierSearch;
 use yii\web\NotFoundHttpException;
+use dosamigos\qrcode\QrCode;
 
 
 class AuditController extends Controller
@@ -22,7 +23,6 @@ class AuditController extends Controller
     $dataProvider = $searchModel->search($request);
 
     $status = [
-      '10' => '正常',
       'wait' => '待完善',
       'auditing' => '待审核'
     ];
@@ -46,7 +46,7 @@ class AuditController extends Controller
   public function actionAudit($id)
   {
     $status = [
-      '10' => '正常',
+      '10' => '审核通过',
       'wait' => '待完善',
       'auditing' => '待审核'
     ];    
@@ -69,6 +69,24 @@ class AuditController extends Controller
       }
 
       throw new NotFoundHttpException('The requested page does not exist.');
+  }
+
+  public function actionQrcode($id)
+  {
+    $model = $this->findModel($id);
+    $url = "http://gys.aimergroup.com:8090/?r=supplierform/update&id=".$id;
+    return $this->render('qrcode',[
+        'id' => $id,
+        'url' => $url,
+      ]);
+  }
+
+
+  public function actionCode($id)
+  {
+    $url = "http://gys.aimergroup.com:8090/?r=supplierform/update&id=".$id;
+    $png = QrCode::png($url);    //调用二维码生成方法
+    return $png;
   }
 }
 
