@@ -20,6 +20,8 @@ use yii\mail\BaseMailer;
 use common\models\AdminLog;
 use backend\models\Department;
 use mdm\admin\models\form\ModifyUser;
+use backend\models\UploadForm;
+use yii\web\UploadedFile;
 
 /**
  * User controller
@@ -274,6 +276,18 @@ class UserController extends Controller
         $model->email = $user->email;
         //$model->mobile = $user->mobile;
         $model->department = $user->department;
+
+        //上传头像
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'head_url');
+            if ($model->imageFile && $filePath = $model->upload('imageFile')) {
+                $model->head_url = $filePath;
+            } else {
+                $model->head_url = $user->head_url;
+            }
+        } else {
+            $model->head_url = $model->parseImageUrl($user->head_url);
+        }
         if ($model->load(Yii::$app->getRequest()->post()) && $model->change($user->id)) {
             $this->redirect(['index']);
         }

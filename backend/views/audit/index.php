@@ -171,7 +171,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $url_2 = Url::to(['audit/qrcode','id'=>$model->id]);
                     $operator_2 = Html::a('生成二维码', $url_2, ['title' => '生成二维码']);
                 }
-                    return $operator_1.' '.$operator_2; 
+                    return $operator_1.' | '.$operator_2; 
                 }
             ],   
         ],

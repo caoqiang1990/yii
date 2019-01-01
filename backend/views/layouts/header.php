@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use mdm\admin\models\form\ModifyUser;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -21,14 +22,36 @@ use yii\helpers\Html;
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="/static/images/aimer_head.jpg" class="user-image" alt="User Image"/>
+                        <?php
+                            if (!Yii::$app->user->identity->head_url) {
+                        ?>
+                            <img src="/static/images/aimer_head.jpg" class="user-image" alt="User Image"/>
+                        <?php
+                            } else {
+                                $user = new ModifyUser();
+                                $head_url = $user->parseImageUrl(Yii::$app->user->identity->head_url);
+                        ?>
+                            <img src="<?= $head_url?>" class="user-image" alt="User Image"/>
+
+                        <?php
+                            }
+                        ?>
                         <span class="hidden-xs"><?= Yii::$app->user->identity->truename ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="/static/images/aimer_head.jpg" class="img-circle"
-                                 alt="User Image"/>
+                            <?php
+                                if (!Yii::$app->user->identity->head_url) {
+                            ?>                        
+                                <img src="/static/images/aimer_head.jpg" class="img-circle" alt="User Image"/>
+                            <?php
+                                } else {
+                            ?>      
+                                <img src="<?= $head_url?>" class="img-circle" alt="User Image"/>
+                            <?php
+                                }
+                            ?>                                                  
                             <p>
                                 <?= Yii::$app->user->identity->truename ?>
                             </p>
