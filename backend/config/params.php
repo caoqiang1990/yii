@@ -1,5 +1,5 @@
 <?php
 return [
     'adminEmail' => 'admin@example.com',
-    'assetDomain' => 'http://localhost:8080/uploads/upload/',
+    'assetDomain' => 'http://admin.gys.aimergroup.com:8090/uploads/upload/',
 ];
