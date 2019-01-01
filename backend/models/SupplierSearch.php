@@ -12,14 +12,15 @@ use backend\models\Supplier;
  */
 class SupplierSearch extends Supplier
 {
+    public $supplier_status;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['created_at', 'updated_at','trade'], 'integer'],
-            [['id','name','business_contact','business_email','cate_id1','filter_cate_id1','cate_id2','cate_id3','level','public_flag','department'], 'safe'],
+            [['created_at','trade'], 'integer'],
+            [['id','name','business_contact','business_email','cate_id1','filter_cate_id1','cate_id2','cate_id3','level','public_flag','department','status','supplier_status'], 'safe'],
         ];
     }
 
@@ -68,6 +69,11 @@ class SupplierSearch extends Supplier
                 'id' => $this->id,
             ]);
         }
+        if (!$this->supplier_status) {
+            $query->andFilterWhere(['in','status',['wait','auditing']]);
+        } else {
+            $query->andFilterWhere(['status'=>$this->supplier_status]);
+        }
         $query->andFilterWhere([
             //'name' => $this->name,
             'level'=> $this->level,
@@ -78,8 +84,9 @@ class SupplierSearch extends Supplier
             'public_flag' => $this->public_flag,
             'business_email'=> $this->business_email,
             'trade'=> $this->trade,
+            //'updated_by' => $this->created_by,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            //'updated_at' => $this->updated_at,
         ]);
         
         return $dataProvider;

@@ -86,6 +86,7 @@ class SupplierController extends Controller
         if (!in_array($department_info->department_name,$filter_department)) {
             $request['SupplierSearch']['public_flag'] = 'y';
         }
+        $request['SupplierSearch']['supplier_status'] = '10';
         $dataProvider = $searchModel->search($request);
 
         return $this->render('admin-index', [
@@ -119,6 +120,7 @@ class SupplierController extends Controller
         }
 
         $request['SupplierSearch']['id'] = $supplier_ids;
+        $request['SupplierSearch']['supplier_status'] = '10';
         $dataProvider = $searchModel->search($request);
 
         //var_dump($ids);die;
@@ -263,6 +265,7 @@ class SupplierController extends Controller
         }
 
         $request['SupplierSearch']['department'] = $department;
+        $request['SupplierSearch']['supplier_status'] = '10';
         $dataProvider = $searchModel->search($request);
 
         //var_dump($ids);die;

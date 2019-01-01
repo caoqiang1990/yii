@@ -7,7 +7,6 @@ use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
 use backend\models\SupplierType;
 use mdm\admin\components\Helper; 
-use backend\models\Department;
 use backend\models\SupplierNature;
 
 /* @var $this yii\web\View */
@@ -20,7 +19,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
 <div class="suppliers-view">
 
     <p>
-        <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
+    <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
     </p>
 
     <?= DetailView::widget([
@@ -100,9 +99,9 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             [
                 'attribute' => 'firm_nature',
                 'value' => function($model) {
-                    $nature = SupplierNature::getNatureById($model);
+                    $nature = SupplierNature::getNatureById($model->firm_nature);
                     return $nature ? $nature->nature_name : '';
-                } 
+                }
             ],
             'coop_content',
             'url',
@@ -138,7 +137,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
                             break;
                         case 'auditing':
                             $text = '待审核';
-                            break;    
+                            break;
                         default:
                             $text = '';
                             break;
@@ -192,51 +191,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             ],
         ],
     ]) ?>
-    <?php
-        $key = 0;
-        foreach($supplier_detail as $model) {
-            $key++;
-    ?>
-    <p>合作关系<?= $key ?></p>
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            [
-                'attribute' => 'one_level_department',
-                'value' => function($model) {
-                    $department = Department::getDepartmentById($model->one_level_department);
-                    return $department ? $department->department_name : '';
-                }
-            ],
-            [
-                'attribute' => 'second_level_department',
-                'value' => function($model) {
-                    $department = Department::getDepartmentById($model->second_level_department);
-                    return $department ? $department->department_name : '';
-                }
-            ],
-            'name',
-            'mobile',
-            'reason:ntext',
-            [
-                'attribute' => 'created_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->created_at);
-                }
-            ],
-            [
-                'attribute' => 'updated_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->updated_at);
-                }
-            ],
-        ],
-    ]) ?>
-    <?php
-        }
-    ?>    
     <p>
-        <?= Html::a('返回', ['admin-index'], ['class' => 'btn btn-primary']) ?>
+    <?= Html::a('返回', ['basic'], ['class' => 'btn btn-primary']) ?>
     </p>
-
 </div>

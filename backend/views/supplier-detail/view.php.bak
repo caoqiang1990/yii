@@ -2,29 +2,30 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use backend\models\Supplier;
+use mdm\admin\components\Helper; 
 use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
 use backend\models\SupplierType;
-use mdm\admin\components\Helper; 
-use backend\models\Department;
-use backend\models\SupplierNature;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Suppliers */
+/* @var $model backend\models\SupplierDetail */
 
 $this->title = '';
-$this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details'), 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="suppliers-view">
+<div class="supplier-detail-view">
 
     <p>
-        <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
+    <?php if(Helper::checkRoute('Update')) {  ?>
+        <?= Html::a(Yii::t('detail','Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    <?php }  ?>
+        <a class="btn btn-primary" href="javascript:history.go(-1)">取消</a>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
+  <?= DetailView::widget([
+        'model' => $supplier,
         'attributes' => [
             //'id',
             'name',
@@ -32,20 +33,14 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
                 'attribute' => 'level',
                 'value' => function($model){
                     $level = SupplierLevel::getLevelById($model->level);
-                    if (!$level) {
-                        return '';
-                    }
-                    return $level->level_name;
+                    return $level ? $level->level_name : '';
                 }
             ],
             [
                 'attribute' => 'trade',
                 'value' => function($model){
                     $trade = SupplierTrade::getTradeById($model->trade);
-                    if (!$trade) {
-                        return '';
-                    }
-                    return $trade->trade_name;
+                    return $trade ? $trade->trade_name : '';
                 }
             ],
              [
@@ -79,10 +74,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
                 'attribute' => 'business_type',
                 'value' => function($model){
                     $type = SupplierType::getTypeById($model->business_type);
-                    if (!$type) {
-                        return '';
-                    }
-                    return $type->type_name;
+                    return $type ? $type->type_name : '';
                 }
             ],            
             'business_email',
@@ -97,13 +89,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             'instrument_device2',
             'instrument_device3',
             'instrument_device4',
-            [
-                'attribute' => 'firm_nature',
-                'value' => function($model) {
-                    $nature = SupplierNature::getNatureById($model);
-                    return $nature ? $nature->nature_name : '';
-                } 
-            ],
+            'firm_nature',
             'coop_content',
             'url',
             'headcount',
@@ -133,12 +119,8 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
                         case 10:
                             $text = '正常';
                             break;
-                        case 'wait':
-                            $text = '待完善';
-                            break;
-                        case 'auditing':
-                            $text = '待审核';
-                            break;    
+                        case 0:
+                            $text = '';
                         default:
                             $text = '';
                             break;
@@ -194,29 +176,23 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
     ]) ?>
     <?php
         $key = 0;
-        foreach($supplier_detail as $model) {
+        foreach($detail_obj_list as $model) {
             $key++;
     ?>
     <p>合作关系<?= $key ?></p>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            [
-                'attribute' => 'one_level_department',
-                'value' => function($model) {
-                    $department = Department::getDepartmentById($model->one_level_department);
-                    return $department ? $department->department_name : '';
-                }
-            ],
-            [
-                'attribute' => 'second_level_department',
-                'value' => function($model) {
-                    $department = Department::getDepartmentById($model->second_level_department);
-                    return $department ? $department->department_name : '';
-                }
-            ],
+            'one_level_department',
+            'second_level_department',
             'name',
             'mobile',
+            'coop_fund1',
+            'trade_fund1',
+            'coop_fund2',
+            'trade_fund2',
+            'coop_fund3',
+            'trade_fund3',                        
             'reason:ntext',
             [
                 'attribute' => 'created_at',
@@ -234,9 +210,11 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
     ]) ?>
     <?php
         }
-    ?>    
+    ?>
     <p>
-        <?= Html::a('返回', ['admin-index'], ['class' => 'btn btn-primary']) ?>
+    <?php if(Helper::checkRoute('Update')) {  ?>
+        <?= Html::a(Yii::t('detail','Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    <?php }  ?>
+    <?= Html::a('返回', ['index'], ['class' => 'btn btn-primary']) ?>
     </p>
-
 </div>

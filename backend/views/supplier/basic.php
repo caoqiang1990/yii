@@ -8,6 +8,7 @@ use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
 use mdm\admin\components\Helper; 
+use mdm\admin\models\User;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SuppliersSearch */
@@ -37,7 +38,10 @@ $this->params['breadcrumbs'][] = '更新基本信息';
                     } else {
                         return $model->name;
                     }
-                }
+                },
+                'headerOptions' => [
+                    'width' => '50px'
+                ],
             ], 
              [
                 'attribute' => 'cate_id1',
@@ -46,6 +50,9 @@ $this->params['breadcrumbs'][] = '更新基本信息';
                     return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
                 },
                 'filter' => SupplierCategory::getCategoryByParams('id,category_name',1),
+                'headerOptions' => [
+                    'width' => '100px'
+                ],
             ],
             [
                 'attribute' => 'cate_id2',
@@ -54,6 +61,9 @@ $this->params['breadcrumbs'][] = '更新基本信息';
                     return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
                 },
                 'filter' => SupplierCategory::getCategoryByParams('id,category_name',2),
+                'headerOptions' => [
+                    'width' => '100px'
+                ]                
             ],
             [
                 'attribute' => 'cate_id3',
@@ -62,6 +72,9 @@ $this->params['breadcrumbs'][] = '更新基本信息';
                     return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
                 },
                 'filter' => SupplierCategory::getCategoryByParams('id,category_name',3),
+                'headerOptions' => [
+                    'width' => '100px'
+                ]                
             ],
             [
                 'attribute' => 'level',
@@ -70,6 +83,9 @@ $this->params['breadcrumbs'][] = '更新基本信息';
                     return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
                 },
                 'filter' => SupplierLevel::getLevel(),
+                'headerOptions' => [
+                    'width' => '100px'
+                ]                
             ],
             // [
             //     'attribute' => 'trade',
@@ -85,7 +101,7 @@ $this->params['breadcrumbs'][] = '更新基本信息';
             //         return $fund ? $fund->trade_fund : '';
             //     }
             // ],
-            'business_contact',  
+            //'business_contact',  
             //'business_email',
             //'business_license',
             //'tax_registration_certificate',
@@ -126,6 +142,22 @@ $this->params['breadcrumbs'][] = '更新基本信息';
             //         return date('Y-m-d H:i:s',$model->updated_at);
             //     }
             // ],
+            [
+                'attribute' => 'updated_by',
+                'value' => function($model){
+                    $user = User::findOne($model->updated_by);
+                    return $user ? $user->truename : '';
+                },
+                'headerOptions' => [
+                    'width' => '100px'
+                ]
+            ],
+            [
+                'attribute' => 'updated_at',
+                'value' => function($model) {
+                    return date('Y-m-d H:i:s',$model->updated_at);
+                }
+            ],
             [
                 'header' => '操作',
                 'class' => 'yii\grid\ActionColumn',

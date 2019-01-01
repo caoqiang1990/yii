@@ -51,7 +51,7 @@ return [
   'business_phone' => '联系人手机号',
   'business_mobile' => '联系人电话',
   'business_scope' => '经营范围',
-  'business_type' => '与爱慕已合作内容',
+  'business_type' => '与爱慕合作业务类型',
   'factory_summary' => '工厂概述',
   'factory_land_area' => '工厂土地面积(m²)',
   'factory_work_area' => '工厂厂房面积(m²)',
@@ -78,13 +78,13 @@ return [
   'department_name' => '业务相关主要部门',
   'department_manager' => '业务相关部门负责人',
   'department_manager_phone' => '业务相关部门负责人电话',
-  'enterprise_code' => '企业代码',
+  'enterprise_code' => '营业执照(上传附件)',
   'enterprise_code_image_id' => '企业代码',
-  'enterprise_license' => '开户许可证',
+  'enterprise_license' => '开户许可证核准号(上传附件)',
   'enterprise_license_image_id' => '开户许可证',
-  'enterprise_certificate' => '贸易商（中间商）代理资质',
+  'enterprise_certificate' => '贸易商（中间商）代理资质(上传附件)',
   'enterprise_certificate_etc' => '贸易商（中间商）其他资质',
-  'enterprise_license_relate' => '企业相关资质',
+  'enterprise_license_relate' => '企业相关资质(上传附件)',
   'enterprise_license_relate_image_id' => '企业相关资质',
   'total_fund' => '上一年交易金额',
   'cate_id1' => '供应商一级',
@@ -98,6 +98,8 @@ return [
   'status' => '状态',
   'source' => '来源',
   'public_flag' => '是否共享',
+  'created_by' => '创建人',
+  'updated_by' => '操作者'
 ];
 
 

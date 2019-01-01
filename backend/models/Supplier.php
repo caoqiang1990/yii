@@ -24,6 +24,7 @@ class Supplier extends ActiveRecord
     const SCENARIO_EDIT = 'edit';
     const SCENARIO_UPLOAD = 'upload';
     const SCENARIO_ADMIN_ADD = 'admin-add';
+    const SCENARIO_AUDIT = 'audit';
     public $enterprise_code_url;
     public $enterprise_license_url;
     public $enterprise_certificate_url;
@@ -112,6 +113,8 @@ class Supplier extends ActiveRecord
         'status' =>Yii::t('suppliers','status'),
         'source' =>Yii::t('suppliers','source'),
         'public_flag' =>Yii::t('suppliers','public_flag'),
+        'created_by' => Yii::t('suppliers','created_by'),
+        'updated_by' => Yii::t('suppliers','updated_by'),
       ];
     }
 
@@ -155,8 +158,8 @@ class Supplier extends ActiveRecord
                 'legal_person',
                 'legal_position',
                 'legal_phone',
-                'last_sale',
-                'last_tax',
+                'sales_latest',
+                'tax_latest',
                 'social_responsibility',
                 'department_name',
                 'department_manager',
@@ -212,8 +215,8 @@ class Supplier extends ActiveRecord
                 'legal_person',
                 'legal_position',
                 'legal_phone',
-                'last_sale',
-                'last_tax',
+                'sales_latest',
+                'tax_latest',
                 'social_responsibility',
                 'department_name',
                 'department_manager',
@@ -249,6 +252,11 @@ class Supplier extends ActiveRecord
                 'public_flag',
                 'department',
                 'source',
+                'status',
+            ],
+            self::SCENARIO_AUDIT => [
+                'status',
+                'public_flag',
             ]
         ];
     }
@@ -261,6 +269,7 @@ class Supplier extends ActiveRecord
     {
         return [
             [['name'],'required','on'=>'add'],
+            ['name','unique'],
             //['url','url','on'=>'add'],
             ['headcount','integer','on' => 'add,edit'],
             ['register_fund','double','on' => 'add,edit'],
