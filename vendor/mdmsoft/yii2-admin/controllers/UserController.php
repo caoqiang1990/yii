@@ -321,10 +321,10 @@ class UserController extends Controller
             $this->redirect(['index']);
         }
 
-        $department = Department::getDepartment();
+        //$department = Department::getDepartment();
         return $this->render('profile', [
                 'model' => $model,
-                'department' => $department,
+                //'department' => $department,
         ]);
     }      
 }
