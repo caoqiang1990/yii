@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = Yii::t('suppliers', 'Update');
 ?>
 <div class="suppliers-update">
 
-    <table style="width:100%"><tr><td colspan="3"><h1><?= Html::encode($this->title) ?></h1></td><td><img src="./images/logo.jpg" style="width:110px;height:110px;align:right;" /></td></tr></table>
+  <table style="width:100%;height:420px;background:url(./images/main1.jpg)"><tr><td colspan="3" style="padding-bottom: 200px;"><h1><?= Html::encode($this->title) ?></h1></td><td><img src="./images/logo.jpg" style="width:110px;height:110px;align:right;" /></td></tr></table>
 
     <?= $this->render('_upform', [
         'model' => $model,
