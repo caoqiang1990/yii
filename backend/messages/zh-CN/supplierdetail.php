@@ -31,6 +31,8 @@ return [
     'cate_id2' => '供应商二级',
     'cate_id3' => '供应商三级',
     'develop_department' => '开发部门',
+    'one_coop_department' => '合作一级部门',
+    'second_coop_department' => '合作二级部门',    
   ];
 
 

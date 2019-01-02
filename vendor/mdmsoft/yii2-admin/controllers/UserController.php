@@ -317,7 +317,8 @@ class UserController extends Controller
             $model->head_url = $model->parseImageUrl($user->head_url);
         }        
         if ($model->load(Yii::$app->getRequest()->post()) && $model->change($user->id)) {
-            $this->redirect(['index']);
+            Yii::$app->session->setFlash('success', '修改个人信息成功!');
+            return $this->goHome();
         }
 
 

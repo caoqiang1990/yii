@@ -324,7 +324,9 @@ class SupplierController extends Controller
         $original = $model->getByID($id);
         if ($model->load($post) && $model->save()) {
             AdminLog::saveLog('supplier', 'update', $model->getByID($model->primaryKey), $model->primaryKey, $original);
-            return $this->redirect(['view', 'id' => $model->id]);
+            //return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['basic']);
+
         }
         $attachmentModel = new Attachment();
         $image = $attachmentModel->getImageByID($model->enterprise_code);

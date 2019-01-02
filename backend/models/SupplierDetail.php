@@ -185,7 +185,7 @@ class SupplierDetail extends ActiveRecord
               $this->cate_id3 = implode(',', $this->cate_id3);
             }
             $department = Department::getDepartmentByName($this->one_level_department);
-            $this->one_level_department = $department ? $department->id : $thi->one_level_department;
+            $this->one_level_department = $department ? $department->id : $this->one_level_department;
           }else{
               //对比，如果firm_nature有变更。记录下来
               $old = $this->find()->where(['id' => $this->id])->one();
@@ -264,27 +264,57 @@ class SupplierDetail extends ActiveRecord
           $where['detail_id'] = $this->id;
           $where['year'] = $this->fund_year1;
           $fundModel = SupplierFunds::find()->where($where)->one();
-          $fundModel->scenario = 'edit';
-          $fundModel->coop_fund = $this->coop_fund1;
-          $fundModel->trade_fund = $this->trade_fund1;
+          if ($fundModel) {
+            $fundModel->scenario = 'edit';
+            $fundModel->coop_fund = $this->coop_fund1;
+            $fundModel->trade_fund = $this->trade_fund1;
+          } else {
+            $fundModel = new SupplierFunds;
+            $fundModel->scenario = 'add';
+            $fundModel->coop_fund = $this->coop_fund3;
+            $fundModel->trade_fund = $this->trade_fund3;
+            $fundModel->year = $this->fund_year3;
+            $fundModel->sid = $this->sid;
+            $fundModel->detail_id = $this->id;
+          }                    
           $fundModel->save();
           //2016
           $fundModel = '';
           $where['detail_id'] = $this->id;
           $where['year'] = $this->fund_year2;
           $fundModel = SupplierFunds::find()->where($where)->one();
-          $fundModel->scenario = 'edit';
-          $fundModel->coop_fund = $this->coop_fund2;
-          $fundModel->trade_fund = $this->trade_fund2;
+          if ($fundModel) {
+            $fundModel->scenario = 'edit';
+            $fundModel->coop_fund = $this->coop_fund2;
+            $fundModel->trade_fund = $this->trade_fund2;
+          } else {
+            $fundModel = new SupplierFunds;
+            $fundModel->scenario = 'add';
+            $fundModel->coop_fund = $this->coop_fund3;
+            $fundModel->trade_fund = $this->trade_fund3;
+            $fundModel->year = $this->fund_year3;
+            $fundModel->sid = $this->sid;
+            $fundModel->detail_id = $this->id;
+          }          
           $fundModel->save();
           //2017
           $fundModel = '';
           $where['detail_id'] = $this->id;
           $where['year'] = $this->fund_year3;
           $fundModel = SupplierFunds::find()->where($where)->one();
-          $fundModel->scenario = 'edit';
-          $fundModel->coop_fund = $this->coop_fund3;
-          $fundModel->trade_fund = $this->trade_fund3;
+          if ($fundModel) {
+            $fundModel->scenario = 'edit';
+            $fundModel->coop_fund = $this->coop_fund3;
+            $fundModel->trade_fund = $this->trade_fund3;
+          } else {
+            $fundModel = new SupplierFunds;
+            $fundModel->scenario = 'add';
+            $fundModel->coop_fund = $this->coop_fund3;
+            $fundModel->trade_fund = $this->trade_fund3;
+            $fundModel->year = $this->fund_year3;
+            $fundModel->sid = $this->sid;
+            $fundModel->detail_id = $this->id;
+          }
           $fundModel->save();          
         }
     }    

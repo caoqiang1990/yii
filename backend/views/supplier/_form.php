@@ -13,6 +13,10 @@ use kartik\select2\Select2;
 <div class="suppliers-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <p>
+        <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <a class="btn btn-primary" href="javascript:history.go(-1)">取消</a>
+    </p>    
     <div class="row">
     <div class="col-xs-6">
     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('*供应商名录') ?>

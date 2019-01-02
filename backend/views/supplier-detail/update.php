@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = Yii::t('detail','Update');
         'detail_obj_list' => '',
         'level' => $level,
         'second_level_department' => $second_level_department,
+        'one_level_department' => $one_level_department,
     ]) ?>
 
 </div>

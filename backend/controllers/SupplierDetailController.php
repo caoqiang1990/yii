@@ -198,7 +198,9 @@ class SupplierDetailController extends Controller
         $detailObjList = $model->find()->where($where)->all();
         foreach ($detailObjList as $id => &$detail) {
                 $map['detail_id'] = $detail->id;
-                $funds = $fundModel->find()->where($map)->all();
+                $funds = $fundModel->find()->where($map)
+                ->andfilterwhere(['in','year',[date('Y') - 3,date('Y') - 2,date('Y') - 1]])
+                ->orderBy('year asc')->all();
                 if ($funds) {
                     foreach ($funds as $k => $v) {
                         $id = $k + 1;
@@ -219,6 +221,7 @@ class SupplierDetailController extends Controller
         $department_info = Department::getDepartmentById($department);
         $model->one_level_department = $department_info ? $department_info->department_name : '';
         //部门列表
+        $one_level_department = Department::getDepartmentByParams('id,department_name',1);
         $second_level_department = Department::getDepartmentByParams('id,department_name',2);
         return $this->render('create', [
             'model' => $model,
@@ -226,7 +229,8 @@ class SupplierDetailController extends Controller
             'sid' => $sid,
             'detail_obj_list' => $detailObjList,
             'level' => $level,
-            'second_level_department' => $second_level_department
+            'second_level_department' => $second_level_department,
+            'one_level_department' => $one_level_department
         ]);
     }
 
@@ -276,13 +280,15 @@ class SupplierDetailController extends Controller
             $department = Department::getDepartmentById($model->one_level_department);
             $model->one_level_department = $department->department_name;
         }
+        $one_level_department = Department::getDepartmentByParams('id,department_name',1);
         $second_level_department = Department::getDepartmentByParams('id,department_name',2);
         return $this->render('update', [
             'model' => $model,
             'name' => $supplierObj->name,
             'sid' => $sid,
             'level' => $level,
-            'second_level_department' => $second_level_department
+            'second_level_department' => $second_level_department,
+            'one_level_department' => $one_level_department,
         ]);
     }
 

@@ -175,11 +175,17 @@ JS;
     <?= $form->field($model, 'one_level_department')->label('*供应商管理部门(一级部门)')->textInput(['maxlength' => true,'disabled'=>true]) ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'second_level_department')->label('*供应商管理部门(二级部门)')->dropDownList($second_level_department,['prompt' => '请选择二级部门']) ?>
+    <?= $form->field($model, 'second_level_department')->label('*供应商管理部门(二级部门)')->dropDownList($second_level_department,['prompt' => '请选择二级部门','disabled'=>true]) ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'develop_department')->label('*开发部门(供应商首次引入部门)')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'develop_department')->label('*开发部门(供应商首次引入部门)')->textInput(['maxlength' => true,'disabled'=>true]) ?>
     </div>
+    <div class="col-xs-6">
+    <?= $form->field($model, 'one_coop_department')->label('*供应商合作部门(一级部门)')->dropDownList($one_level_department,['prompt' => '请选择合作一级部门']) ?>
+    </div>
+    <div class="col-xs-6">
+    <?= $form->field($model, 'second_coop_department')->label('*供应商合作部门(二级部门)')->dropDownList($second_level_department,['prompt' => '请选择合作二级部门']) ?>
+    </div>    
     <div class="col-xs-6">
     <div class="form-group field-supplier-coop_date required">
     <label class="control-label" for="supplier-coop_date">*合作起始时间(合同签订日期)</label>
