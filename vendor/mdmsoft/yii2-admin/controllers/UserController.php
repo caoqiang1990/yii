@@ -298,4 +298,33 @@ class UserController extends Controller
                 'department' => $department,
         ]);
     }    
+
+    public function actionProfile($id)
+    {
+        $model = new ModifyUser();
+        $user = $this->findModel($id);
+        $model->truename = $user->truename;
+        $model->email = $user->email;
+        //$model->mobile = $user->mobile;
+        //上传头像
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'head_url');
+            if ($model->imageFile && $filePath = $model->upload('imageFile')) {
+                $model->head_url = $filePath;
+            } else {
+                $model->head_url = $user->head_url;
+            }
+        } else {
+            $model->head_url = $model->parseImageUrl($user->head_url);
+        }
+        if ($model->load(Yii::$app->getRequest()->post()) && $model->change($user->id)) {
+            $this->redirect(['index']);
+        }
+
+        $department = Department::getDepartment();
+        return $this->render('profile', [
+                'model' => $model,
+                'department' => $department,
+        ]);
+    }      
 }

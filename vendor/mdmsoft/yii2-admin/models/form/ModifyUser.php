@@ -32,7 +32,6 @@ class ModifyUser extends Model
             ['truename','required'],
             //['mobile','safe'],
             ['email','required'],
-            ['department','required'],
             [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => '*', 'on' => 'image'],
         ];
     }
@@ -49,7 +48,9 @@ class ModifyUser extends Model
             $user = User::findOne($id);
             $user->truename = $this->truename;
             //$user->mobile = $this->mobile;
-            $user->department = $this->department;
+            if ($this->department) {
+                $user->department = $this->department;
+            }
             $user->head_url = $this->head_url;
             if ($user->save()) {
                 return true;

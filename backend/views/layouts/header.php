@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 use mdm\admin\models\form\ModifyUser;
-
+use yii\helpers\Url;
 /* @var $this \yii\web\View */
 /* @var $content string */
 ?>
@@ -21,7 +21,7 @@ use mdm\admin\models\form\ModifyUser;
 
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="<?= Url::to(['/admin/user/profile','id' => Yii::$app->user->identity->id]) ?>" class="dropdown-toggle" data-toggle="dropdown">
                         <?php
                             if (!Yii::$app->user->identity->head_url) {
                         ?>
@@ -43,7 +43,7 @@ use mdm\admin\models\form\ModifyUser;
                         <li class="user-header">
                             <?php
                                 if (!Yii::$app->user->identity->head_url) {
-                            ?>                        
+                            ?>
                                 <img src="/static/images/aimer_head.jpg" class="img-circle" alt="User Image"/>
                             <?php
                                 } else {
@@ -59,6 +59,11 @@ use mdm\admin\models\form\ModifyUser;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
+                                <?= Html::a(
+                                    '个人设置',
+                                    ['admin/user/profile','id'=>Yii::$app->user->identity->id],
+                                    ['class' => 'btn btn-default btn-flat']
+                                ) ?>                             
                                 <?= Html::a(
                                     '修改密码',
                                     ['admin/user/change-password'],
