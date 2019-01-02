@@ -8,11 +8,11 @@ $this->title = '合作关系';
 $content = '<div style="margin-top:10px"></div>';
 
 $items = [
-    [
-        'label'=>'<i class="fa fa-users"></i> 基础信息',
-        'content'=> $content.$this->render('/supplier/view',['model'=>$model]),
-        'active'=>true,
-    ],
+    // [
+    //     'label'=>'<i class="fa fa-users"></i> 基础信息',
+    //     'content'=> $content.$this->render('/supplier/view',['model'=>$model]),
+    //     'active'=>true,
+    // ],
 
 ];
 if ($supplier_detail) {

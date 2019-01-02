@@ -17,7 +17,7 @@ $this->title = '审核';
     <div class="row">
 
     <div class="col-xs-6">
-    <?= $form->field($model, 'status')->dropDownList($status) ?>
+    <?= $form->field($model, 'status')->dropDownList($status,['prompt'=>'请选择状态']) ?>
     </div>    
   
     <div class="col-xs-12">
