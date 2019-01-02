@@ -21,9 +21,9 @@ $this->title = '审核';
     </div>    
   
     <div class="col-xs-12">
-        <?= $form->field($model,'public_flag')->radioList([
-            'y' => '共享',
-            'n' => '不共享'
+        <?= $form->field($model,'public_flag')->label('共享范围（非保密供应商请选择集团共享）')->radioList([
+            'y' => '集团共享',
+            'n' => '部门共享'
         ]) ?>
     </div>                               
     <div class="form-group">
