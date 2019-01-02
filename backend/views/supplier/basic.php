@@ -14,9 +14,9 @@ use mdm\admin\models\User;
 /* @var $searchModel backend\models\SuppliersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $department = $department_info->department_name;
-$this->title = '更新基本信息';
+$this->title = '变更基本信息';
 $this->params['breadcrumbs'][] = ['label' => '供应商名录查询', 'url' => \yii\helpers\Url::to(['supplier/admin-index'])];
-$this->params['breadcrumbs'][] = '更新基本信息';
+$this->params['breadcrumbs'][] = '变更基本信息';
 ?>
 <div class="suppliers-index">
 
