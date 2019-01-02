@@ -95,6 +95,8 @@ class SupplierDetail extends ActiveRecord
                 'trade_fund2',
                 'trade_fund3',
                 'develop_department',
+                'one_coop_department',
+                'second_coop_department',
             ],
             self::SCENARIO_EDIT => [
                 'one_level_department',
@@ -115,6 +117,8 @@ class SupplierDetail extends ActiveRecord
                 'trade_fund3',           
                 'develop_department',
                 'sid',
+                'one_coop_department',
+                'second_coop_department',                
             ],
         ];
     }

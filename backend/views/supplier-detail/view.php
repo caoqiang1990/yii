@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             ],
             [
                 'attribute' => 'one_level_department',
+                'label' => '供应商管理部门(一级部门)',
                 'value' => function($model) {
                     $department = Department::getDepartmentById($model->one_level_department);
                     return $department ? $department->department_name : '';
@@ -45,11 +46,28 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             ],
             [
                 'attribute' => 'second_level_department',
+                'label' => '供应商管理部门(二级部门)',
                 'value' => function($model) {
                     $department = Department::getDepartmentById($model->second_level_department);
                     return $department ? $department->department_name : '';
                 }
             ],
+            [
+                'attribute' => 'one_coop_department',
+                'label' => '供应商合作部门(一级部门)',
+                'value' => function($model) {
+                    $department = Department::getDepartmentById($model->one_coop_department);
+                    return $department ? $department->department_name : '';
+                }
+            ],
+            [
+                'attribute' => 'second_coop_department',
+                'label' => '供应商合作部门(二级部门)',
+                'value' => function($model) {
+                    $department = Department::getDepartmentById($model->second_coop_department);
+                    return $department ? $department->department_name : '';
+                }
+            ],            
             'name',
             'mobile',
             'coop_fund1',
