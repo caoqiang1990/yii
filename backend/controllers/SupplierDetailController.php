@@ -271,6 +271,11 @@ class SupplierDetailController extends Controller
         $model->fund_year1 = date('Y') - 3;
         $model->fund_year2 = date('Y') - 2;
         $model->fund_year3 = date('Y') - 1;
+
+        if ($model->one_level_department) {
+            $department = Department::getDepartmentById($model->one_level_department);
+            $model->one_level_department = $department->department_name;
+        }
         $second_level_department = Department::getDepartmentByParams('id,department_name',2);
         return $this->render('update', [
             'model' => $model,

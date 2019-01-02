@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'options' => ['accept' => 'image/*']
                     ]);
                 ?>            
-                <?= $form->field($model, 'truename')->label(\Yii::t('rbac-admin','truename')) ?>
+                <?= $form->field($model, 'truename')->label(\Yii::t('rbac-admin','truename'))->textInput(['readonly'=>true]) ?>
 
                 <?= $form->field($model, 'email')->label(\Yii::t('rbac-admin','Email')) ?>
                 <div class="form-group">

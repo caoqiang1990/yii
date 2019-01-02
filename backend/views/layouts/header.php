@@ -61,12 +61,12 @@ use yii\helpers\Url;
                             <div class="pull-left">
                                 <?= Html::a(
                                     '个人设置',
-                                    ['admin/user/profile','id'=>Yii::$app->user->identity->id],
+                                    ['/admin/user/profile','id'=>Yii::$app->user->identity->id],
                                     ['class' => 'btn btn-default btn-flat']
                                 ) ?>                             
                                 <?= Html::a(
                                     '修改密码',
-                                    ['admin/user/change-password'],
+                                    ['/admin/user/change-password'],
                                     ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
                                 ) ?>                            
                             </div>

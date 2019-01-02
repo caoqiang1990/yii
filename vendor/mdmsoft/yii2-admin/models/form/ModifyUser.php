@@ -30,7 +30,7 @@ class ModifyUser extends Model
     {
         return [
             ['truename','required'],
-            //['mobile','safe'],
+            ['mobile','safe'],
             ['email','required'],
             [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => '*', 'on' => 'image'],
         ];
@@ -52,6 +52,9 @@ class ModifyUser extends Model
                 $user->department = $this->department;
             }
             $user->head_url = $this->head_url;
+            if ($this->email) {
+                $user->email = $this->email;
+            }
             if ($user->save()) {
                 return true;
             }
@@ -97,5 +100,5 @@ class ModifyUser extends Model
         } else {
             return $filePath;
         }
-    }    
+    }
 }

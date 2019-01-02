@@ -304,8 +304,7 @@ class UserController extends Controller
         $model = new ModifyUser();
         $user = $this->findModel($id);
         $model->truename = $user->truename;
-        $model->email = $user->email;
-        //$model->mobile = $user->mobile;
+        $model->email = $user->email;        
         //上传头像
         if (Yii::$app->request->isPost) {
             $model->imageFile = UploadedFile::getInstance($model, 'head_url');
@@ -316,10 +315,13 @@ class UserController extends Controller
             }
         } else {
             $model->head_url = $model->parseImageUrl($user->head_url);
-        }
+        }        
         if ($model->load(Yii::$app->getRequest()->post()) && $model->change($user->id)) {
             $this->redirect(['index']);
         }
+
+
+        //$model->mobile = $user->mobile;
 
         //$department = Department::getDepartment();
         return $this->render('profile', [
