@@ -104,6 +104,7 @@ return [
 	'allowActions' => [
         'site/reset',
         'site/reset-password',
+        'site/logout',
 	]
     ],
     'params' => $params,
