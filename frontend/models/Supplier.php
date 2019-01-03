@@ -291,13 +291,16 @@ class Supplier extends ActiveRecord
             
             ['url','url','on'=>'add'],
             ['url','url','on'=>'edit'],
+            ['business_email','email','on'=>'edit'],
+            ['enterprise_code_desc','string','length'=>[18,18],'message'=>'营业执照长度为18位','on'=>'edit'],
+            ['enterprise_license_desc','string','length'=>[12,18],'on'=>'edit'],
             
             ['headcount','integer','on' => ['add,edit']],
             ['register_fund','double','on' => ['add,edit']],
             [['level','enterprise_code','enterprise_license','enterprise_certificate','enterprise_certificate_etc','enterprise_license_relate'], 'safe'],
             ['business_mobile','required','message'=>'联系人电话不能为空！','on'=>['add,edit']],
-            ['business_phone','required','message'=>'联系人电话不能为空！','on'=>['add,edit']],
-            ['business_phone','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'联系人手机号格式不正确！','on' => ['add,edit']],
+            ['business_mobile','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'联系人手机号格式不正确！','on' => 'edit'],
+            ['business_mobile','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'联系人手机号格式不正确！','on' => 'add'],
             [['enterprise_code_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*0.5],
             [['enterprise_license_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*0.5],
             [['enterprise_certificate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*0.5],

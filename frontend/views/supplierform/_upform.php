@@ -66,12 +66,12 @@ $(document).on('click','.add',function(){
     <div class="row">
     <div class="col-xs-6">
     <?= Html::tag('label', Html::encode($model->name), ['class' => 'suppliername']) ?><br/>
-    <?= $form->field($model, 'name')->textInput()->hiddenInput()->label('') ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->hiddenInput()->label('') ?>
     </div>
     <div class="col-xs-6">
-    <?= Html::tag('label', Html::encode("营业执照(统一社会信用代码)："), ['class' => 'enterprisecode']) ?>
+    <?= Html::tag('label', Html::encode("营业执照统一社会信用代码（18位）："), ['class' => 'enterprisecode']) ?>
     <?= Html::tag('label', Html::encode($model->enterprise_code_desc), ['class' => 'enterprisecoddesc']) ?><br/>
-    <?= $form->field($model, 'enterprise_code_desc')->textInput()->hiddenInput()->label('') ?>
+    <?= $form->field($model, 'enterprise_code_desc')->textInput(['maxlength' => true])->hiddenInput()->label('') ?>
     </div> 
     <div class="col-xs-6">
     <?= $form->field($model, 'business_address')->textInput(['maxlength' => true]) ?>
@@ -137,10 +137,10 @@ $(document).on('click','.add',function(){
     <?= $form->field($model, 'business_position')->textInput(['maxlength' => true]) ?>
     </div>        
     <div class="col-xs-6">
-    <?= $form->field($model, 'business_phone')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'business_mobile')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'business_mobile')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'business_phone')->textInput(['maxlength' => true]) ?>
     </div>    
     <div class="col-xs-6">
     <?= $form->field($model, 'business_email')->textInput(['maxlength' => true]) ?>
