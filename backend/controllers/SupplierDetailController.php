@@ -188,12 +188,17 @@ class SupplierDetailController extends Controller
     {
         $model = new SupplierDetail;
         $model->scenario = 'add';
-        $post = Yii::$app->request->post('SupplierDetail');
+        $post = Yii::$app->request->post();
         $funds = array();
+        $department = Yii::$app->user->identity->department;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->isPost) {
+            $post['SupplierDetail']['one_level_department'] = $department;
+            $post['SupplierDetail']['develop_department'] = $department;
+        }
+        if ($model->load($post) && $model->save()) {
             AdminLog::saveLog('supplierdetail', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
-            return $this->redirect(['index']);
+            return $this->redirect(['/supplier/admin-index']);
         }
         $supplierModel = new Supplier;
         $fundModel = new SupplierFunds;
@@ -223,7 +228,6 @@ class SupplierDetailController extends Controller
         $model->fund_year1 = date('Y') - 3;
         $model->fund_year2 = date('Y') - 2;
         $model->fund_year3 = date('Y') - 1;
-        $department = Yii::$app->user->identity->department;
         $department_info = Department::getDepartmentById($department);
         $model->one_level_department = $department_info ? $department_info->department_name : '';
         //部门列表
