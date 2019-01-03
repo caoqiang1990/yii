@@ -69,7 +69,7 @@ $(document).on('click','.add',function(){
     <?= $form->field($model, 'name')->textInput()->hiddenInput()->label('') ?>
     </div>
     <div class="col-xs-6">
-    <?= Html::tag('label', Html::encode("企业代码："), ['class' => 'enterprisecode']) ?>
+    <?= Html::tag('label', Html::encode("营业执照(统一社会信用代码)："), ['class' => 'enterprisecode']) ?>
     <?= Html::tag('label', Html::encode($model->enterprise_code_desc), ['class' => 'enterprisecoddesc']) ?><br/>
     <?= $form->field($model, 'enterprise_code_desc')->textInput()->hiddenInput()->label('') ?>
     </div> 
