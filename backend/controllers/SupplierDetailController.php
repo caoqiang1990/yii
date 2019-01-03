@@ -75,7 +75,7 @@ class SupplierDetailController extends Controller
         }
         $sids = SupplierDetail::getSupplierByDepartment($department);
         $where['department'] = $department;
-        $supplier_ids = '';
+        $supplier_ids = 'none';
         $admin_ids = Supplier::find()->select('id')->distinct()->where($where)->asArray()->all();
         if ($sids && $admin_ids) {
             $ids = array_column($admin_ids,'id');
