@@ -55,7 +55,7 @@ class AuditController extends Controller
     if ($model->load(Yii::$app->request->post()) && $model->save()) {
       $this->redirect(['index']);
     }
-
+    $model->status = '';
     return $this->render('audit',[
         'model' => $model,
         'status' => $status,

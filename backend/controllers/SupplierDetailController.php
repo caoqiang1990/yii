@@ -255,7 +255,7 @@ class SupplierDetailController extends Controller
         $original = $model->getByID($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             AdminLog::saveLog('supplierdetail', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['admin-index']);
         }
 
         $supplierModel = new Supplier;
