@@ -149,6 +149,7 @@ class SupplierformController extends Controller
 //        exit;
         $post = Yii::$app->request->post();
         $original = $model->getByID($id);
+        $model->status = 'auditing';//
         if ($model->load($post) && $model->save()) {//($model->status == 'wait')
 //            AdminLog::saveLog('supplier', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
             return $this->redirect([Url::home(), 'model' => $model]);
