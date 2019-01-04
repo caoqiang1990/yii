@@ -78,7 +78,7 @@ return [
   'department_name' => '业务相关主要部门',
   'department_manager' => '业务相关部门负责人',
   'department_manager_phone' => '业务相关部门负责人电话',
-  'enterprise_code' => '营业执照统一社会信用代码（18位）',
+  'enterprise_code' => '营业执照(上传附件)',
   'enterprise_code_image_id' => '企业代码',
   'enterprise_license' => '开户许可证核准号(上传附件)',
   'enterprise_license_image_id' => '开户许可证',
