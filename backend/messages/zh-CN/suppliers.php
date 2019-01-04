@@ -80,7 +80,7 @@ return [
   'department_manager_phone' => '业务相关部门负责人电话',
   'enterprise_code' => '营业执照(上传附件)',
   'enterprise_code_image_id' => '企业代码',
-  'enterprise_license' => '开户许可证核准号(上传附件)',
+  'enterprise_license' => '开户许可证(上传附件)',
   'enterprise_license_image_id' => '开户许可证',
   'enterprise_certificate' => '贸易商（中间商）代理资质(上传附件)',
   'enterprise_certificate_etc' => '贸易商（中间商）其他资质',

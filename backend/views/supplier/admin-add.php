@@ -90,7 +90,7 @@ $this->registerJs($js);
     <?= $form->field($model, 'name')->label('供应商全称')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'enterprise_code')->label('营业执照（统一社会信用代码18位）')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'enterprise_code')->label('营业执照统一社会信用代码（18位）')->textInput(['maxlength' => true]) ?>
     </div> 
     <div class="col-xs-12">
         <a id="update-supplier" href=""><p id="update-prompt"></p></a>
