@@ -60,7 +60,7 @@ class AdminAdd extends Model
     {
         return [
             'name' => '供应商全称',
-            'enterprise_code' => '企业代码',
+            'enterprise_code' => '营业执照',
         ];
     }    
 }

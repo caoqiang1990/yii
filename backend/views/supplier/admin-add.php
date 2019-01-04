@@ -24,8 +24,16 @@ function save_detail(){
     }
     if (!enterprise_code) {
         $('.field-adminadd-enterprise_code').addClass('has-error');
-        $('.field-adminadd-enterprise_code .help-block').text('企业代码不能为空!');
+        $('.field-adminadd-enterprise_code .help-block').text('营业执照不能为空!');
         return false;
+    } else {
+        $('.field-adminadd-enterprise_code').removeClass('has-error');
+        $('.field-adminadd-enterprise_code .help-block').text('');        
+    }
+    var reg = /^[A-Za-z0-9]{18}/;
+    if (!reg.test(enterprise_code)) {
+        $('.field-adminadd-enterprise_code').addClass('has-error');
+        $('.field-adminadd-enterprise_code .help-block').text('营业执照为18位数字或字母组成！');
     } else {
         $('.field-adminadd-enterprise_code').removeClass('has-error');
         $('.field-adminadd-enterprise_code .help-block').text('');        
@@ -82,7 +90,7 @@ $this->registerJs($js);
     <?= $form->field($model, 'name')->label('供应商全称')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-xs-6">
-    <?= $form->field($model, 'enterprise_code')->label('企业代码')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'enterprise_code')->label('营业执照（统一社会信用代码18位）')->textInput(['maxlength' => true]) ?>
     </div> 
     <div class="col-xs-12">
         <a id="update-supplier" href=""><p id="update-prompt"></p></a>
