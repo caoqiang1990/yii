@@ -66,6 +66,8 @@ class SupplierDetail extends ActiveRecord
         'cate_id2' => Yii::t('detail','cate_id2'),
         'cate_id3' => Yii::t('detail','cate_id3'),
         'develop_department' => Yii::t('detail','develop_department'),
+        'one_coop_department' => Yii::t('detail','one_coop_department'),
+        'second_coop_department' => Yii::t('detail','second_coop_department'),
       ];
     }
 
@@ -130,7 +132,7 @@ class SupplierDetail extends ActiveRecord
     public function rules()
     {
         return [
-          [['cate_id1','cate_id2','cate_id3','second_level_department','name','mobile','reason','coop_date','level','develop_department'],'safe'],
+          [['cate_id1','cate_id2','cate_id3','second_level_department','name','mobile','reason','coop_date','level','develop_department','one_coop_department','second_coop_department'],'required'],
           ['sid','safe'],
           ['one_level_department','safe']
 
