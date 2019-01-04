@@ -281,7 +281,7 @@ class Supplier extends ActiveRecord
             [['enterprise_license'],'required','on'=>'add'],
             [['enterprise_license'],'required','on'=>'edit'],
             [['enterprise_code_desc','enterprise_license_desc'],'required','on'=>'add'],
-            [['enterprise_license_desc','enterprise_code_desc'],'required','on'=>'edit'],
+            [['enterprise_license_desc'],'required','on'=>'edit'],
             [['register_fund'],'required','on'=>'edit'],
             [['register_fund'],'required','on'=>'add'],
             [['business_email','business_position'],'required','on'=>'add'],

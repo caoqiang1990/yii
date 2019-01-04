@@ -5,10 +5,11 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Suppliers */
 
-$this->title = \Yii::t('suppliers','submit_confirm');
+$this->title = \Yii::t('suppliers','supplierbasic');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<table style="width:100%;height:420px;background:url(./images/main1.jpg)"><tr><td colspan="3" style="padding-bottom: 200px;"><h1><?= Html::encode($this->title) ?></h1></td><td>&nbsp;</td></tr></table>
 <div class="suppliers-view">
 
     <table style="width:100%">
