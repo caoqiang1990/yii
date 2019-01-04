@@ -121,38 +121,41 @@ class SupplierformController extends Controller
     }
     /**
      * Updates an existing Suppliers model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * If update is successful, the browser will be redirected to the 'confirm' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $cookies = Yii::$app->request->cookies;
-        if (($cookie = $cookies->get('supplier_id')) !== null) {
-            $supplier_id = $cookie->value;
-            if($id != $supplier_id);
-            $id = $supplier_id;
-         }
-         else{
-           $response_cookies = Yii::$app->response->cookies;
-           $response_cookies->add(new \yii\web\Cookie([
-            'name' => 'supplier_id',
-            'value' => $id,
-          ]));
-         }
-//         var_dump($id);die;
+//        $cookies = Yii::$app->request->cookies;
+//        if (($cookie = $cookies->get('supplier_id')) !== null) {
+//            $supplier_id = $cookie->value;
+//            if($id != $supplier_id);
+//            $id = $supplier_id;
+//         }
+//         else{
+//           $response_cookies = Yii::$app->response->cookies;
+//           $response_cookies->add(new \yii\web\Cookie([
+//            'name' => 'supplier_id',
+//            'value' => $id,
+//          ]));
+//         }
+
         $model = $this->findModel($id);
         $model->scenario = 'edit';
-//        var_dump($model->scenario);
-//    var_dump($model->validate());
-//        exit;
+
         $post = Yii::$app->request->post();
         $original = $model->getByID($id);
-        $model->status = 'auditing';//
-        if ($model->load($post) && $model->save()) {//($model->status == 'wait')
+        
+        if ($model->load($post)) {//
 //            AdminLog::saveLog('supplier', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
-            return $this->redirect([Url::home(), 'model' => $model]);
+            if($model->status == 'wait')
+            {
+              $model->status = 'auditing';//
+              $model->save();
+              return $this->redirect(['confirm', 'model' => $model]);
+            }
         }
         $attachmentModel = new Attachment();
         $image = $attachmentModel->getImageByID($model->enterprise_code);
