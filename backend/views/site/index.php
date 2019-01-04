@@ -1,24 +1,30 @@
 <?php
 use yii\web\View;
 
-$this->title = '';
+$this->title = '欢迎登录爱慕供应商系统';
 
 $css = <<<CSS
   ol li{
     font-size: 18px;
-    margin-bottom: 10px
+    margin-bottom: 20px
   }
   h4{
     font-weight: bold;
+    margin-bottom: 20px
   }
-
+  .content{
+    padding:0px 15px 15px 15px;
+  }
+  ul li {
+    margin-bottom: 10px;
+  }
 CSS;
 
 $this->registerCss($css);
 ?>
 <div class="container-fluid">
 <div class="row">
-<h1>欢迎登录爱慕供应商系统</h1>
+<br />
 </div>
   <div class="row">
       <h4>供应商管理系统信息完善时间要求：</h4>
@@ -34,11 +40,11 @@ $this->registerCss($css);
     <ol>
       <li>
         共享范围释义：
-        <ol>
+        <ul>
           <li>供应商分为“集团共享”供应商和“部门共享”供应商。</li>
           <li>新增供应商时系统默认为“集团共享”，如为保密供应商（如特殊的原材料供应商），请在“供应商名录变更->变更基本信息”或“供应商名录变更->审核基本信息”处调整为“部门共享”。</li>
           <li>“供应商名录查询->集团供应商”中不显示其他部门的“部门共享”供应商。</li>
-        </ol>
+        </ul>
       </li>
       <li>
         <p>个人信息修改：</p>
