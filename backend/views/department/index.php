@@ -32,7 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
             //'created_at',
             //'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'header' => '操作',
+                'class' => 'yii\grid\ActionColumn',
+                'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
+
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>
