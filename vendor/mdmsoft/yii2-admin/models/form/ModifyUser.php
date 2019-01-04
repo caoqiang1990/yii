@@ -22,6 +22,7 @@ class ModifyUser extends Model
     public $department;
     public $head_url;
     public $imageFile;
+    public $position;
 
     /**
      * @inheritdoc
@@ -30,7 +31,7 @@ class ModifyUser extends Model
     {
         return [
             ['truename','required'],
-            ['mobile','safe'],
+            [['mobile','position','department'],'safe'],
             ['email','required'],
             [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => '*', 'on' => 'image'],
         ];
@@ -50,6 +51,9 @@ class ModifyUser extends Model
             //$user->mobile = $this->mobile;
             if ($this->department) {
                 $user->department = $this->department;
+            }
+            if ($this->position) {
+                $user->position = $this->position;
             }
             $user->head_url = $this->head_url;
             if ($this->email) {
