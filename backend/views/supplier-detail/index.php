@@ -21,6 +21,12 @@ $this->params['breadcrumbs'][] = ['label' => '与我方关系列表', 'url' => \
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pager'=>[
+            //'options'=>['class'=>'hidden']//关闭分页
+            'firstPageLabel'=>'首页',
+            'lastPageLabel'=>'尾页',
+            'maxButtonCount' => 5, 
+        ],        
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

@@ -24,6 +24,12 @@ $this->params['breadcrumbs'][] = '部门供应商';
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pager'=>[
+            //'options'=>['class'=>'hidden']//关闭分页
+            'firstPageLabel'=>'首页',
+            'lastPageLabel'=>'尾页',
+            'maxButtonCount' => 5, 
+        ],        
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
