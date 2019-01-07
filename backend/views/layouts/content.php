@@ -39,7 +39,7 @@ use dmstr\widgets\Alert;
     <div class="pull-right hidden-xs">
         <b>Version</b> 2.0
     </div>
-    <strong>Copyright &copy; 2018-2019 <a href="/"><?=\Yii::$app->name ?></a>.</strong> All rights
+    <strong>Copyright &copy; 2018-2019 <a href="/"><?=\Yii::$app->name ?></a>. V1.01</strong> All rights
     reserved.
 </footer>
 
