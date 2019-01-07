@@ -187,23 +187,23 @@ class SupplierDetailController extends Controller
     public function actionCreate($sid='')
     {
         $model = new SupplierDetail;
+        $supplierModel = new Supplier;
+        $fundModel = new SupplierFunds;
+        $levelModel = new SupplierLevel;        
+        $supplierObj = $this->findSupplierModel($sid);
         $model->scenario = 'add';
         $post = Yii::$app->request->post();
         $funds = array();
         $department = Yii::$app->user->identity->department;
-
         if (Yii::$app->request->isPost) {
-            $post['SupplierDetail']['one_level_department'] = $department;
-            $post['SupplierDetail']['develop_department'] = $department;
+            $post['SupplierDetail']['one_level_department'] = $supplierObj->department;
+            $post['SupplierDetail']['develop_department'] = $supplierObj->department;
         }
         if ($model->load($post) && $model->save()) {
             AdminLog::saveLog('supplierdetail', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
             return $this->redirect(['/supplier/admin-index']);
         }
-        $supplierModel = new Supplier;
-        $fundModel = new SupplierFunds;
-        $levelModel = new SupplierLevel;
-        $supplierObj = $supplierModel->find($sid)->one();
+
         $level = $levelModel::getLevelByParams();//供应商等级
         $where['sid'] = $sid;
         $detailObjList = $model->find()->where($where)->all();
@@ -228,7 +228,8 @@ class SupplierDetailController extends Controller
         $model->fund_year1 = date('Y') - 3;
         $model->fund_year2 = date('Y') - 2;
         $model->fund_year3 = date('Y') - 1;
-        $department_info = Department::getDepartmentById($department);
+        //获取供应商对应的一级部门        
+        $department_info = Department::getDepartmentById($supplierObj->department);
         $model->one_level_department = $department_info ? $department_info->department_name : '';
         //部门列表
         $one_level_department = Department::getDepartmentByParams('id,department_name',1);
@@ -290,6 +291,14 @@ class SupplierDetailController extends Controller
             $department = Department::getDepartmentById($model->one_level_department);
             $model->one_level_department = $department->department_name;
         }
+        if ($model->second_level_department) {
+            $department = Department::getDepartmentById($model->second_level_department);
+            $model->second_level_department = $department->department_name;
+        } 
+        if ($model->develop_department) {
+            $department = Department::getDepartmentById($model->develop_department);
+            $model->develop_department = $department->department_name;
+        }                       
         $one_level_department = Department::getDepartmentByParams('id,department_name',1);
         $second_level_department = Department::getDepartmentByParams('id,department_name',2);
         return $this->render('update', [
@@ -306,7 +315,7 @@ class SupplierDetailController extends Controller
     {
         $model = Supplier::findOne($id);
         $where['sid'] = $id;
-        $where['one_level_department'] = Yii::$app->user->identity->department;
+        $where['one_coop_department'] = Yii::$app->user->identity->department;
         $supplier_detail = SupplierDetail::find()->where($where)->all();
         $fundModel = new SupplierFunds;
         foreach($supplier_detail as &$detail) {
@@ -398,5 +407,14 @@ class SupplierDetailController extends Controller
         $out = ['results' => $category];
         return $out;
     }
+
+    protected function findSupplierModel($id)
+    {
+        if (($model = Supplier::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }    
 
 }

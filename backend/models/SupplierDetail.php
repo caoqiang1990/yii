@@ -132,7 +132,7 @@ class SupplierDetail extends ActiveRecord
     public function rules()
     {
         return [
-          [['cate_id1','cate_id2','cate_id3','name','mobile','reason','coop_date','level','one_coop_department','second_coop_department'],'required'],
+          [['cate_id1','cate_id2','cate_id3','name','mobile','reason','level','one_coop_department','second_coop_department'],'required'],
           ['sid','safe'],
           ['one_level_department','safe']
 
@@ -357,7 +357,7 @@ class SupplierDetail extends ActiveRecord
         if (!$department) {
             return false;
         }
-        $where['one_level_department'] = $department;
+        $where['one_coop_department'] = $department;
         $ids = self::find()->select('sid')->distinct()->where($where)->asArray()->all();
         if ($ids) {
           return array_column($ids,'sid');
