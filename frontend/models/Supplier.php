@@ -280,7 +280,6 @@ class Supplier extends ActiveRecord
             [['department_manager_phone'],'required','on'=>'add'],
             [['department_manager_phone'],'required','on'=>'edit'],
             [['enterprise_code'],'required','on'=>'add'],
-            [['enterprise_code'],'required','on'=>'edit'],
             [['enterprise_license'],'safe','on'=>'add'],
             [['enterprise_license'],'required','on'=>'edit'],
             [['enterprise_code_desc','enterprise_license_desc'],'required','on'=>'add'],
