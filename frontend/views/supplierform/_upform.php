@@ -37,12 +37,14 @@ $(document).on('click','.add',function(){
       if(info){
         alert("工厂信息，原材料和仪器信息！均为必填项！谢谢合作！");
         $("html,body").animate({scrollTop:$("#factory").offset().top},1000);
+        return false;
       }
     }
     if($("#supplier-business_type").val()== 3){
       if($('#supplier-enterprise_certificate_desc').val()== undefined || $('#supplier-enterprise_certificate_desc').val()== ''){
         alert("贸易商（中间商）代理资质为必填项！谢谢合作！");
         $("html,body").animate({scrollTop:$("#enter_cert").offset().top},1000);
+        return false;
       }
     }
 
