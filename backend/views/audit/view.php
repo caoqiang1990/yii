@@ -192,7 +192,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
         ],
     ]) ?>
     <p>
-    <?= Html::a('返回', ['basic'], ['class' => 'btn btn-primary']) ?>
+    <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
     <?= Html::a('审核', ['audit','id'=>$model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 </div>
