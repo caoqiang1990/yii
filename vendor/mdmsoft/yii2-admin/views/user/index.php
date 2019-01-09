@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use mdm\admin\components\Helper;
+use backend\models\Department;
 
 /* @var $this yii\web\View */
 /* @var $searchModel mdm\admin\models\searchs\User */
@@ -24,6 +25,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'username',
+            [
+                'attribute' => 'truename',
+                'label' => '真实姓名'
+            ],
+            [
+                'attribute' => 'department',
+                'value' => function($model) {
+                    $department = Department::getDepartmentById($model->department);
+                    return $department ? $department->department_name : '';
+                }
+            ],
             'email:email',
             [
                 'attribute' => 'created_at',
