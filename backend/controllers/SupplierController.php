@@ -25,6 +25,7 @@ use backend\models\SupplierDetail;
 use mdm\admin\components\Configs;
 use backend\models\AdminAdd;
 use backend\models\Department;
+use backend\models\SupplierFunds;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -147,6 +148,20 @@ class SupplierController extends Controller
     {
         $where['sid'] = $id;
         $supplier_detail = SupplierDetail::find()->where($where)->all();
+        $fundModel = new SupplierFunds;
+        foreach($supplier_detail as &$detail) {
+            $map['detail_id'] = $detail->id;
+            $funds = $fundModel->find()->where($map)
+            ->andfilterwhere(['in','year',[date('Y') - 3,date('Y') - 2,date('Y') - 1]])
+            ->orderBy('year asc')->all();
+            if ($funds) {
+                foreach ($funds as $k => $v) {
+                    $key = $k + 1;
+                    $detail->{"coop_fund$key"} = $v->coop_fund ? $v->coop_fund : NULL;
+                    $detail->{"trade_fund$key"} = $v->trade_fund ? $v->trade_fund : NULL;
+                }
+            }
+        }         
         return $this->render('department-view', [
             'supplier' => $this->findModel($id),
             'supplier_detail' => $supplier_detail
