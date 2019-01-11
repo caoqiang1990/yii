@@ -145,7 +145,8 @@ class SupplierformController extends Controller
         if (in_array($id,$ids)) {
             $model = $this->findModel($id);
         } else {
-            $model = $this->findModel(deCrypt($id));
+            $id = deCrypt($id);
+            $model = $this->findModel($id);
         }
         //非wait状态不可查看
         if ($model->status != 'wait') {
