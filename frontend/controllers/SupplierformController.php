@@ -143,6 +143,11 @@ class SupplierformController extends Controller
 //         }
 
         $model = $this->findModel($id);
+        //非wait状态不可查看
+
+        if ($model->status != 'wait') {
+            throw new NotFoundHttpException('无查看权限');
+        }
         $model->scenario = 'edit';
 
         $post = Yii::$app->request->post();
