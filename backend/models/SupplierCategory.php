@@ -66,12 +66,15 @@ class SupplierCategory extends ActiveRecord
      * @param  string $id [description]
      * @return [type]         [description]
      */
-    public static function getCategoryByParams($column = '', $level = '')
+    public static function getCategoryByParams($column = '', $level = '',$pid='')
     {
         $where = [];
         $field = '';
         if ($level !== '') {
             $where['level'] = $level;
+        }
+        if ($pid !== '') {
+            $where['pid'] = $pid;
         }
         if ($column) {
             $field = $column;
