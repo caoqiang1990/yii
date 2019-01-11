@@ -281,9 +281,9 @@ class Supplier extends ActiveRecord
             [['department_manager_phone'],'required','on'=>'edit'],
             [['enterprise_code'],'required','on'=>'add'],
             [['enterprise_license'],'safe','on'=>'add'],
-            [['enterprise_license'],'required','on'=>'edit'],
+            [['enterprise_license'],'safe','on'=>'edit'],
             [['enterprise_code_desc','enterprise_license_desc'],'required','on'=>'add'],
-            [['enterprise_license_desc'],'required','on'=>'edit'],
+            [['enterprise_license_desc'],'safe','on'=>'edit'],
             [['register_fund'],'required','on'=>'edit'],
             [['register_fund'],'required','on'=>'add'],
             [['business_email','business_position'],'required','on'=>'add'],
@@ -303,11 +303,11 @@ class Supplier extends ActiveRecord
             ['business_mobile','required','message'=>'联系人电话不能为空！','on'=>['add,edit']],
             ['business_mobile','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'联系人手机号格式不正确！','on' => 'edit'],
             ['business_mobile','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'联系人手机号格式不正确！','on' => 'add'],
-            [['enterprise_code_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*0.5],
-            [['enterprise_license_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*0.5],
-            [['enterprise_certificate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*0.5],
-            [['enterprise_certificate_etc_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*0.5],
-            [['enterprise_license_relate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' =>['add,edit,upload'],'maxSize' => 1024*1024*0.5],
+            [['enterprise_code_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*1.5],
+            [['enterprise_license_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*1.5],
+            [['enterprise_certificate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*1.5],
+            [['enterprise_certificate_etc_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => ['add,edit,upload'],'maxSize' => 1024*1024*1.5],
+            [['enterprise_license_relate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' =>['add,edit,upload'],'maxSize' => 1024*1024*1.5],
         ];
     }
 
