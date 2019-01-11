@@ -8,6 +8,7 @@ use backend\models\SupplierTrade;
 use backend\models\SupplierType;
 use mdm\admin\components\Helper; 
 use backend\models\SupplierNature;
+use backend\models\Attachment;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Suppliers */
@@ -125,6 +126,86 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             'enterprise_license_relate_desc',
             'enterprise_certificate_desc',
             'enterprise_certificate_etc_desc',
+            [
+                'attribute' => 'enterprise_code',
+                'label' => '营业执照(上传附件)',
+                'format' => 'raw',
+                'value' => function($model){
+                    $attachment_id = $model->enterprise_code;
+                    if ($attachment_id) {
+                        $attachModel = new Attachment;
+                        $attach = $attachModel->getImageByID($attachment_id);
+                        return Html::a(Html::img($attach->url, ['width' => 40]),$attach->url,['target' => '_blank']);
+                    } else {
+                        return NULL;
+                    }
+
+                },
+            ],
+            [
+                'attribute' => 'enterprise_license',
+                'label' => '开户许可证(上传附件)',
+                'format' => 'raw',
+                'value' => function($model){
+                    $attachment_id = $model->enterprise_license;
+                    if ($attachment_id) {
+                        $attachModel = new Attachment;
+                        $attach = $attachModel->getImageByID($attachment_id);
+                        return Html::a(Html::img($attach->url, ['width' => 40]),$attach->url,['target' => '_blank']);
+                    } else {
+                        return NULL;
+                    }
+
+                },
+            ],
+            [
+                'attribute' => 'enterprise_certificate',
+                'label' => '贸易商（中间商）代理资质(上传附件)',
+                'format' => 'raw',
+                'value' => function($model){
+                    $attachment_id = $model->enterprise_certificate;
+                    if ($attachment_id) {
+                        $attachModel = new Attachment;
+                        $attach = $attachModel->getImageByID($attachment_id);
+                        return Html::a(Html::img($attach->url, ['width' => 40]),$attach->url,['target' => '_blank']);
+                    } else {
+                        return NULL;
+                    }
+
+                },
+            ], 
+            [
+                'attribute' => 'enterprise_certificate_etc',
+                'label' => '贸易商（中间商）其他资质',
+                'format' => 'raw',
+                'value' => function($model){
+                    $attachment_id = $model->enterprise_certificate_etc;
+                    if ($attachment_id) {
+                        $attachModel = new Attachment;
+                        $attach = $attachModel->getImageByID($attachment_id);
+                        return Html::a(Html::img($attach->url, ['width' => 40]),$attach->url,['target' => '_blank']);
+                    } else {
+                        return NULL;
+                    }
+
+                },
+            ],     
+            [
+                'attribute' => 'enterprise_license_relate',
+                'label' => '企业相关资质(上传附件)',
+                'format' => 'raw',
+                'value' => function($model){
+                    $attachment_id = $model->enterprise_license_relate;
+                    if ($attachment_id) {
+                        $attachModel = new Attachment;
+                        $attach = $attachModel->getImageByID($attachment_id);
+                        return Html::a(Html::img($attach->url, ['width' => 40]),$attach->url,['target' => '_blank']);
+                    } else {
+                        return NULL;
+                    }
+
+                },
+            ],                                 
             [
                 'attribute' => 'status',
                 'value' => function($model){
