@@ -1,10 +1,11 @@
 <?php
 
 
-function getInfo()
-{
-  echo 'ddd';
-}
+  function getInfo()
+  {
+    echo 'ddd';
+  }
+
   /**
   * 可逆的字符串加密函数[无依赖简版]
   * @param int $txtStream 待加密的字符串内容
@@ -69,6 +70,5 @@ function getInfo()
       }
       return base64_decode($tmpStream);
   }
-
 
 ?>

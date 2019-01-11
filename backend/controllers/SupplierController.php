@@ -89,10 +89,21 @@ class SupplierController extends Controller
         }
         $request['SupplierSearch']['supplier_status'] = '10';
         $dataProvider = $searchModel->search($request);
-
+        if (isset($request['SupplierSearch']['cate_id1'])) {
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2,$request['SupplierSearch']['cate_id1']);
+        } else {
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2);
+        }
+        if (isset($request['SupplierSearch']['cate_id2'])) {
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3,$request['SupplierSearch']['cate_id2']);
+        } else {
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3);
+        }        
         return $this->render('admin-index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'cate2' => $cate2,
+            'cate3' => $cate3,
         ]);
     }
 
@@ -229,7 +240,7 @@ class SupplierController extends Controller
                     return ['code'=>'exist','id'=>$supplier_o->id,'type'=>$type];
                 } else {
                     if ($new = $model->add()) {
-                        return ['code'=>'new','id'=>$new->id,'url'=>'http://gys.aimergroup.com:8090/?r=supplierform/update&id='.$new->id];
+                        return ['code'=>'new','id'=>$new->id,'url'=>'http://gys.aimergroup.com:8090/?r=supplierform/update&id='.enCrypt($new->id)];
                     }else{
                         $error = $model->getErrors();
                         return ['code'=>'error'];  

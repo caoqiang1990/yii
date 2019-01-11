@@ -141,10 +141,13 @@ class SupplierformController extends Controller
 //            'value' => $id,
 //          ]));
 //         }
-
-        $model = $this->findModel($id);
+        $ids = [541,542,543,544,545,546,547,548,549,550];
+        if (in_array($id,$ids)) {
+            $model = $this->findModel($id);
+        } else {
+            $model = $this->findModel(deCrypt($id));
+        }
         //非wait状态不可查看
-
         if ($model->status != 'wait') {
             throw new NotFoundHttpException('无查看权限');
         }
