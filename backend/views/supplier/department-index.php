@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = '部门供应商';
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
                 },
-                'filter' => SupplierCategory::getCategoryByParams('id,category_name',2),
+                'filter' => $cate2,
             ],
             [
                 'attribute' => 'cate_id3',
@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = '部门供应商';
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
                 },
-                'filter' => SupplierCategory::getCategoryByParams('id,category_name',3),
+                'filter' => $cate3,
             ],
             [
                 'attribute' => 'level',

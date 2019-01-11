@@ -140,12 +140,23 @@ class SupplierController extends Controller
         $request['SupplierSearch']['id'] = $supplier_ids;
         $request['SupplierSearch']['supplier_status'] = '10';
         $dataProvider = $searchModel->search($request);
-
+        if (isset($request['SupplierSearch']['cate_id1'])) {
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2,$request['SupplierSearch']['cate_id1']);
+        } else {
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2);
+        }
+        if (isset($request['SupplierSearch']['cate_id2'])) {
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3,$request['SupplierSearch']['cate_id2']);
+        } else {
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3);
+        }       
         //var_dump($ids);die;
         return $this->render('department-index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'department_info' => $department_info,
+            'cate2' => $cate2,
+            'cate3' => $cate3,
         ]);
     }    
 
@@ -299,12 +310,23 @@ class SupplierController extends Controller
         $request['SupplierSearch']['department'] = $department;
         $request['SupplierSearch']['supplier_status'] = '10';
         $dataProvider = $searchModel->search($request);
-
+        if (isset($request['SupplierSearch']['cate_id1'])) {
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2,$request['SupplierSearch']['cate_id1']);
+        } else {
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2);
+        }
+        if (isset($request['SupplierSearch']['cate_id2'])) {
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3,$request['SupplierSearch']['cate_id2']);
+        } else {
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3);
+        }   
         //var_dump($ids);die;
         return $this->render('basic', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'department_info' => $department_info,
+            'cate2' => $cate2,
+            'cate3' => $cate3,
         ]);
     }    
 

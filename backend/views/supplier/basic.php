@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = '变更基本信息';
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
                 },
-                'filter' => SupplierCategory::getCategoryByParams('id,category_name',2),
+                'filter' => $cate2,
                 'headerOptions' => [
                     'width' => '100px'
                 ]                
@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = '变更基本信息';
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
                 },
-                'filter' => SupplierCategory::getCategoryByParams('id,category_name',3),
+                'filter' => $cate3,
                 'headerOptions' => [
                     'width' => '100px'
                 ]                
