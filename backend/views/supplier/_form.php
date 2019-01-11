@@ -356,12 +356,15 @@ use kartik\select2\Select2;
     <div class="col-xs-12">
         <?= $form->field($model,'enterprise_certificate_etc_desc')->textInput()?>
     </div>            
-    <div class="col-xs-12">
+    <div class="col-xs-6">
         <?= $form->field($model,'public_flag')->label('共享范围（非保密供应商请选择集团共享）')->radioList([
             'y' => '集团共享',
             'n' => '部门共享'
         ]) ?>
-    </div>                               
+    </div>     
+    <div class="col-xs-6">
+    <?= $form->field($model, 'level')->label('*供应商等级')->dropDownList($level,['prompt'=>'请选择等级']) ?>
+    </div>                              
     <div class="form-group">
     <div class="col-xs-12">
 
