@@ -329,19 +329,21 @@ class SupplierDetailController extends Controller
         $where['one_coop_department'] = Yii::$app->user->identity->department;
         $supplier_detail = SupplierDetail::find()->where($where)->all();
         $fundModel = new SupplierFunds;
-        foreach($supplier_detail as &$detail) {
-            $map['detail_id'] = $detail->id;
-            $funds = $fundModel->find()->where($map)
-            ->andfilterwhere(['in','year',[date('Y') - 3,date('Y') - 2,date('Y') - 1]])
-            ->orderBy('year asc')->all();
-            if ($funds) {
-                foreach ($funds as $k => $v) {
-                    $id = $k + 1;
-                    $detail->{"coop_fund$id"} = $v->coop_fund;
-                    $detail->{"trade_fund$id"} = $v->trade_fund;
+        if ($supplier_detail) {
+            foreach($supplier_detail as &$detail) {
+                $map['detail_id'] = $detail->id;
+                $funds = $fundModel->find()->where($map)
+                ->andfilterwhere(['in','year',[date('Y') - 3,date('Y') - 2,date('Y') - 1]])
+                ->orderBy('year asc')->all();
+                if ($funds) {
+                    foreach ($funds as $k => $v) {
+                        $id = $k + 1;
+                        $detail->{"coop_fund$id"} = $v->coop_fund;
+                        $detail->{"trade_fund$id"} = $v->trade_fund;
+                    }
                 }
-            }
-        }  
+            }  
+        }
         return $this->render('admin-update',[
                 'model' => $model,
                 'supplier_detail' => $supplier_detail,
