@@ -26,12 +26,9 @@ if ($supplier_detail) {
   }
 } else {
   $items[] = [
-    [
         'label'=>'<i class="fa fa-users"></i> 合作关系',
         'content'=> $content.'<a class="btn btn-primary" href="javascript:history.go(-1)">返回</a><br />'.$content.'暂无合作',
         'active'=>true,
-    ],
-
   ];
 }
 
