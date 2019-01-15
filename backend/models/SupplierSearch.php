@@ -70,7 +70,7 @@ class SupplierSearch extends Supplier
             ]);
         }
         if (!$this->supplier_status) {
-            $query->andFilterWhere(['in','status',['wait','auditing']]);
+            $query->andFilterWhere(['in','status',$this->supplier_status]);
         } else {
             $query->andFilterWhere(['status'=>$this->supplier_status]);
         }
