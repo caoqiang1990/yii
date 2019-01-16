@@ -4,6 +4,14 @@ use mdm\admin\models\form\ModifyUser;
 use yii\helpers\Url;
 /* @var $this \yii\web\View */
 /* @var $content string */
+$username = Yii::$app->user->identity->truename;
+$js = <<<JS
+UESR = '$username';
+watermark_show({ watermark_txt: UESR,watermark_y:65});
+JS;
+
+$this->registerJsFile("@web/js/watermark.js"); 
+$this->registerJs($js,\yii\web\View::POS_END);
 ?>
 
 <header class="main-header">
