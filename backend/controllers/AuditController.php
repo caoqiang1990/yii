@@ -19,7 +19,11 @@ class AuditController extends Controller
     $request = Yii::$app->request->queryParams;
     $department = Yii::$app->user->identity->department;
     $request['SupplierSearch']['department'] = $department;
-    $request['SupplierSearch']['status'] = 'wait';
+    if (isset($request['SupplierSearch']['status']) && $request['SupplierSearch']['status'])  {
+      $request['SupplierSearch']['supplier_status'] = $request['SupplierSearch']['status'];
+    } else {
+      $request['SupplierSearch']['supplier_status'] = ['wait','auditing'];
+    }
     $dataProvider = $searchModel->search($request);
 
     $status = [

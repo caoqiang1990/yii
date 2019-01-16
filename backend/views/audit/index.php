@@ -92,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //     }
             // ],
             [
-              'attribute' => 'supplier_status',
+              'attribute' => 'status',
               'label' => '状态',
               'value' => function($model) {
                 switch ($model->status) {
