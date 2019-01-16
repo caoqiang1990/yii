@@ -147,4 +147,14 @@ return array (
       '@dosamigos/qrcode' => $vendorDir . '/2amigos/yii2-qrcode-helper/src',
     ),
   ),
+  'mito/yii2-sentry' => 
+  array (
+    'name' => 'mito/yii2-sentry',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@mito/sentry' => $vendorDir . '/mito/yii2-sentry/src',
+      '@mito/sentry/tests' => $vendorDir . '/mito/yii2-sentry/tests',
+    ),
+  ),
 );
