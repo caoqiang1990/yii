@@ -5,13 +5,14 @@ use yii\helpers\Url;
 /* @var $this \yii\web\View */
 /* @var $content string */
 $username = Yii::$app->user->identity->truename;
+$this->registerJsFile("@web/js/watermark.js"); 
+
 $js = <<<JS
 UESR = '$username';
-watermark_show({ watermark_txt: UESR,watermark_y:65});
+watermark_show({ watermark_txt: UESR,watermark_y:100,watermark_cols:4,watermark_x_space:200,watermark_rows:8});
 JS;
-
-$this->registerJsFile("@web/js/watermark.js"); 
 $this->registerJs($js,\yii\web\View::POS_END);
+
 ?>
 
 <header class="main-header">
