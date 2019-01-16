@@ -136,7 +136,16 @@ $this->params['breadcrumbs'][] = '变更合作信息';
                 'header' => '操作',
                 'class' => 'yii\grid\ActionColumn',
                 'template' => Helper::filterActionColumn('{view}{admin-update}{delete}'), 
-                'buttons' => [          
+                'buttons' => [     
+                    'view' => function ($url, $model, $key) {
+                        $options = [
+                            'title' => Yii::t('yii', 'View'),
+                            'aria-label' => Yii::t('yii', 'View'),
+                            'data-pjax' => '0',
+                        ];
+                        $url = Url::to(['/supplier/admin-view','id'=>$model->id]);
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, $options);
+                    },                 
                     'admin-update' => function ($url, $model, $key) {
                         $options = [
                             'title' => Yii::t('yii', 'Update'),
