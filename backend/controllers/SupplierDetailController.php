@@ -326,7 +326,7 @@ class SupplierDetailController extends Controller
     {
         $model = Supplier::findOne($id);
         $where['sid'] = $id;
-        $where['one_level_department'] = Yii::$app->user->identity->department;
+        $where['one_coop_department'] = Yii::$app->user->identity->department;
         $supplier_detail = SupplierDetail::find()->where($where)->all();
         $fundModel = new SupplierFunds;
         if ($supplier_detail) {
