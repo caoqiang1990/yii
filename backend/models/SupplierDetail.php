@@ -30,6 +30,7 @@ class SupplierDetail extends ActiveRecord
     public $fund_year2;
     public $fund_year3;
     public $department;
+    public $supplier_name;
     /**
      * 返回表名
      * @return [type] [description]
@@ -68,6 +69,7 @@ class SupplierDetail extends ActiveRecord
         'develop_department' => Yii::t('detail','develop_department'),
         'one_coop_department' => Yii::t('detail','one_coop_department'),
         'second_coop_department' => Yii::t('detail','second_coop_department'),
+        'supplier_name' => Yii::t('detail','supplier_name'),
       ];
     }
 

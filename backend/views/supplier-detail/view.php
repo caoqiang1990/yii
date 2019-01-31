@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            'supplier_name',
             [
                 'attribute' => 'level',
                 'value' => function($model){

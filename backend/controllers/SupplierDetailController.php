@@ -331,6 +331,7 @@ class SupplierDetailController extends Controller
         $fundModel = new SupplierFunds;
         if ($supplier_detail) {
             foreach($supplier_detail as &$detail) {
+                $detail->supplier_name = $model->name; 
                 $map['detail_id'] = $detail->id;
                 $funds = $fundModel->find()->where($map)
                 ->andfilterwhere(['in','year',[date('Y') - 3,date('Y') - 2,date('Y') - 1]])
@@ -342,7 +343,7 @@ class SupplierDetailController extends Controller
                         $detail->{"trade_fund$id"} = $v->trade_fund;
                     }
                 }
-            }  
+            } 
         }
         return $this->render('admin-update',[
                 'model' => $model,
