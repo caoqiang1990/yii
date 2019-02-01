@@ -233,6 +233,16 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
                     return $department ? $department->department_name : '';
                 }
             ],    
+            [
+                'attribute' => 'level',
+                'value' => function($model){
+                    $level = SupplierLevel::getLevelById($model->level);
+                    if (!$level) {
+                        return '';
+                    }
+                    return $level->level_name;
+                }
+            ],            
             'name',
             'mobile',
             'reason:ntext',
