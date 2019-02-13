@@ -30,7 +30,6 @@ class SyncController extends Controller {
         if ($detail['level']) {
           $supplierModel->level = $detail['level'];
         }
-        var_dump($supplierModel);die;
         $supplierModel->save();
       }
     }
