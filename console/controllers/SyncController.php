@@ -10,11 +10,13 @@ class SyncController extends Controller {
 
   public function actionIndex()
   {
-    $sql = "SELECT * FROM supplier WHERE source='add'";
+    //$sql = "SELECT * FROM supplier WHERE source='add'";
+    $sql = "SELECT * FROM supplier";
     $supplier = Yii::$app->db->createCommand($sql)->queryAll();
+
     foreach ($supplier as $v) {
       $detail = SupplierDetail::getBySid($v['id']);
-      if ($detail) {
+      if ($detail && ($detail->one_level_department == $v['department'])) {
         $supplierModel = Supplier::getByID($v['id']);
         $supplierModel->scenario = 'sync';
         $supplierModel->cate_id1 = $detail->cate_id1;
