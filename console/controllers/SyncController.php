@@ -19,9 +19,18 @@ class SyncController extends Controller {
       if ($detail && ($detail->one_level_department == $v['department'])) {
         $supplierModel = Supplier::getByID($v['id']);
         $supplierModel->scenario = 'sync';
-        $supplierModel->cate_id1 = $detail->cate_id1;
-        $supplierModel->cate_id2 = $detail->cate_id2;
-        $supplierModel->cate_id3 = $detail->cate_id3;
+        if ($detail->cate_id1) {
+          $supplierModel->cate_id1 = $detail->cate_id1;
+        }
+        if ($detail->cate_id2) {
+          $supplierModel->cate_id2 = $detail->cate_id2;
+        }
+        if ($detail->cate_id3) {
+          $supplierModel->cate_id3 = $detail->cate_id3;
+        }
+        if ($detail->level) {
+          $supplierModel->level = $detail->level;
+        }
         $supplierModel->save();
       }
     }

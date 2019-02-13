@@ -25,6 +25,7 @@ class Supplier extends ActiveRecord
     const SCENARIO_UPLOAD = 'upload';
     const SCENARIO_ADMIN_ADD = 'admin-add';
     const SCENARIO_AUDIT = 'audit';
+    const SCENARIO_SYNC = 'sync';
     public $enterprise_code_url;
     public $enterprise_license_url;
     public $enterprise_certificate_url;
@@ -257,7 +258,13 @@ class Supplier extends ActiveRecord
             self::SCENARIO_AUDIT => [
                 'status',
                 'public_flag',
-            ]
+            ],
+            self::SCENARIO_SYNC => [
+                'cate_id1',
+                'cate_id2',
+                'cate_id3',
+                'level',
+            ],
         ];
     }
 
