@@ -155,6 +155,6 @@ class SupplierDetail extends ActiveRecord
 
     public static function getBySid($sid)
     {
-        return self::find()->where(['sid' => $sid])->one();
+        return self::find()->where(['sid' => $sid])->asArray()->one();
     }
 }

@@ -38,6 +38,7 @@ class Supplier extends ActiveRecord
                 'cate_id1',
                 'cate_id2',
                 'cate_id3',
+                'level',
             ],
         ];
     }
