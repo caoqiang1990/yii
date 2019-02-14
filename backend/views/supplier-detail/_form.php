@@ -51,7 +51,7 @@ JS;
 
     <div class="row">
     <?php
-        if ($model->isNewRecord) {
+        if ($model->isNewRecord || $model->one_level_department == '消费者中心') {
     ?>
     <div class="col-xs-6">
     <?php //$form->field($model, 'business_type')->dropDownList($type) 
@@ -93,7 +93,7 @@ JS;
         }
     ?>
     <?php
-        if ($model->isNewRecord) {
+        if ($model->isNewRecord || $model->one_level_department == '消费者中心') {
     ?>    
    <div class="col-xs-6">
     <?php //$form->field($model, 'business_type')->dropDownList($type) 
@@ -134,11 +134,10 @@ JS;
         }
     ?>     
     <?php
-        if ($model->isNewRecord) {
+        if ($model->isNewRecord || $model->one_level_department == '消费者中心') {
     ?>          
     <div class="col-xs-6">
     <?php //$form->field($model, 'business_type')->dropDownList($type) 
-        if ($model->isNewRecord) {
             echo $form->field($model, 'cate_id3')->label('*供应商三级分类(如需添加请联系管理员)')->widget(Select2::classname(), [
                 'options' => [
                     'placeholder' => '请选择子类',
@@ -162,7 +161,6 @@ JS;
                 ]
 
             ]);
-        }
     ?>
     </div>   
     <?php 

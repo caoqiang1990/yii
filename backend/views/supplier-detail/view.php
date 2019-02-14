@@ -38,6 +38,27 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
                 }
             ],
             [
+                'attribute' => 'cate_id1',
+                'value' => function($model){
+                    $categoryModel = new SupplierCategory;
+                    return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
+                },
+            ],
+            [
+                'attribute' => 'cate_id2',
+                'value' => function($model){
+                    $categoryModel = new SupplierCategory;
+                    return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
+                },
+            ],
+            [
+                'attribute' => 'cate_id3',
+                'value' => function($model){
+                    $categoryModel = new SupplierCategory;
+                    return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
+                },
+            ],            
+            [
                 'attribute' => 'one_level_department',
                 'label' => '供应商管理部门(一级部门)',
                 'value' => function($model) {
