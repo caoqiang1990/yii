@@ -1027,4 +1027,42 @@ class SupplierController extends Controller
         }
 
     }
+
+    /**
+     *
+     * 管理员查看供应商列表
+     *
+     */
+    public function actionAdminList(){
+        $searchModel = new SupplierSearch();
+        $request = Yii::$app->request->queryParams;
+        $department = Yii::$app->user->identity->department;
+        $department_info = Department::getDepartmentById($department);
+        if (!$department_info) {
+            throw new NotFoundHttpException("此用户不包含管理部门");
+        }
+        //排除这几个一级部门
+        $filter_department = ['大数据信息中心','总裁办'];
+        if (!in_array($department_info->department_name,$filter_department)) {
+            throw new NotFoundHttpException("没有访问权限");
+        }
+        $request['SupplierSearch']['supplier_status'] = '10';
+        $dataProvider = $searchModel->search($request);
+        if (isset($request['SupplierSearch']['cate_id1'])) {
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2,$request['SupplierSearch']['cate_id1']);
+        } else {
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2);
+        }
+        if (isset($request['SupplierSearch']['cate_id2'])) {
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3,$request['SupplierSearch']['cate_id2']);
+        } else {
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3);
+        }        
+        return $this->render('admin-list', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'cate2' => $cate2,
+            'cate3' => $cate3,
+        ]);
+    }
 }
