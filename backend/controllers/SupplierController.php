@@ -50,6 +50,7 @@ class SupplierController extends Controller
                 'duration' => 3600,
                 'variations' => [
                     \Yii::$app->language,
+                    Yii::$app->request->queryParams,
                 ],
                 'dependency' => [
                     'class' => 'yii\caching\DbDependency',
@@ -62,6 +63,7 @@ class SupplierController extends Controller
                 'duration' => 3600,
                 'variations' => [
                     \Yii::$app->language,
+                    Yii::$app->request->queryParams,
                 ],
                 'dependency' => [
                     'class' => 'yii\caching\DbDependency',
