@@ -37,10 +37,6 @@ class SupplierController extends Controller
      */
     public function behaviors()
     {
-        $department = Yii::$app->user->identity->department;
-        if (!$department) {
-            throw new BadRequestHttpException('请联系管理员设置部门!');
-        }
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -69,7 +65,7 @@ class SupplierController extends Controller
                 ],
                 'dependency' => [
                     'class' => 'yii\caching\DbDependency',
-                    'sql' => 'SELECT COUNT(*) FROM supplier_detail WHERE one_level_department = '.$department,
+                    'sql' => 'SELECT COUNT(*) FROM supplier_detail',
                 ],
             ],     
         ];
