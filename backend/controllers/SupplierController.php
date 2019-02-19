@@ -44,6 +44,30 @@ class SupplierController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            [
+                'class' => 'yii\filters\PageCache',
+                'only' => ['admin-index'],
+                'duration' => 3600,
+                'variations' => [
+                    \Yii::$app->language,
+                ],
+                'dependency' => [
+                    'class' => 'yii\caching\DbDependency',
+                    'sql' => 'SELECT COUNT(*) FROM supplier',
+                ],
+            ],        
+            [
+                'class' => 'yii\filters\PageCache',
+                'only' => ['department-index'],
+                'duration' => 3600,
+                'variations' => [
+                    \Yii::$app->language,
+                ],
+                'dependency' => [
+                    'class' => 'yii\caching\DbDependency',
+                    'sql' => 'SELECT COUNT(*) FROM supplier_detail',
+                ],
+            ],     
         ];
     }
 
