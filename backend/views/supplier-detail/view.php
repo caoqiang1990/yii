@@ -14,7 +14,7 @@ use backend\models\Department;
 /* @var $model backend\models\SupplierDetail */
 
 $this->title = '';
-$this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details'), 'url' => ['index']];
+$this->params['breadcrumbs'][0] = ['label' => '供应商合作信息', 'url' => ['admin-index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supplier-detail-view">
