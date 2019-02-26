@@ -52,7 +52,8 @@ class AuditController extends Controller
     $status = [
       '10' => '审核通过',
       'wait' => '待完善',
-      'auditing' => '待审核'
+      'auditing' => '待审核',
+      '20' => '审核不通过',
     ];    
     $model = $this->findModel($id);
     $model->scenario = 'audit';
