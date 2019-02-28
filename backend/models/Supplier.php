@@ -14,6 +14,7 @@ use backend\models\SupplierFunds;
 use yii\behaviors\BlameableBehavior;
 use backend\models\History;
 use backend\models\SupplierNature;
+use yii\helpers\ArrayHelper;
 
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
@@ -499,4 +500,15 @@ class Supplier extends ActiveRecord
         $info = self::find()->where(['id' => $id])->one();
         return $info ? $info : false;
     }
+
+    /**
+     * 获取key-value键值对
+     * @return [type] [description]
+     */
+    public static function getSuppliers()
+    {
+        $suppliers = self::find()->all();
+        $supplier = ArrayHelper::map($suppliers, 'id', 'name');
+        return $supplier;
+    }    
 }

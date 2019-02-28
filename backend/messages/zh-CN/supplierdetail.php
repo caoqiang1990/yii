@@ -33,7 +33,8 @@ return [
     'develop_department' => '开发部门',
     'one_coop_department' => '合作一级部门',
     'second_coop_department' => '合作二级部门',
-    'supplier_name' => '供应商名称',    
+    'supplier_name' => '供应商名称',  
+    'evaluate_image_id' => '评价附件',
   ];
 
 

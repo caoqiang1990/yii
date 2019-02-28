@@ -7,6 +7,8 @@ use yii\helpers\Url;
 use kartik\select2\Select2;
 use yii\web\JsExpression;
 use yii\web\View;
+use kartik\file\FileInput;
+
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\SupplierDetail */
@@ -230,6 +232,42 @@ JS;
     <?= $form->field($model, 'reason')->label('*爱慕选择合作的原因')->textArea(['rows'=>6]) ?>
     </div>    
     <div class="form-group">
+    <div class="col-xs-12">
+        <?= $form->field($model,'evaluate')->hiddenInput()->label(false)?>
+        <?php
+            echo $form->field($model,'evaluate_image_id')->widget(FileInput::className(),[
+                'options' => [
+                    'multiple' => false,
+                    'accept' => '*'
+                ],
+                'pluginOptions' => [
+                    // 异步上传的接口地址设置
+                    'uploadUrl' => \yii\helpers\Url::to(['upload-attachment']),
+                    'uploadExtraData' => [
+                        'field' => 'evaluate_image_id',
+                    ],
+                    'uploadAsync' => true,
+                    'initialPreview'=> $model->evaluate_url ? $model->evaluate_url : "",
+                     'initialPreviewAsData'=>true,
+                     'initialCaption'=>"$model->evaluate_image_id",
+                ],
+                //网上很多地方都没详细说明回调触发事件，其实fileupload为上传成功后触发的，三个参数，主要是第二个，有formData，jqXHR以及response参数，上传成功后返回的ajax数据可以在response获取
+                'pluginEvents' => [
+                    'fileuploaded' => "function (object,data){
+                        console.log(object);
+                        console.log(data);
+                        $('input[name=\'SupplierDetail\[evaluate\]\']').val(data.response.imageid);
+                        alert('上传成功');
+                    }",
+                    //错误的冗余机制
+                    'error' => "function (){
+                        alert('上传失败');
+                    }"
+                ],
+
+                ]);
+        ?>
+    </div>      
     <div class="col-xs-12">
 
         <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>    

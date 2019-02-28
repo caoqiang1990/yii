@@ -10,6 +10,8 @@ use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use backend\models\History;
 use backend\models\SupplierFunds;
+use yii\helpers\FileHelper;
+use backend\models\Attachment;
 
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
@@ -18,6 +20,7 @@ class SupplierDetail extends ActiveRecord
 {
     const SCENARIO_ADD = 'add';
     const SCENARIO_EDIT = 'edit';
+    const SCENARIO_UPLOAD = 'upload';
     public $coop_fund1;
     public $coop_fund2;
     public $coop_fund3;
@@ -31,6 +34,9 @@ class SupplierDetail extends ActiveRecord
     public $fund_year3;
     public $department;
     public $supplier_name;
+
+    public $evaluate_url;
+    public $evaluate_image_id;
     /**
      * 返回表名
      * @return [type] [description]
@@ -70,6 +76,7 @@ class SupplierDetail extends ActiveRecord
         'one_coop_department' => Yii::t('detail','one_coop_department'),
         'second_coop_department' => Yii::t('detail','second_coop_department'),
         'supplier_name' => Yii::t('detail','supplier_name'),
+        'evaluate_image_id' => Yii::t('detail','evaluate_image_id'),
       ];
     }
 
@@ -101,6 +108,7 @@ class SupplierDetail extends ActiveRecord
                 'develop_department',
                 'one_coop_department',
                 'second_coop_department',
+                'evaluate',
             ],
             self::SCENARIO_EDIT => [
                 'one_level_department',
@@ -122,8 +130,12 @@ class SupplierDetail extends ActiveRecord
                 'develop_department',
                 'sid',
                 'one_coop_department',
-                'second_coop_department',                
+                'second_coop_department',    
+                'evaluate',
             ],
+            self::SCENARIO_UPLOAD => [
+                'evaluate',
+            ],            
         ];
     }
 
@@ -136,8 +148,8 @@ class SupplierDetail extends ActiveRecord
         return [
           [['cate_id1','cate_id2','cate_id3','name','mobile','reason','level','one_coop_department','second_coop_department'],'required'],
           ['sid','safe'],
-          ['one_level_department','safe']
-
+          ['one_level_department','safe'],
+          ['evaluate','safe'],
         ];
     }
 
@@ -368,5 +380,58 @@ class SupplierDetail extends ActiveRecord
         }
 
     }
+
+    /**
+     *
+     * 上传附件
+     *
+     */
+    public function upload($field)
+    {
+        if ($this->validate()) {
+            $path = \Yii::getAlias('@uploadPath') . '/' . date("Ymd");
+            if (!is_dir($path) || !is_writable($path)) {
+                FileHelper::createDirectory($path, 0777, true);
+            }
+            $filePath = $path . '/' . \Yii::$app->request->post('model', '') . '_' . md5(uniqid() . mt_rand(10000, 99999999)) . '.' . $this->{$field}->extension;
+            if($this->{$field}->saveAs($filePath)) {
+                //如果上传成功，保存附件信息到数据库。TODO
+                //这里将上传成功后的图片信息保存到数据库
+                $imageUrl = $this->parseImageUrl($filePath);
+                $attachmentModel = new Attachment;
+                $attachmentModel->url = $imageUrl;
+                $attachmentModel->filepath = $filePath;
+                $attachmentModel->status = 1;
+                $attachmentModel->type = 'image';
+                $attachmentModel->module = Yii::$app->request->post('model', '');
+                $attachmentModel->created_at = time();
+                $attachmentModel->updated_at = time();
+                $attachmentModel->save(false);
+                $imageId = Yii::$app->db->getLastInsertID();
+                return ['filepath' => $filePath,'imageid' => $imageId];
+            }else{
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }  
+
+    /**
+     * 这里在upload中定义了上传目录根目录别名，以及图片域名
+     * 将/var/www/html/advanced/frontend/web/uploads/20160626/file.png 转化为 http://statics.gushanxia.com/uploads/20160626/file.png
+     * format:http://domain/path/file.extension
+     * @param $filePath
+     * @return string
+     */
+    public function parseImageUrl($filePath)
+    {
+        if (strpos($filePath, Yii::getAlias('@uploadPath')) !== false) {
+            $url =  Yii::$app->params['assetDomain'] . str_replace(Yii::getAlias('@uploadPath'), '', $filePath);
+            return $url;
+        } else {
+            return $filePath;
+        }
+    }      
 
 }

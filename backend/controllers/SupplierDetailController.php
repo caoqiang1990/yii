@@ -16,6 +16,10 @@ use yii\web\Response;
 use backend\models\SupplierCategory;
 use backend\models\SupplierSearch;
 use backend\models\Department;
+use yii\web\UploadedFile;
+use yii\helpers\Json;
+use backend\models\Attachment;
+
 
 /**
  * SupplierDetailController implements the CRUD actions for SupplierDetail model.
@@ -277,6 +281,7 @@ class SupplierDetailController extends Controller
         $supplierModel = new Supplier;
         $fundModel = new SupplierFunds;
         $levelModel = new SupplierLevel;
+        $attachmentModel = new Attachment();
         $supplierObj = $supplierModel->find($sid)->one();
         $level = $levelModel::getLevelByParams();//供应商等级
         $map['detail_id'] = $id;
@@ -310,6 +315,8 @@ class SupplierDetailController extends Controller
             $department = Department::getDepartmentById($model->develop_department);
             $model->develop_department = $department->department_name;
         }                       
+        $image = $attachmentModel->getImageByID($model->evaluate);
+        $model->evaluate_url = $image ? $image->url : '';
         $one_level_department = Department::getDepartmentByParams('id,department_name',1);
         $second_level_department = Department::getDepartmentByParams('id,department_name',2);
         return $this->render('update', [
@@ -429,6 +436,48 @@ class SupplierDetailController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }    
+    }   
+
+    /**
+     * 上传附件
+     * @return [type] [description]
+     */
+    public function actionUploadAttachment()
+    {
+        $field = Yii::$app->request->post('field');
+        $supplierDetailModel = new SupplierDetail();
+        $supplierDetailModel->scenario = 'upload';
+
+        if (Yii::$app->request->isPost) {
+            switch ($field) {
+                case 'evaluate_image_id':
+                    $supplierDetailModel->evaluate = UploadedFile::getInstance($supplierDetailModel, 'evaluate_image_id');
+                    $field = 'evaluate';
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+            if ($uploadInfo = $supplierDetailModel->upload($field)) {
+                echo Json::encode([
+                    'filepath' => $uploadInfo['filepath'],
+                    'imageid' => $uploadInfo['imageid'],
+                    'error' => '', //上传的error字段，如果没有错误就返回空字符串，否则返回错误信息，客户端会自动判定该字段来认定是否有错
+                ]);
+            } else {
+                echo Json::encode([
+                    'filepath' => '',
+                    'imageid' => '',
+                    'error' => '文件上传失败',
+                ]);
+            }
+        } else {
+            echo Json::encode([
+                'filepath' => '',
+                'error' => '文件上传失败',
+            ]);
+        }
+
+    }     
 
 }
