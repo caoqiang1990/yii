@@ -70,5 +70,16 @@ function getInfo()
       return base64_decode($tmpStream);
   }
 
+  /**
+   * 
+   * 根据类型获取对应的中文翻译
+   *
+   *
+   **/
+  function getQuestionText($type=1)
+  {
+    $text = [1=>'单选',2=>'多选'];
+    return $text[$type];
+  }
 
 ?>
