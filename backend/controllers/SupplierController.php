@@ -65,6 +65,7 @@ class SupplierController extends Controller
                 'variations' => [
                     \Yii::$app->language,
                     Yii::$app->request->queryParams,
+                    !Yii::$app->user->isGuest ? Yii::$app->user->identity->id : '',
                 ],
                 'dependency' => [
                     'class' => 'yii\caching\DbDependency',
