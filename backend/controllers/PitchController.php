@@ -348,10 +348,10 @@ class PitchController extends Controller
         //获取对应的附件
         $attachment = PitchAttachment::getPitchAttachmentByPitchId($id);
         $attachArr = [];
+        $initialPreview = [];
         if ($attachment) {
             $attachArr = array_column($attachment,'attachment');
             $attachment = explode(',',implode(',',$attachArr));
-            $initialPreview = [];
             //初始化
             if ($attachment) {
                 $attachmentModel = new Attachment();

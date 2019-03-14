@@ -16,8 +16,12 @@ $this->title = '';
     <div class="row">
         <div class="col-xs-6 text-right"><label>项目附件:</label></div>
         <div class="col-xs-6">
+        <?php if (!empty($initialPreview)) { ?>
         <?php foreach($initialPreview as $url) { ?>
             <a href="<?= $url?>" target="_blank"><img class="img-responsive"  src="<?= $url ?>" style="height:100px;display:inline-block;margin-right:10px"></a>
+        <?php } ?>
+        <?php } else { ?>
+            无
         <?php } ?>
         </div>
     </div>
