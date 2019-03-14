@@ -59,6 +59,8 @@ class Pitch extends ActiveRecord
 			'created_by' => Yii::t('pitch','created_by'),
             'updated_by' => Yii::t('pitch','updated_by'),
             'record_id' => Yii::t('pitch','record_id'),
+            'document' => Yii::t('pitch','document'),
+            'status' => Yii::t('pitch','status'),
         ];
     }
 
@@ -74,11 +76,11 @@ class Pitch extends ActiveRecord
             ],
             self::SCENARIO_ADD => [
                 'name','desc','start_date','end_date','sids','record','remark',
-                'result','department',
+                'result','department','auditor','document','status'
             ],
             self::SCENARIO_EDIT => [
                 'name','desc','start_date','end_date','sids','record','remark',
-                'result','department',
+                'result','department','auditor','document','status'
             ],
         ];
     }
@@ -149,16 +151,71 @@ class Pitch extends ActiveRecord
             if (is_array($this->sids)) {
               $this->sids = implode(',', $this->sids);
             }
+            if (is_array($this->auditor)) {
+                $this->auditor = implode(',', $this->auditor);
+            }
           }else{
-              //sids 进行操作
-              if (is_array($this->sids)) {
-                $this->sids = implode(',', $this->sids);
-              }
+            //sids 进行操作
+            if (is_array($this->sids)) {
+            $this->sids = implode(',', $this->sids);
+            }
+            if (is_array($this->auditor)) {
+                $this->auditor = implode(',', $this->auditor);
+            }              
           }
           return true;
       } else {
           return false;
       }
-    }    
+    } 
 
+
+    public static function sendEmail($pitch_id,$sids=[],$subject='')
+    {
+        if (!$pitch_id) {
+            return false;
+        }
+        $model = self::getPitchById($pitch_id);
+        if (!$sids) {
+            return false;
+        }
+        $messages = [];
+        foreach($sids as $sid) {
+            $supplier = Supplier::getSupplierById($sid);
+            if ($supplier) {
+                $messages[] = Yii::$app->mailer->compose(['html' => 'uploadAttachment-html', 'text' => 'uploadAttachment-text'], ['supplier' => $supplier,'pitch_id'=>$model->id])
+                        ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+                        ->setTo($supplier->business_email)
+                        ->setSubject($subject . Yii::$app->name);;
+            }
+        }
+        $count = Yii::$app->mailer->sendMultiple($messages);    
+        if (!$count) {
+               return false;
+        }
+        return true;
+    }   
+    /**
+     * 根据id获取比稿
+     * @param  string $id [description]
+     * @return [type]     [description]
+     */
+    public static function getPitchById($id = '')
+    {
+        if (!$id) {
+            return false;
+        }
+        $info = self::find()->where(['id' => $id])->one();
+        return $info ? $info : false;
+    }
+
+    /**
+     *
+     * 关联表获取数据
+     *
+     **/
+    public function getAttachments()
+    {
+      return $this->hasMany(PitchAttachment::className(), ['pitch_id' => 'id']);
+    }
 }

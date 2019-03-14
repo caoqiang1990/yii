@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = '创建比稿';
     <?= $this->render('_form', [
         'model' => $model,
         'suppliers' => $suppliers,
+        'users' => $users,
     ]) ?>
 
 </div>

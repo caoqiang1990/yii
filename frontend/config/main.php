@@ -43,11 +43,13 @@ return [
             'errorAction' => 'site/error',
         ],
         'authManager' => [
-    //        'enablePrettyUrl' => true,
-    //        'showScriptName' => false,
-    //        'rules' => [
-		'class' => 'yii\rbac\DbManager',
-          // ],
+		  'class' => 'yii\rbac\DbManager',
+        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+            ],
         ],
 		'i18n' => [
             'translations' => [

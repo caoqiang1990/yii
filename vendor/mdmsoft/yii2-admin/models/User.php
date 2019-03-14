@@ -8,6 +8,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use mdm\admin\components\Configs;
+use yii\helpers\ArrayHelper;
 
 /**
  * User model
@@ -223,5 +224,16 @@ class User extends ActiveRecord implements IdentityInterface
       } else {
           throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
       }
-    }          
+    }   
+
+    /**
+     * 获取key-value键值对
+     * @return [type] [description]
+     */
+    public static function getUsers()
+    {
+        $users = self::find()->all();
+        $user = ArrayHelper::map($users, 'id', 'truename');
+        return $user;
+    }             
 }

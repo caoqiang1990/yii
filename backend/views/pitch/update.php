@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = Yii::t('pitch', 'Update');
     <?= $this->render('_form', [
         'model' => $model,
         'suppliers' => $suppliers,
+        'users' => $users,
     ]) ?>
 
 </div>

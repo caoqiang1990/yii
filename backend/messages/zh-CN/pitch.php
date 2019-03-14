@@ -21,4 +21,6 @@ return [
 	'record_id' => '上传记录',
 	'sids' => '参与比稿的供应商',
 	'record' => '上传记录',
+	'document' => '供应商需提供的材料',
+	'status' => '状态',
 ];

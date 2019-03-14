@@ -37,30 +37,30 @@ return [
             // this is the name of the session cookie used for login on the backend
             'name' => 'advanced-backend',
         ],
-        'sentry' => [
-            'class' => 'mito\sentry\Component',
-            'dsn' => 'https://481a281e7ffa4d7cb875a877dbfa9ec7:d677c6fa5f484e79b579c29f01517d87@sentry.io/1372516', // private DSN 
-            'publicDsn' => 'https://481a281e7ffa4d7cb875a877dbfa9ec7@sentry.io/1372516',
-            'environment' => 'production', // if not set, the default is `production`
-            'jsNotifier' => true, // to collect JS errors. Default value is `false`
-            'jsOptions' => [ // raven-js config parameter
-                'whitelistUrls' => [ // collect JS errors from these urls
-                    //'http://staging.my-product.com',
-                    //'https://my-product.com',
-                ],
-            ],
-        ],
-        'log' => [
-            'targets' => [
-                [
-                    'class' => 'mito\sentry\Target',
-                    'levels' => ['error', 'warning'],
-                    'except' => [
-                        'yii\web\HttpException:404',
-                    ],
-                ],
-            ],
-        ],            
+        // 'sentry' => [
+        //     'class' => 'mito\sentry\Component',
+        //     'dsn' => 'https://481a281e7ffa4d7cb875a877dbfa9ec7:d677c6fa5f484e79b579c29f01517d87@sentry.io/1372516', // private DSN 
+        //     'publicDsn' => 'https://481a281e7ffa4d7cb875a877dbfa9ec7@sentry.io/1372516',
+        //     'environment' => 'production', // if not set, the default is `production`
+        //     'jsNotifier' => true, // to collect JS errors. Default value is `false`
+        //     'jsOptions' => [ // raven-js config parameter
+        //         'whitelistUrls' => [ // collect JS errors from these urls
+        //             //'http://staging.my-product.com',
+        //             //'https://my-product.com',
+        //         ],
+        //     ],
+        // ],
+        // 'log' => [
+        //     'targets' => [
+        //         [
+        //             'class' => 'mito\sentry\Target',
+        //             'levels' => ['error', 'warning'],
+        //             'except' => [
+        //                 'yii\web\HttpException:404',
+        //             ],
+        //         ],
+        //     ],
+        // ],            
         // 'on beforeRequest' => function($event) {
         //     \yii\base\Event::on(\yii\db\BaseActiveRecord::className(), \yii\db\BaseActiveRecord::EVENT_AFTER_UPDATE, ['backend\components\AdminLog', 'write']);
         // },        
@@ -79,7 +79,7 @@ return [
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',
-            'useFileTransport' => false,
+            'useFileTransport' => true,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.qq.com',
@@ -116,6 +116,7 @@ return [
                         'detail' => 'supplierdetail.php',
                         'funds' => 'supplierfunds.php',
                         'nature' => 'suppliernature.php',
+                        'question' => 'question.php',
                     ],
                     //'basePath' => '@backend/message', //配置语言文件路径，现在采用默认的，就可以不配置这个
                 ],

@@ -82,4 +82,14 @@ function getInfo()
     return $text[$type];
   }
 
+  /**
+   * 
+   * 根据状态获取对应的中文翻译
+   *
+   **/
+  function getPitchStatusText($type=10)
+  {
+    $text = ['wait'=>'新建比稿','auditor'=>'发送邮件成功','10' => '比稿结束'];
+    return $text[$type];
+  }
 ?>
