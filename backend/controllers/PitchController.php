@@ -346,23 +346,24 @@ class PitchController extends Controller
             return $this->redirect(Url::to(['time-line','id'=>$id])); 
         }
         //获取对应的附件
-        $attachment = PitchAttachment::getPitchAttachmentByPitchId($id);
         $attachArr = [];
         $initialPreview = [];
-        if ($attachment) {
-            $attachArr = array_column($attachment,'attachment');
-            $attachment = explode(',',implode(',',$attachArr));
-            //初始化
-            if ($attachment) {
-                $attachmentModel = new Attachment();
-                foreach ($attachment as $k => $attach) {
-                    $image = $attachmentModel->getImageByID($attach);
-                    $initialPreview[$k] = $image->url;
-                }
-            }
-            $model->attachment_id = $attachment;
-        }
         $records = PitchRecord::getPitchRecordByPitchId($id);
+        foreach ($records as &$record) {
+            if ($record['attachment']) {
+                $attachment = explode(',',$record['attachment']);
+                if ($attachment) {
+                    $attachmentModel = new Attachment();
+                    foreach ($attachment as $k => $attach) {
+                        $image = $attachmentModel->getImageByID($attach);
+                        $initialPreview[$k] = $image->url;
+                    }
+                }
+                $record['url'] = $initialPreview;
+            } else {
+                $record['url'] = '';
+            }
+        }
         $pitchModel = $this->findModel($id);
         return $this->render('time-line',[
                 'model' => $model,
@@ -391,6 +392,32 @@ class PitchController extends Controller
         $image = $attachmentModel->getImageByID($model->record);
         $model->record_url = $image ? $image->url : '';   
         return $this->render('finish',['model' => $model]);
+    }
+
+
+    public function actionRecord($id)
+    {
+        $model = $this->findModel($id);
+        $attachmentModel = new Attachment();
+        $image = $attachmentModel->getImageByID($model->record);
+        $model->record_url = $image ? $image->url : '';
+        $records = PitchRecord::getPitchRecordByPitchId($id);
+        foreach ($records as &$record) {
+            if ($record['attachment']) {
+                $attachment = explode(',',$record['attachment']);
+                if ($attachment) {
+                    $attachmentModel = new Attachment();
+                    foreach ($attachment as $k => $attach) {
+                        $image = $attachmentModel->getImageByID($attach);
+                        $initialPreview[$k] = $image->url;
+                    }
+                }
+                $record['url'] = $initialPreview;
+            } else {
+                $record['url'] = '';
+            }
+        }
+        return $this->render('record',['model' => $model,'records' => $records]);
     }
 
 

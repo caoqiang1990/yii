@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-use mdm\admin\components\Helper; 
+use mdm\admin\components\Helper;
 use yii\web\View;
 use yii\helpers\Url;
 
@@ -59,7 +59,7 @@ $('.start').click(function(){
         });
 })
 JS;
-$this->registerJs($js,View::POS_READY);
+$this->registerJs($js, View::POS_READY);
 ?>
 <div class="pitch-index">
 
@@ -81,7 +81,7 @@ $this->registerJs($js,View::POS_READY);
             'start_date',
             [
                 'attribute' => 'status',
-                'value' => function($model) {
+                'value' => function ($model) {
                     return getPitchStatusText($model->status);
                 }
             ],
@@ -98,30 +98,34 @@ $this->registerJs($js,View::POS_READY);
             [
                 'header' => '操作',
                 'class' => 'yii\grid\ActionColumn',
-                'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
+                'template' => Helper::filterActionColumn('{view}{update}{delete}'),
 
             ],
             [
                 //'label'=>  (Helper::checkRoute('supplier-detail/create') || Helper::checkRoute('history/index')) ? '更多操作' : '',
-                'label'=>  (Helper::checkRoute('pitch/start')) ? '更多操作' : '',
-                'format'=>'raw',
-                'value' => function($model){
-                $operator_1 = '';
-                $operator_2 = '';
-                if (Helper::checkRoute('pitch/start') && $model->status != 10) {
-                    $url_1 = 'javascript:void(0);';
-                    $operator_1 = Html::a('比稿开始', $url_1, ['title' => '比稿开始','class' => 'start','data-id'=>$model->id]);
+                'label' => (Helper::checkRoute('pitch/start')) ? '更多操作' : '',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    $operator_1 = '';
+                    $operator_2 = '';
+                    if (Helper::checkRoute('pitch/start') && $model->status != 10) {
+                        $url_1 = 'javascript:void(0);';
+                        $operator_1 = Html::a('比稿开始', $url_1, ['title' => '比稿开始', 'class' => 'start', 'data-id' => $model->id]);
 
+                    }
+
+                    if (Helper::checkRoute('pitch/finish') && $model->status != 10) {
+                        $url_2 = Url::to(['finish', 'id' => $model->id]);
+                        $operator_2 = Html::a('比稿结束', $url_2, ['title' => '比稿结束', 'class' => '', 'data-id' => $model->id]);
+                    }
+                    if (Helper::checkRoute('pitch/record') && $model->status == 10) {
+                        $url_2 = Url::to(['record', 'id' => $model->id]);
+                        $operator_2 = Html::a('比稿记录', $url_2, ['title' => '比稿记录', 'class' => '', 'data-id' => $model->id]);
+                    }
+                    return $operator_1 . ' ' . $operator_2;
                 }
 
-                if (Helper::checkRoute('pitch/finish') && $model->status != 10) {
-                    $url_2 = Url::to(['finish','id'=>$model->id]);
-                    $operator_2 = Html::a('比稿结束', $url_2, ['title' => '比稿结束','class' => '','data-id'=>$model->id]);
-                }
-                    return $operator_1.' '.$operator_2; 
-                }
-
-            ],              
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>
