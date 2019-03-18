@@ -27,6 +27,7 @@ $('.finish').click(function(){
             success: function(data) {
                 if (data.status == 'success') {
                     alert(data.msg);
+                    location.reload();
                 }                    
                 if (data.status == 'fail') {
                     alert(data.msg);
@@ -48,6 +49,7 @@ $('.start').click(function(){
             success: function(data) {
                 if (data.status == 'success') {
                     alert(data.msg);
+                    location.reload();
                 }                    
                 if (data.status == 'fail') {
                     alert(data.msg);

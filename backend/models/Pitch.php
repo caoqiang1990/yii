@@ -181,9 +181,9 @@ class Pitch extends ActiveRecord
         if (!$sids) {
             return false;
         }
-        //$attachModel = new Attachment();
-        //$image = $attachModel->getImageByID($model->attachment);
-        //$attachFile = $image->filepath;
+//        $attachModel = new Attachment();
+//        $image = $attachModel->getImageByID($model->attachment);
+//        $attachFile = $image->filepath;
         $messages = [];
         foreach ($sids as $sid) {
             $supplier = Supplier::getSupplierById($sid);
@@ -191,7 +191,7 @@ class Pitch extends ActiveRecord
                 $messages[] = Yii::$app->mailer->compose(['html' => 'uploadAttachment-html', 'text' => 'uploadAttachment-text'], ['supplier' => $supplier, 'pitch_id' => $model->id])
                     ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
                     ->setTo($supplier->business_email)
-                    //->attach($attachFile)
+//                    ->attach($attachFile)
                     ->setSubject($subject . Yii::$app->name);;
             }
         }
