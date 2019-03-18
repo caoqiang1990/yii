@@ -116,8 +116,12 @@ $this->title = '';
                 <label for="" class="col-xs-2 control-label">上传记录:</label>
 
                 <div class="col-sm-5">
+                    <?php if ($model->record_url) { ?>
                     <a href="<?= $model->record_url ?>" target="_blank"><img style="width:100px"
                                                                              src="<?= $model->record_url ?>"></a>
+                    <?php } else { ?>
+                        无
+                    <?php } ?>
                 </div>
             </div>
         </div>
