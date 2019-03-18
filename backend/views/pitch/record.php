@@ -169,9 +169,18 @@ $this->title = '';
 
                                             <div class="timeline-body">
                                                 <?php foreach ($record['url'] as $url) { ?>
-                                                    <a href="<?= $url ?>" target="_blank"><img src="<?= $url ?>"
-                                                                                               style="height:50px"
-                                                                                               class="margin"></a>
+                                                    <?php if ($url['filetype'] == 'image') {?>
+                                                    <a href="<?= $url['url'] ?>" target="_blank">
+                                                        <img src="<?= $url['url'] ?>" style="height:50px" class="margin">
+                                                    </a>
+                                                    <?php } ?>
+
+                                                    <?php if ($url['filetype'] == 'file') {?>
+                                                        <a href="<?= $url['url'] ?>" target="_blank">
+                                                            <span><?=$url['filename']?></span>
+                                                        </a>
+                                                    <?php } ?>
+
                                                 <?php } ?>
                                             </div>
                                         </div>

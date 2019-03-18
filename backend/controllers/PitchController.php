@@ -409,7 +409,15 @@ class PitchController extends Controller
                     $attachmentModel = new Attachment();
                     foreach ($attachment as $k => $attach) {
                         $image = $attachmentModel->getImageByID($attach);
-                        $initialPreview[$k] = $image->url;
+                        $info = pathinfo($image->filepath);
+                        if (in_array($info['extension'],['jpg','png'])) {
+                            $initialPreview[$k]['filetype'] = 'image';
+                            $initialPreview[$k]['filename'] = $info['filename'].'.'.$info['extension'];
+                        } else {
+                            $initialPreview[$k]['filetype'] = 'file';
+                            $initialPreview[$k]['filename'] = $info['filename'].'.'.$info['extension'];
+                        }
+                        $initialPreview[$k]['url'] = $image->url;
                     }
                 }
                 $record['url'] = $initialPreview;
