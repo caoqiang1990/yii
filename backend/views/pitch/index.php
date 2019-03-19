@@ -110,7 +110,7 @@ $this->registerJs($js, View::POS_READY);
                 'value' => function ($model) {
                     $operator_1 = '';
                     $operator_2 = '';
-                    if (Helper::checkRoute('pitch/start') && $model->status != 10) {
+                    if (Helper::checkRoute('pitch/start') && $model->status == 'wait') {
                         $url_1 = 'javascript:void(0);';
                         $operator_1 = Html::a('比稿开始', $url_1, ['title' => '比稿开始', 'class' => 'start', 'data-id' => $model->id]);
 
