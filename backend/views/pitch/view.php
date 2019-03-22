@@ -12,14 +12,7 @@ $this->params['breadcrumbs'][] = '比稿详情';
 <div class="pitch-view">
 
     <p>
-        <?= Html::a(Yii::t('pitch', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('pitch', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('pitch', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
+        <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
     </p>
 
     <?= DetailView::widget([

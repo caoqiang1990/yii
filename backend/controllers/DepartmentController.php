@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\AdminLog;
+use mdm\admin\models\User;
+use backend\models\DepartmentAssignment;
 
 /**
  * DepartmentController implements the CRUD actions for Department model.
@@ -70,7 +72,7 @@ class DepartmentController extends Controller
         if (isset($post['Department`']['pid'])) {
             if ($post['Department`']['pid'] == 0) {
                 $post['Department`']['level'] = 1;
-            }else{
+            } else {
                 $info = $model::getDepartmentById($post['Department`']['pid']);
                 $post['Department`']['level'] = $info->level + 1;
             }
@@ -79,7 +81,7 @@ class DepartmentController extends Controller
             AdminLog::saveLog('Department`', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $status = [0 => '无效',1 => '有效'];
+        $status = [0 => '无效', 1 => '有效'];
         $level = $model->getOptions();
 
         return $this->render('create', [
@@ -103,7 +105,7 @@ class DepartmentController extends Controller
         if (isset($post['Department']['pid'])) {
             if ($post['Department']['pid'] == 0) {
                 $post['Department']['level'] = 1;
-            }else{
+            } else {
                 $info = $model::getDepartmentById($post['Department']['pid']);
                 $post['Department']['level'] = $info->level + 1;
             }
@@ -111,12 +113,12 @@ class DepartmentController extends Controller
 
         $original = $model->getByID($id);
         if ($model->load($post) && $model->save()) {
-            AdminLog::saveLog('Department', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
+            AdminLog::saveLog('Department', 'update', $model->getByID($model->primaryKey), $model->primaryKey, $original);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $status = [0 => '无效',1 => '有效'];
+        $status = [0 => '无效', 1 => '有效'];
         $level = $model->getOptions();
-        
+
 
         return $this->render('update', [
             'model' => $model,
@@ -153,5 +155,50 @@ class DepartmentController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('department', 'The requested page does not exist.'));
+    }
+
+    /**
+     * Name: actionAssignment
+     * User: aimer
+     * Date: 2019/3/22
+     * Time: 上午8:44
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionAssignment($id)
+    {
+        $model = $this->findModel($id);
+        return $this->render('assignment', ['model' => $model]);
+    }
+
+    /**
+     * Assign items
+     * @param string $id
+     * @return array
+     */
+    public function actionAssign($id)
+    {
+        $items = Yii::$app->getRequest()->post('items', []);
+        $model = new DepartmentAssignment();
+        $success = $model->assign($items,$id);
+        Yii::$app->getResponse()->format = 'json';
+        $departmentModel = $this->findModel($id);
+        return array_merge($departmentModel->getItems(), ['success' => $success]);
+    }
+
+    /**
+     * Assign items
+     * @param string $id
+     * @return array
+     */
+    public function actionRevoke($id)
+    {
+        $items = Yii::$app->getRequest()->post('items', []);
+        $model = new DepartmentAssignment();
+        $success = $model->revoke($items,$id);
+        Yii::$app->getResponse()->format = 'json';
+        $departmentModel = $this->findModel($id);
+        return array_merge($departmentModel->getItems(), ['success' => $success]);
     }
 }

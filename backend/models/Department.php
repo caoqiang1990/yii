@@ -8,7 +8,8 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
-
+use mdm\admin\models\User;
+use backend\models\DepartmentAssignment;
 
 class Department extends ActiveRecord
 {
@@ -200,6 +201,24 @@ class Department extends ActiveRecord
         return false;
     }
 
+    /**
+     * 获取所有可能
+     * @return array
+     */
+    public function getItems()
+    {
+        $available = User::getUsers();
+        $assigned = [];
+        $lists = DepartmentAssignment::getByDepartmentId($this->id);
+        foreach ($lists as $item) {
+            $assigned[$item['user_id']] = User::findIdentity($item['user_id'])->truename;
+            unset($available[$item['user_id']]);
+        }
+        return [
+            'available' => $available,
+            'assigned' => $assigned,
+        ];
+    }
 }
 
 

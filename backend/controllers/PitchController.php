@@ -18,6 +18,7 @@ use yii\web\Response;
 use backend\models\PitchRecord;
 use yii\helpers\Url;
 use backend\models\PitchAttachment;
+use backend\models\DepartmentAssignment;
 
 /**
  * PitchController implements the CRUD actions for Pitch model.
@@ -46,7 +47,14 @@ class PitchController extends Controller
     public function actionIndex()
     {
         $searchModel = new PitchSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $request = Yii::$app->request->queryParams;
+        //$department = Yii::$app->user->identity->department;
+
+        $department_ids = DepartmentAssignment::getByUserId(2);
+
+        $request['PitchSearch']['department'] = $department_ids;
+        $dataProvider = $searchModel->search($request);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -316,9 +324,11 @@ class PitchController extends Controller
     }
 
     /**
-     *
-     * 审核查看
-     *
+     * Name: actionReviewList 比稿审核查看
+     * User: aimer
+     * Date: 2019/3/22
+     * Time: 下午1:11
+     * @return string
      */
     public function actionReviewList()
     {
@@ -332,11 +342,16 @@ class PitchController extends Controller
             'dataProvider' => $dataProvider,
         ]);        
     }
+
     /**
-     *
-     * 时间线展示
-     *
-     **/
+     * Name: actionTimeLine 比稿时间线
+     * User: aimer
+     * Date: 2019/3/22
+     * Time: 下午1:10
+     * @param $id
+     * @return string|Response
+     * @throws NotFoundHttpException
+     */
     public function actionTimeLine($id)
     {
         $model = new PitchRecord;
@@ -374,7 +389,15 @@ class PitchController extends Controller
             ]);
     }
 
-
+    /**
+     * Name: actionFinish 比稿结束
+     * User: aimer
+     * Date: 2019/3/22
+     * Time: 下午1:10
+     * @param $id
+     * @return string|Response
+     * @throws NotFoundHttpException
+     */
     public function actionFinish($id)
     {
         $model = $this->findModel($id);
@@ -394,7 +417,15 @@ class PitchController extends Controller
         return $this->render('finish',['model' => $model]);
     }
 
-
+    /**
+     * Name: actionRecord 比稿记录
+     * User: aimer
+     * Date: 2019/3/22
+     * Time: 下午1:09
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionRecord($id)
     {
         $model = $this->findModel($id);
@@ -428,5 +459,28 @@ class PitchController extends Controller
         return $this->render('record',['model' => $model,'records' => $records]);
     }
 
+    /**
+     * Name: actionMy 我发起的项目
+     * User: aimer
+     * Date: 2019/3/22
+     * Time: 下午1:09
+     * @return string
+     */
+    public function actionMy()
+    {
+        $searchModel = new PitchSearch();
+
+        $request = Yii::$app->request->queryParams;
+        $uid = Yii::$app->user->identity->id;
+
+        $request['PitchSearch']['created_by'] = $uid;
+
+        $dataProvider = $searchModel->search($request);
+
+        return $this->render('my', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
 }

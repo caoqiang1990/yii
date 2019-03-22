@@ -19,7 +19,7 @@ class PitchSearch extends Pitch
     {
         return [
             [['id', 'created_by', 'updated_by', 'created_at', 'updated_at','auditor'], 'integer'],
-            [['name', 'desc', 'start_date', 'end_date', 'sids', 'record', 'remark', 'result'], 'safe'],
+            [['name', 'desc', 'start_date', 'end_date', 'sids', 'record', 'remark', 'result','department'], 'safe'],
         ];
     }
 
@@ -75,7 +75,10 @@ class PitchSearch extends Pitch
             ->andFilterWhere(['like', 'remark', $this->remark])
             ->andFilterWhere(['like', 'result', $this->result]);
         if ($this->auditor) {
-           $query->andFilterWhere(['in', 'auditor', [$this->auditor]]);
+           $query->andFilterWhere(['in', 'auditor', $this->auditor]);
+        }
+        if ($this->department) {
+            $query->andFilterWhere(['in', 'department', $this->department]);
         }
         return $dataProvider;
     }

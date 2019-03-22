@@ -12,7 +12,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '';
-$this->params['breadcrumbs'][] = Yii::t('pitch', 'Pitches');
+$this->params['breadcrumbs'][] = '我发起的项目';
 
 
 $js = <<<JS
@@ -68,24 +68,13 @@ $this->registerJs($js, View::POS_READY);
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(Yii::t('pitch', 'Create Pitch'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            [
-                'attribute' => 'name',
-                'format' => 'raw',
-                'value' => function ($model) {
-                    $url = Url::to(['view','id'=>$model->id]);
-                    $options = ['title' => $model->name];
-                    return Html::a($model->name,$url,$options);
-                }
-            ],
+
+            'name',
             'desc',
             'start_date',
             [
@@ -104,12 +93,12 @@ $this->registerJs($js, View::POS_READY);
             //'created_at',
             //'updated_at',
 
-//            [
-//                'header' => '操作',
-//                'class' => 'yii\grid\ActionColumn',
-//                'template' => Helper::filterActionColumn('{view}{update}{delete}'),
-//
-//            ],
+            [
+                'header' => '操作',
+                'class' => 'yii\grid\ActionColumn',
+                'template' => Helper::filterActionColumn('{view}{update}{delete}'),
+
+            ],
             [
                 //'label'=>  (Helper::checkRoute('supplier-detail/create') || Helper::checkRoute('history/index')) ? '更多操作' : '',
                 'label' => (Helper::checkRoute('pitch/start')) ? '更多操作' : '',
@@ -117,16 +106,16 @@ $this->registerJs($js, View::POS_READY);
                 'value' => function ($model) {
                     $operator_1 = '';
                     $operator_2 = '';
-//                    if (Helper::checkRoute('pitch/start') && $model->status == 'wait') {
-//                        $url_1 = 'javascript:void(0);';
-//                        $operator_1 = Html::a('比稿开始', $url_1, ['title' => '比稿开始', 'class' => 'start', 'data-id' => $model->id]);
-//
-//                    }
+                    if (Helper::checkRoute('pitch/start') && $model->status == 'wait') {
+                        $url_1 = 'javascript:void(0);';
+                        $operator_1 = Html::a('比稿开始', $url_1, ['title' => '比稿开始', 'class' => 'start', 'data-id' => $model->id]);
 
-//                    if (Helper::checkRoute('pitch/finish') && $model->status != 10) {
-//                        $url_2 = Url::to(['finish', 'id' => $model->id]);
-//                        $operator_2 = Html::a('比稿结束', $url_2, ['title' => '比稿结束', 'class' => '', 'data-id' => $model->id]);
-//                    }
+                    }
+
+                    if (Helper::checkRoute('pitch/finish') && $model->status != 10) {
+                        $url_2 = Url::to(['finish', 'id' => $model->id]);
+                        $operator_2 = Html::a('比稿结束', $url_2, ['title' => '比稿结束', 'class' => '', 'data-id' => $model->id]);
+                    }
                     if (Helper::checkRoute('pitch/record') && $model->status == 10) {
                         $url_2 = Url::to(['record', 'id' => $model->id]);
                         $operator_2 = Html::a('比稿记录', $url_2, ['title' => '比稿记录', 'class' => '', 'data-id' => $model->id]);

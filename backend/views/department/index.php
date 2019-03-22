@@ -3,7 +3,9 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-use mdm\admin\components\Helper; 
+use mdm\admin\components\Helper;
+use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\DepartmentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -44,6 +46,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
 
+            ],
+            [
+                'label'=>  (Helper::checkRoute('department/assignment')) ? '更多操作' : '',
+                'format'=>'raw',
+                'value' => function($model){
+                    $operator_1 = '';
+                    $operator_2 = '';
+                    // if (Helper::checkRoute('supplier-detail/create')) {
+                    //     $url_1 = Url::to(['supplier-detail/create','sid'=>$model->id]);
+                    //     $operator_1 = Html::a('与我方关系', $url_1, ['title' => '与我方关系']);
+
+                    // }
+
+                    if (Helper::checkRoute('department/assignment') && $model->pid === 0) {
+                        $url_2 = Url::to(['department/assignment','id'=>$model->id]);
+                        $operator_2 = Html::a('分配员工', $url_2, ['title' => '分配员工']);
+                    }
+                    return $operator_1.' '.$operator_2;
+                }
             ],
         ],
     ]); ?>
