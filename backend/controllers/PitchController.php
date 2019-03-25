@@ -50,8 +50,8 @@ class PitchController extends Controller
 
         $request = Yii::$app->request->queryParams;
         //$department = Yii::$app->user->identity->department;
-
-        $department_ids = DepartmentAssignment::getByUserId(2);
+        $user_id = Yii::$app->user->identity->id;
+        $department_ids = DepartmentAssignment::getByUserId($user_id);
 
         $request['PitchSearch']['department'] = $department_ids;
         $dataProvider = $searchModel->search($request);
@@ -218,10 +218,13 @@ class PitchController extends Controller
     }
 
     /**
-     *
-     * 开始评审
-     *
-     **/
+     * Name: actionStart 开始评审
+     * User: aimer
+     * Date: 2019/3/25
+     * Time: 上午10:50
+     * @return mixed
+     * @throws NotFoundHttpException
+     */
     public function actionStart()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
@@ -265,10 +268,13 @@ class PitchController extends Controller
     }
 
     /**
-     *
-     * 检测邮箱是否有效
-     *
-     **/
+     * Name: actionCheck 检测邮箱是否有效
+     * User: aimer
+     * Date: 2019/3/25
+     * Time: 上午10:50
+     * @return mixed
+     * @throws NotFoundHttpException
+     */
     public function actionCheck()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
@@ -310,17 +316,6 @@ class PitchController extends Controller
             }
         }
         return $response_data;  
-    }
-    /**
-     *
-     * 审查人员
-     *
-     **/
-    public function actionReview($id)
-    {
-        return $this->render('review', [
-            'model' => $this->findModel($id),
-        ]);        
     }
 
     /**
