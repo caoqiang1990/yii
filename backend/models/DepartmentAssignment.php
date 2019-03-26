@@ -99,9 +99,13 @@ class DepartmentAssignment extends ActiveRecord
         }
         $success = 0;
         foreach ($user_ids as $uid) {
-            $this->department_id = $department_id;
-            $this->user_id = $uid;
-            $this->save();
+            $model = self::getByParams($department_id,$uid);
+            if (!$model) {
+                $model = new self;
+                $model->department_id = $department_id;
+                $model->user_id = $uid;
+                $model->save();
+            }
         }
         return $success;
     }
