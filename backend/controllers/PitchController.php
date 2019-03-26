@@ -403,8 +403,9 @@ class PitchController extends Controller
             $pitchModel = new PitchRecord();
             $pitchModel->content = '项目结束';
             $pitchModel->pitch_id = $model->id;
-            $pitchModel->save();//写入日志            
-            return $this->redirect(['view', 'id' => $model->id]);
+            $pitchModel->save();//写入日志
+            //Yii::$app->session->setFlash('success', '比稿结束!');
+            return $this->redirect(['my']);
         }
         $attachmentModel = new Attachment();
         $image = $attachmentModel->getImageByID($model->record);

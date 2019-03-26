@@ -371,7 +371,8 @@ class SupplierDetail extends ActiveRecord
         if (!$department) {
             return false;
         }
-        $where['one_coop_department'] = $department;
+        $where = ['in','one_coop_department',$department];
+        //$where['one_coop_department'] = $department;
         $ids = self::find()->select('sid')->distinct()->where($where)->asArray()->all();
         if ($ids) {
           return array_column($ids,'sid');

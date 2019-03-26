@@ -26,6 +26,7 @@ use mdm\admin\components\Configs;
 use backend\models\AdminAdd;
 use backend\models\Department;
 use backend\models\SupplierFunds;
+use backend\models\DepartmentAssignment;
 
 /**
  * SuppliersController implements the CRUD actions for Suppliers model.
@@ -145,12 +146,15 @@ class SupplierController extends Controller
         $request = Yii::$app->request->queryParams;
         //获取用户的对应的部门id
         $department = Yii::$app->user->identity->department;
+        $user_id = Yii::$app->user->identity->id;
+        $department_ids = DepartmentAssignment::getByUserId($user_id);
         $department_info = Department::getDepartmentById($department);
         if (!$department_info) {
             throw new NotFoundHttpException("此用户不包含管理部门");
         }
-        $sids = SupplierDetail::getSupplierByDepartment($department);
-        $where['department'] = $department;
+        $sids = SupplierDetail::getSupplierByDepartment($department_ids);
+        //$where['department'] = $department;
+        $where = ['in','department',$department_ids];
         $supplier_ids = 'none';
         $admin_ids = Supplier::find()->select('id')->distinct()->where($where)->asArray()->all();
         if ($sids && $admin_ids) {
@@ -177,7 +181,7 @@ class SupplierController extends Controller
             $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3,$request['SupplierSearch']['cate_id2']);
         } else {
             $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3);
-        }       
+        }
         //var_dump($ids);die;
         return $this->render('department-index', [
             'searchModel' => $searchModel,
@@ -186,7 +190,7 @@ class SupplierController extends Controller
             'cate2' => $cate2,
             'cate3' => $cate3,
         ]);
-    }    
+    }
 
     /**
      * Displays a single Suppliers model.
