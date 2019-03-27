@@ -2,7 +2,7 @@
 /yii
 /yii_test
 /yii_test.bat
-/frontend
+#/frontend
 /backend/runtime
 
 # phpstorm project files
