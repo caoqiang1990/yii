@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Pitch */
 
@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = '比稿详情';
 <div class="pitch-view">
 
     <p>
-        <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
+        <a class="btn btn-primary" href="<?php echo Url::to(['pitch/index'])?>">返回</a>
     </p>
 
     <?= DetailView::widget([
