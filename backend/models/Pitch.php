@@ -62,6 +62,8 @@ class Pitch extends ActiveRecord
             'record_id' => Yii::t('pitch', 'record_id'),
             'document' => Yii::t('pitch', 'document'),
             'status' => Yii::t('pitch', 'status'),
+            'email_flag' => Yii::t('pitch', 'email_flag'),
+            'email_text' => Yii::t('pitch', 'email_text'),
         ];
     }
 
@@ -77,11 +79,11 @@ class Pitch extends ActiveRecord
             ],
             self::SCENARIO_ADD => [
                 'name', 'desc', 'start_date', 'end_date', 'sids', 'record', 'remark',
-                'result', 'department', 'auditor', 'document', 'status'
+                'result', 'department', 'auditor', 'document', 'status','email_flag','email_text',
             ],
             self::SCENARIO_EDIT => [
                 'name', 'desc', 'start_date', 'end_date', 'sids', 'record', 'remark',
-                'result', 'department', 'auditor', 'document', 'status'
+                'result', 'department', 'auditor', 'document', 'status','email_flag','email_text',
             ],
         ];
     }
@@ -93,7 +95,10 @@ class Pitch extends ActiveRecord
     public function rules()
     {
         return [
-
+            [['sids','name','email_flag'],'required','on' => 'add'],
+            ['email_text','required','when' => function($model){
+                return $model->email_flag == 'y';
+            },'whenClient' => "function(attribute,value){ return $('#email_flag').val() == 'y'; }",'on' => 'add'],
         ];
     }
 
@@ -172,26 +177,29 @@ class Pitch extends ActiveRecord
     }
 
 
-    public static function sendEmail($pitch_id, $sids = [], $subject = '')
+    public static function sendEmail($pitch_id, $email_arr = [], $subject = '')
     {
         if (!$pitch_id) {
             return false;
         }
         $model = self::getPitchById($pitch_id);
-        if (!$sids) {
+        if (empty($email_arr)) {
             return false;
         }
 //        $attachModel = new Attachment();
 //        $image = $attachModel->getImageByID($model->attachment);
 //        $attachFile = $image->filepath;
         $messages = [];
-        foreach ($sids as $sid) {
-            $supplier = Supplier::getSupplierById($sid);
+        $name = '';
+        $email = '';
+        foreach ($email_arr as $item) {
+            list($name,$email) = explode(':',$item);
+            $supplier = Supplier::getSupplierByName($name);
             if ($supplier) {
                 $messages[] = Yii::$app->mailer->compose(['html' => 'uploadAttachment-html', 'text' => 'uploadAttachment-text'], ['supplier' => $supplier, 'pitch_id' => $model->id])
                     ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-                    ->setTo($supplier->business_email)
-//                    ->attach($attachFile)
+                    ->setTo($email)
+//                  ->attach($attachFile)
                     ->setSubject($subject . Yii::$app->name);;
             }
         }

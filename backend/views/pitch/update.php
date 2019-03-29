@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = Yii::t('pitch', 'Update');
         'model' => $model,
         'suppliers' => $suppliers,
         'users' => $users,
+        'start' => $start,
     ]) ?>
 
 </div>

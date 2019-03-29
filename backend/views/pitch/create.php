@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = '创建比稿';
         'model' => $model,
         'suppliers' => $suppliers,
         'users' => $users,
+        'start' => $start,
     ]) ?>
 
 </div>

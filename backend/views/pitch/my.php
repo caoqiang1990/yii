@@ -108,7 +108,7 @@ $this->registerJs($js, View::POS_READY);
                     $operator_2 = '';
                     if (Helper::checkRoute('pitch/start') && $model->status == 'wait') {
                         $url_1 = 'javascript:void(0);';
-                        $operator_1 = Html::a('比稿开始', $url_1, ['title' => '比稿开始', 'class' => 'start', 'data-id' => $model->id]);
+                        $operator_1 = Html::a('上传资料', $url_1, ['title' => '邮件通知供方提供资料', 'class' => 'start', 'data-id' => $model->id]);
 
                     }
 

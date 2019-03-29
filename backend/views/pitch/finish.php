@@ -59,17 +59,19 @@ $this->title = '';
 
         ]);
         ?>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <?= $form->field($model, 'result')->textInput() ?>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-xs-12">
                 <?= $form->field($model, 'remark')->textarea(['rows' => 6]) ?>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-xs-12">
-                <?= $form->field($model, 'result')->textarea(['rows' => 6]) ?>
-            </div>
-        </div>
 
         <div class="form-group">
             <?= Html::submitButton('结束', ['class' => 'btn btn-success']) ?>

@@ -102,10 +102,12 @@ class PitchController extends Controller
         $info = $departmentModel->getDepartmentById($department);
         $model->department = $info->department_name;
 
+        $start = date('Y-m-d H:i', time());
         return $this->render('create', [
             'model' => $model,
             'suppliers' => $suppliers,
             'users' => $users,
+            'start' => $start,
         ]);
     }
 
@@ -121,7 +123,7 @@ class PitchController extends Controller
         $model = $this->findModel($id);
         $model->scenario = 'edit';
         $model->sids = explode(',', $model->sids);
-        $model->auditor = explode(',',$model->auditor);
+        $model->auditor = explode(',', $model->auditor);
         $department = Yii::$app->user->identity->department;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -133,14 +135,16 @@ class PitchController extends Controller
 
         $attachmentModel = new Attachment();
         $image = $attachmentModel->getImageByID($model->record);
-        $model->record_url = $image ? $image->url : '';   
+        $model->record_url = $image ? $image->url : '';
         $departmentModel = new Department();
         $info = $departmentModel->getDepartmentById($department);
-        $model->department = $info->department_name;     
+        $model->department = $info->department_name;
+        $start = date('Y-m-d H:i', time());
         return $this->render('update', [
             'model' => $model,
             'suppliers' => $suppliers,
             'users' => $users,
+            'start' => $start,
         ]);
     }
 
@@ -240,8 +244,9 @@ class PitchController extends Controller
             } else {
                 //发送邮件到对应供应商
                 $pitch = Pitch::getPitchById($id);
-                if ($pitch->sids) {
-                    $result = Pitch::sendEmail($pitch->id,explode(',',$pitch->sids),'比稿完善信息');
+                if ($pitch->email_flag == 'y') {
+                    $email_arr = explode(';',trim($pitch->email_text));
+                    $result = Pitch::sendEmail($pitch->id, $email_arr, '比稿完善信息');
                     if ($result) {
                         //写入日志
                         $pitchModel = new PitchRecord();
@@ -257,9 +262,10 @@ class PitchController extends Controller
                         $response_data['status'] = 'fail';
                         $response_data['msg'] = '邮件发送失败';
                     }
-                } else {
-                    $response_data['status'] = 'fail';
-                    $response_data['msg'] = '供应商不能为空';
+                }
+                if ($pitch->email_flag == 'n') {
+                    $response_data['status'] = 'success';
+                    $response_data['msg'] = '比稿开始成功';
                 }
             }
 
@@ -282,7 +288,7 @@ class PitchController extends Controller
         $error_msg = '';
         $flag = true;
         if (!$id) {
-            $response_data['status'] = 'fail' ;
+            $response_data['status'] = 'fail';
             $response_data['msg'] = 'id不能为空';
         } else {
             $model = $this->findModel($id);
@@ -291,13 +297,13 @@ class PitchController extends Controller
                 $response_data['status'] = 'fail';
                 $response_data['msg'] = '不存在供应商';
             } else {
-                $sid_arr = explode(',',$sids);
+                $sid_arr = explode(',', $sids);
                 foreach ($sid_arr as $id) {
-                    try{
+                    try {
                         $supplier = Supplier::getSupplierById($id);
                         $email = $supplier->business_email;
-                        if (preg_match("/^[a-z]*[0-9]*([a-z0-9]*[-_\.]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$/i",$email)) {
-                            
+                        if (preg_match("/^[a-z]*[0-9]*([a-z0-9]*[-_\.]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$/i", $email)) {
+
                         } else {
                             throw new \Exception("供应商名：{$supplier->name}，邮箱不存在。");
                         }
@@ -315,7 +321,7 @@ class PitchController extends Controller
                 }
             }
         }
-        return $response_data;  
+        return $response_data;
     }
 
     /**
@@ -335,7 +341,7 @@ class PitchController extends Controller
         return $this->render('review-list', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);        
+        ]);
     }
 
     /**
@@ -353,7 +359,7 @@ class PitchController extends Controller
 
         $model->pitch_id = $id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(Url::to(['time-line','id'=>$id])); 
+            return $this->redirect(Url::to(['time-line', 'id' => $id]));
         }
         //获取对应的附件
         $attachArr = [];
@@ -361,7 +367,7 @@ class PitchController extends Controller
         $records = PitchRecord::getPitchRecordByPitchId($id);
         foreach ($records as &$record) {
             if ($record['attachment']) {
-                $attachment = explode(',',$record['attachment']);
+                $attachment = explode(',', $record['attachment']);
                 if ($attachment) {
                     $attachmentModel = new Attachment();
                     foreach ($attachment as $k => $attach) {
@@ -375,13 +381,13 @@ class PitchController extends Controller
             }
         }
         $pitchModel = $this->findModel($id);
-        return $this->render('time-line',[
-                'model' => $model,
-                'id' => $id,
-                'records' => $records,
-                'pitchModel' => $pitchModel,
-                'initialPreview' => $initialPreview,
-            ]);
+        return $this->render('time-line', [
+            'model' => $model,
+            'id' => $id,
+            'records' => $records,
+            'pitchModel' => $pitchModel,
+            'initialPreview' => $initialPreview,
+        ]);
     }
 
     /**
@@ -398,6 +404,7 @@ class PitchController extends Controller
         $model = $this->findModel($id);
         $model->scenario = 'edit';
         $model->status = 10;//项目结束状态
+        $model->end_date = date('Y-m-d H:i',time());
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //写入日志
             $pitchModel = new PitchRecord();
@@ -409,8 +416,8 @@ class PitchController extends Controller
         }
         $attachmentModel = new Attachment();
         $image = $attachmentModel->getImageByID($model->record);
-        $model->record_url = $image ? $image->url : '';   
-        return $this->render('finish',['model' => $model]);
+        $model->record_url = $image ? $image->url : '';
+        return $this->render('finish', ['model' => $model]);
     }
 
     /**
@@ -431,18 +438,18 @@ class PitchController extends Controller
         $records = PitchRecord::getPitchRecordByPitchId($id);
         foreach ($records as &$record) {
             if ($record['attachment']) {
-                $attachment = explode(',',$record['attachment']);
+                $attachment = explode(',', $record['attachment']);
                 if ($attachment) {
                     $attachmentModel = new Attachment();
                     foreach ($attachment as $k => $attach) {
                         $image = $attachmentModel->getImageByID($attach);
                         $info = pathinfo($image->filepath);
-                        if (in_array($info['extension'],['jpg','png'])) {
+                        if (in_array($info['extension'], ['jpg', 'png'])) {
                             $initialPreview[$k]['filetype'] = 'image';
-                            $initialPreview[$k]['filename'] = $info['filename'].'.'.$info['extension'];
+                            $initialPreview[$k]['filename'] = $info['filename'] . '.' . $info['extension'];
                         } else {
                             $initialPreview[$k]['filetype'] = 'file';
-                            $initialPreview[$k]['filename'] = $info['filename'].'.'.$info['extension'];
+                            $initialPreview[$k]['filename'] = $info['filename'] . '.' . $info['extension'];
                         }
                         $initialPreview[$k]['url'] = $image->url;
                     }
@@ -452,7 +459,7 @@ class PitchController extends Controller
                 $record['url'] = '';
             }
         }
-        return $this->render('record',['model' => $model,'records' => $records]);
+        return $this->render('record', ['model' => $model, 'records' => $records]);
     }
 
     /**
@@ -479,4 +486,30 @@ class PitchController extends Controller
         ]);
     }
 
+    /**
+     * Name: actionGetEmail 根据供应商id获取供应商邮箱
+     * User: aimer
+     * Date: 2019/3/29
+     * Time: 上午10:23
+     * @return mixed
+     */
+    public function actionGetEmail()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $sids = Yii::$app->request->post('sids');
+        if (!$sids) {
+            $response_data['status'] = 'fail';
+            $response_data['msg'] = 'id不能为空';
+        } else {
+            $eamilText = '';
+            foreach($sids as $id) {
+                $supplier = Supplier::getSupplierById($id);
+                $eamilText .= ";".$supplier->name.":".$supplier->business_email;
+            }
+            $eamilText = substr($eamilText,1);
+            $response_data['status'] = 'success';
+            $response_data['msg'] = $eamilText;
+        }
+        return $response_data;
+    }
 }
