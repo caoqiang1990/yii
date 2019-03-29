@@ -112,7 +112,7 @@ $this->registerJs($js, View::POS_READY);
 
                     }
 
-                    if (Helper::checkRoute('pitch/finish') && $model->status != 10) {
+                    if (Helper::checkRoute('pitch/finish') && $model->status == 'auditor') {
                         $url_2 = Url::to(['finish', 'id' => $model->id]);
                         $operator_2 = Html::a('比稿结束', $url_2, ['title' => '比稿结束', 'class' => '', 'data-id' => $model->id]);
                     }
