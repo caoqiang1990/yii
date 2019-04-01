@@ -433,9 +433,7 @@ class PitchController extends Controller
     public function actionRecord($id)
     {
         $model = $this->findModel($id);
-        $attachmentModel = new Attachment();
-        $image = $attachmentModel->getImageByID($model->record);
-        $model->record_url = $image ? $image->url : '';
+
         $records = PitchRecord::getPitchRecordByPitchId($id);
         foreach ($records as &$record) {
             if ($record['attachment']) {
@@ -458,6 +456,17 @@ class PitchController extends Controller
                 $record['url'] = $initialPreview;
             } else {
                 $record['url'] = '';
+            }
+        }
+        if ($model->record) {
+            $recordArr = explode(',',$model->record);
+            foreach ($recordArr as $k => $item) {
+                $attachmentModel = new Attachment();
+                $image = $attachmentModel->getImageByID($item);
+                $info = pathinfo($image->filepath);
+                $model->record_url[$k]['filetype'] = $info['extension'];
+                $model->record_url[$k]['filename'] = $info['filename'] . '.' . $info['extension'];
+                $model->record_url[$k]['url'] = $image->url ? $image->url : '';
             }
         }
         return $this->render('record', ['model' => $model, 'records' => $records]);

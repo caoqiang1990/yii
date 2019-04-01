@@ -127,7 +127,7 @@ $this->registerJs($js, View::POS_READY);
 //                        $url_2 = Url::to(['finish', 'id' => $model->id]);
 //                        $operator_2 = Html::a('比稿结束', $url_2, ['title' => '比稿结束', 'class' => '', 'data-id' => $model->id]);
 //                    }
-                    if (Helper::checkRoute('pitch/record') && $model->status == 10) {
+                    if (Helper::checkRoute('pitch/record')) {
                         $url_2 = Url::to(['record', 'id' => $model->id]);
                         $operator_2 = Html::a('比稿记录', $url_2, ['title' => '比稿记录', 'class' => '', 'data-id' => $model->id]);
                     }

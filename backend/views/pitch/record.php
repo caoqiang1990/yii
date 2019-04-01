@@ -115,10 +115,48 @@ $this->title = '';
             <div class="form-group">
                 <label for="" class="col-xs-2 control-label">上传记录:</label>
 
-                <div class="col-sm-5">
+                <div class="col-sm-5" style="padding-left: 60px;">
                     <?php if ($model->record_url) { ?>
-                        <a href="<?= $model->record_url ?>" target="_blank"><img style="width:100px"
-                                                                                 src="<?= $model->record_url ?>"></a>
+                        <?php foreach ($model->record_url as $attach) { ?>
+                            <?php if ($attach['filetype'] == 'image') { ?>
+                                <a style="display:inline-block" href="<?= $attach['url'] ?>" target="_blank">
+                                    <img src="<?= $attach['url'] ?>" style="height:50px"
+                                         class="margin">
+                                </a>
+                            <?php } elseif ($attach['filetype'] == 'txt') { ?>
+                                <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
+                                   target="_blank">
+                                    <i style="margin-top:0px"
+                                       class="fa fa-file-text-o fa-2x"><?php $attach['filename'] ?></i>
+                                </a>
+                            <?php } elseif ($attach['filetype'] == 'ppt' || $attach['filetype'] == 'pptx') { ?>
+
+                                <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
+                                   target="_blank">
+                                    <i style="margin-top:0px"
+                                       class="fa fa-file-powerpoint-o fa-2x"><?php $attach['filename'] ?></i>
+                                </a>
+                            <?php } elseif ($attach['filetype'] == 'xls' || $attach['filetype'] == 'xlsx' || $attach['filetype'] == 'csv') { ?>
+                                <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
+                                   target="_blank">
+                                    <i style="margin-top:0px"
+                                       class="fa fa-file-excel-o fa-2x"><?php $attach['filename'] ?></i>
+                                </a>
+                            <?php } elseif ($attach['filetype'] == 'doc' || $attach['filetype'] == 'docx') { ?>
+                                <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
+                                   target="_blank">
+                                    <i style="margin-top:0px"
+                                       class="fa fa-file-word-o fa-2x"><?php $attach['filename'] ?></i>
+                                </a>
+                            <?php } else { ?>
+                                <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
+                                   target="_blank">
+                                    <i style="margin-top:0px"
+                                       class="fa fa-file-o fa-2x"><?php $attach['filename'] ?></i>
+                                </a>
+                            <?php } ?>
+                        <?php } ?>
+
                     <?php } else { ?>
                         无
                     <?php } ?>
@@ -134,11 +172,12 @@ $this->title = '';
                         <!-- timeline time label -->
                         <?php if (!empty($records)) { ?>
                             <?php foreach ($records as $record) { ?>
-                                <?php if (!$record['attachment']) { ?>
+                                <?php
+                                if (!$record['attachment']) { ?>
                                     <li class="time-label">
-                  <span class="bg-red">
-                    <?= date('Y-m-d H:i:s', $record['created_at']) ?>
-                  </span>
+                                      <span class="bg-red">
+                                        <?= date('Y-m-d H:i:s', $record['created_at']) ?>
+                                      </span>
                                     </li>
                                     <!-- /.timeline-label -->
                                     <li>
@@ -155,9 +194,9 @@ $this->title = '';
                                 <?php } ?>
                                 <?php if ($record['attachment']) { ?>
                                     <li class="time-label">
-              <span class="bg-red">
-                <?= date('Y-m-d H:i:s', $record['created_at']) ?>
-              </span>
+                                      <span class="bg-red">
+                                        <?= date('Y-m-d H:i:s', $record['created_at']) ?>
+                                      </span>
                                     </li>
                                     <li>
                                         <i class="fa fa-camera bg-purple"></i>
@@ -170,30 +209,41 @@ $this->title = '';
                                             <div class="timeline-body" style="vertical-align: middle;padding:2px">
                                                 <?php foreach ($record['url'] as $url) { ?>
                                                     <?php if ($url['filetype'] == 'image') { ?>
-                                                        <a style="display:inline-block" href="<?= $url['url'] ?>" target="_blank">
+                                                        <a style="display:inline-block" href="<?= $url['url'] ?>"
+                                                           target="_blank">
                                                             <img src="<?= $url['url'] ?>" style="height:50px"
                                                                  class="margin">
                                                         </a>
-                                                    <?php }elseif ($url['filetype'] == 'txt') { ?>
-                                                        <a style="display: inline-block;padding-top:10px" href="<?= $url['url'] ?>" target="_blank">
-                                                            <i style="margin-top:0px" class="fa fa-file-text-o fa-2x"><?php $url['filename'] ?></i>
+                                                    <?php } elseif ($url['filetype'] == 'txt') { ?>
+                                                        <a style="display: inline-block;padding-top:10px"
+                                                           href="<?= $url['url'] ?>" target="_blank">
+                                                            <i style="margin-top:0px"
+                                                               class="fa fa-file-text-o fa-2x"><?php $url['filename'] ?></i>
                                                         </a>
-                                                    <?php }elseif ($url['filetype'] == 'ppt' || $url['filetype'] == 'pptx') { ?>
+                                                    <?php } elseif ($url['filetype'] == 'ppt' || $url['filetype'] == 'pptx') { ?>
 
-                                                        <a style="display: inline-block;padding-top:10px" href="<?= $url['url'] ?>" target="_blank">
-                                                            <i style="margin-top:0px" class="fa fa-file-powerpoint-o fa-2x"><?php $url['filename'] ?></i>
+                                                        <a style="display: inline-block;padding-top:10px"
+                                                           href="<?= $url['url'] ?>" target="_blank">
+                                                            <i style="margin-top:0px"
+                                                               class="fa fa-file-powerpoint-o fa-2x"><?php $url['filename'] ?></i>
                                                         </a>
-                                                    <?php }elseif ($url['filetype'] == 'xls' || $url['filetype'] == 'xlsx') { ?>
-                                                        <a style="display: inline-block;padding-top:10px" href="<?= $url['url'] ?>" target="_blank">
-                                                            <i style="margin-top:0px" class="fa fa-file-excel-o fa-2x"><?php $url['filename'] ?></i>
+                                                    <?php } elseif ($url['filetype'] == 'xls' || $url['filetype'] == 'xlsx' || $url['filetype'] == 'csv') { ?>
+                                                        <a style="display: inline-block;padding-top:10px"
+                                                           href="<?= $url['url'] ?>" target="_blank">
+                                                            <i style="margin-top:0px"
+                                                               class="fa fa-file-excel-o fa-2x"><?php $url['filename'] ?></i>
                                                         </a>
-                                                    <?php }elseif ($url['filetype'] == 'doc' || $url['filetype'] == 'docx') { ?>
-                                                        <a style="display: inline-block;padding-top:10px" href="<?= $url['url'] ?>" target="_blank">
-                                                            <i style="margin-top:0px" class="fa fa-file-word-o fa-2x"><?php $url['filename'] ?></i>
+                                                    <?php } elseif ($url['filetype'] == 'doc' || $url['filetype'] == 'docx') { ?>
+                                                        <a style="display: inline-block;padding-top:10px"
+                                                           href="<?= $url['url'] ?>" target="_blank">
+                                                            <i style="margin-top:0px"
+                                                               class="fa fa-file-word-o fa-2x"><?php $url['filename'] ?></i>
                                                         </a>
-                                                    <?php }else{ ?>
-                                                        <a style="display: inline-block;padding-top:10px" href="<?= $url['url'] ?>" target="_blank">
-                                                            <i style="margin-top:0px" class="fa fa-file-o fa-2x"><?php $url['filename'] ?></i>
+                                                    <?php } else { ?>
+                                                        <a style="display: inline-block;padding-top:10px"
+                                                           href="<?= $url['url'] ?>" target="_blank">
+                                                            <i style="margin-top:0px"
+                                                               class="fa fa-file-o fa-2x"><?php $url['filename'] ?></i>
                                                         </a>
                                                     <?php } ?>
 
