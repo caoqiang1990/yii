@@ -405,6 +405,7 @@ class PitchController extends Controller
         $model->scenario = 'edit';
         $model->status = 10;//项目结束状态
         $model->end_date = date('Y-m-d H:i',time());
+        //var_dump(Yii::$app->request->post());die;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //写入日志
             $pitchModel = new PitchRecord();
@@ -448,7 +449,7 @@ class PitchController extends Controller
                             $initialPreview[$k]['filetype'] = 'image';
                             $initialPreview[$k]['filename'] = $info['filename'] . '.' . $info['extension'];
                         } else {
-                            $initialPreview[$k]['filetype'] = 'file';
+                            $initialPreview[$k]['filetype'] = $info['extension'];
                             $initialPreview[$k]['filename'] = $info['filename'] . '.' . $info['extension'];
                         }
                         $initialPreview[$k]['url'] = $image->url;

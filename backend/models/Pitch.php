@@ -161,6 +161,9 @@ class Pitch extends ActiveRecord
                 if (is_array($this->auditor)) {
                     $this->auditor = implode(',', $this->auditor);
                 }
+                if (is_array($this->record)) {
+                    $this->record = implode(',',$this->record);
+                }
             } else {
                 //sids 进行操作
                 if (is_array($this->sids)) {
@@ -168,6 +171,9 @@ class Pitch extends ActiveRecord
                 }
                 if (is_array($this->auditor)) {
                     $this->auditor = implode(',', $this->auditor);
+                }
+                if (is_array($this->record)) {
+                    $this->record = implode(',',$this->record);
                 }
             }
             return true;

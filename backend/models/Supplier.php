@@ -290,7 +290,8 @@ class Supplier extends ActiveRecord
             [['enterprise_certificate'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
             [['enterprise_certificate_etc'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
                [['enterprise_license_relate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
-            [['last_tax','last_sale'],'required','on'=>'edit'],    
+            [['last_tax','last_sale'],'required','on'=>'edit'],
+            ['status','required','on' => 'audit']
         ];
     }
 
