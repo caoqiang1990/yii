@@ -190,35 +190,42 @@ class PitchController extends Controller
         $pitchModel->scenario = 'upload';
 
         if (Yii::$app->request->isPost) {
-            switch ($field) {
-                case 'record_id':
-                    $pitchModel->record = UploadedFile::getInstance($pitchModel, 'record_id');
-                    $field = 'record';
-                    break;
-                default:
-                    # code...
-                    break;
-            }
-            if ($uploadInfo = $pitchModel->upload($field)) {
-                echo Json::encode([
-                    'filepath' => $uploadInfo['filepath'],
-                    'imageid' => $uploadInfo['imageid'],
-                    'error' => '', //上传的error字段，如果没有错误就返回空字符串，否则返回错误信息，客户端会自动判定该字段来认定是否有错
-                ]);
-            } else {
+            if (empty($_FILES)) {
                 echo Json::encode([
                     'filepath' => '',
-                    'imageid' => '',
-                    'error' => '文件上传失败',
+                    'error' => '请选择要上传文件',
                 ]);
+            } else {
+                switch ($field) {
+                    case 'record_id':
+                        $pitchModel->record = UploadedFile::getInstance($pitchModel, 'record_id');
+                        $field = 'record';
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+                if ($uploadInfo = $pitchModel->upload($field)) {
+                    echo Json::encode([
+                        'filepath' => $uploadInfo['filepath'],
+                        'imageid' => $uploadInfo['imageid'],
+                        'error' => '', //上传的error字段，如果没有错误就返回空字符串，否则返回错误信息，客户端会自动判定该字段来认定是否有错
+                    ]);
+                } else {
+                    echo Json::encode([
+                        'filepath' => '',
+                        'imageid' => '',
+                        'error' => '文件上传失败',
+                    ]);
+                }
             }
+
         } else {
             echo Json::encode([
                 'filepath' => '',
-                'error' => '文件上传失败',
+                'error' => '请选择要上传文件',
             ]);
         }
-
     }
 
     /**
@@ -245,7 +252,7 @@ class PitchController extends Controller
                 //发送邮件到对应供应商
                 $pitch = Pitch::getPitchById($id);
                 if ($pitch->email_flag == 'y') {
-                    $email_arr = explode(';',trim($pitch->email_text));
+                    $email_arr = explode(';', trim($pitch->email_text));
                     $result = Pitch::sendEmail($pitch->id, $email_arr, '比稿完善信息');
                     if ($result) {
                         //写入日志
@@ -404,7 +411,7 @@ class PitchController extends Controller
         $model = $this->findModel($id);
         $model->scenario = 'edit';
         $model->status = 10;//项目结束状态
-        $model->end_date = date('Y-m-d H:i',time());
+        $model->end_date = date('Y-m-d H:i', time());
         //var_dump(Yii::$app->request->post());die;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //写入日志
@@ -459,7 +466,7 @@ class PitchController extends Controller
             }
         }
         if ($model->record) {
-            $recordArr = explode(',',$model->record);
+            $recordArr = explode(',', $model->record);
             foreach ($recordArr as $k => $item) {
                 $attachmentModel = new Attachment();
                 $image = $attachmentModel->getImageByID($item);
@@ -512,11 +519,11 @@ class PitchController extends Controller
             $response_data['msg'] = 'id不能为空';
         } else {
             $eamilText = '';
-            foreach($sids as $id) {
+            foreach ($sids as $id) {
                 $supplier = Supplier::getSupplierById($id);
-                $eamilText .= ";".$supplier->name.":".$supplier->business_email;
+                $eamilText .= ";" . $supplier->name . ":" . $supplier->business_email;
             }
-            $eamilText = substr($eamilText,1);
+            $eamilText = substr($eamilText, 1);
             $response_data['status'] = 'success';
             $response_data['msg'] = $eamilText;
         }
