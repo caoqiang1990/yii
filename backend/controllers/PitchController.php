@@ -50,10 +50,12 @@ class PitchController extends Controller
 
         $request = Yii::$app->request->queryParams;
         //$department = Yii::$app->user->identity->department;
-        $user_id = Yii::$app->user->identity->id;
-        $department_ids = DepartmentAssignment::getByUserId($user_id);
-
-        $request['PitchSearch']['department'] = $department_ids;
+        $is_administrator = Yii::$app->user->identity->is_administrator;
+        if ($is_administrator == 2) {
+            $user_id = Yii::$app->user->identity->id;
+            $department_ids = DepartmentAssignment::getByUserId($user_id);
+            $request['PitchSearch']['department'] = $department_ids;
+        }
         $dataProvider = $searchModel->search($request);
 
         return $this->render('index', [
@@ -271,6 +273,14 @@ class PitchController extends Controller
                     }
                 }
                 if ($pitch->email_flag == 'n') {
+                    //写入日志
+                    $pitchModel = new PitchRecord();
+                    $pitchModel->content = '比稿项目开始';
+                    $pitchModel->pitch_id = $id;
+                    $pitchModel->save();//写入日志
+                    $model->scenario = 'edit';//编辑
+                    $model->status = 'auditor';//审核状态
+                    $model->save();//保存状态
                     $response_data['status'] = 'success';
                     $response_data['msg'] = '比稿开始成功';
                 }
@@ -416,7 +426,7 @@ class PitchController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //写入日志
             $pitchModel = new PitchRecord();
-            $pitchModel->content = '项目结束';
+            $pitchModel->content = '比稿项目结束';
             $pitchModel->pitch_id = $model->id;
             $pitchModel->save();//写入日志
             //Yii::$app->session->setFlash('success', '比稿结束!');
@@ -491,9 +501,12 @@ class PitchController extends Controller
         $searchModel = new PitchSearch();
 
         $request = Yii::$app->request->queryParams;
-        $uid = Yii::$app->user->identity->id;
 
-        $request['PitchSearch']['created_by'] = $uid;
+        $is_administrator = Yii::$app->user->identity->is_administrator;
+        if ($is_administrator == 2) {
+            $uid = Yii::$app->user->identity->id;
+            $request['PitchSearch']['created_by'] = $uid;
+        }
 
         $dataProvider = $searchModel->search($request);
 

@@ -34,7 +34,7 @@ class CollectController extends Controller
                     [
                         'actions' => ['attachment'],
                         'allow' => true,
-                        'roles' => ['?'],
+                        'roles' => ['@'],
                     ],
                 ],
                 'denyCallback' => function ($rule, $action) {

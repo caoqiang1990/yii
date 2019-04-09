@@ -23,6 +23,7 @@ class ModifyUser extends Model
     public $head_url;
     public $imageFile;
     public $position;
+    public $is_administrator;
 
     /**
      * @inheritdoc

@@ -74,6 +74,9 @@ class SupplierSearch extends Supplier
         } else {
             $query->andFilterWhere(['status'=>$this->supplier_status]);
         }
+        if ($this->department) {
+            $query->andFilterWhere(['in', 'department', $this->department]);
+        }
         $query->andFilterWhere([
             //'name' => $this->name,
             'level'=> $this->level,

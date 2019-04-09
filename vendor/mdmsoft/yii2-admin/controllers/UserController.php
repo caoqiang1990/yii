@@ -276,7 +276,7 @@ class UserController extends Controller
         $model->email = $user->email;
         //$model->mobile = $user->mobile;
         $model->department = $user->department;
-
+        $model->is_administrator = $user->is_administrator;
         //上传头像
         if (Yii::$app->request->isPost) {
             $model->imageFile = UploadedFile::getInstance($model, 'head_url');

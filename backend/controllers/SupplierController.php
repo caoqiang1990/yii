@@ -45,34 +45,34 @@ class SupplierController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
-            [
-                'class' => 'yii\filters\PageCache',
-                'only' => ['admin-index'],
-                'duration' => 3600,
-                'variations' => [
-                    Yii::$app->language,
-                    Yii::$app->request->queryParams,
-                    !Yii::$app->user->isGuest ? Yii::$app->user->identity->id : '',
-                ],
-                'dependency' => [
-                    'class' => 'yii\caching\DbDependency',
-                    'sql' => 'SELECT COUNT(*) FROM supplier',
-                ],
-            ],        
-            [
-                'class' => 'yii\filters\PageCache',
-                'only' => ['department-index'],
-                'duration' => 3600,
-                'variations' => [
-                    \Yii::$app->language,
-                    Yii::$app->request->queryParams,
-                    !Yii::$app->user->isGuest ? Yii::$app->user->identity->id : '',
-                ],
-                'dependency' => [
-                    'class' => 'yii\caching\DbDependency',
-                    'sql' => 'SELECT COUNT(*) FROM supplier_detail',
-                ],
-            ],     
+//            [
+//                'class' => 'yii\filters\PageCache',
+//                'only' => ['admin-index'],
+//                'duration' => 3600,
+//                'variations' => [
+//                    Yii::$app->language,
+//                    Yii::$app->request->queryParams,
+//                    !Yii::$app->user->isGuest ? Yii::$app->user->identity->id : '',
+//                ],
+//                'dependency' => [
+//                    'class' => 'yii\caching\DbDependency',
+//                    'sql' => 'SELECT COUNT(*) FROM supplier',
+//                ],
+//            ],
+//            [
+//                'class' => 'yii\filters\PageCache',
+//                'only' => ['department-index'],
+//                'duration' => 3600,
+//                'variations' => [
+//                    \Yii::$app->language,
+//                    Yii::$app->request->queryParams,
+//                    !Yii::$app->user->isGuest ? Yii::$app->user->identity->id : '',
+//                ],
+//                'dependency' => [
+//                    'class' => 'yii\caching\DbDependency',
+//                    'sql' => 'SELECT COUNT(*) FROM supplier_detail',
+//                ],
+//            ],
         ];
     }
 
@@ -107,15 +107,22 @@ class SupplierController extends Controller
         $searchModel = new SupplierSearch();
         $request = Yii::$app->request->queryParams;
         $department = Yii::$app->user->identity->department;
+        $is_administrator = Yii::$app->user->identity->is_administrator;
         $department_info = Department::getDepartmentById($department);
         if (!$department_info) {
             throw new NotFoundHttpException("此用户不包含管理部门");
         }
-        //排除这几个一级部门
-        $filter_department = ['大数据信息中心','总裁办','品管部','供应链部'];
-        if (!in_array($department_info->department_name,$filter_department)) {
+        if ($is_administrator == 2) {
+            $user_id = Yii::$app->user->identity->id;
+            $department_ids = DepartmentAssignment::getByUserId($user_id);
+            $request['SupplierSearch']['department'] = $department_ids;
             $request['SupplierSearch']['public_flag'] = 'y';
         }
+//        //排除这几个一级部门
+//        $filter_department = ['大数据信息中心','总裁办','品管部','供应链部'];
+//        if (!in_array($department_info->department_name,$filter_department)) {
+//            $request['SupplierSearch']['public_flag'] = 'y';
+//        }
         $request['SupplierSearch']['supplier_status'] = '10';
         $dataProvider = $searchModel->search($request);
         if (isset($request['SupplierSearch']['cate_id1'])) {

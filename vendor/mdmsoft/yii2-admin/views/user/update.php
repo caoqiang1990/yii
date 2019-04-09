@@ -34,6 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'truename')->label(\Yii::t('rbac-admin','truename')) ?>
                 <?= $form->field($model, 'department')->label(\Yii::t('rbac-admin','department'))->dropDownList($department,['prompt'=>'请选择部门']) ?>
                 <?= $form->field($model, 'email')->label(\Yii::t('rbac-admin','Email')) ?>
+                <?php
+                echo $form->field($model, 'is_administrator')->radioList([
+                    '1' => '是',
+                    '2' => '否'
+                ],['class' => 'is_administrator form-inline'])->label('是否为管理员');
+                ?>
                 <div class="form-group">
                     <?= Html::submitButton('更新', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
                 </div>
