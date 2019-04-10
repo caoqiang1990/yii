@@ -77,9 +77,9 @@ $this->registerJs($formatJS);
                 'size' => Select2::MEDIUM,
                 'options' => ['placeholder' => '请选择要比稿的供应商', 'multiple' => true],
                 'pluginOptions' => [
-                    'tags' => true,
                     'tokenSeparators' => [',', ' '],
-                    'maximumInputLength' => 10
+                    'maximumInputLength' => 10,
+                    'allowClear' => true,
                 ],
             ])->label('参与比稿供应商');
             ?>
@@ -119,9 +119,9 @@ $this->registerJs($formatJS);
                 'size' => Select2::MEDIUM,
                 'options' => ['placeholder' => '请选择参与审核的人员', 'multiple' => true],
                 'pluginOptions' => [
-                    'tags' => true,
                     'tokenSeparators' => [',', ' '],
-                    'maximumInputLength' => 10
+                    'maximumInputLength' => 10,
+                    'allowClear' => true
                 ],
             ])->label('参与比稿人员');
             ?>

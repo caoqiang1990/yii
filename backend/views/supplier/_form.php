@@ -368,7 +368,9 @@ use yii\helpers\Url;
         ]) ?>
     </div>     
     <div class="col-xs-6">
-    <?= $form->field($model, 'level')->label('*供应商等级')->dropDownList($level,['prompt'=>'请选择等级']) ?>
+    <?php
+        //$form->field($model, 'level')->label('*供应商等级')->dropDownList($level,['prompt'=>'请选择等级'])
+    ?>
     </div>    
     <div class="form-group">
     <div class="col-xs-12">
