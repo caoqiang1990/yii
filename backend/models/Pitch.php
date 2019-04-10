@@ -99,7 +99,47 @@ class Pitch extends ActiveRecord
             ['email_text','required','when' => function($model){
                 return $model->email_flag == 'y';
             },'whenClient' => "function(attribute,value){ return $('#email_flag').val() == 'y'; }",'on' => 'add'],
+            ['email_text','validateEmailText','skipOnEmpty' => true,'when' => function($model){
+                return $model->email_flag == 'y';
+            },'whenClient' => "function(attribute,value){ return $('#email_flag').val() == 'y'; }"]
+
         ];
+    }
+
+    /**
+     * Name: validateEmailText
+     * User: aimer
+     * Date: 2019/4/10
+     * Time: 下午3:40
+     * @param $attribute
+     * @param $params
+     * @return bool
+     */
+    public function validateEmailText($attribute,$params)
+    {
+        if (!$this->$attribute) {
+            $this->addError($attribute,'供应商邮箱不能为空!');
+            return false;
+        }
+        $email_arr = explode(';',$this->$attribute);
+        foreach ($email_arr as $item) {
+            list($name,$email) = explode(':',$item);
+            $supplier = Supplier::getSupplierByName($name);
+            if (!$supplier) {
+                $this->addError($attribute,"供应商：{$name} 不存在！");
+                return false;
+            } else {
+                //TODO验证邮箱是否正确
+                $preg_email='/^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@([a-zA-Z0-9]+[-.])+([a-z]{2,5})$/ims';
+                if(preg_match($preg_email,$email)){
+                    return true;
+                }else{
+                    $this->addError($attribute,"供应商：{$name} 邮箱不正确！");
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public function upload($field)
