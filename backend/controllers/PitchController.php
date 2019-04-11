@@ -19,6 +19,7 @@ use backend\models\PitchRecord;
 use yii\helpers\Url;
 use backend\models\PitchAttachment;
 use backend\models\DepartmentAssignment;
+use common\models\AdminLog;
 
 /**
  * PitchController implements the CRUD actions for Pitch model.
@@ -90,6 +91,7 @@ class PitchController extends Controller
         $model->department = $department;
         $model->status = 'wait';
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AdminLog::saveLog('pitch', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
             //写入日志
             $pitchModel = new PitchRecord();
             $pitchModel->content = '新建比稿项目';
@@ -127,8 +129,9 @@ class PitchController extends Controller
         $model->sids = explode(',', $model->sids);
         $model->auditor = explode(',', $model->auditor);
         $department = Yii::$app->user->identity->department;
-
+        $original = $model->getByID($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AdminLog::saveLog('pitch', 'update', $model->getByID($model->primaryKey), $model->primaryKey, $original);
             return $this->redirect(['view', 'id' => $model->id]);
         }
         //供应商集合

@@ -52,7 +52,7 @@ class AdminLog extends \yii\db\ActiveRecord
         $model->admin_id = Yii::$app->user->identity->id;
         $model->admin_name = Yii::$app->user->identity->email;
 
-        $controllers = ['suppliertrade','suppliertype','suppliercategory','supplierlevel','category','banner','exchange','user','admin','supplier'];
+        $controllers = ['suppliertrade','suppliertype','suppliercategory','supplierlevel','category','banner','exchange','user','admin','supplier','pitch'];
         if(!in_array(strtolower($controller),$controllers)) $controller = '';
         $actions = ['create','update','delete','login','logout'];
         if(!in_array(strtolower($action),$actions))$action = '';
