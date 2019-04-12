@@ -34,6 +34,11 @@ class CollectController extends Controller
                     [
                         'actions' => ['attachment'],
                         'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['attachment'],
+                        'allow' => true,
                         'roles' => ['@'],
                     ],
                 ],
