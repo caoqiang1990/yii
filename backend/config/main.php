@@ -82,10 +82,14 @@ return [
             'useFileTransport' => false,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.qq.com',
-                'username' => '351266168@qq.com',
-                'password' => 'nzffjrqglazicaii',
-                'port' => '465',
+//                'host' => 'smtp.qq.com',
+//                'username' => '351266168@qq.com',
+//                'password' => 'nzffjrqglazicaii',
+//                'port' => '465',
+                'host' => 'smtp.qiye.163.com',
+                'username' => 'aimer_gys@aimer.com.cn',
+                'password' => 'tg5nA33etUk5nxbg', //tg5nA33etUk5nxbg   kA9wPkKy57YaQdYK
+                'port' => '994',
                 'encryption' => 'ssl',
             ],
         ],

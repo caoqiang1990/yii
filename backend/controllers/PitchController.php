@@ -422,7 +422,7 @@ class PitchController extends Controller
     public function actionFinish($id)
     {
         $model = $this->findModel($id);
-        $model->scenario = 'edit';
+        $model->scenario = 'finish';
         $model->status = 10;//项目结束状态
         $model->end_date = date('Y-m-d H:i', time());
         //var_dump(Yii::$app->request->post());die;

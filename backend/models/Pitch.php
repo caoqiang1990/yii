@@ -17,6 +17,7 @@ class Pitch extends ActiveRecord
     const SCENARIO_UPLOAD = 'upload';
     const SCENARIO_ADD = 'add';
     const SCENARIO_EDIT = 'edit';
+    const SCENARIO_FINISH = 'finish';
     public $record_id;
     public $record_url;
 
@@ -85,6 +86,10 @@ class Pitch extends ActiveRecord
                 'name', 'desc', 'start_date', 'end_date', 'sids', 'record', 'remark',
                 'result', 'department', 'auditor', 'document', 'status','email_flag','email_text',
             ],
+            self::SCENARIO_FINISH => [
+                'name', 'desc', 'start_date', 'end_date', 'sids', 'record', 'remark',
+                'result', 'department', 'auditor', 'document', 'status','email_flag','email_text',
+            ],
         ];
     }
 
@@ -101,8 +106,8 @@ class Pitch extends ActiveRecord
             },'whenClient' => "function(attribute,value){ return $('#email_flag').val() == 'y'; }",'on' => 'add'],
             ['email_text','validateEmailText','skipOnEmpty' => true,'when' => function($model){
                 return $model->email_flag == 'y';
-            },'whenClient' => "function(attribute,value){ return $('#email_flag').val() == 'y'; }"]
-
+            },'whenClient' => "function(attribute,value){ return $('#email_flag').val() == 'y'; }"],
+            [['result','remark'],'required','on' => 'finish'],
         ];
     }
 
