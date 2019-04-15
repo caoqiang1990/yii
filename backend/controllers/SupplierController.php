@@ -113,9 +113,9 @@ class SupplierController extends Controller
             throw new NotFoundHttpException("此用户不包含管理部门");
         }
         if ($is_administrator == 2) {
-            $user_id = Yii::$app->user->identity->id;
-            $department_ids = DepartmentAssignment::getByUserId($user_id);
-            $request['SupplierSearch']['department'] = $department_ids;
+            //$user_id = Yii::$app->user->identity->id;
+            //$department_ids = DepartmentAssignment::getByUserId($user_id);
+            //$request['SupplierSearch']['department'] = $department_ids;
             $request['SupplierSearch']['public_flag'] = 'y';
         }
 //        //排除这几个一级部门

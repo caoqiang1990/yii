@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 
-$link = Yii::$app->params['frontUrl_test'].'/collect/attachment?verid='.enCrypt($pitch_id).'&signid='.enCrypt($supplier->id);
+$link = Yii::$app->params['frontUrl'].'/collect/attachment?verid='.enCrypt($pitch_id).'&signid='.enCrypt($supplier->id);
 ?>
 <div class="password-reset">
     <p>Hello <?= Html::encode($supplier->name) ?>,</p>
