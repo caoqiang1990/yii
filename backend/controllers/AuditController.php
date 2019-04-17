@@ -79,7 +79,7 @@ class AuditController extends Controller
   public function actionQrcode($id)
   {
     $model = $this->findModel($id);
-    $url = "http://gys.aimergroup.com:8090/?r=supplierform/update&id=".enCrypt($id);
+    $url = "http://gys.aimergroup.com:8090/supplierform/update&id=".enCrypt($id);
     return $this->render('qrcode',[
         'id' => $id,
         'url' => $url,
@@ -89,7 +89,7 @@ class AuditController extends Controller
 
   public function actionCode($id)
   {
-    $url = "http://gys.aimergroup.com:8090/?r=supplierform/update&id=".enCrypt($id);
+    $url = "http://gys.aimergroup.com:8090/supplierform/update&id=".enCrypt($id);
     $png = QrCode::png($url);    //调用二维码生成方法
     return $png;
   }
