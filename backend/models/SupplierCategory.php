@@ -200,7 +200,17 @@ class SupplierCategory extends ActiveRecord
         }
         return false;
     }
-
+    /**
+     * 获取key-value键值对
+     * @return [type] [description]
+     */
+    public static function getCategorys($pid=0)
+    {
+        $where['pid'] = $pid;
+        $category = self::find()->where($where)->all();
+        $category = ArrayHelper::map($category, 'id', 'category_name');
+        return $category;
+    }
 }
 
 

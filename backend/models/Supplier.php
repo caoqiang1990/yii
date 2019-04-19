@@ -511,5 +511,24 @@ class Supplier extends ActiveRecord
         $suppliers = self::find()->all();
         $supplier = ArrayHelper::map($suppliers, 'id', 'name');
         return $supplier;
-    }    
+    }
+
+
+    public static function getCountByParams($key,$value)
+    {
+        if (!$value) {
+            return false;
+        }
+        $where[$key] = $value;
+        $where['status'] = 10;
+        $count = self::find()->where($where)->count();
+        return $count;
+    }
+
+    public static function getTotalCount()
+    {
+        $where['status'] = 10;
+        $count = self::find()->where($where)->count();
+        return $count;
+    }
 }

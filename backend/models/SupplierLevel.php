@@ -148,6 +148,18 @@ class SupplierLevel extends ActiveRecord
         return false;
     }
 
+
+    /**
+     * 获取key-value键值对
+     * @return [type] [description]
+     */
+    public static function getLevels()
+    {
+        $levels = self::find()->all();
+        $level = ArrayHelper::map($levels, 'id', 'level_name');
+        return $level;
+    }
+
 }
 
 ?>

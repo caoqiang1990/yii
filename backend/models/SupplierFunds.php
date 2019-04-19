@@ -79,4 +79,42 @@ class SupplierFunds extends ActiveRecord
             TimestampBehavior::className()
         ];
     }
+
+    /**
+     * Name: getTotalCountByYear
+     * User: aimer
+     * Date: 2019/4/18
+     * Time: 下午4:20
+     * @param int $year
+     * @return int
+     */
+    public static function getTotalCountByYear($year=2015)
+    {
+        if (!$year) {
+            return false;
+        }
+
+        $where['year'] = $year;
+        $count = self::find()->where($where)->count();
+        return $count;
+    }
+
+    /**
+     * Name: getTotalTradeFundsByYear
+     * User: aimer
+     * Date: 2019/4/18
+     * Time: 下午4:24
+     * @param int $year
+     * @return float
+     */
+    public static function getTotalTradeFundsByYear($year=2015)
+    {
+        if (!$year) {
+            return false;
+        }
+
+        $where['year'] = $year;
+        $num = self::find()->where($where)->sum('trade_fund');
+        return $num;
+    }
 }

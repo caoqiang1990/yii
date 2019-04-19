@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 
 class SupplierType extends ActiveRecord
@@ -128,6 +129,17 @@ class SupplierType extends ActiveRecord
             return $type;
         }
         return false;
+    }
+
+    /**
+     * 获取key-value键值对
+     * @return [type] [description]
+     */
+    public static function getTypes()
+    {
+        $types = self::find()->all();
+        $type = ArrayHelper::map($types, 'id', 'type_name');
+        return $type;
     }
 }
 
