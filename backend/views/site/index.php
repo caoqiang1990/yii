@@ -128,7 +128,7 @@ $js = <<<JS
                 },
                 {
                     type: 'value',
-                    name: '交易金额()',
+                    name: '交易金额(千万元)',
                     min: 0,
                     max: 100,
                     position: 'left',
