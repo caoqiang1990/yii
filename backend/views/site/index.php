@@ -222,7 +222,7 @@ $js = <<<JS
             },
             series : [
                 {
-                    name: '访问来源',
+                    name: '企业性质',
                     type: 'pie',
                     radius : ['40%','70%'],
                     center: ['50%', '60%'],
@@ -302,7 +302,7 @@ $js = <<<JS
             },
             series : [
                 {
-                    name: '姓名',
+                    name: '一级大类',
                     type: 'pie',
                     radius : '55%',
                     center: ['40%', '50%'],
