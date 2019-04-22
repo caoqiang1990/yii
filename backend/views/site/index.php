@@ -56,7 +56,7 @@ $js = <<<JS
             },
             xAxis: {
                 type: 'value',
-                min:10,
+                min:0,
                 max:300,
             },
             yAxis: {
