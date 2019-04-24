@@ -50,12 +50,12 @@ class SupplierformController extends Controller
                 'only' => ['supplierinfo'],
                 'rules' => [
                     [
-                        'actions' => ['supplierinfo'],
+                        'actions' => ['supplierinfo','update'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['supplierinfo'],
+                        'actions' => ['supplierinfo','update'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

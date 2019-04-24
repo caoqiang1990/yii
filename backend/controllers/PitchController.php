@@ -20,6 +20,7 @@ use yii\helpers\Url;
 use backend\models\PitchAttachment;
 use backend\models\DepartmentAssignment;
 use common\models\AdminLog;
+use backend\models\Auditor;
 
 /**
  * PitchController implements the CRUD actions for Pitch model.
@@ -101,7 +102,7 @@ class PitchController extends Controller
         }
         //供应商集合
         $suppliers = Supplier::getSuppliers();
-        $users = User::getUsers();
+        $users = Auditor::getUsers();
         $departmentModel = new Department();
         $info = $departmentModel->getDepartmentById($department);
         $model->department = $info->department_name;
@@ -136,7 +137,7 @@ class PitchController extends Controller
         }
         //供应商集合
         $suppliers = Supplier::getSuppliers();
-        $users = User::getUsers();
+        $users = Auditor::getUsers();
 
         $attachmentModel = new Attachment();
         $image = $attachmentModel->getImageByID($model->record);
