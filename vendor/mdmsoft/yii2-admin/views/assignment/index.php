@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $columns = [
     ['class' => 'yii\grid\SerialColumn'],
     $usernameField,
+    $truenameField,
 ];
 if (!empty($extraColumns)) {
     $columns = array_merge($columns, $extraColumns);

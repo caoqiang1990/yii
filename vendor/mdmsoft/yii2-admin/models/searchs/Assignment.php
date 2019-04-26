@@ -16,6 +16,7 @@ class Assignment extends Model
 {
     public $id;
     public $username;
+    public $truename;
 
     /**
      * @inheritdoc
@@ -23,7 +24,7 @@ class Assignment extends Model
     public function rules()
     {
         return [
-            [['id', 'username'], 'safe'],
+            [['id', 'username','truename'], 'safe'],
         ];
     }
 
@@ -34,8 +35,9 @@ class Assignment extends Model
     {
         return [
             'id' => Yii::t('rbac-admin', 'ID'),
-            'username' => Yii::t('rbac-admin', 'Username'),
+            'username' => '工号',
             'name' => Yii::t('rbac-admin', 'Name'),
+            'truename' => '真实姓名'
         ];
     }
 
@@ -46,7 +48,7 @@ class Assignment extends Model
      * @param  string                       $usernameField
      * @return \yii\data\ActiveDataProvider
      */
-    public function search($params, $class, $usernameField)
+    public function search($params, $class, $usernameField,$truenameField)
     {
         $query = $class::find();
         $dataProvider = new ActiveDataProvider([
@@ -58,6 +60,7 @@ class Assignment extends Model
         }
 
         $query->andFilterWhere(['like', $usernameField, $this->username]);
+        $query->andFilterWhere(['like', $truenameField, $this->truename]);
 
         return $dataProvider;
     }
