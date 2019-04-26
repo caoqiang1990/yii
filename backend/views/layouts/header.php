@@ -27,7 +27,9 @@ $this->registerJs($js,\yii\web\View::POS_END);
         </a>
 
         <div class="navbar-custom-menu">
-
+            <ul class="nav navbar-nav">
+                <li style="padding:15px"><span><a style="color:white" href="<?=Url::to('/help/index') ?>">操作手册</a></span></li>
+            </ul>
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
                     <a href="<?= Url::to(['/admin/user/profile','id' => Yii::$app->user->identity->id]) ?>" class="dropdown-toggle" data-toggle="dropdown">

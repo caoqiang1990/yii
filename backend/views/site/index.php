@@ -17,7 +17,7 @@ $css = <<<CSS
     padding:0px 15px 15px 15px;
     }
     ul li {
-    margin-bottom: 10px;
+        /*margin-bottom: 10px;*/
     }
     .col-md-6{
     height: 250px;
