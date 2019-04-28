@@ -16,5 +16,6 @@ return [
 	'Save' => '更新',
 	'Update' => '更新',
 	'Delete' => '删除',
-	'Are you sure you want to delete this item?' => '是否删除?'
+	'Are you sure you want to delete this item?' => '是否删除?',
+    'ratio' => '占比'
 ];
