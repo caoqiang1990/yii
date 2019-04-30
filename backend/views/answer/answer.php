@@ -150,7 +150,7 @@ AnswerAsset::register($this);
             </div>
         </div>
         <div class="form-group">
-            <label for="" class="col-sm-2 control-label">占比:</label>
+            <label for="" class="col-sm-2 control-label">占比（单位百分比）:</label>
 
             <div class="col-sm-5">
                 <input type="text" class="form-control" name="question_ratio" placeholder="请输入本题占比">

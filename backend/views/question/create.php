@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = '新增评价';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'users' => $users
     ]) ?>
 
 </div>

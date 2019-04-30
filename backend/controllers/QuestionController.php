@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\QuestionAnswer;
+use mdm\admin\models\User;
 
 /**
  * QuestionController implements the CRUD actions for Question model.
@@ -71,8 +72,10 @@ class QuestionController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $users = User::getUsers();
         return $this->render('create', [
             'model' => $model,
+            'users' => $users
         ]);
     }
 
@@ -86,13 +89,15 @@ class QuestionController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->player = explode(',', $model->player);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $users = User::getUsers();
         return $this->render('update', [
             'model' => $model,
+            'users' => $users
         ]);
     }
 
