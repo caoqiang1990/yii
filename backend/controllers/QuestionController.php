@@ -2,14 +2,15 @@
 
 namespace backend\controllers;
 
+use backend\models\SupplierFunds;
 use Yii;
 use backend\models\Question;
 use backend\models\QuestionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use backend\models\QuestionAnswer;
 use mdm\admin\models\User;
+use backend\models\Supplier;
 
 /**
  * QuestionController implements the CRUD actions for Question model.
@@ -73,9 +74,11 @@ class QuestionController extends Controller
         }
 
         $users = User::getUsers();
+        $suppliers = Supplier::getSuppliers();
         return $this->render('create', [
             'model' => $model,
-            'users' => $users
+            'users' => $users,
+            'suppliers' => $suppliers,
         ]);
     }
 
@@ -95,9 +98,11 @@ class QuestionController extends Controller
         }
 
         $users = User::getUsers();
+        $suppliers = Supplier::getSuppliers();
         return $this->render('update', [
             'model' => $model,
-            'users' => $users
+            'users' => $users,
+            'suppliers' => $suppliers,
         ]);
     }
 

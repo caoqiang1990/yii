@@ -29,10 +29,24 @@ use kartik\select2\Select2;
     </div>
     <div class="col-xs-12">
         <?php
+        echo $form->field($model, 'supplier')->widget(Select2::classname(), [
+            'data' => $suppliers,
+            'size' => Select2::MEDIUM,
+            'options' => ['placeholder' => '请选择被评价的供应商', 'multiple' => false],
+            'pluginOptions' => [
+                'tokenSeparators' => [',', ' '],
+                'maximumInputLength' => 10,
+                'allowClear' => true
+            ],
+        ])->label('要评价的供应商');
+        ?>
+    </div>
+    <div class="col-xs-12">
+        <?php
         echo $form->field($model, 'player')->widget(Select2::classname(), [
             'data' => $users,
             'size' => Select2::MEDIUM,
-            'options' => ['placeholder' => '请选择参与评价的人员', 'multiple' => true],
+            'options' => ['placeholder' => '请选择参与评价的成员', 'multiple' => true],
             'pluginOptions' => [
                 'tokenSeparators' => [',', ' '],
                 'maximumInputLength' => 10,

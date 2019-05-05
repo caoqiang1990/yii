@@ -4,8 +4,8 @@
 
 return [
 	'id' => '序号',
-	'title' => '标题',
-	'desc' => '描述',
+	'title' => '评价标题',
+	'desc' => '评价描述',
 	'type' => '类型',
 	'answers' => '正确选项',
 	'options' => '选项',

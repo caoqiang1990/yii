@@ -57,7 +57,7 @@ class Question extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'desc','player'], 'required'],
+            [['title', 'desc','player','supplier'], 'required'],
             ['start_date','safe'],
         ];
     }
