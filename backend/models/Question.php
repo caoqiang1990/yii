@@ -43,6 +43,8 @@ class Question extends ActiveRecord
             'title' => Yii::t('question','title'),
             'desc' => Yii::t('question','desc'),
             'player' => Yii::t('question','player'),
+            'supplier' => Yii::t('question','supplier'),
+            'type' => Yii::t('question','type'),
             'start_date' => Yii::t('question','start_date'),
             'created_at' => Yii::t('question','created_at'),
             'updated_at' => Yii::t('question','updated_at'),
@@ -57,7 +59,7 @@ class Question extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'desc','player','supplier'], 'required'],
+            [['title', 'desc','player','supplier','type'], 'required'],
             ['start_date','safe'],
         ];
     }

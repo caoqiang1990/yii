@@ -55,6 +55,15 @@ use kartik\select2\Select2;
         ])->label('参与评价人员');
         ?>
     </div>
+    <?php //if($model->isNewRecord){$model->email_flag = 'y';}?>
+    <div class="col-xs-6">
+        <?php
+        echo $form->field($model, 'type')->radioList([
+            '1' => '部门内部',
+            '2' => '共享部门'
+        ],['class' => 'type']);
+        ?>
+    </div>
     <div class="form-group">
         <div class="col-xs-12">
             <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>

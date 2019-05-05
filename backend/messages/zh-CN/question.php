@@ -19,5 +19,7 @@ return [
 	'Are you sure you want to delete this item?' => '是否删除?',
 	'start_date' => '开始时间',
 	'end_date' => '结束时间',
-    'player' => '参与评价'
+    'player' => '参与评价',
+    'supplier' => '参与评价供应商',
+    'type' => '评价类型',
 ];
