@@ -56,7 +56,12 @@ class PitchController extends Controller
         if ($is_administrator == 2) {
             $user_id = Yii::$app->user->identity->id;
             $department_ids = DepartmentAssignment::getByUserId($user_id);
-            $request['PitchSearch']['department'] = $department_ids;
+            if (!$department_ids) {
+                //如果没有配置用户，则还是默认一个部门。
+                $department_ids[] = Yii::$app->user->identity->department;
+            } else {
+                $request['PitchSearch']['department'] = $department_ids;
+            }
         }
         $dataProvider = $searchModel->search($request);
 
