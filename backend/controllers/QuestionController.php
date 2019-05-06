@@ -75,10 +75,12 @@ class QuestionController extends Controller
 
         $users = User::getUsers();
         $suppliers = Supplier::getSuppliers();
+        $start = date('Y-m-d H:i', time());
         return $this->render('create', [
             'model' => $model,
             'users' => $users,
             'suppliers' => $suppliers,
+            'start' => $start,
         ]);
     }
 
@@ -99,10 +101,12 @@ class QuestionController extends Controller
 
         $users = User::getUsers();
         $suppliers = Supplier::getSuppliers();
+        $start = date('Y-m-d H:i', time());
         return $this->render('update', [
             'model' => $model,
             'users' => $users,
             'suppliers' => $suppliers,
+            'start' => $start,
         ]);
     }
 

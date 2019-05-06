@@ -21,7 +21,7 @@ use kartik\select2\Select2;
     </div>
     <div class="col-xs-6">
         <?php echo $form->field($model, 'start_date')->widget(DateTimePicker::classname(), [
-            'options' => ['placeholder' => '开始时间'],
+            'options' => ['placeholder' => '开始时间','value' => $start],
             'pluginOptions' => [
                 'autoclose' => true
             ]
