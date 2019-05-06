@@ -81,12 +81,17 @@ $this->registerJs($js, View::POS_READY);
                 'attribute' => 'name',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    $url = Url::to(['view','id'=>$model->id]);
+                    $url = Url::to(['view', 'id' => $model->id]);
                     $options = ['title' => $model->name];
-                    return Html::a($model->name,$url,$options);
+                    return Html::a($model->name, $url, $options);
                 }
             ],
-            'desc',
+            [
+                'attribute' => 'desc',
+                'value' => function($model){
+                    return truncate_utf8_string($model->desc,30);
+                }
+            ],
             'start_date',
             [
                 'attribute' => 'status',
