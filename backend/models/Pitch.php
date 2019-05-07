@@ -165,6 +165,7 @@ class Pitch extends ActiveRecord
                 $attachmentModel->status = 1;
                 $attachmentModel->type = 'image';
                 $attachmentModel->module = Yii::$app->request->post('model', '');
+                $attachmentModel->filename = $this->{$field}->name;
                 $attachmentModel->created_at = time();
                 $attachmentModel->updated_at = time();
                 $attachmentModel->save(false);

@@ -329,7 +329,7 @@ $this->registerJs($js);
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <div class="row" style="background-color:#1b6d85;padding: 10px;margin-bottom: 1px"><span style="font-size: 20px;font-weight: bolder">集团供应商 ：</span><span style="font-size:20px;font-weight: bolder"><?= $totalCount; ?></span> <span style="font-size: 20px;font-weight: bolder">个</span></div>
+            <div class="row" style="background-color:#1b6d85;padding: 10px;margin-bottom: 1px;color:white"><span style="font-size: 20px;font-weight: bolder;">集团供应商 ：</span><span style="font-size:20px;font-weight: bolder"><?= $totalCount; ?></span> <span style="font-size: 20px;font-weight: bolder">个</span></div>
         </div>
 <!--        <div class="col-md-6" id="left_1">-->
 <!--            <span style="float:left;font-size: 20px;font-weight: bolder">集团供应商</span>-->
