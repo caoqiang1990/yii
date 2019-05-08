@@ -18,7 +18,7 @@ $this->registerJs($js,\yii\web\View::POS_END);
 <header class="main-header">
 
     <!-- <?= Html::a('<span class="logo-mini">供应商管理</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?> -->
-	<?= Html::a('<span class="logo-mini"><img src="/static/images/aimer-logo-min.jpg" style="width:100%;max-width:230px;" alt="Aimer Logo"/></span><span class="logo-lg"><img src="/static/images/aimer-logo.jpg" style="width:100%;max-width:230px;" alt="Aimer Logo"/></span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+	<?= Html::a('<span class="logo-mini"><img src="/static/images/aimer-logo-min.jpg" style="width:100%;max-width:230px;" alt="Aimer Logo"/></span><span class="logo-lg"><img src="/static/images/aimer-logo.png" style="width:100%;max-width:230px;" alt="Aimer Logo"/></span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 
