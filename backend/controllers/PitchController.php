@@ -145,7 +145,11 @@ class PitchController extends Controller
         $departmentModel = new Department();
         $info = $departmentModel->getDepartmentById($department);
         $model->department = $info->department_name;
-        $start = date('Y-m-d H:i', time());
+        if (!$model->start_date) {
+            $start = date('Y-m-d H:i', time());
+        } else {
+            $start = $model->start_date;
+        }
         return $this->render('update', [
             'model' => $model,
             'suppliers' => $suppliers,
