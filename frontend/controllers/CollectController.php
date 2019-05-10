@@ -59,11 +59,11 @@ class CollectController extends Controller
     public function actionAttachment($verid)
     {
         //verid 为 pitch_id   //signid为supplier_id
-        $verid = UrlEncode($verid);
+        $verid = str_replace(' ','+',$verid);
         $id = deCrypt($verid);
         $pitchModel = $this->findModel($id);
         $sid = Yii::$app->request->get('signid');
-        $sid = UrlEncode($sid);
+        $sid = str_replace(' ','+',$sid);
         $sid = deCrypt($sid);
         //获取
         $exist = PitchAttachment::getAttachmentByParams($id, $sid);

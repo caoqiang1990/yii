@@ -128,23 +128,11 @@ class SupplierformController extends Controller
      */
     public function actionUpdate($id)
     {
-//        $cookies = Yii::$app->request->cookies;
-//        if (($cookie = $cookies->get('supplier_id')) !== null) {
-//            $supplier_id = $cookie->value;
-//            if($id != $supplier_id);
-//            $id = $supplier_id;
-//         }
-//         else{
-//           $response_cookies = Yii::$app->response->cookies;
-//           $response_cookies->add(new \yii\web\Cookie([
-//            'name' => 'supplier_id',
-//            'value' => $id,
-//          ]));
-//         }
         $ids = [541,542,543,544,545,546,547,548,549,550];
         if (in_array($id,$ids)) {
             $model = $this->findModel($id);
         } else {
+            $id = str_replace(' ','+',$id);
             $id = deCrypt($id);
             $model = $this->findModel($id);
         }
