@@ -51,12 +51,16 @@ class PitchController extends Controller
         $searchModel = new PitchSearch();
 
         $request = Yii::$app->request->queryParams;
-        //$department = Yii::$app->user->identity->department;
+        $department = Yii::$app->user->identity->department;
         $is_administrator = Yii::$app->user->identity->is_administrator;
         if ($is_administrator == 2) {
             $user_id = Yii::$app->user->identity->id;
             $department_ids = DepartmentAssignment::getByUserId($user_id);
-            $request['PitchSearch']['department'] = $department_ids;
+            if (empty($department_ids)) {
+                $request['PitchSearch']['department'][] = $department;
+            } else {
+                $request['PitchSearch']['department'] = $department_ids;
+            }
         }
         $dataProvider = $searchModel->search($request);
 
