@@ -275,6 +275,13 @@ class SupplierDetailController extends Controller
         $original = $model->getByID($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             AdminLog::saveLog('supplierdetail', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
+            //调用swoole客户端
+            $client = new \swoole_client(SWOOLE_SOCK_TCP);
+            if (!$client->connect('127.0.0.1', 9503)) {
+                exit("connect failed. Error: {$client->errCode}\n");
+            }
+            $client->send($sid);
+            $client->close();
             return $this->redirect(['admin-index']);
         }
 
