@@ -22,6 +22,7 @@ class TcpSwooleController extends Controller {
         $this->_tcp->set([
             'worker_num' => 2,
             'task_worker_num' => 10,
+            'daemonize' => 1,
             'log_file' => __DIR__.'/../log/error.log',
         ]);
         $this->_tcp->on('connect', [$this, 'onConnect']);
