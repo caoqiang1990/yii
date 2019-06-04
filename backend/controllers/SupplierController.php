@@ -86,8 +86,8 @@ class SupplierController extends Controller
         $request = Yii::$app->request->queryParams;
         $department = Yii::$app->user->identity->department;
         //排除这几个一级部门
-        $filter_department = ['大数据信息中心','总裁办','品管部','供应链部'];
-        if (!in_array($department,$filter_department)) {
+        $filter_department = ['大数据信息中心', '总裁办', '品管部', '供应链部'];
+        if (!in_array($department, $filter_department)) {
             $request['SupplierSearch']['public_flag'] = 'y';
         }
         $dataProvider = $searchModel->search($request);
@@ -126,15 +126,15 @@ class SupplierController extends Controller
         $request['SupplierSearch']['supplier_status'] = '10';
         $dataProvider = $searchModel->search($request);
         if (isset($request['SupplierSearch']['cate_id1'])) {
-            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2,$request['SupplierSearch']['cate_id1']);
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name', 2, $request['SupplierSearch']['cate_id1']);
         } else {
-            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2);
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name', 2);
         }
         if (isset($request['SupplierSearch']['cate_id2'])) {
-            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3,$request['SupplierSearch']['cate_id2']);
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name', 3, $request['SupplierSearch']['cate_id2']);
         } else {
-            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3);
-        }        
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name', 3);
+        }
         return $this->render('admin-index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -161,18 +161,18 @@ class SupplierController extends Controller
         }
         $sids = SupplierDetail::getSupplierByDepartment($department_ids);
         //$where['department'] = $department;
-        $where = ['in','department',$department_ids];
+        $where = ['in', 'department', $department_ids];
         $supplier_ids = 'none';
         $admin_ids = Supplier::find()->select('id')->distinct()->where($where)->asArray()->all();
         if ($sids && $admin_ids) {
-            $ids = array_column($admin_ids,'id');
+            $ids = array_column($admin_ids, 'id');
             $supplier_ids = array_keys(array_flip($sids) + array_flip($ids));
         } else {
             if ($sids) {
                 $supplier_ids = $sids;
             }
             if ($admin_ids) {
-                $supplier_ids = array_column($admin_ids,'id');
+                $supplier_ids = array_column($admin_ids, 'id');
             }
         }
 
@@ -180,14 +180,14 @@ class SupplierController extends Controller
         $request['SupplierSearch']['supplier_status'] = '10';
         $dataProvider = $searchModel->search($request);
         if (isset($request['SupplierSearch']['cate_id1'])) {
-            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2,$request['SupplierSearch']['cate_id1']);
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name', 2, $request['SupplierSearch']['cate_id1']);
         } else {
-            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2);
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name', 2);
         }
         if (isset($request['SupplierSearch']['cate_id2'])) {
-            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3,$request['SupplierSearch']['cate_id2']);
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name', 3, $request['SupplierSearch']['cate_id2']);
         } else {
-            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3);
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name', 3);
         }
         //var_dump($ids);die;
         return $this->render('department-index', [
@@ -210,11 +210,11 @@ class SupplierController extends Controller
         $where['sid'] = $id;
         $supplier_detail = SupplierDetail::find()->where($where)->all();
         $fundModel = new SupplierFunds;
-        foreach($supplier_detail as &$detail) {
+        foreach ($supplier_detail as &$detail) {
             $map['detail_id'] = $detail->id;
             $funds = $fundModel->find()->where($map)
-            ->andfilterwhere(['in','year',[date('Y') - 3,date('Y') - 2,date('Y') - 1]])
-            ->orderBy('year asc')->all();
+                ->andfilterwhere(['in', 'year', [date('Y') - 3, date('Y') - 2, date('Y') - 1]])
+                ->orderBy('year asc')->all();
             if ($funds) {
                 foreach ($funds as $k => $v) {
                     $key = $k + 1;
@@ -222,12 +222,13 @@ class SupplierController extends Controller
                     $detail->{"trade_fund$key"} = $v->trade_fund ? $v->trade_fund : NULL;
                 }
             }
-        }         
+        }
         return $this->render('department-view', [
             'supplier' => $this->findModel($id),
             'supplier_detail' => $supplier_detail
         ]);
-    }    
+    }
+    
     /**
      * Lists all Suppliers models.
      * @return mixed
@@ -271,37 +272,38 @@ class SupplierController extends Controller
         $model = new AdminAdd();
         if ($model->load(Yii::$app->request->post())) {
             if (!$model->name) {
-                return ['code'=>'name','message'=>'供应商全称不能为空!'];
+                return ['code' => 'name', 'message' => '供应商全称不能为空!'];
             }
             if (!$model->enterprise_code) {
-                return ['code'=>'code','message'=>'企业代码不能为空!'];
-            }            
+                return ['code' => 'code', 'message' => '企业代码不能为空!'];
+            }
             $supplier = Supplier::getSupplierByName($model->name);
             if ($supplier) {
                 $level = SupplierLevel::getLevelById($supplier->level);
                 $type = $level ? $level->level_name : '未合作';
-                return ['code'=>'exist','id'=>$supplier->id,'type'=>$type];
-            }else{
+                return ['code' => 'exist', 'id' => $supplier->id, 'type' => $type];
+            } else {
                 $where['enterprise_code_desc'] = $model->enterprise_code;
                 $supplier_o = Supplier::find()->where($where)->one();
                 if ($supplier_o) {
                     $level = SupplierLevel::getLevelById($supplier_o->level);
                     $type = $level ? $level->level_name : '未合作';
-                    return ['code'=>'exist','id'=>$supplier_o->id,'type'=>$type];
+                    return ['code' => 'exist', 'id' => $supplier_o->id, 'type' => $type];
                 } else {
                     if ($new = $model->add()) {
-                        return ['code'=>'new','id'=>$new->id,'url'=>'http://gys.aimergroup.com:8090/?r=supplierform/update&id='.enCrypt($new->id)];
-                    }else{
+                        return ['code' => 'new', 'id' => $new->id, 'url' => 'http://gys.aimergroup.com:8090/?r=supplierform/update&id=' . enCrypt($new->id)];
+                    } else {
                         $error = $model->getErrors();
-                        return ['code'=>'error'];  
-                    }                    
+                        return ['code' => 'error'];
+                    }
                 }
 
             }
-        } else {  
-            return ['code'=>'error'];  
-        }  
+        } else {
+            return ['code' => 'error'];
+        }
     }
+
     /**
      * Displays a single Suppliers model.
      * @param integer $id
@@ -324,12 +326,12 @@ class SupplierController extends Controller
     public function actionAdminView($id)
     {
         $where['sid'] = $id;
-        $supplier_detail = SupplierDetail::find()->where($where)->all();       
+        $supplier_detail = SupplierDetail::find()->where($where)->all();
         return $this->render('admin-view', [
             'model' => $this->findModel($id),
             'supplier_detail' => $supplier_detail,
         ]);
-    }    
+    }
 
     /**
      * Lists all Suppliers models.
@@ -347,18 +349,18 @@ class SupplierController extends Controller
         }
 
         $request['SupplierSearch']['department'] = $department;
-        $request['SupplierSearch']['supplier_status'] = ['10','wait','auditing'];
+        $request['SupplierSearch']['supplier_status'] = ['10', 'wait', 'auditing'];
         $dataProvider = $searchModel->search($request);
         if (isset($request['SupplierSearch']['cate_id1'])) {
-            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2,$request['SupplierSearch']['cate_id1']);
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name', 2, $request['SupplierSearch']['cate_id1']);
         } else {
-            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2);
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name', 2);
         }
         if (isset($request['SupplierSearch']['cate_id2'])) {
-            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3,$request['SupplierSearch']['cate_id2']);
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name', 3, $request['SupplierSearch']['cate_id2']);
         } else {
-            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3);
-        }   
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name', 3);
+        }
         //var_dump($ids);die;
         return $this->render('basic', [
             'searchModel' => $searchModel,
@@ -367,7 +369,7 @@ class SupplierController extends Controller
             'cate2' => $cate2,
             'cate3' => $cate3,
         ]);
-    }    
+    }
 
     /**
      * Creates a new Suppliers model.
@@ -504,7 +506,7 @@ class SupplierController extends Controller
                         'filepath' => $filePath,
                         'error' => '', //上传的error字段，如果没有错误就返回空字符串，否则返回错误信息，客户端会自动判定该字段来认定是否有错
                     ]);
-                }else{
+                } else {
                     echo Json::encode([
                         'filepath' => '',
                         'error' => $result,
@@ -559,7 +561,7 @@ class SupplierController extends Controller
                             //cate_id3
                             $supplierDetailModel->cate_id3 = $supplier_o->cate_id3;
                             //供应商等级
-                           if ($vo['供应商等级']) {
+                            if ($vo['供应商等级']) {
                                 $level = SupplierLevel::getLevelByName($vo['供应商等级']);
                                 if ($level) {
                                     $supplierDetailModel->level = $level->id;
@@ -570,18 +572,18 @@ class SupplierController extends Controller
                             } else {
                                 //没有填写对应的供应商等级名称
 
-                            } 
-                                         
+                            }
+
                             //一级部门（管理部门）
                             if ($vo['一级部门（管理部门）']) {
-                                $department = Department::getDepartmentByName($vo['一级部门（管理部门）'],1);
+                                $department = Department::getDepartmentByName($vo['一级部门（管理部门）'], 1);
                                 $supplierDetailModel->one_level_department = $department->id;
                             } else {
                                 $supplierDetailModel->one_level_department = $vo['一级部门（管理部门）'];
                             }
                             //二级部门
                             if ($vo['二级部门']) {
-                                $department = Department::getDepartmentByName($vo['二级部门'],2);
+                                $department = Department::getDepartmentByName($vo['二级部门'], 2);
                                 $supplierDetailModel->second_level_department = $department->id;
                             } else {
                                 $supplierDetailModel->second_level_department = $vo['二级部门'];
@@ -593,9 +595,9 @@ class SupplierController extends Controller
                             if ($vo['合作起始时间（年月）'] && $vo['合作起始时间（年月）'] != '-') {
                                 $register_date = date_parse_from_format('Y/m/d', $vo['合作起始时间（年月）']);
                                 $supplierDetailModel->coop_date = "{$register_date['year']}-{$register_date['month']}-{$register_date['day']}";
-                            }else{
+                            } else {
                                 $supplierDetailModel->coop_date = $vo['合作起始时间（年月）'];
-                            }                            
+                            }
                             //2015年合同金额（万元）
                             $supplierDetailModel->coop_fund1 = $vo['2015年合同金额（万元）'];
                             //2015年交易金额（万元）
@@ -634,11 +636,11 @@ class SupplierController extends Controller
                 $supplierModel->scenario = 'add';
                 //$supplierModel->department = $vo['一级部门（管理部门）'];
                 if ($vo['一级部门（管理部门）']) {
-                    $department = Department::getDepartmentByName($vo['一级部门（管理部门）'],1);
+                    $department = Department::getDepartmentByName($vo['一级部门（管理部门）'], 1);
                     $supplierModel->department = $department->id;
                 } else {
                     $supplierModel->department = $vo['一级部门（管理部门）'];
-                }                
+                }
                 //供应商等级
                 if ($vo['供应商等级']) {
                     $level = SupplierLevel::getLevelByName($vo['供应商等级']);
@@ -737,7 +739,7 @@ class SupplierController extends Controller
 
                 //官网
                 $supplierModel->url = $vo['官网'];
-                
+
                 //供应商业务类型
                 if (isset($vo['供应商合作类型'])) {
                     if ($vo['供应商合作类型']) {
@@ -774,7 +776,7 @@ class SupplierController extends Controller
                 if ($vo['注册时间'] && $vo['注册时间'] != '-') {
                     $register_date = date_parse_from_format('Y/m/d', $vo['注册时间']);
                     $supplierModel->register_date = "{$register_date['year']}-{$register_date['month']}-{$register_date['day']}";
-                }else{
+                } else {
                     $supplierModel->register_date = $vo['注册时间'];
                 }
 
@@ -919,7 +921,7 @@ class SupplierController extends Controller
                 $supplierModel->isNewRecord = true;
                 //$supplierModel->save() && $supplierModel->id = 0;
                 //添加供应商成功
-                if($supplierModel->save()) {
+                if ($supplierModel->save()) {
                     $supplierDetailModel = '';
                     $supplierDetailModel = new SupplierDetail();
                     $supplierDetailModel->scenario = 'add';
@@ -933,7 +935,7 @@ class SupplierController extends Controller
                     $supplierDetailModel->cate_id3 = $supplierModel->cate_id3;
                     //供应商等级
                     if (isset($vo['供应商等级'])) {
-                       if ($vo['供应商等级']) {
+                        if ($vo['供应商等级']) {
                             $level = SupplierLevel::getLevelByName($vo['供应商等级']);
                             if ($level) {
                                 $supplierDetailModel->level = $level->id;
@@ -944,28 +946,28 @@ class SupplierController extends Controller
                         } else {
                             //没有填写对应的供应商等级名称
 
-                        } 
+                        }
                     } else {
                         throw new BadRequestHttpException("供应商等级不存在");
                     }
-                
+
                     //一级部门（管理部门）
                     //$supplierDetailModel->one_level_department = $vo['一级部门（管理部门）'];
                     //二级部门
                     //$supplierDetailModel->second_level_department = $vo['二级部门'];
                     if ($vo['一级部门（管理部门）']) {
-                        $department = Department::getDepartmentByName($vo['一级部门（管理部门）'],1);
+                        $department = Department::getDepartmentByName($vo['一级部门（管理部门）'], 1);
                         $supplierDetailModel->one_level_department = $department->id;
                     } else {
                         $supplierDetailModel->one_level_department = $vo['一级部门（管理部门）'];
                     }
                     //二级部门
                     if ($vo['二级部门']) {
-                        $department = Department::getDepartmentByName($vo['二级部门'],2);
+                        $department = Department::getDepartmentByName($vo['二级部门'], 2);
                         $supplierDetailModel->second_level_department = $department->id;
                     } else {
                         $supplierDetailModel->second_level_department = $vo['二级部门'];
-                    }                    
+                    }
                     //开发部门（写二级部门）
                     $supplierDetailModel->develop_department = $vo['开发部门（写二级部门）'];
                     //合作起始时间（年月）
@@ -973,9 +975,9 @@ class SupplierController extends Controller
                     if ($vo['合作起始时间（年月）'] && $vo['合作起始时间（年月）'] != '-') {
                         $register_date = date_parse_from_format('Y/m/d', $vo['合作起始时间（年月）']);
                         $supplierDetailModel->coop_date = "{$register_date['year']}-{$register_date['month']}-{$register_date['day']}";
-                    }else{
+                    } else {
                         $supplierDetailModel->coop_date = $vo['合作起始时间（年月）'];
-                    }                            
+                    }
                     //2015年合同金额（万元）
                     $supplierDetailModel->coop_fund1 = $vo['2015年合同金额（万元）'];
                     //2015年交易金额（万元）
@@ -1004,7 +1006,7 @@ class SupplierController extends Controller
                 }
             }
             return true;
-        }catch( BadRequestHttpException $ex){
+        } catch (BadRequestHttpException $ex) {
             return $ex->getMessage();
         }
     }
@@ -1072,7 +1074,8 @@ class SupplierController extends Controller
      * 管理员查看供应商列表
      *
      */
-    public function actionAdminList(){
+    public function actionAdminList()
+    {
         $searchModel = new SupplierSearch();
         $request = Yii::$app->request->queryParams;
         $department = Yii::$app->user->identity->department;
@@ -1081,27 +1084,57 @@ class SupplierController extends Controller
             throw new NotFoundHttpException("此用户不包含管理部门");
         }
         //排除这几个一级部门
-        $filter_department = ['大数据信息中心','总裁办'];
-        if (!in_array($department_info->department_name,$filter_department)) {
+        $filter_department = ['大数据信息中心', '总裁办'];
+        if (!in_array($department_info->department_name, $filter_department)) {
             throw new NotFoundHttpException("没有访问权限");
         }
         $request['SupplierSearch']['supplier_status'] = '10';
         $dataProvider = $searchModel->search($request);
         if (isset($request['SupplierSearch']['cate_id1'])) {
-            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2,$request['SupplierSearch']['cate_id1']);
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name', 2, $request['SupplierSearch']['cate_id1']);
         } else {
-            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2);
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name', 2);
         }
         if (isset($request['SupplierSearch']['cate_id2'])) {
-            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3,$request['SupplierSearch']['cate_id2']);
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name', 3, $request['SupplierSearch']['cate_id2']);
         } else {
-            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3);
-        }        
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name', 3);
+        }
         return $this->render('admin-list', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'cate2' => $cate2,
             'cate3' => $cate3,
         ]);
+    }
+
+    /**
+     * Name: actionForbidden
+     * User: aimer
+     * Date: 2019/6/4
+     * Time: 下午2:55
+     * @return string|Response
+     * @throws NotFoundHttpException
+     */
+    public function actionForbidden()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $id = Yii::$app->request->post('id');
+        if ($id) {
+            $model = $this->findModel($id);
+            $model->scenario = 'edit';
+            $model->status = 'forbidden';
+            if ($model->save()) {
+                $response_data['status'] = 'success';
+                $response_data['msg'] = '拉黑成功！';
+            } else {
+                $response_data['status'] = 'fail';
+                $response_data['msg'] = '';
+            }
+        } else {
+            $response_data['status'] = 'fail';
+            $response_data['msg'] = 'id不能为空！';
+        }
+        return $response_data;
     }
 }

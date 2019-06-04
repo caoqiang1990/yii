@@ -7,7 +7,8 @@ use yii\helpers\Url;
 use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
-use mdm\admin\components\Helper; 
+use mdm\admin\components\Helper;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SuppliersSearch */
@@ -16,6 +17,31 @@ $department = $department_info->department_name;
 $this->title = '部门供应商' . '-' . $department;
 $this->params['breadcrumbs'][] = ['label' => '供应商名录查询', 'url' => \yii\helpers\Url::to(['supplier/admin-index'])];
 $this->params['breadcrumbs'][] = '部门供应商';
+$js = <<<JS
+//此处点击按钮提交数据的jquery
+$('.forbidden').click(function(){
+    var id = $(this).attr('data-id');
+    $.ajax({
+            url: "forbidden",
+            type: "POST",
+            dataType: "json",
+            data: {'id':id},
+            success: function(data) {
+                if (data.status == 'success') {
+                    alert(data.msg);
+                    location.reload();
+                }                    
+                if (data.status == 'fail') {
+                    alert(data.msg);
+                }
+            },
+            error: function() {
+                alert('网络错误！');
+            }
+        });
+})
+JS;
+$this->registerJs($js, View::POS_READY);
 ?>
 <div class="suppliers-index">
 
@@ -132,6 +158,28 @@ $this->params['breadcrumbs'][] = '部门供应商';
             //         return date('Y-m-d H:i:s',$model->updated_at);
             //     }
             // ],
+            [
+                //'label'=>  (Helper::checkRoute('supplier-detail/create') || Helper::checkRoute('history/index')) ? '更多操作' : '',
+                'label' => (Helper::checkRoute('pitch/start')) ? '更多操作' : '',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    $operator_1 = '';
+                    $operator_2 = '';
+                    if (Helper::checkRoute('supplier/forbidden')) {
+                        $url_1 = 'javascript:void(0);';
+                        $operator_1 = Html::a('加入黑名单', $url_1, ['title' => '加入黑名单', 'class' => 'forbidden', 'data-id' => $model->id]);
+
+                    }
+
+//
+//                    if (Helper::checkRoute('pitch/record')) {
+//                        $url_2 = Url::to(['record', 'id' => $model->id]);
+//                        $operator_2 = Html::a('比稿记录', $url_2, ['title' => '比稿记录', 'class' => '', 'data-id' => $model->id]);
+//                    }
+                    return $operator_1 . ' ' . $operator_2;
+                }
+
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>
