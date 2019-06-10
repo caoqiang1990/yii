@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'department',
-                'value' => function($model) {
+                'value' => function ($model) {
                     $department = Department::getDepartmentById($model->department);
                     return $department ? $department->department_name : '';
                 }
@@ -39,13 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             [
                 'attribute' => 'created_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->created_at);
+                'value' => function ($model) {
+                    return date('Y-m-d H:i:s', $model->created_at);
                 }
             ],
             [
                 'attribute' => 'status',
-                'value' => function($model) {
+                'value' => function ($model) {
                     return $model->status == 0 ? '无效用户' : '有效用户';
                 },
                 'filter' => [
@@ -55,9 +55,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => Helper::filterActionColumn(['view', 'activate','update' ,'delete']),
+                'template' => Helper::filterActionColumn(['view', 'activate', 'update', 'delete','admin-change-password']),
                 'buttons' => [
-                    'activate' => function($url, $model) {
+                    'activate' => function ($url, $model) {
                         if ($model->status == 10) {
                             return '';
                         }
@@ -69,10 +69,24 @@ $this->params['breadcrumbs'][] = $this->title;
                             'data-pjax' => '0',
                         ];
                         return Html::a('<span class="glyphicon glyphicon-ok"></span>', $url, $options);
+                    },
+                    'admin-change-password' => function ($url, $model) {
+                        $is_administrator = Yii::$app->user->identity->is_administrator;
+                        if ($is_administrator != 1) {
+                            return '';
+                        }
+                        $options = [
+                            'title' => Yii::t('rbac-admin', '修改密码'),
+                            'aria-label' => Yii::t('rbac-admin', '修改密码'),
+                            'data-confirm' => Yii::t('rbac-admin', '你要修改密码嘛？'),
+//                            'data-method' => 'post',
+//                            'data-pjax' => '0',
+                        ];
+                        return Html::a('<span class="glyphicon glyphicon-cog"></span>', $url, $options);
                     }
-                    ]
-                ],
+                ]
             ],
-        ]);
-        ?>
+        ],
+    ]);
+    ?>
 </div>

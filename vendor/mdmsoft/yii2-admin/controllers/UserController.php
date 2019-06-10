@@ -22,6 +22,7 @@ use backend\models\Department;
 use mdm\admin\models\form\ModifyUser;
 use backend\models\UploadForm;
 use yii\web\UploadedFile;
+use mdm\admin\models\form\AdminChangePassword;
 
 /**
  * User controller
@@ -227,6 +228,31 @@ class UserController extends Controller
     }
 
     /**
+     * Reset password
+     * @return string
+     */
+    public function actionAdminChangePassword()
+    {
+        $id = Yii::$app->request->get('id');
+        if (!$id) {
+            throw new NotFoundHttpException('用户id不能为空!');
+        }
+        $is_administrator = Yii::$app->user->identity->is_administrator;
+        if ($is_administrator != 1) {
+            throw new NotFoundHttpException('非管理员用户!');
+        }
+        $this->findModel($id);
+        $model = new AdminChangePassword();
+        if ($model->load(Yii::$app->getRequest()->post()) && $model->change($id)) {
+            return $this->goHome();
+        }
+
+        return $this->render('admin-change-password', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
      * Activate new user
      * @param integer $id
      * @return type
@@ -261,7 +287,7 @@ class UserController extends Controller
         if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('用户不存在！');
         }
     }
     /**

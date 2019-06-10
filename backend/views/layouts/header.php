@@ -68,7 +68,7 @@ $this->registerJs($js,\yii\web\View::POS_END);
                             </p>
                         </li>
                         <!-- Menu Footer-->
-                        <li class="user-footer">
+                        <li class="user-footer" style="background-color:#3C8DBC;border-top:1px solid white">
                             <div class="pull-left">
                                 <?= Html::a(
                                     '个人设置',
