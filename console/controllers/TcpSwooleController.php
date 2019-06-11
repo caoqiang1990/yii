@@ -121,8 +121,11 @@ class TcpSwooleController extends Controller {
      * @return bool
      * @throws yii\web\NotFoundHttpException
      */
-    public function sync($id)
+    public function sync($data)
     {
+        $data = unserialize($data);
+        $id = isset($data['id']) ? $data['id'] : false;
+        $level = isset($data['level']) ? $data['level'] : false;
         if (!$id) {
             return false;
         }
@@ -142,8 +145,8 @@ class TcpSwooleController extends Controller {
                 if ($detail['cate_id3']) {
                     $supplierModel->cate_id3 = $detail['cate_id3'];
                 }
-                if ($detail['level']) {
-                    $supplierModel->level = $detail['level'];
+                if ($level) {
+                    $supplierModel->level = $level;
                 }
                 $supplierModel->save();
             }

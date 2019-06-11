@@ -221,7 +221,9 @@ class SupplierDetailController extends Controller
             if (!$client->connect('127.0.0.1', 9503)) {
                 exit("connect failed. Error: {$client->errCode}\n");
             }
-            $client->send($model->primaryKey);
+            $data['id'] = $model->primaryKey;
+            $data = serialize($data);
+            $client->send($data);
             $client->close();
             return $this->redirect(['/supplier/admin-index']);
         }
@@ -287,7 +289,9 @@ class SupplierDetailController extends Controller
             if (!$client->connect('127.0.0.1', 9503)) {
                 exit("connect failed. Error: {$client->errCode}\n");
             }
-            $client->send($sid);
+            $data['id'] = $sid;
+            $data = serialize($data);
+            $client->send($data);
             $client->close();
             return $this->redirect(['admin-index']);
         }
