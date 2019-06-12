@@ -49,33 +49,12 @@ $this->title = '';
     .option_select {
 
     }
-    .headert{
+    .header{
         /*border: 1px solid #777;*/
         margin-bottom: 20px;
     }
 </style>
-<script>
-    function survey()
-    {
-        var count = $('.radio_name').length;
-        for (var i=0;i<count;i++) {
-            var obj = $('.radio_name')[i];
-            var radio_name = $(obj).val();
-            if (!$('input[name='+radio_name+']:checked').val()) {
-                alert('请填写完整！');
-                return false;
-            } else {
-                $('input[name='+radio_name+']').focus();
-            }
-        }
-       $('#survey').submit();
-    }
-</script>
-<?php $form = ActiveForm::begin([
-        'id' => 'survey'
-]); ?>
-<input name="question_id" type="hidden" value="<?=$question_id;?>">
-<input name="count" type="hidden" value="<?=count($answers);?>">
+
 <div class="container-fluid">
     <div class="row header">
         <div class="col-xs-12" class="text-center">
@@ -93,11 +72,11 @@ $this->title = '';
     foreach ($answers as $key => $answer) {
         $order = $key + 1;
         ?>
-        <input type="hidden" class="radio_name" value="option_<?= $answer['id'] ?>">
         <div class="row">
             <div class="col-xs-12 text-center">
                 <div class="option">
-                    <div class="order">第<?= $order ?>题 <span></span>
+                    <div class="order">第<?= $order ?>题 <span><a class="btn" style="color:white !important;"
+                                                                href="<?= Url::to(['answer/update', 'id' => $answer['id'], 'question_id' => $question_id]) ?>">编辑</a></span>
                     </div>
                     <div class="option_content">
                         <p><?= $answer['title']; ?></p>
@@ -108,7 +87,7 @@ $this->title = '';
                                 ?>
                                 <div class="radio">
                                     <label>
-                                        <input class="radio_select" type="radio" name="option_<?= $answer['id'] ?>" id="optionsRadios1"
+                                        <input type="radio" name="option_<?= $key + 1 ?>" id="optionsRadios1"
                                                value="<?= $option['desc'] ?>">
                                         <?= $option['desc'] ?>
                                     </label>
@@ -125,11 +104,5 @@ $this->title = '';
         <?php
     }
     ?>
-    <div class="row" style="margin-top: 10px">
-        <div class="col-xs-12 text-center">
-            <input class="btn btn-primary" type="button" onclick="survey()" value="提交">
-        </div>
-    </div>
-    <?php ActiveForm::end(); ?>
     <div style="height:20px;width:100%"></div>
 </div>

@@ -4,13 +4,8 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Answer */
-
-$this->title = Yii::t('answer', 'Update Answer: ' . $model->title, [
-    'nameAttribute' => '' . $model->title,
-]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('answer', 'Answers'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('answer', 'Update');
+$this->title = '';
+$this->params['breadcrumbs'][] = ['label' => '更新', 'url' => ['view', 'id' => $model->id]];
 ?>
 <div class="answer-update">
 
@@ -18,6 +13,7 @@ $this->params['breadcrumbs'][] = Yii::t('answer', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'question_id' => $question_id,
     ]) ?>
 
 </div>

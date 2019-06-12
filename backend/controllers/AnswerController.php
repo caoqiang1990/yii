@@ -66,13 +66,23 @@ class AnswerController extends Controller
     public function actionCreate()
     {
         $model = new Answer();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($request = Yii::$app->request->post()) {
+            $model->title = $request['question_title'];
+            $model->desc = $request['question_desc'];
+            $model->type = $request['question_type'];
+            $model->answers = $request['answers'];
+            $model->options = $request['options'];
+            $model->question_id = $request['question_id'];
+            $model->ratio = $request['question_ratio'];
+            if ($model->validate() && $model->save()) {
+                return $this->redirect( Url::to(['create','question_id'=>$request['question_id']]));
+            }
+            $question_id = $request['question_id'];
         }
-
+        $question_id = Yii::$app->request->get('question_id');
         return $this->render('create', [
             'model' => $model,
+            'question_id' => $question_id,
         ]);
     }
 
@@ -87,12 +97,25 @@ class AnswerController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($request = Yii::$app->request->post()) {
+            $model->title = $request['question_title'];
+            $model->desc = $request['question_desc'];
+            $model->type = $request['question_type'];
+            $model->answers = $request['answers'];
+            $model->options = $request['options'];
+            $model->question_id = $request['question_id'];
+            $model->ratio = $request['question_ratio'];
+            if ($model->validate() && $model->save()) {
+                return $this->redirect( Url::to(['question/preview','question_id'=>$request['question_id']]));
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        $question_id = Yii::$app->request->get('question_id');
+        $options = json_decode($model->options,true);
+        //var_dump($options);die;
         return $this->render('update', [
             'model' => $model,
+            'question_id' => $question_id,
         ]);
     }
 

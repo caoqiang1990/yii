@@ -20,6 +20,7 @@ return [
 	'start_date' => '开始时间',
 	'end_date' => '结束时间',
     'player' => '参与评价',
-    'supplier' => '参与评价供应商',
+    'sid' => '参与评价供应商',
     'type' => '评价类型',
+    'status' => '状态',
 ];

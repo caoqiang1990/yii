@@ -31,7 +31,7 @@
 
 
 
-            this.obj.append('<input type="button" class="add btn btn-primary" style="position: absolute;" value="新增选项">');
+            this.obj.append('<input type="hidden" class="add btn btn-primary" style="position: absolute;" value="新增选项">');
             this.addOptions();
 
             this.obj.find('.add').bind('click',{sortable:this},function (e) {
@@ -51,7 +51,7 @@
                     '<span  class="edit">' +
                     // '<i class="choose" title="选为答案">√</i> ' +
                     // '<i class="remove" title="取消选中" >x</i>' +
-                    '<i class="del" title="删除选项">删除</i> ' +
+                    //'<i class="del" title="删除选项">删除</i> ' +
                     '</span>' +
                     ' </li>';
             }

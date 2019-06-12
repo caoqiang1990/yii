@@ -7,12 +7,16 @@ use yii\db\ActiveRecord;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use backend\models\Answer;
+
 /**
  * This is the model class for table "{{%question}}".
  **/
 class Question extends ActiveRecord
 {
-
+    const SCENARIO_UPLOAD = 'upload';
+    const SCENARIO_ADD = 'add';
+    const SCENARIO_EDIT = 'edit';
+    const SCENARIO_FINISH = 'finish';
     /**
      * @inheritdoc
      */
@@ -39,15 +43,34 @@ class Question extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('question','id'),
-            'title' => Yii::t('question','title'),
-            'desc' => Yii::t('question','desc'),
-            'player' => Yii::t('question','player'),
-            'supplier' => Yii::t('question','supplier'),
-            'type' => Yii::t('question','type'),
-            'start_date' => Yii::t('question','start_date'),
-            'created_at' => Yii::t('question','created_at'),
-            'updated_at' => Yii::t('question','updated_at'),
+            'id' => Yii::t('question', 'id'),
+            'title' => Yii::t('question', 'title'),
+            'desc' => Yii::t('question', 'desc'),
+            'player' => Yii::t('question', 'player'),
+            'sid' => Yii::t('question', 'sid'),
+            'status' => Yii::t('question', 'status'),
+            'type' => Yii::t('question', 'type'),
+            'start_date' => Yii::t('question', 'start_date'),
+            'end_date' => Yii::t('question', 'end_date'),
+            'created_at' => Yii::t('question', 'created_at'),
+            'updated_at' => Yii::t('question', 'updated_at'),
+        ];
+    }
+
+    /**
+     * 场景
+     * @return [type] [description]
+     */
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_ADD => [
+                'title', 'desc', 'player', 'sid', 'type', 'start_date', 'end_date'
+            ],
+            self::SCENARIO_EDIT => [
+                'title', 'desc', 'player', 'sid', 'type', 'start_date', 'end_date','status'
+            ],
+
         ];
     }
 
@@ -59,15 +82,15 @@ class Question extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'desc','player','supplier','type'], 'required'],
-            ['start_date','safe'],
+            [['title', 'desc', 'player', 'sid', 'type'], 'required'],
+            [['start_date', 'end_date'], 'safe'],
         ];
     }
 
 
     public function getAnswers()
     {
-         return $this->hasMany(Answer::className(), ['id' => 'answer_id'])
+        return $this->hasMany(Answer::className(), ['id' => 'answer_id'])
             ->viaTable('question_answer', ['question_id' => 'id'])->asArray();
     }
 

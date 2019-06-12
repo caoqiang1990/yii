@@ -4,7 +4,8 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
-use mdm\admin\components\Helper; 
+use mdm\admin\components\Helper;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\QuestionSearch */
@@ -12,6 +13,75 @@ use mdm\admin\components\Helper;
 $this->title = '';
 $title = Yii::t('question', 'Questions');
 $this->params['breadcrumbs'][] = $title;
+
+$js = <<<JS
+//此处点击按钮提交数据的jquery
+$('.start').click(function(){
+    var id = $(this).attr('data-id');
+    $.ajax({
+            url: "start",
+            type: "post",
+            dataType: "json",
+            data: {'id':id},
+            success: function(data) {
+                if (data.status == 'success') {
+                    alert(data.msg);
+                    location.reload();
+                }                    
+                if (data.status == 'fail') {
+                    alert(data.msg);
+                }
+            },
+            error: function() {
+                alert('网络错误！');
+            }
+        });
+})
+$('.end').click(function(){
+    var id = $(this).attr('data-id');
+    $.ajax({
+            url: "end",
+            type: "post",
+            dataType: "json",
+            data: {'id':id},
+            success: function(data) {
+                if (data.status == 'success') {
+                    alert(data.msg);
+                    location.reload();
+                }                    
+                if (data.status == 'fail') {
+                    alert(data.msg);
+                }
+            },
+            error: function() {
+                alert('网络错误！');
+            }
+        });
+})
+$('.sync').click(function(){
+    var id = $(this).attr('data-id');
+    $.ajax({
+            url: "sync",
+            type: "get",
+            dataType: "json",
+            data: {'id':id},
+            success: function(data) {
+                if (data.status == 'success') {
+                    alert(data.msg);
+                    location.reload();
+                }                    
+                if (data.status == 'fail') {
+                    alert(data.msg);
+                }
+            },
+            error: function() {
+                alert('网络错误！');
+            }
+        });
+})
+JS;
+$this->registerJs($js, View::POS_READY);
+
 ?>
 <div class="question-index">
 
@@ -32,30 +102,67 @@ $this->params['breadcrumbs'][] = $title;
             'title',
             'desc:ntext',
             [
+                'attribute' => 'status',
+                'value' => function ($model) {
+                    switch ($model->status) {
+                        case 1 :
+                            return '正常';
+                            break;
+                        case 2 :
+                            return '开始';
+                            break;
+                        case 3 :
+                            return '结束';
+                            break;
+                        default :
+                            return null;
+                    }
+                }
+            ],
+            [
                 'header' => '操作',
                 'class' => 'yii\grid\ActionColumn',
-                'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
+                'template' => Helper::filterActionColumn('{view}{update}{delete}'),
             ],
             [
                 //'label'=>  (Helper::checkRoute('supplier-detail/create') || Helper::checkRoute('history/index')) ? '更多操作' : '',
-                'label'=>  (Helper::checkRoute('answer/index')) ? '更多操作' : '',
-                'format'=>'raw',
-                'value' => function($model){
-                $operator_1 = '';
-                $operator_2 = '';
-                if (Helper::checkRoute('question/survey')) {
-                    $url_1 = Url::to(['question/survey','object_id'=>$model->id]);
-                    $operator_1 = Html::a('查看调查问卷', $url_1, ['title' => '查看调查问卷']);
+                'label' => (Helper::checkRoute('answer/index')) ? '更多操作' : '',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    $operator_1 = '';
+                    $operator_2 = '';
+                    $operator_3 = '';
+                    $operator_4 = '';
+                    $operator_5 = '';
+                    $operator_5 = '';
+                    if (Helper::checkRoute('question/preview')) {
+                        $url_1 = Url::to(['question/preview', 'question_id' => $model->id]);
+                        $operator_1 = Html::a('预览', $url_1, ['title' => '查看调查问卷']);
 
-                }
+                    }
 
-                if (Helper::checkRoute('answer/answer')) {
-                    $url_2 = Url::to(['answer/answer','object_id'=>$model->id]);
-                    $operator_2 = Html::a('添加选项', $url_2, ['title' => '添加选项']);
+                    if (Helper::checkRoute('answer/create')) {
+                        $url_2 = Url::to(['answer/create', 'question_id' => $model->id]);
+                        $operator_2 = Html::a('添加选项', $url_2, ['title' => '添加选项']);
+                    }
+                    if (Helper::checkRoute('question/start') && $model->status == 1) {
+                        //$url_3 = Url::to(['question/sync','question_id'=>$model->id]);
+                        $url_3 = 'javascript:void(0);';
+                        $operator_3 = Html::a('评价开始', $url_3, ['title' => '评价开始', 'class' => 'start', 'data-id' => $model->id]);
+                    }
+                    if (Helper::checkRoute('question/end') && $model->status == 2) {
+                        //$url_3 = Url::to(['question/sync','question_id'=>$model->id]);
+                        $url_3 = 'javascript:void(0);';
+                        $operator_4 = Html::a('评价结束', $url_3, ['title' => '评价结束', 'class' => 'end', 'data-id' => $model->id]);
+                    }
+                    if (Helper::checkRoute('question/sync') && $model->status == 3) {
+                        //$url_3 = Url::to(['question/sync','question_id'=>$model->id]);
+                        $url_3 = 'javascript:void(0);';
+                        $operator_5 = Html::a('同步', $url_3, ['title' => '同步', 'class' => 'sync', 'data-id' => $model->id]);
+                    }
+                    return $operator_1 . ' ' . $operator_2 . ' ' . $operator_3 . ' ' . $operator_4 . ' ' . $operator_5;
                 }
-                    return $operator_1.' '.$operator_2; 
-                }
-            ],              
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

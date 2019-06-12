@@ -159,7 +159,7 @@ AnswerAsset::register($this);
         <div class="form-group" style="margin-top: 4%">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default">继续,下一选项</button>
-                <a href="<?= Url::to(['question/survey', 'object_id' => $object_id]); ?>" class="btn btn-success">完成,查看问卷</a>
+                <a href="<?= Url::to(['question/preview', 'object_id' => $object_id]); ?>" class="btn btn-default btn-success">预览</a>
             </div>
         </div>
         <input type="hidden" name="object_id" value="<?= $object_id; ?>" checked>
@@ -169,10 +169,10 @@ AnswerAsset::register($this);
 <script>
     $(function () {
         mysortable = new Mysortable(1, '', '.list-group');
-        for (var i = 1; i <= 4; i++) {
-            mysortable.addOptions(1, i, i);
-        }
-        //mysortable.addOptions(4,0,1);
+        // for (var i = 1; i <= 4; i++) {
+        //     mysortable.addOptions(1, i, i);
+        // }
+        mysortable.addOptions(4,0,1);
         $('input[name=question_type]').change({mysortable: mysortable}, function (e) {
             var mysortable = e.data.mysortable;
             mysortable.type = $(this).val();

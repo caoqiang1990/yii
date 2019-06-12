@@ -12,7 +12,7 @@ use backend\models\QuestionAnswer;
  **/
 class Answer extends ActiveRecord
 {
-    public $object_id;
+    public $question_id;
     /**
      * @inheritdoc
      */
@@ -60,7 +60,7 @@ class Answer extends ActiveRecord
     {
         return [
             [['title', 'desc','ratio'], 'required'],
-            ['object_id','safe'],
+            ['question_id','safe'],
             ['ratio','integer'],
         ];
     }
@@ -73,13 +73,46 @@ class Answer extends ActiveRecord
     {
         //新增
         if ($insert) {
-            if ($this->object_id) {
+            if ($this->question_id) {
                 $model = new QuestionAnswer();
-                $model->question_id = $this->object_id;
+                $model->question_id = $this->question_id;
                 $model->answer_id = $this->id;
                 $model->save();
             }
         }
     }
 
+    /**
+     * Name: getResultByParams
+     * User: aimer
+     * Date: 2019/5/24
+     * Time: 下午3:26
+     * @param $answer_id
+     * @param $result
+     */
+    public function getResultByParams($answer_id='',$result='')
+    {
+        if (!$answer_id) {
+            return false;
+        }
+        if (!$result) {
+            return false;
+        }
+        $where['id'] = $answer_id;
+
+    }
+
+    /**
+     * 根据id获取选项
+     * @param  string $id [description]
+     * @return [type]     [description]
+     */
+    public static function getById($id = '')
+    {
+        if (!$id) {
+            return false;
+        }
+        $answer = self::find()->where(['id' => $id])->one();
+        return $answer ? $answer : false;
+    }
 }
