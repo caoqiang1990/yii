@@ -27,7 +27,7 @@ return [
         ],
         'request' => [
             'csrfParam' => '_csrf-backend',
-            'enableCsrfCookie' => false
+            'enableCsrfCookie' => true
         ],
         'user' => [
             'identityClass' => 'common\models\User',
