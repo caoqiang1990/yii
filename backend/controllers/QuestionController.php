@@ -79,7 +79,7 @@ class QuestionController extends Controller
     public function actionCreate()
     {
         $model = new Question();
-
+        $model->scenario = 'add';
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
