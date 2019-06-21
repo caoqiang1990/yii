@@ -147,19 +147,19 @@ AnswerAsset::register($this);
                 </ul>
             </div>
         </div>
-        <div class="form-group">
-            <label for="" class="col-sm-2 control-label">占比（单位百分比）:</label>
-
-            <div class="col-sm-5">
-                <select name="question_ratio" id="" class="form-control">
-                    <option <?= $model->ratio == 10 ? 'selected' : '';  ?>  value="10">10%</option>
-                    <option <?= $model->ratio == 20 ? 'selected' : '';  ?>  value="20">20%</option>
-                    <option <?= $model->ratio == 30 ? 'selected' : '';  ?>  value="30">30%</option>
-                    <option <?= $model->ratio == 40 ? 'selected' : '';  ?>  value="40">40%</option>
-                    <option <?= $model->ratio == 50 ? 'selected' : '';  ?>  value="50">50%</option>
-                </select>
-            </div>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label for="" class="col-sm-2 control-label">占比（单位百分比）:</label>-->
+<!---->
+<!--            <div class="col-sm-5">-->
+<!--                <select name="question_ratio" id="" class="form-control">-->
+<!--                    <option --><?= $model->ratio == 10 ? 'selected' : '';  ?><!--  value="10">10%</option>-->
+<!--                    <option --><?= $model->ratio == 20 ? 'selected' : '';  ?><!--  value="20">20%</option>-->
+<!--                    <option --><?= $model->ratio == 30 ? 'selected' : '';  ?><!--  value="30">30%</option>-->
+<!--                    <option --><?= $model->ratio == 40 ? 'selected' : '';  ?><!--  value="40">40%</option>-->
+<!--                    <option --><?= $model->ratio == 50 ? 'selected' : '';  ?><!--  value="50">50%</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="form-group" style="margin-top: 4%">
             <div class="col-sm-offset-2 col-sm-10">
                 <?= Html::submitButton($model->isNewRecord ? '继续,下一选项' : '更新', ['class' => $model->isNewRecord ? 'btn btn-default' : 'btn btn-primary']) ?>

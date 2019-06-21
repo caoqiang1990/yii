@@ -14,6 +14,7 @@ use mdm\admin\models\User;
 use backend\models\Supplier;
 use backend\models\QuestionRecord;
 use yii\web\Response;
+use yii\helpers\Url;
 
 /**
  * QuestionController implements the CRUD actions for Question model.
@@ -221,16 +222,22 @@ class QuestionController extends Controller
         $hasFinished = $questionRecordModel->hasQuestionRecord($question_id, $user_id);
 
         if ($hasFinished) {
-            throw new NotFoundHttpException('您已完成作答，请勿重新作答!');
+            //throw new NotFoundHttpException('您已完成作答，请勿重新作答!');
             //return $this->render('finish');
+            Yii::$app->session->setFlash('error', '您已完成作答，请勿重新作答!');
+            return Yii::$app->getResponse()->redirect(Url::to('my'));
         }
 
         $status = $model->status;
         if ($status == 1) {
-            throw new NotFoundHttpException('评价还未开始!');
+            //throw new NotFoundHttpException('评价还未开始!');
+            Yii::$app->session->setFlash('error', '评价还未开始!');
+            return Yii::$app->getResponse()->redirect(Url::to('my'));
         }
         if ($status == 3) {
-            throw new NotFoundHttpException('评价已经结束!');
+            //throw new NotFoundHttpException('评价已经结束!');
+            Yii::$app->session->setFlash('error', '评价已经结束!');
+            return Yii::$app->getResponse()->redirect(Url::to('my'));
         }
 
         if (Yii::$app->request->isPost) {
@@ -256,7 +263,9 @@ class QuestionController extends Controller
             }
             $questionRecordModel = new QuestionRecord();
             $questionRecordModel->addQuestionRecord($result);
-            $this->redirect(['finish']);
+            //$this->redirect(['finish']);
+            Yii::$app->session->setFlash('success', '已完成作答!');
+            return Yii::$app->getResponse()->redirect(Url::to('my'));
         }
         return $this->render('survey', [
             'model' => $model,

@@ -73,7 +73,7 @@ class AnswerController extends Controller
             $model->answers = $request['answers'];
             $model->options = $request['options'];
             $model->question_id = $request['question_id'];
-            $model->ratio = $request['question_ratio'];
+            $model->ratio = !empty($request['question_ratio']) ? $request['question_ratio']: '';
             if ($model->validate() && $model->save()) {
                 return $this->redirect( Url::to(['create','question_id'=>$request['question_id']]));
             }

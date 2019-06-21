@@ -1,0 +1,51 @@
+connection open: 1
+connection close: 1
+PHP Fatal error:  Uncaught yii\base\ErrorException: Undefined index: level in /usr/local/var/www/yii/console/controllers/TcpSwooleController.php:127
+Stack trace:
+#0 /usr/local/var/www/yii/console/controllers/TcpSwooleController.php(127): yii\base\ErrorHandler->handleError(8, 'Undefined index...', '/usr/local/var/...', 127, Array)
+#1 /usr/local/var/www/yii/console/controllers/TcpSwooleController.php(96): console\controllers\TcpSwooleController->sync(Array)
+#2 [internal function]: console\controllers\TcpSwooleController->onTask(Object(Swoole\Server), 0, 0, 'a:1:{s:2:"id";i...')
+#3 /usr/local/var/www/yii/console/controllers/TcpSwooleController.php(33): Swoole\Server->start()
+#4 [internal function]: console\controllers\TcpSwooleController->actionRun()
+#5 /usr/local/var/www/yii/vendor/yiisoft/yii2/base/InlineAction.php(57): call_user_func_array(Array, Array)
+#6 /usr/local/var/www/yii/vendor/yiisoft/yii2/base/Controller.php(157): yii\base\InlineAction->runWithParams(Array)
+#7 /usr/local/var/www/yii/vendor/yiisoft/yii2/console/Contro in /usr/local/var/www/yii/console/controllers/TcpSwooleController.php on line 127
+PHP Fatal Error 'yii\base\ErrorException' with message 'Uncaught yii\base\ErrorException: Undefined index: level in /usr/local/var/www/yii/console/controllers/TcpSwooleController.php:127
+Stack trace:
+#0 /usr/local/var/www/yii/console/controllers/TcpSwooleController.php(127): yii\base\ErrorHandler->handleError(8, 'Undefined index...', '/usr/local/var/...', 127, Array)
+#1 /usr/local/var/www/yii/console/controllers/TcpSwooleController.php(96): console\controllers\TcpSwooleController->sync(Array)
+#2 [internal function]: console\controllers\TcpSwooleController->onTask(Object(Swoole\Server), 0, 0, 'a:1:{s:2:"id";i...')
+#3 /usr/local/var/www/yii/console/controllers/TcpSwooleController.php(33): Swoole\Server->start()
+#4 [internal function]: console\controllers\TcpSwooleController->actionRun()
+#5 /usr/local/var/www/yii/vendor/yiisoft/yii2/base/InlineAction.php(57): call_user_func_array(Array, Array)
+#6 /usr/local/var/www/yii/vendor/yiisoft/yii2/base/Controller.php(157): yii\base\InlineAction->runWithParams(Array)
+#7 /usr/local/var/www/yii/vendor/yiisoft/yii2/console/Contro'
+
+in /usr/local/var/www/yii/console/controllers/TcpSwooleController.php:127
+
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleFatalError()
+#1 {main}
+PHP Fatal error:  Uncaught Swoole\ExitException: swoole exit in /usr/local/var/www/yii/vendor/yiisoft/yii2/base/ErrorHandler.php:269
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleFatalError()
+#1 {main}
+  thrown in /usr/local/var/www/yii/vendor/yiisoft/yii2/base/ErrorHandler.php on line 269
+[2019-06-11 10:11:15 ^98310.3]	ERROR	zm_deactivate_swoole (ERRNO 503): Fatal error: Uncaught Swoole\ExitException: swoole exit in /usr/local/var/www/yii/vendor/yiisoft/yii2/base/ErrorHandler.php:269
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleFatalError()
+#1 {main}
+  thrown in /usr/local/var/www/yii/vendor/yiisoft/yii2/base/ErrorHandler.php on line 269
+[2019-06-11 10:11:15 $98300.0]	WARNING	swManager_check_exit_status: worker#3[pid=98310] abnormal exit, status=255, signal=0
+connection open: 2
+connection close: 2
+connection open: 3
+connection close: 3
+[2019-06-11 10:18:39 #98299.2]	INFO	Server is shutdown now
+connection open: 1
+connection close: 1
+[2019-06-11 10:20:20 #64331.2]	INFO	Server is shutdown now
+connection open: 1
+connection close: 1
+connection open: 2
+connection close: 2

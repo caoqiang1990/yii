@@ -59,8 +59,8 @@ class Answer extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'desc','ratio'], 'required'],
-            ['question_id','safe'],
+            [['title', 'desc'], 'required'],
+            [['question_id','ratio'],'safe'],
             ['ratio','integer'],
         ];
     }

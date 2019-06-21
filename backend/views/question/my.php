@@ -6,6 +6,7 @@ use yii\widgets\Pjax;
 use mdm\admin\components\Helper;
 use yii\web\View;
 use yii\helpers\Url;
+use backend\models\QuestionRecord;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\PitchSearch */
@@ -99,8 +100,13 @@ $this->registerJs($js, View::POS_READY);
 //                    }
 
                     if (Helper::checkRoute('question/survey')) {
-                        $url_2 = Url::to(['survey', 'question_id' => $model->id]);
-                        $operator_2 = Html::a('评价', $url_2, ['title' => '评价', 'class' => '', 'data-id' => $model->id]);
+                        $questionRecordModel = new QuestionRecord();
+                        $user_id = Yii::$app->user->identity->id;
+                        $hasFinished = $questionRecordModel->hasQuestionRecord($model->id, $user_id);
+                        if (!$hasFinished) {
+                            $url_2 = Url::to(['survey', 'question_id' => $model->id]);
+                            $operator_2 = Html::a('评价', $url_2, ['title' => '评价', 'class' => '', 'data-id' => $model->id]);
+                        }
                     }
 
                     return $operator_1 . ' ' . $operator_2;
