@@ -467,6 +467,7 @@ class PitchController extends Controller
         foreach ($records as &$record) {
             if ($record['attachment']) {
                 $attachment = explode(',', $record['attachment']);
+                $initialPreview = [];
                 if ($attachment) {
                     $attachmentModel = new Attachment();
                     foreach ($attachment as $k => $attach) {
