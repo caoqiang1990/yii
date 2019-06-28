@@ -2,8 +2,6 @@
 
 namespace backend\controllers;
 
-use backend\models\Answer;
-use backend\models\SupplierLevel;
 use Yii;
 use backend\models\Question;
 use backend\models\QuestionSearch;
@@ -15,6 +13,8 @@ use backend\models\Supplier;
 use backend\models\QuestionRecord;
 use yii\web\Response;
 use yii\helpers\Url;
+use backend\models\Answer;
+use backend\models\SupplierLevel;
 
 /**
  * QuestionController implements the CRUD actions for Question model.
@@ -221,6 +221,11 @@ class QuestionController extends Controller
         $user_id = Yii::$app->user->identity->id;
         $hasFinished = $questionRecordModel->hasQuestionRecord($question_id, $user_id);
 
+        if ($answers && count($answers) < 10) {
+            Yii::$app->session->setFlash('error', '选项不满10条，请添加完整！');
+            return Yii::$app->getResponse()->redirect(Url::to('my'));
+        }
+
         if ($hasFinished) {
             //throw new NotFoundHttpException('您已完成作答，请勿重新作答!');
             //return $this->render('finish');
@@ -383,6 +388,13 @@ class QuestionController extends Controller
         $id = Yii::$app->request->post('id');
         if ($id) {
             $model = $this->findModel($id);
+            $answers = $model->answers;
+            if (!$answers || count($answers) < 10) {
+                $response_data['status'] = 'fail';
+                $response_data['msg'] = '请添加选项！';
+                return $response_data;die;
+            }
+
             $now = date('Y-m-d H:i:s', time());
             if ($model->end_date < $now) {
                 $response_data['status'] = 'fail';

@@ -13,6 +13,7 @@ use backend\models\QuestionAnswer;
 class Answer extends ActiveRecord
 {
     public $question_id;
+    public $count;
     /**
      * @inheritdoc
      */

@@ -97,6 +97,13 @@ AnswerAsset::register($this);
         ]); ?>
         <?= Html::errorSummary($model, ['style' => 'color:red']) ?>
         <div class="form-group">
+            <label for="" class="col-sm-2 control-label">序号:</label>
+
+            <div class="col-sm-5">
+                <p class="form-control-static"><?=$model->count;?>/10</p>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="" class="col-sm-2 control-label">问答题目:</label>
             <div class="col-sm-5">
                 <input type="text" class="form-control" name="question_title" placeholder="请输入问答题目" value="<?=$model->title;?>">

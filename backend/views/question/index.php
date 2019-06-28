@@ -30,10 +30,12 @@ $('.start').click(function(){
                 }                    
                 if (data.status == 'fail') {
                     alert(data.msg);
+                    location.reload();
                 }
             },
             error: function() {
                 alert('网络错误！');
+                location.reload();
             }
         });
 })
@@ -51,10 +53,12 @@ $('.end').click(function(){
                 }                    
                 if (data.status == 'fail') {
                     alert(data.msg);
+                    location.reload();
                 }
             },
             error: function() {
                 alert('网络错误！');
+                location.reload();
             }
         });
 })
@@ -72,10 +76,13 @@ $('.sync').click(function(){
                 }                    
                 if (data.status == 'fail') {
                     alert(data.msg);
+                    location.reload();
+
                 }
             },
             error: function() {
                 alert('网络错误！');
+                location.reload();
             }
         });
 })

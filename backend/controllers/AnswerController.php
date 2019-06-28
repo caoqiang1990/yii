@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
+use backend\models\Question;
 
 /**
  * AnswerController implements the CRUD actions for Answer model.
@@ -65,7 +66,15 @@ class AnswerController extends Controller
      */
     public function actionCreate()
     {
+        $question_id = Yii::$app->request->get('question_id');
+        $questionModel = Question::findOne($question_id);
+        $list = $questionModel->answers;
+        if ($list && count($list) >= 10) {
+            Yii::$app->session->setFlash('error', "评价'{$questionModel->title}'的选项已经添加10条!");
+            return Yii::$app->getResponse()->redirect(Url::to('/question/index'));
+        }
         $model = new Answer();
+        $model->count = count($list) + 1;
         if ($request = Yii::$app->request->post()) {
             $model->title = $request['question_title'];
             $model->desc = $request['question_desc'];
@@ -79,7 +88,6 @@ class AnswerController extends Controller
             }
             $question_id = $request['question_id'];
         }
-        $question_id = Yii::$app->request->get('question_id');
         return $this->render('create', [
             'model' => $model,
             'question_id' => $question_id,
