@@ -114,12 +114,14 @@ class QuestionController extends Controller
 
         $users = User::getUsers();
         $suppliers = Supplier::getSuppliers();
-        $start = date('Y-m-d H:i', time());
+        $start = $model->start_date;
+        $end = $model->end_date;
         return $this->render('update', [
             'model' => $model,
             'users' => $users,
             'suppliers' => $suppliers,
             'start' => $start,
+            'end' => $end,
         ]);
     }
 
@@ -366,6 +368,7 @@ class QuestionController extends Controller
 
         $request = Yii::$app->request->queryParams;
         $request['QuestionSearch']['player'] = $uid;
+        $request['QuestionSearch']['status'] = 1;
         $dataProvider = $searchModel->search($request);
 
         return $this->render('my', [
@@ -392,7 +395,7 @@ class QuestionController extends Controller
             if (!$answers || count($answers) < 10) {
                 $response_data['status'] = 'fail';
                 $response_data['msg'] = '请添加选项！';
-                return $response_data;die;
+                return $response_data;
             }
 
             $now = date('Y-m-d H:i:s', time());

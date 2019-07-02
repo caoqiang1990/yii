@@ -66,7 +66,7 @@ use kartik\select2\Select2;
     </div>
     <div class="col-xs-6">
         <?php echo $form->field($model, 'end_date')->widget(DateTimePicker::classname(), [
-            'options' => ['placeholder' => '结束时间','value' => ''],
+            'options' => ['placeholder' => '结束时间','value' => $end],
             'pluginOptions' => [
                 'autoclose' => true
             ]
