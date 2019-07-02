@@ -96,6 +96,7 @@ AnswerAsset::register($this);
             ],
         ]); ?>
         <?= Html::errorSummary($model, ['style' => 'color:red']) ?>
+        <?php if(isset($model->count)) {?>
         <div class="form-group">
             <label for="" class="col-sm-2 control-label">序号:</label>
 
@@ -103,6 +104,7 @@ AnswerAsset::register($this);
                 <p class="form-control-static"><?=$model->count;?>/10</p>
             </div>
         </div>
+        <?php } ?>
         <div class="form-group">
             <label for="" class="col-sm-2 control-label">问答题目:</label>
             <div class="col-sm-5">
