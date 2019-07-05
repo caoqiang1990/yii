@@ -69,16 +69,16 @@ class DepartmentController extends Controller
     {
         $model = new Department();
         $post = Yii::$app->request->post();
-        if (isset($post['Department`']['pid'])) {
-            if ($post['Department`']['pid'] == 0) {
-                $post['Department`']['level'] = 1;
+        if (isset($post['Department']['pid'])) {
+            if ($post['Department']['pid'] == 0) {
+                $post['Department']['level'] = 1;
             } else {
-                $info = $model::getDepartmentById($post['Department`']['pid']);
-                $post['Department`']['level'] = $info->level + 1;
+                $info = $model::getDepartmentById($post['Department']['pid']);
+                $post['Department']['level'] = $info->level + 1;
             }
         }
         if ($model->load($post) && $model->save()) {
-            AdminLog::saveLog('Department`', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
+            AdminLog::saveLog('Department', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $status = [0 => '无效', 1 => '有效'];
