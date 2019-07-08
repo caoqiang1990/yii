@@ -258,9 +258,9 @@ class SupplierDetail extends ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         //新增操作
-        $this->fund_year1 = date('Y') - 3;
-        $this->fund_year2 = date('Y') - 2;
-        $this->fund_year3 = date('Y') - 1;        
+        $this->fund_year1 = date('Y') - 2;
+        $this->fund_year2 = date('Y') - 1;
+        $this->fund_year3 = date('Y') - 0;
         if ($insert) {
 
 

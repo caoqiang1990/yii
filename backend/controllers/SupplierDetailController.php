@@ -26,6 +26,18 @@ use backend\models\Attachment;
  */
 class SupplierDetailController extends Controller
 {
+    private $this_year = '';
+    private $last_year = '';
+    private $before_last_year = '';
+
+    public function __construct($id, $module)
+    {
+        parent::__construct($id, $module);
+        $this->this_year = date('Y');
+        $this->last_year = date('Y') -1;
+        $this->before_last_year = date('Y') - 2;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -173,7 +185,7 @@ class SupplierDetailController extends Controller
         foreach ($detailObjList as $id => &$detail) {
                 $map['detail_id'] = $detail->id;
                 $funds = $fundModel->find()->where($map)
-                ->andfilterwhere(['in','year',[date('Y') - 3,date('Y') - 2,date('Y') - 1]])
+                ->andfilterwhere(['in','year',[$this->before_last_year,$this->last_year,$this->this_year]])
                 ->orderBy('year asc')->all();
                 if ($funds) {
                     foreach ($funds as $k => $v) {
@@ -234,7 +246,7 @@ class SupplierDetailController extends Controller
         foreach ($detailObjList as $id => &$detail) {
                 $map['detail_id'] = $detail->id;
                 $funds = $fundModel->find()->where($map)
-                ->andfilterwhere(['in','year',[date('Y') - 3,date('Y') - 2,date('Y') - 1]])
+                ->andfilterwhere(['in','year',[$this->before_last_year,$this->last_year,$this->this_year]])
                 ->orderBy('year asc')->all();
                 if ($funds) {
                     foreach ($funds as $k => $v) {
@@ -249,9 +261,9 @@ class SupplierDetailController extends Controller
 
         }
         //前三年
-        $model->fund_year1 = date('Y') - 3;
-        $model->fund_year2 = date('Y') - 2;
-        $model->fund_year3 = date('Y') - 1;
+        $model->fund_year1 = $this->before_last_year;
+        $model->fund_year2 = $this->last_year;
+        $model->fund_year3 = $this->this_year;
         //获取供应商对应的一级部门        
         $department_info = Department::getDepartmentById($supplierObj->department);
         $model->one_level_department = $department_info ? $department_info->department_name : '';
@@ -304,7 +316,7 @@ class SupplierDetailController extends Controller
         $level = $levelModel::getLevelByParams();//供应商等级
         $map['detail_id'] = $id;
         $funds = $fundModel->find()->where($map)
-        ->andfilterwhere(['in','year',[date('Y') - 3,date('Y') - 2,date('Y') - 1]])
+        ->andfilterwhere(['in','year',[$this->before_last_year,$this->last_year,$this->this_year]])
         ->orderBy('year asc')->all();
         if ($funds) {
             foreach ($funds as $k => $v) {
@@ -317,9 +329,9 @@ class SupplierDetailController extends Controller
         $model->cate_id2 = implode(',', SupplierCategory::getCategoryNameByParams($model->cate_id2));
         $model->cate_id3 = implode(',', SupplierCategory::getCategoryNameByParams($model->cate_id3));        
         //前三年
-        $model->fund_year1 = date('Y') - 3;
-        $model->fund_year2 = date('Y') - 2;
-        $model->fund_year3 = date('Y') - 1;
+        $model->fund_year1 = $this->before_last_year;
+        $model->fund_year2 = $this->last_year;
+        $model->fund_year3 = $this->this_year;
 
         if ($model->one_level_department) {
             $department = Department::getDepartmentById($model->one_level_department);
@@ -359,7 +371,7 @@ class SupplierDetailController extends Controller
                 $detail->supplier_name = $model->name; 
                 $map['detail_id'] = $detail->id;
                 $funds = $fundModel->find()->where($map)
-                ->andfilterwhere(['in','year',[date('Y') - 3,date('Y') - 2,date('Y') - 1]])
+                ->andfilterwhere(['in','year',[$this->before_last_year,$this->last_year,$this->this_year]])
                 ->orderBy('year asc')->all();
                 if ($funds) {
                     foreach ($funds as $k => $v) {

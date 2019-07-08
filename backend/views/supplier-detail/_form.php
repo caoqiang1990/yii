@@ -53,7 +53,7 @@ JS;
 
     <div class="row">
     <?php
-        if ($model->isNewRecord || $model->one_level_department == '消费者中心') {
+        if ($model->isNewRecord) {
     ?>
     <div class="col-xs-6">
     <?php //$form->field($model, 'business_type')->dropDownList($type) 
@@ -95,7 +95,7 @@ JS;
         }
     ?>
     <?php
-        if ($model->isNewRecord || $model->one_level_department == '消费者中心') {
+        if ($model->isNewRecord) {
     ?>    
    <div class="col-xs-6">
     <?php //$form->field($model, 'business_type')->dropDownList($type) 
@@ -136,7 +136,7 @@ JS;
         }
     ?>     
     <?php
-        if ($model->isNewRecord || $model->one_level_department == '消费者中心') {
+        if ($model->isNewRecord) {
     ?>          
     <div class="col-xs-6">
     <?php //$form->field($model, 'business_type')->dropDownList($type) 
@@ -168,9 +168,11 @@ JS;
     <?php 
         }
     ?>              
-    <div class="col-xs-6">
-    <?= $form->field($model, 'level')->label('*供应商等级')->dropDownList($level,['prompt'=>'请选择等级']) ?>
-    </div>    
+<!--    <div class="col-xs-6">-->
+    <?php
+        //$form->field($model, 'level')->label('*供应商等级')->dropDownList($level,['prompt'=>'请选择等级'])
+    ?>
+<!--    </div>    -->
     <div class="col-xs-6">
     <?= $form->field($model, 'one_level_department')->label('*供应商管理部门(一级部门)')->textInput(['maxlength' => true,'disabled'=>true]) ?>
     </div>

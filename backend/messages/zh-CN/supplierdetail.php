@@ -1,8 +1,8 @@
 <?php
 
-$fund_year1 = date('Y') - 3;
-$fund_year2 = date('Y') - 2;
-$fund_year3 = date('Y') - 1;
+$fund_year1 = date('Y') - 2;
+$fund_year2 = date('Y') - 1;
+$fund_year3 = date('Y') - 0;
 
 return [
     'name' => '我方对接人',
