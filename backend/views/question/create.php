@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = '新增评价';
         'users' => $users,
         'suppliers' => $suppliers,
         'start' => $start,
+        'end' => $end,
     ]) ?>
 
 </div>
