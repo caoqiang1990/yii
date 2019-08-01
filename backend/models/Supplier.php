@@ -30,7 +30,7 @@ class Supplier extends ActiveRecord
     public $enterprise_code_url;
     public $enterprise_license_url;
     public $enterprise_certificate_url;
-    public $enterprise_certificate_etc_url;    
+    public $enterprise_certificate_etc_url;
     public $enterprise_license_relate_url;
     public $enterprise_code_image_id;
     public $enterprise_license_image_id;
@@ -39,6 +39,8 @@ class Supplier extends ActiveRecord
     public $enterprise_license_relate_image_id;
     public $total_fund;//总
     public $filter_cate_id1;
+    public $check_id;
+
     /**
      * 返回表名
      * @return [type] [description]
@@ -54,70 +56,70 @@ class Supplier extends ActiveRecord
      */
     public function attributeLabels()
     {
-      return [
-        'id' => Yii::t('suppliers','id'),
-        'name' => Yii::t('suppliers', 'name'),
-        'level' => Yii::t('suppliers','level'),
-        'business_address' => Yii::t('suppliers','business_address'),
-        'url' => Yii::t('suppliers','url'),
-        'register_date' => Yii::t('suppliers','register_date'),
-        'created_at' => Yii::t('suppliers','created_at'),
-        'updated_at' => Yii::t('suppliers','updated_at'),
-        'coop_content' => Yii::t('suppliers','coop_content'),
-        'firm_nature' => Yii::t('suppliers','firm_nature'),
-        'register_fund' => Yii::t('suppliers','register_fund'),
-        'headcount' => Yii::t('suppliers','headcount'),
-        'trade' => Yii::t('suppliers','trade'),
-        'business_mobile' => Yii::t('suppliers','business_mobile'),
-        'business_phone' => Yii::t('suppliers','business_phone'),
-        'business_scope' =>Yii::t('suppliers','business_scope'),
-        'business_type' =>Yii::t('suppliers','business_type'),
-        'factory_summary' =>Yii::t('suppliers','factory_summary'),
-        'factory_land_area' =>Yii::t('suppliers','factory_land_area'),
-        'factory_work_area' =>Yii::t('suppliers','factory_work_area'),
-        'business_customer1' =>Yii::t('suppliers','business_customer1'),
-        'business_customer2' =>Yii::t('suppliers','business_customer2'),
-        'business_customer3' =>Yii::t('suppliers','business_customer3'),
-        'material_name1' => Yii::t('suppliers','material_name1'),
-        'material_name2' => Yii::t('suppliers','material_name2'),
-        'material_name3' => Yii::t('suppliers','material_name3'),
-        'instrument_device1' => Yii::t('suppliers','instrument_device1'),
-        'instrument_device2' => Yii::t('suppliers','instrument_device2'),
-        'instrument_device3' => Yii::t('suppliers','instrument_device3'),
-        'instrument_device4' => Yii::t('suppliers','instrument_device4'),
-        'business_contact' => Yii::t('suppliers','business_contact'),
-        'business_position' =>Yii::t('suppliers','business_position'),
-        'business_email' =>Yii::t('suppliers','business_email'),
-        'legal_person' => Yii::t('suppliers','legal_person'),
-        'legal_position' => Yii::t('suppliers','legal_position'),
-        'legal_phone' => Yii::t('suppliers','legal_phone'),
-        'sales_latest' => Yii::t('suppliers','sales_latest'),
-        'tax_latest' => Yii::t('suppliers','tax_latest'),
-        'social_responsibility' => Yii::t('suppliers','social_responsibility'),
-        'department_name' => Yii::t('suppliers','department_name'),
-        'department_manager' => Yii::t('suppliers','department_manager'),
-        'department_manager_phone' => Yii::t('suppliers','department_manager_phone'),
-        'enterprise_code_image_id' => Yii::t('suppliers','enterprise_code'),
-        'enterprise_license_image_id' => Yii::t('suppliers','enterprise_license'),
-        'enterprise_certificate_image_id' => Yii::t('suppliers','enterprise_certificate'),
-        'enterprise_certificate_etc_image_id' => Yii::t('suppliers','enterprise_certificate_etc'),
-        'enterprise_license_relate' => Yii::t('suppliers','enterprise_license_relate'),
-        'enterprise_license_relate_image_id' => Yii::t('suppliers','enterprise_license_relate_image_id'),
-        'total_fund' => Yii::t('suppliers','total_fund'),
-        'cate_id1' =>Yii::t('suppliers','cate_id1'),
-        'cate_id2' =>Yii::t('suppliers','cate_id2'),
-        'cate_id3' =>Yii::t('suppliers','cate_id3'),
-        'enterprise_code_desc' => Yii::t('suppliers','enterprise_code_desc'),
-        'enterprise_license_desc' => Yii::t('suppliers','enterprise_license_desc'),
-        'enterprise_certificate_desc' => Yii::t('suppliers','enterprise_certificate_desc'),
-        'enterprise_certificate_etc_desc' => Yii::t('suppliers','enterprise_certificate_etc_desc'),
-        'enterprise_license_relate_desc' => Yii::t('suppliers','enterprise_license_relate_desc'),
-        'status' =>Yii::t('suppliers','status'),
-        'source' =>Yii::t('suppliers','source'),
-        'public_flag' =>Yii::t('suppliers','public_flag'),
-        'created_by' => Yii::t('suppliers','created_by'),
-        'updated_by' => Yii::t('suppliers','updated_by'),
-      ];
+        return [
+            'id' => Yii::t('suppliers', 'id'),
+            'name' => Yii::t('suppliers', 'name'),
+            'level' => Yii::t('suppliers', 'level'),
+            'business_address' => Yii::t('suppliers', 'business_address'),
+            'url' => Yii::t('suppliers', 'url'),
+            'register_date' => Yii::t('suppliers', 'register_date'),
+            'created_at' => Yii::t('suppliers', 'created_at'),
+            'updated_at' => Yii::t('suppliers', 'updated_at'),
+            'coop_content' => Yii::t('suppliers', 'coop_content'),
+            'firm_nature' => Yii::t('suppliers', 'firm_nature'),
+            'register_fund' => Yii::t('suppliers', 'register_fund'),
+            'headcount' => Yii::t('suppliers', 'headcount'),
+            'trade' => Yii::t('suppliers', 'trade'),
+            'business_mobile' => Yii::t('suppliers', 'business_mobile'),
+            'business_phone' => Yii::t('suppliers', 'business_phone'),
+            'business_scope' => Yii::t('suppliers', 'business_scope'),
+            'business_type' => Yii::t('suppliers', 'business_type'),
+            'factory_summary' => Yii::t('suppliers', 'factory_summary'),
+            'factory_land_area' => Yii::t('suppliers', 'factory_land_area'),
+            'factory_work_area' => Yii::t('suppliers', 'factory_work_area'),
+            'business_customer1' => Yii::t('suppliers', 'business_customer1'),
+            'business_customer2' => Yii::t('suppliers', 'business_customer2'),
+            'business_customer3' => Yii::t('suppliers', 'business_customer3'),
+            'material_name1' => Yii::t('suppliers', 'material_name1'),
+            'material_name2' => Yii::t('suppliers', 'material_name2'),
+            'material_name3' => Yii::t('suppliers', 'material_name3'),
+            'instrument_device1' => Yii::t('suppliers', 'instrument_device1'),
+            'instrument_device2' => Yii::t('suppliers', 'instrument_device2'),
+            'instrument_device3' => Yii::t('suppliers', 'instrument_device3'),
+            'instrument_device4' => Yii::t('suppliers', 'instrument_device4'),
+            'business_contact' => Yii::t('suppliers', 'business_contact'),
+            'business_position' => Yii::t('suppliers', 'business_position'),
+            'business_email' => Yii::t('suppliers', 'business_email'),
+            'legal_person' => Yii::t('suppliers', 'legal_person'),
+            'legal_position' => Yii::t('suppliers', 'legal_position'),
+            'legal_phone' => Yii::t('suppliers', 'legal_phone'),
+            'sales_latest' => Yii::t('suppliers', 'sales_latest'),
+            'tax_latest' => Yii::t('suppliers', 'tax_latest'),
+            'social_responsibility' => Yii::t('suppliers', 'social_responsibility'),
+            'department_name' => Yii::t('suppliers', 'department_name'),
+            'department_manager' => Yii::t('suppliers', 'department_manager'),
+            'department_manager_phone' => Yii::t('suppliers', 'department_manager_phone'),
+            'enterprise_code_image_id' => Yii::t('suppliers', 'enterprise_code'),
+            'enterprise_license_image_id' => Yii::t('suppliers', 'enterprise_license'),
+            'enterprise_certificate_image_id' => Yii::t('suppliers', 'enterprise_certificate'),
+            'enterprise_certificate_etc_image_id' => Yii::t('suppliers', 'enterprise_certificate_etc'),
+            'enterprise_license_relate' => Yii::t('suppliers', 'enterprise_license_relate'),
+            'enterprise_license_relate_image_id' => Yii::t('suppliers', 'enterprise_license_relate_image_id'),
+            'total_fund' => Yii::t('suppliers', 'total_fund'),
+            'cate_id1' => Yii::t('suppliers', 'cate_id1'),
+            'cate_id2' => Yii::t('suppliers', 'cate_id2'),
+            'cate_id3' => Yii::t('suppliers', 'cate_id3'),
+            'enterprise_code_desc' => Yii::t('suppliers', 'enterprise_code_desc'),
+            'enterprise_license_desc' => Yii::t('suppliers', 'enterprise_license_desc'),
+            'enterprise_certificate_desc' => Yii::t('suppliers', 'enterprise_certificate_desc'),
+            'enterprise_certificate_etc_desc' => Yii::t('suppliers', 'enterprise_certificate_etc_desc'),
+            'enterprise_license_relate_desc' => Yii::t('suppliers', 'enterprise_license_relate_desc'),
+            'status' => Yii::t('suppliers', 'status'),
+            'source' => Yii::t('suppliers', 'source'),
+            'public_flag' => Yii::t('suppliers', 'public_flag'),
+            'created_by' => Yii::t('suppliers', 'created_by'),
+            'updated_by' => Yii::t('suppliers', 'updated_by'),
+        ];
     }
 
     /**
@@ -169,7 +171,7 @@ class Supplier extends ActiveRecord
                 'enterprise_code',
                 'enterprise_license',
                 'enterprise_certificate',
-                'enterprise_certificate_etc', 
+                'enterprise_certificate_etc',
                 'enterprise_license_relate',
                 'cate_id1',
                 'cate_id2',
@@ -180,7 +182,7 @@ class Supplier extends ActiveRecord
                 'enterprise_code_desc',
                 'enterprise_license_desc',
                 'enterprise_certificate_desc',
-                'enterprise_certificate_etc_desc', 
+                'enterprise_certificate_etc_desc',
                 'enterprise_license_relate_desc',
                 'department',
             ],
@@ -230,23 +232,23 @@ class Supplier extends ActiveRecord
                 'enterprise_license_relate',
                 'cate_id1',
                 'cate_id2',
-                'cate_id3',                
+                'cate_id3',
                 'status',
                 'source',
                 'public_flag',
                 'enterprise_code_desc',
                 'enterprise_license_desc',
                 'enterprise_certificate_desc',
-                'enterprise_certificate_etc_desc', 
-                'enterprise_license_relate_desc',   
-                'department',             
+                'enterprise_certificate_etc_desc',
+                'enterprise_license_relate_desc',
+                'department',
             ],
             self::SCENARIO_UPLOAD => [
                 'enterprise_code',
                 'enterprise_license',
                 'enterprise_certificate',
-                'enterprise_certificate_etc', 
-                'enterprise_license_relate',               
+                'enterprise_certificate_etc',
+                'enterprise_license_relate',
             ],
             self::SCENARIO_ADMIN_ADD => [
                 'name',
@@ -276,22 +278,23 @@ class Supplier extends ActiveRecord
     public function rules()
     {
         return [
-            [['name'],'required','on'=>'add'],
-            ['name','unique'],
+            [['name'], 'required', 'on' => 'add'],
+            ['name', 'unique'],
             //['url','url','on'=>'add'],
-            ['headcount','integer','on' => 'add,edit'],
-            ['register_fund','double','on' => 'add,edit'],
-            [['level','enterprise_code','enterprise_license','enterprise_certificate','enterprise_certificate_etc','enterprise_license_relate'], 'safe'],
+            ['headcount', 'integer', 'on' => 'add,edit'],
+            ['register_fund', 'double', 'on' => 'add,edit'],
+            [['level', 'enterprise_code', 'enterprise_license', 'enterprise_certificate', 'enterprise_certificate_etc', 'enterprise_license_relate'], 'safe'],
             //['business_mobile','required','message'=>'联系人电话不能为空！','on'=>'add'],
             //['business_phone','required','message'=>'联系人电话不能为空！','on'=>'add'],
-            ['business_phone','match','pattern'=>'/^1[345678]\d{9}$/','message'=>'联系人手机号格式不正确！','on' => 'add,edit'],
-            [['enterprise_code_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
-            [['enterprise_license_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
-            [['enterprise_certificate'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
-            [['enterprise_certificate_etc'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
-               [['enterprise_license_relate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'add,edit,upload'],
-            [['last_tax','last_sale'],'required','on'=>'edit'],
-            ['status','required','on' => 'audit']
+            ['business_phone', 'match', 'pattern' => '/^1[345678]\d{9}$/', 'message' => '联系人手机号格式不正确！', 'on' => 'add,edit'],
+            [['enterprise_code_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg', 'on' => 'add,edit,upload'],
+            [['enterprise_license_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg', 'on' => 'add,edit,upload'],
+            [['check_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg', 'on' => 'add,edit,upload'],
+            [['enterprise_certificate'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg', 'on' => 'add,edit,upload'],
+            [['enterprise_certificate_etc'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg', 'on' => 'add,edit,upload'],
+            [['enterprise_license_relate_image_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg', 'on' => 'add,edit,upload'],
+            [['last_tax', 'last_sale'], 'required', 'on' => 'edit'],
+            ['status', 'required', 'on' => 'audit']
         ];
     }
 
@@ -325,7 +328,7 @@ class Supplier extends ActiveRecord
                 FileHelper::createDirectory($path, 0777, true);
             }
             $filePath = $path . '/' . \Yii::$app->request->post('model', '') . '_' . md5(uniqid() . mt_rand(10000, 99999999)) . '.' . $this->{$field}->extension;
-            if($this->{$field}->saveAs($filePath)) {
+            if ($this->{$field}->saveAs($filePath)) {
                 //如果上传成功，保存附件信息到数据库。TODO
                 //这里将上传成功后的图片信息保存到数据库
                 $imageUrl = $this->parseImageUrl($filePath);
@@ -339,8 +342,8 @@ class Supplier extends ActiveRecord
                 $attachmentModel->updated_at = time();
                 $attachmentModel->save(false);
                 $imageId = Yii::$app->db->getLastInsertID();
-                return ['filepath' => $filePath,'imageid' => $imageId];
-            }else{
+                return ['filepath' => $filePath, 'imageid' => $imageId];
+            } else {
                 return false;
             }
         } else {
@@ -358,7 +361,7 @@ class Supplier extends ActiveRecord
     public function parseImageUrl($filePath)
     {
         if (strpos($filePath, Yii::getAlias('@uploadPath')) !== false) {
-            $url =  Yii::$app->params['assetDomain'] . str_replace(Yii::getAlias('@uploadPath'), '', $filePath);
+            $url = Yii::$app->params['assetDomain'] . str_replace(Yii::getAlias('@uploadPath'), '', $filePath);
             return $url;
         } else {
             return $filePath;
@@ -370,16 +373,18 @@ class Supplier extends ActiveRecord
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function getByID($id){
+    public function getByID($id)
+    {
         if (($model = self::findOne($id)) !== null) {
             return json_encode($model->toArray());
         } else {
             throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
         }
-    }    
+    }
 
 
-    public function getTotalFund($id){
+    public function getTotalFund($id)
+    {
         $supplierFundModel = new SupplierFunds;
         if (!$id) {
             return false;
@@ -401,11 +406,11 @@ class Supplier extends ActiveRecord
 
             if ($insert) { // 新增操作
                 if (is_array($this->business_type)) {
-                    $this->business_type = implode(',',$this->business_type);
+                    $this->business_type = implode(',', $this->business_type);
                 }
-            }else{
+            } else {
                 if (is_array($this->business_type)) {
-                    $this->business_type = implode(',',$this->business_type);
+                    $this->business_type = implode(',', $this->business_type);
                 }
                 //对比，如果firm_nature有变更。记录下来
                 $old = $this->find()->where(['id' => $this->id])->one();
@@ -427,7 +432,7 @@ class Supplier extends ActiveRecord
                     }
                     if ($original_value && $result_value) {
                         $desc = "更新企业性质从{{$original_value}}到{{$result_value}}";
-                        $historyModel::history($object_id,$field,$original,$result,$desc);
+                        $historyModel::history($object_id, $field, $original, $result, $desc);
                     }
                 }
             }
@@ -436,7 +441,7 @@ class Supplier extends ActiveRecord
             return false;
         }
 
-    } 
+    }
 
     /**
      * 查询后修改
@@ -448,9 +453,9 @@ class Supplier extends ActiveRecord
     }
 
     /**
-    * @param bool $insert
-    * @param array $changedAttributes
-    */
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
     public function afterSave($insert, $changedAttributes)
     {
         if ($insert) { // 新增操作
@@ -463,12 +468,12 @@ class Supplier extends ActiveRecord
                 $nature_result = SupplierNature::getNatureById($this->firm_nature);
                 $result_value = $nature_result ? $nature_result->nature_name : '';
                 $desc = "新增企业性质{{$result_value}}";
-                $historyModel::history($object_id,$field,$original,$result,$desc);
+                $historyModel::history($object_id, $field, $original, $result, $desc);
             }
         } else { // 编辑操作
             // do other sth.
         }
-    }    
+    }
 
     /*
      *
@@ -486,7 +491,7 @@ class Supplier extends ActiveRecord
             return $info;
         }
         return false;
-    }    
+    }
 
     /**
      * 根据id获取供应商
@@ -514,7 +519,7 @@ class Supplier extends ActiveRecord
     }
 
 
-    public static function getCountByParams($key,$value)
+    public static function getCountByParams($key, $value)
     {
         if (!$value) {
             return false;

@@ -169,7 +169,7 @@ JS;
         }
     ?>              
     <div class="col-xs-6">
-    <?= $form->field($model, 'level')->label('*供应商等级')->dropDownList($level,['prompt'=>'请选择等级']); ?>
+    <?= $form->field($model, 'level')->label('*供应商等级（只针对当前合作关系）')->dropDownList($level,['prompt'=>'请选择等级']); ?>
     </div>
     <div class="col-xs-6">
     <?= $form->field($model, 'one_level_department')->label('*供应商管理部门(一级部门)')->textInput(['maxlength' => true,'disabled'=>true]) ?>

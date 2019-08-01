@@ -270,6 +270,7 @@ class SupplierController extends Controller
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $model = new AdminAdd();
+        $model->scenario = 'add';
         if ($model->load(Yii::$app->request->post())) {
             if (!$model->name) {
                 return ['code' => 'name', 'message' => '供应商全称不能为空!'];
@@ -291,7 +292,7 @@ class SupplierController extends Controller
                     return ['code' => 'exist', 'id' => $supplier_o->id, 'type' => $type];
                 } else {
                     if ($new = $model->add()) {
-                        return ['code' => 'new', 'id' => $new->id, 'url' => 'http://gys.aimergroup.com:8090/?r=supplierform/update&id=' . enCrypt($new->id)];
+                        return ['code' => 'new', 'id' => $new->id, 'url' => 'http://gys.aimergroup.com:8090/supplierform/update?id=' . enCrypt($new->id)];
                     } else {
                         $error = $model->getErrors();
                         return ['code' => 'error'];
