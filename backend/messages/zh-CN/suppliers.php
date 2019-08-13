@@ -97,6 +97,7 @@ return [
     'status' => '状态',
     'source' => '来源',
     'public_flag' => '是否共享',
+		'department' => '管理部门',
     'created_by' => '创建人',
     'updated_by' => '操作者',
 ];

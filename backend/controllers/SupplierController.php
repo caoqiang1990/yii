@@ -135,11 +135,14 @@ class SupplierController extends Controller
         } else {
             $cate3 = SupplierCategory::getCategoryByParams('id,category_name', 3);
         }
+				$departmentModel = new Department();
+				$department = $departmentModel::getDepartment();
         return $this->render('admin-index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'cate2' => $cate2,
             'cate3' => $cate3,
+						'department' => $department,
         ]);
     }
 

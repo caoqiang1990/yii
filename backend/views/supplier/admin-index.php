@@ -7,7 +7,8 @@ use yii\helpers\Url;
 use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
-use mdm\admin\components\Helper; 
+use mdm\admin\components\Helper;
+use backend\models\Department;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SuppliersSearch */
@@ -91,6 +92,13 @@ $this->params['breadcrumbs'][] = $this->title;
             //         return $fund ? $fund->trade_fund : '';
             //     }
             // ],
+            [
+                'attribute' => 'department',
+                'value' => function($model){
+                        return Department::getDepartmentById($model->department) ? Department::getDepartmentById($model->department)->department_name : NULL;
+                },
+                'filter' => $department,
+            ],
             'business_contact',  
             //'business_email',
             //'business_license',

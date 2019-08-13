@@ -116,7 +116,8 @@ class Supplier extends ActiveRecord
             'enterprise_license_relate_desc' => Yii::t('suppliers', 'enterprise_license_relate_desc'),
             'status' => Yii::t('suppliers', 'status'),
             'source' => Yii::t('suppliers', 'source'),
-            'public_flag' => Yii::t('suppliers', 'public_flag'),
+						'department' => Yii::t('suppliers','department'),
+						'public_flag' => Yii::t('suppliers', 'public_flag'),
             'created_by' => Yii::t('suppliers', 'created_by'),
             'updated_by' => Yii::t('suppliers', 'updated_by'),
         ];

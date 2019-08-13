@@ -10,3 +10,6 @@ $link = Yii::$app->params['frontUrl'].'/collect/attachment?verid='.enCrypt($pitc
 
     <p><?= Html::a(Html::encode($link), $link) ?></p>
 </div>
+<div>
+    此为系统邮件，请勿回复。
+</div>
