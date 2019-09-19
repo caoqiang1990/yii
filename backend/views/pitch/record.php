@@ -115,7 +115,7 @@ $this->title = '';
             <div class="form-group">
                 <label for="" class="col-xs-2 control-label">上传记录:</label>
 
-                <div class="col-sm-5" style="padding-left: 60px;">
+                <div class="col-sm-5">
 										<?php if ($model->record_url) { ?>
 												<?php foreach ($model->record_url as $attach) { ?>
 														<?php if ($attach['filetype'] == 'image') { ?>
@@ -127,32 +127,32 @@ $this->title = '';
                                 <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
                                    target="_blank">
                                     <i style="margin-top:0px"
-                                       class="fa fa-file-text-o fa-2x"><?php $attach['filename'] ?></i>
+                                       class="fa"><?= $attach['filename'] ?></i>
                                 </a>
 														<?php } elseif ($attach['filetype'] == 'ppt' || $attach['filetype'] == 'pptx') { ?>
 
                                 <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
                                    target="_blank">
                                     <i style="margin-top:0px"
-                                       class="fa fa-file-powerpoint-o fa-2x"><?php $attach['filename'] ?></i>
+                                       class="fa"><?= $attach['filename'] ?></i>
                                 </a>
 														<?php } elseif ($attach['filetype'] == 'xls' || $attach['filetype'] == 'xlsx' || $attach['filetype'] == 'csv') { ?>
                                 <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
                                    target="_blank">
                                     <i style="margin-top:0px"
-                                       class="fa fa-file-excel-o fa-2x"><?php $attach['filename'] ?></i>
+                                       class="fa"><?= $attach['filename'] ?></i>
                                 </a>
 														<?php } elseif ($attach['filetype'] == 'doc' || $attach['filetype'] == 'docx') { ?>
                                 <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
                                    target="_blank">
                                     <i style="margin-top:0px"
-                                       class="fa fa-file-word-o fa-2x"><?php $attach['filename'] ?></i>
+                                       class="fa"><?= $attach['filename'] ?></i>
                                 </a>
 														<?php } else { ?>
                                 <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
                                    target="_blank">
                                     <i style="margin-top:0px"
-                                       class="fa fa-file-o fa-2x"><?php $attach['filename'] ?></i>
+                                       class="fa"><?= $attach['filename'] ?></i>
                                 </a>
 														<?php } ?>
 												<?php } ?>
@@ -218,32 +218,32 @@ $this->title = '';
                                                         <a style="display: inline-block;padding-top:10px"
                                                            href="<?= $url['url'] ?>" target="_blank">
                                                             <i style="margin-top:0px"
-                                                               class="fa fa-file-text-o fa-2x"><?php $url['filename'] ?></i>
+                                                               class="fa"><?php $url['filename'] ?></i>
                                                         </a>
 																										<?php } elseif ($url['filetype'] == 'ppt' || $url['filetype'] == 'pptx') { ?>
 
                                                         <a style="display: inline-block;padding-top:10px"
                                                            href="<?= $url['url'] ?>" target="_blank">
                                                             <i style="margin-top:0px"
-                                                               class="fa fa-file-powerpoint-o fa-2x"><?php $url['filename'] ?></i>
+                                                               class="fa"><?= $url['filename'] ?></i>
                                                         </a>
 																										<?php } elseif ($url['filetype'] == 'xls' || $url['filetype'] == 'xlsx' || $url['filetype'] == 'csv') { ?>
-                                                        <a style="display: inline-block;padding-top:10px"
+                                                        <a style="display: inline-block;padding-top:10px;padding-left:10px;padding-bottom:10px"
                                                            href="<?= $url['url'] ?>" target="_blank">
                                                             <i style="margin-top:0px"
-                                                               class="fa fa-file-excel-o fa-2x"><?php $url['filename'] ?></i>
+                                                               class="fa"><?= $url['filename'] ?></i>
                                                         </a>
 																										<?php } elseif ($url['filetype'] == 'doc' || $url['filetype'] == 'docx') { ?>
                                                         <a style="display: inline-block;padding-top:10px"
                                                            href="<?= $url['url'] ?>" target="_blank">
                                                             <i style="margin-top:0px"
-                                                               class="fa fa-file-word-o fa-2x"><?php $url['filename'] ?></i>
+                                                               class="fa"><?= $url['filename'] ?></i>
                                                         </a>
 																										<?php } else { ?>
                                                         <a style="display: inline-block;padding-top:10px"
                                                            href="<?= $url['url'] ?>" target="_blank">
                                                             <i style="margin-top:0px"
-                                                               class="fa fa-file-o fa-2x"><?php $url['filename'] ?></i>
+                                                               class="fa"><?= $url['filename'] ?></i>
                                                         </a>
 																										<?php } ?>
 

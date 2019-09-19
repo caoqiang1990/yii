@@ -475,10 +475,12 @@ class PitchController extends Controller
 												$info = pathinfo($image->filepath);
 												if (in_array($info['extension'], ['jpg', 'png'])) {
 														$initialPreview[$k]['filetype'] = 'image';
-														$initialPreview[$k]['filename'] = $info['filename'] . '.' . $info['extension'];
+														//$initialPreview[$k]['filename'] = $info['filename'] . '.' . $info['extension'];
+														$initialPreview[$k]['filename'] = $image->filename ? $image->filename : '未命名';
 												} else {
 														$initialPreview[$k]['filetype'] = $info['extension'];
-														$initialPreview[$k]['filename'] = $info['filename'] . '.' . $info['extension'];
+														//$initialPreview[$k]['filename'] = $info['filename'] . '.' . $info['extension'];
+														$initialPreview[$k]['filename'] = $image->filename ? $image->filename : '未命名';
 												}
 												$initialPreview[$k]['url'] = $image->url;
 										}
@@ -495,7 +497,8 @@ class PitchController extends Controller
 								$image = $attachmentModel->getImageByID($item);
 								$info = pathinfo($image->filepath);
 								$model->record_url[$k]['filetype'] = $info['extension'];
-								$model->record_url[$k]['filename'] = $info['filename'] . '.' . $info['extension'];
+								//$model->record_url[$k]['filename'] = $info['filename'] . '.' . $info['extension'];
+								$model->record_url[$k]['filename'] = $image->filename ? $image->filename : '未命名';
 								$model->record_url[$k]['url'] = $image->url ? $image->url : '';
 						}
 				}
