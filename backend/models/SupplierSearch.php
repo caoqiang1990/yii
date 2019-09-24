@@ -80,7 +80,7 @@ class SupplierSearch extends Supplier
         $query->andFilterWhere([
             //'name' => $this->name,
             'level'=> $this->level,
-            'department' => $this->department,
+            //'department' => $this->department,
             'cate_id1'=> $this->cate_id1,
             'cate_id2'=> $this->cate_id2,
             'cate_id3'=> $this->cate_id3,

@@ -8,6 +8,7 @@ use backend\models\Supplier;
 use backend\models\SupplierSearch;
 use yii\web\NotFoundHttpException;
 use dosamigos\qrcode\QrCode;
+use backend\models\DepartmentAssignment;
 
 
 class AuditController extends Controller
@@ -18,7 +19,16 @@ class AuditController extends Controller
     $searchModel = new SupplierSearch();
     $request = Yii::$app->request->queryParams;
     $department = Yii::$app->user->identity->department;
-    $request['SupplierSearch']['department'] = $department;
+    $is_administrator = Yii::$app->user->identity->is_administrator;
+    if ($is_administrator == 2) {
+      $user_id = Yii::$app->user->identity->id;
+      $department_ids = DepartmentAssignment::getByUserId($user_id);
+      if (empty($department_ids)) {
+        $request['SupplierSearch']['department'][] = $department;
+      } else {
+        $request['SupplierSearch']['department'] = $department_ids;
+      }
+    }
     if (isset($request['SupplierSearch']['status']) && $request['SupplierSearch']['status'])  {
       $request['SupplierSearch']['supplier_status'] = $request['SupplierSearch']['status'];
     } else {
