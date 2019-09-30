@@ -26,31 +26,19 @@ use yii\helpers\Url;
             <?= $form->field($model, 'desc')->textarea(['rows' => 5]) ?>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <?= $form->field($model, 'answers_1')->textInput() ?>
-        </div>
-    </div>
+
     <div class="row">
         <div class="col-xs-12">
             <?= $form->field($model, 'options_1')->textarea(['rows' => 5]) ?>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <?= $form->field($model, 'answers_2')->textInput() ?>
-        </div>
-    </div>
+
     <div class="row">
         <div class="col-xs-12">
             <?= $form->field($model, 'options_2')->textarea(['rows' => 5]) ?>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <?= $form->field($model, 'answers_3')->textInput() ?>
-        </div>
-    </div>
+
     <div class="row">
         <div class="col-xs-12">
             <?= $form->field($model, 'options_3')->textarea(['rows' => 5]) ?>
