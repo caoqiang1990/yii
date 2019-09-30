@@ -17,7 +17,7 @@ return [
 	'Update' => '更新',
 	'Delete' => '删除',
 	'Are you sure you want to delete this item?' => '是否删除?',
-    'weight' => '分值权重',
+    'weight' => '总分',
     'answers_1' => '分值',
     'answers_2' => '分值',
     'answers_3' => '分值',
