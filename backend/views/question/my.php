@@ -6,7 +6,7 @@ use yii\widgets\Pjax;
 use mdm\admin\components\Helper;
 use yii\web\View;
 use yii\helpers\Url;
-use backend\models\QuestionRecord;
+use backend\models\TemplateRecord;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\PitchSearch */
@@ -80,35 +80,25 @@ $this->registerJs($js, View::POS_READY);
             'desc:ntext',
             'start_date',
             'end_date',
-//            [
-//                'header' => '操作',
-//                'class' => 'yii\grid\ActionColumn',
-//                'template' => Helper::filterActionColumn('{view}{update}{delete}'),
-//
-//            ],
             [
                 //'label'=>  (Helper::checkRoute('supplier-detail/create') || Helper::checkRoute('history/index')) ? '更多操作' : '',
-                'label' => (Helper::checkRoute('question/survey')) ? '更多操作' : '',
+                'label' => (Helper::checkRoute('template/survey')) ? '更多操作' : '',
                 'format' => 'raw',
                 'value' => function ($model) {
                     $operator_1 = '';
                     $operator_2 = '';
-//                    if (Helper::checkRoute('pitch/start') && $model->status == 'wait') {
-//                        $url_1 = 'javascript:void(0);';
-//                        $operator_1 = Html::a('上传资料', $url_1, ['title' => '邮件通知供方提供资料', 'class' => 'start', 'data-id' => $model->id]);
-//
-//                    }
-
-                    if (Helper::checkRoute('question/survey')) {
-                        $questionRecordModel = new QuestionRecord();
+                    if (Helper::checkRoute('template/survey')) {
+                        $templateRecordModel = new TemplateRecord();
                         $user_id = Yii::$app->user->identity->id;
-                        $hasFinished = $questionRecordModel->hasQuestionRecord($model->id, $user_id);
+                        $hasFinished = $templateRecordModel->hasTemplateRecord($model->template_id, $user_id);
                         if (!$hasFinished) {
-                            $url_2 = Url::to(['survey', 'question_id' => $model->id]);
+                            $url_2 = Url::to(['template/survey', 'template_id' => $model->template_id,'question_id'=>$model->id]);
                             $operator_2 = Html::a('评价', $url_2, ['title' => '评价', 'class' => '', 'data-id' => $model->id]);
+                        } else {
+                            $url_2 = Url::to(['template/result', 'template_id' => $model->template_id,'question_id'=>$model->id]);
+                            $operator_2 = Html::a('评价结果', $url_2, ['title' => '评价结果', 'class' => '', 'data-id' => $model->id]);
                         }
                     }
-
                     return $operator_1 . ' ' . $operator_2;
                 }
 

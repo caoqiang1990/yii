@@ -10,11 +10,12 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use mdm\admin\models\User;
 use backend\models\Supplier;
-use backend\models\QuestionRecord;
+use backend\models\TemplateRecord;
 use yii\web\Response;
 use yii\helpers\Url;
 use backend\models\Answer;
 use backend\models\SupplierLevel;
+use backend\models\Template;
 
 /**
  * QuestionController implements the CRUD actions for Question model.
@@ -87,12 +88,14 @@ class QuestionController extends Controller
 
         $users = User::getUsers();
         $suppliers = Supplier::getSuppliers();
+        $templates = Template::getTemplates();
         $start = date('Y-m-d H:i', time());
         $end = '';
         return $this->render('create', [
             'model' => $model,
             'users' => $users,
             'suppliers' => $suppliers,
+            'templates' => $templates,
             'start' => $start,
             'end' => $end,
         ]);
@@ -116,12 +119,14 @@ class QuestionController extends Controller
 
         $users = User::getUsers();
         $suppliers = Supplier::getSuppliers();
+        $templates = Template::getTemplates();
         $start = $model->start_date;
         $end = $model->end_date;
         return $this->render('update', [
             'model' => $model,
             'users' => $users,
             'suppliers' => $suppliers,
+            'templates' => $templates,
             'start' => $start,
             'end' => $end,
         ]);
@@ -315,26 +320,29 @@ class QuestionController extends Controller
                 //收集答案，评测
                 $level = SupplierLevel::getLevels();
                 $levelFlip = array_flip($level);
-                $select = 0;
+                $total = 0;
                 $result = 0;
-                $questionRecordModel = new QuestionRecord();
-                $records = $questionRecordModel::getQuestionRecordById($id);
-                $sum = 4 * count($records);//最大值是4 所以
+                $num = 0;
+                $templateRecordModel = new TemplateRecord();
+                $where['template_id'] = $model->template_id;
+                $where['question_id'] = $id;
+                $records = $templateRecordModel->getTemplateRecordByParams($where);
+                //总分
+                $num = count($records);
                 foreach ($records as $record) {
-                    $select += $record['result'];
+                    $total += $record['total'];
                 }
-                $result = $select / $sum;
-                if ($result < 0) {
+                $result = $total / $num;
+                if ($result < 0 || ($result > 0 && $result <= 49)) {
                     $level = '不合格';
                 }
-                if ($result > 0 && $result <= 0.8) {
+                if ($result > 50 && $result < 80) {
                     $level = '合格';
                 }
-                if ($result > 0.8 && $result < 1) {
+                if ($result >= 80 && $result <= 100) {
                     $level = '优秀';
                 }
                 $level_id = $levelFlip["{$level}"];
-
                 //修改供应商评价等级
                 //调用swoole客户端
                 $client = new \swoole_client(SWOOLE_SOCK_TCP);
@@ -393,13 +401,6 @@ class QuestionController extends Controller
         $id = Yii::$app->request->post('id');
         if ($id) {
             $model = $this->findModel($id);
-            $answers = $model->answers;
-            if (!$answers || count($answers) < 10) {
-                $response_data['status'] = 'fail';
-                $response_data['msg'] = '请添加选项！';
-                return $response_data;
-            }
-
             $now = date('Y-m-d H:i:s', time());
             if ($model->end_date < $now) {
                 $response_data['status'] = 'fail';

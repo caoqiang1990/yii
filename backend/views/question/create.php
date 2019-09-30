@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = '新增评价';
         'model' => $model,
         'users' => $users,
         'suppliers' => $suppliers,
+        'templates' => $templates,
         'start' => $start,
         'end' => $end,
     ]) ?>

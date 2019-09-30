@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = Yii::t('question', 'Update');
         'model' => $model,
         'users' => $users,
         'suppliers' => $suppliers,
+        'templates' => $templates,
         'start' => $start,
         'end' => $end,
     ]) ?>

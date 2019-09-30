@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
-use backend\models\Question;
+use backend\models\Template;
 
 /**
  * AnswerController implements the CRUD actions for Answer model.
@@ -66,31 +66,15 @@ class AnswerController extends Controller
      */
     public function actionCreate()
     {
-        $question_id = Yii::$app->request->get('question_id');
-        $questionModel = Question::findOne($question_id);
-        $list = $questionModel->answers;
-        if ($list && count($list) >= 10) {
-            Yii::$app->session->setFlash('error', "评价'{$questionModel->title}'的选项已经添加10条!");
-            return Yii::$app->getResponse()->redirect(Url::to('/question/index'));
-        }
+        $template_id = Yii::$app->request->get('template_id');
         $model = new Answer();
-        $model->count = count($list) + 1;
-        if ($request = Yii::$app->request->post()) {
-            $model->title = $request['question_title'];
-            $model->desc = $request['question_desc'];
-            $model->type = $request['question_type'];
-            $model->answers = $request['answers'];
-            $model->options = $request['options'];
-            $model->question_id = $request['question_id'];
-            $model->ratio = !empty($request['question_ratio']) ? $request['question_ratio']: '';
-            if ($model->validate() && $model->save()) {
-                return $this->redirect( Url::to(['create','question_id'=>$request['question_id']]));
-            }
-            $question_id = $request['question_id'];
+        $post = Yii::$app->request->post();
+        if ($model->load($post) && $model->save()) {
+            return $this->redirect(Url::to(['create', 'template_id' => $model->template_id]));
         }
         return $this->render('create', [
             'model' => $model,
-            'question_id' => $question_id,
+            'template_id' => $template_id,
         ]);
     }
 
@@ -114,12 +98,12 @@ class AnswerController extends Controller
             $model->question_id = $request['question_id'];
             $model->ratio = $request['question_ratio'];
             if ($model->validate() && $model->save()) {
-                return $this->redirect( Url::to(['question/preview','question_id'=>$request['question_id']]));
+                return $this->redirect(Url::to(['question/preview', 'question_id' => $request['question_id']]));
             }
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $question_id = Yii::$app->request->get('question_id');
-        $options = json_decode($model->options,true);
+        $options = json_decode($model->options, true);
         //var_dump($options);die;
         return $this->render('update', [
             'model' => $model,
@@ -174,14 +158,14 @@ class AnswerController extends Controller
             $model->object_id = $request['object_id'];
             $model->ratio = $request['question_ratio'];
             if ($model->validate() && $model->save()) {
-                return $this->redirect( Url::to(['answer','object_id'=>$request['object_id']]));
+                return $this->redirect(Url::to(['answer', 'object_id' => $request['object_id']]));
             }
             $object_id = $request['object_id'];
         }
         $object_id = Yii::$app->request->get('object_id');
         return $this->render('answer',
             [
-                'model'=>$model,
+                'model' => $model,
                 'object_id' => $object_id,
             ]
         );

@@ -14,11 +14,10 @@ use kartik\select2\Select2;
 <div class="question-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    <div class="form-group">
+    <div class="row">
         <div class="col-xs-6">
             <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
         </div>
-    </div>
     <div class="col-xs-6">
         <?php
         echo $form->field($model, 'type')->radioList([
@@ -27,7 +26,9 @@ use kartik\select2\Select2;
         ],['class' => 'type']);
         ?>
     </div>
-    <div class="col-xs-12">
+    </div>
+    <div class="row">
+    <div class="col-xs-6">
         <?php
         echo $form->field($model, 'sid')->widget(Select2::classname(), [
             'data' => $suppliers,
@@ -41,6 +42,22 @@ use kartik\select2\Select2;
         ])->label('要评价的供应商');
         ?>
     </div>
+    <div class="col-xs-6">
+        <?php
+        echo $form->field($model, 'template_id')->widget(Select2::classname(), [
+            'data' => $templates,
+            'size' => Select2::MEDIUM,
+            'options' => ['placeholder' => '请选择评价模板', 'multiple' => false],
+            'pluginOptions' => [
+                'tokenSeparators' => [',', ' '],
+                'maximumInputLength' => 10,
+                'allowClear' => true
+            ],
+        ])->label('评价模板');
+        ?>
+    </div>
+    </div>
+    <div class="row">
     <div class="col-xs-12">
         <?php
         echo $form->field($model, 'player')->widget(Select2::classname(), [
@@ -55,6 +72,8 @@ use kartik\select2\Select2;
         ])->label('参与评价人员');
         ?>
     </div>
+    </div>
+    <div class="row">
     <?php //if($model->isNewRecord){$model->email_flag = 'y';}?>
     <div class="col-xs-6">
         <?php echo $form->field($model, 'start_date')->widget(DateTimePicker::classname(), [
@@ -72,13 +91,14 @@ use kartik\select2\Select2;
             ]
         ]); ?>
     </div>
-    <div class="form-group">
+    </div>
+    <div class="row">
         <div class="col-xs-12">
             <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="row">
         <div class="col-xs-8">
         <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <a class="btn btn-primary" href="javascript:history.go(-1)">取消</a>

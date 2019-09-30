@@ -141,17 +141,6 @@ $this->registerJs($js, View::POS_READY);
                     $operator_3 = '';
                     $operator_4 = '';
                     $operator_5 = '';
-                    $operator_5 = '';
-                    if (Helper::checkRoute('question/preview')) {
-                        $url_1 = Url::to(['question/preview', 'question_id' => $model->id]);
-                        $operator_1 = Html::a('预览', $url_1, ['title' => '查看调查问卷']);
-
-                    }
-
-                    if (Helper::checkRoute('answer/create')) {
-                        $url_2 = Url::to(['answer/create', 'question_id' => $model->id]);
-                        $operator_2 = Html::a('添加选项', $url_2, ['title' => '添加选项']);
-                    }
                     if (Helper::checkRoute('question/start') && $model->status == 1) {
                         //$url_3 = Url::to(['question/sync','question_id'=>$model->id]);
                         $url_3 = 'javascript:void(0);';
