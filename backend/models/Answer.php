@@ -68,7 +68,7 @@ class Answer extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'desc', 'weight', 'answers_1', 'answers_2', 'answers_3', 'options_1', 'options_2', 'options_3'], 'required'],
+            [['title', 'desc', 'weight','options_1', 'options_2', 'options_3'], 'required'],
             [['template_id'], 'safe'],
         ];
     }
