@@ -79,7 +79,7 @@ $this->title = '';
         <tr class="tfooter">
             <td colspan="2" style="vertical-align: middle;text-align: center">合计</td>
             <td style="vertical-align: middle;text-align: center">100</td>
-            <td style="vertical-align: middle;"><?= $form->field($templaterecordmodel, 'operator')->textInput(['disabled' => true])->label('评价事业部'); ?></td>
+            <td style="vertical-align: middle;"><?= $form->field($templaterecordmodel, 'department')->textInput(['disabled' => true])->label('评价事业部'); ?></td>
             <td style="vertical-align: middle;"><?= $form->field($templaterecordmodel, 'operator')->textInput(['disabled' => true])->label('经办人'); ?></td>
             <td style="vertical-align: middle;"><?= $form->field($templaterecordmodel, 'total')->textInput(['disabled' => true])->label('实际得分'); ?></td>
             <td style="vertical-align: middle;text-align: center"></td>
