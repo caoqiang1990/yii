@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use backend\models\Answer;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%question}}".
@@ -17,6 +18,7 @@ class Question extends ActiveRecord
     const SCENARIO_ADD = 'add';
     const SCENARIO_EDIT = 'edit';
     const SCENARIO_FINISH = 'finish';
+
     /**
      * @inheritdoc
      */
@@ -65,10 +67,10 @@ class Question extends ActiveRecord
     {
         return [
             self::SCENARIO_ADD => [
-                'title', 'desc', 'player', 'sid', 'type', 'start_date', 'end_date'
+                'title', 'desc', 'player', 'sid', 'type', 'start_date', 'end_date', 'template_id'
             ],
             self::SCENARIO_EDIT => [
-                'title', 'desc', 'player', 'sid', 'type', 'start_date', 'end_date','status'
+                'title', 'desc', 'player', 'sid', 'type', 'start_date', 'end_date', 'status', 'template_id'
             ],
 
         ];
@@ -82,7 +84,7 @@ class Question extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'desc', 'player', 'sid', 'type'], 'required'],
+            [['title', 'desc', 'player', 'sid', 'type', 'template_id'], 'required'],
             [['start_date', 'end_date'], 'safe'],
         ];
     }
@@ -91,7 +93,7 @@ class Question extends ActiveRecord
     public function getAnswers()
     {
         return $this->hasMany(Answer::className(), ['id' => 'answer_id'])
-            ->viaTable('question_answer', ['question_id' => 'id'])->asArray();
+            ->viaTable('template_answer', ['template_id' => 'id'])->asArray();
     }
 
     /**
@@ -121,5 +123,34 @@ class Question extends ActiveRecord
         } else {
             return false;
         }
+    }
+
+    /**
+     * 获取key-value键值对
+     * @return [type] [description]
+     */
+    public static function getQuestion()
+    {
+        $question = self::find()->all();
+        $list = ArrayHelper::map($question, 'id', 'title');
+        return $list;
+    }
+
+    /**
+     * Name: getTemplateIdByParams
+     * User: aimer
+     * Date: 2019/9/29
+     * Time: 下午1:43
+     * @param array $params
+     * @return array|bool
+     */
+    public function getTemplateIdByParams($params=[])
+    {
+        if (empty($params)) {
+            return false;
+        }
+        $where['created_by'] = $params['user_id'];
+        $list = self::find()->select('id')->where($where)->asArray()->all();
+        return $list ? array_column($list,'id') : false;
     }
 }
