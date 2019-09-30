@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = ['label' => '更新', 'url' => ['view', 'id' =>
 
     <?= $this->render('_form', [
         'model' => $model,
-        'question_id' => $question_id,
+        'template_id' => $template_id,
     ]) ?>
 
 </div>

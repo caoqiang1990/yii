@@ -7,15 +7,12 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\models\AnswerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('answer', 'Answers');
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = '';
+$this->params['breadcrumbs'][] = Yii::t('answer', 'Answers');
 ?>
 <div class="answer-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
         <?= Html::a(Yii::t('answer', 'Create Answer'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -26,11 +23,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'title',
             'desc:ntext',
-            'type',
-            'options:ntext',
+            //'type',
+            //'options_1:ntext',
             //'answers',
             //'created_by',
             //'updated_by',

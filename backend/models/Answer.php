@@ -6,14 +6,15 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use backend\models\QuestionAnswer;
+use backend\models\TemplateAnswer;
+
 /**
  * This is the model class for table "{{%answer}}".
  **/
 class Answer extends ActiveRecord
 {
-    public $question_id;
-    public $count;
+    public $template_id;
+
     /**
      * @inheritdoc
      */
@@ -40,15 +41,22 @@ class Answer extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('answer','id'),
-            'title' => Yii::t('answer','title'),
-            'desc' => Yii::t('answer','desc'),
-            'type' => Yii::t('answer','type'),
-            'answers' => Yii::t('answer','answers'),
-            'options' => Yii::t('answer','options'),
-            'created_at' => Yii::t('answer','created_at'),
-            'updated_at' => Yii::t('answer','updated_at'),
-            'ratio' => Yii::t('answer','ratio'),
+            'id' => Yii::t('answer', 'id'),
+            'title' => Yii::t('answer', 'title'),
+            'desc' => Yii::t('answer', 'desc'),
+            'type' => Yii::t('answer', 'type'),
+            'answers' => Yii::t('answer', 'answers'),
+            'options' => Yii::t('answer', 'options'),
+            'created_at' => Yii::t('answer', 'created_at'),
+            'updated_at' => Yii::t('answer', 'updated_at'),
+            'weight' => Yii::t('answer', 'weight'),
+            'answers_1' => Yii::t('answer', 'answers_1'),
+            'answers_2' => Yii::t('answer', 'answers_2'),
+            'answers_3' => Yii::t('answer', 'answers_3'),
+            'options_1' => Yii::t('answer', 'options_1'),
+            'options_2' => Yii::t('answer', 'options_2'),
+            'options_3' => Yii::t('answer', 'options_3'),
+
         ];
     }
 
@@ -60,23 +68,22 @@ class Answer extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'desc'], 'required'],
-            [['question_id','ratio'],'safe'],
-            ['ratio','integer'],
+            [['title', 'desc', 'weight', 'answers_1', 'answers_2', 'answers_3', 'options_1', 'options_2', 'options_3'], 'required'],
+            [['template_id'], 'safe'],
         ];
     }
 
     /**
-    * @param bool $insert
-    * @param array $changedAttributes
-    */
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
     public function afterSave($insert, $changedAttributes)
     {
         //新增
         if ($insert) {
-            if ($this->question_id) {
-                $model = new QuestionAnswer();
-                $model->question_id = $this->question_id;
+            if ($this->template_id) {
+                $model = new TemplateAnswer();
+                $model->template_id = $this->template_id;
                 $model->answer_id = $this->id;
                 $model->save();
             }
@@ -91,7 +98,7 @@ class Answer extends ActiveRecord
      * @param $answer_id
      * @param $result
      */
-    public function getResultByParams($answer_id='',$result='')
+    public function getResultByParams($answer_id = '', $result = '')
     {
         if (!$answer_id) {
             return false;

@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Answer;
+use backend\models\Template;
 
 /**
- * AnswerSearch represents the model behind the search form of `backend\models\Answer`.
+ * TemplateSearch represents the model behind the search form of `backend\models\Template`.
  */
-class AnswerSearch extends Answer
+class TemplateSearch extends Template
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,8 @@ class AnswerSearch extends Answer
     public function rules()
     {
         return [
-            [['id', 'type', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'desc', 'options_1', 'answers_1','options_2','answers_2','options_3','answers_3'], 'safe'],
+            [['id', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'intro'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class AnswerSearch extends Answer
      */
     public function search($params)
     {
-        $query = Answer::find();
+        $query = Template::find();
 
         // add conditions that should always apply here
 
@@ -60,21 +60,14 @@ class AnswerSearch extends Answer
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'type' => $this->type,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'desc', $this->desc])
-            ->andFilterWhere(['like', 'options', $this->options_1])
-            ->andFilterWhere(['like', 'answers', $this->answers_1])
-            ->andFilterWhere(['like', 'options', $this->options_2])
-            ->andFilterWhere(['like', 'answers', $this->answers_2])
-            ->andFilterWhere(['like', 'options', $this->options_3])
-            ->andFilterWhere(['like', 'answers', $this->answers_3]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'intro', $this->intro]);
 
         return $dataProvider;
     }

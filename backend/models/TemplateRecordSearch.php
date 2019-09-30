@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Answer;
+use backend\models\TemplateRecord;
 
 /**
- * AnswerSearch represents the model behind the search form of `backend\models\Answer`.
+ * TemplateRecordSearch represents the model behind the search form of `backend\models\TemplateRecord`.
  */
-class AnswerSearch extends Answer
+class TemplateRecordSearch extends TemplateRecord
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,8 @@ class AnswerSearch extends Answer
     public function rules()
     {
         return [
-            [['id', 'type', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'desc', 'options_1', 'answers_1','options_2','answers_2','options_3','answers_3'], 'safe'],
+            [['id', 'template_id', 'question_id', 'total', 'is_satisfy', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['department', 'result', 'reason', 'operator'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class AnswerSearch extends Answer
      */
     public function search($params)
     {
-        $query = Answer::find();
+        $query = TemplateRecord::find();
 
         // add conditions that should always apply here
 
@@ -60,21 +60,22 @@ class AnswerSearch extends Answer
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'type' => $this->type,
+            'template_id' => $this->template_id,
+            //'question_id' => $this->question_id,
+            'total' => $this->total,
+            'is_satisfy' => $this->is_satisfy,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
-
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'desc', $this->desc])
-            ->andFilterWhere(['like', 'options', $this->options_1])
-            ->andFilterWhere(['like', 'answers', $this->answers_1])
-            ->andFilterWhere(['like', 'options', $this->options_2])
-            ->andFilterWhere(['like', 'answers', $this->answers_2])
-            ->andFilterWhere(['like', 'options', $this->options_3])
-            ->andFilterWhere(['like', 'answers', $this->answers_3]);
+        if ($this->question_id) {
+            $query->andFilterWhere(['in', 'question_id', $this->question_id]);
+        }
+        $query->andFilterWhere(['like', 'department', $this->department])
+            ->andFilterWhere(['like', 'result', $this->result])
+            ->andFilterWhere(['like', 'reason', $this->reason])
+            ->andFilterWhere(['like', 'operator', $this->operator]);
 
         return $dataProvider;
     }
