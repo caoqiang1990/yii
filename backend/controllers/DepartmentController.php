@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use common\models\AdminLog;
 use mdm\admin\models\User;
 use backend\models\DepartmentAssignment;
+use backend\models\DepartmentAudit;
 
 /**
  * DepartmentController implements the CRUD actions for Department model.
@@ -200,5 +201,58 @@ class DepartmentController extends Controller
         Yii::$app->getResponse()->format = 'json';
         $departmentModel = $this->findModel($id);
         return array_merge($departmentModel->getItems(), ['success' => $success]);
+    }
+
+    /**
+     * Name: actionAudit
+     * User: aimer
+     * Date: 2019/10/8
+     * Time: 上午8:46
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionAudit($id)
+    {
+        $model = $this->findModel($id);
+        return $this->render('audit', ['model' => $model]);
+    }
+
+    /**
+     * Name: actionAssignAudit
+     * User: aimer
+     * Date: 2019/10/8
+     * Time: 上午8:48
+     * @param $id
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function actionAssignAudit($id)
+    {
+        $items = Yii::$app->getRequest()->post('items', []);
+        $model = new DepartmentAudit();
+        $success = $model->assign($items,$id);
+        Yii::$app->getResponse()->format = 'json';
+        $departmentModel = $this->findModel($id);
+        return array_merge($departmentModel->getItemsAudit(), ['success' => $success]);
+    }
+
+    /**
+     * Name: actionRevokeAudit
+     * User: aimer
+     * Date: 2019/10/8
+     * Time: 上午8:48
+     * @param $id
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function actionRevokeAudit($id)
+    {
+        $items = Yii::$app->getRequest()->post('items', []);
+        $model = new DepartmentAudit();
+        $success = $model->revoke($items,$id);
+        Yii::$app->getResponse()->format = 'json';
+        $departmentModel = $this->findModel($id);
+        return array_merge($departmentModel->getItemsAudit(), ['success' => $success]);
     }
 }

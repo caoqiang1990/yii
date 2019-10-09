@@ -10,6 +10,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
 use mdm\admin\models\User;
 use backend\models\DepartmentAssignment;
+use backend\models\DepartmentAudit;
 
 class Department extends ActiveRecord
 {
@@ -210,6 +211,28 @@ class Department extends ActiveRecord
         $available = User::getUsers();
         $assigned = [];
         $lists = DepartmentAssignment::getByDepartmentId($this->id);
+        foreach ($lists as $item) {
+            $assigned[$item['user_id']] = User::findIdentity($item['user_id'])->truename;
+            unset($available[$item['user_id']]);
+        }
+        return [
+            'available' => $available,
+            'assigned' => $assigned,
+        ];
+    }
+
+    /**
+     * Name: getItemsAudit
+     * User: aimer
+     * Date: 2019/10/8
+     * Time: 上午8:58
+     * @return array
+     */
+    public function getItemsAudit()
+    {
+        $available = User::getUsers();
+        $assigned = [];
+        $lists = DepartmentAudit::getByDepartmentId($this->id);
         foreach ($lists as $item) {
             $assigned[$item['user_id']] = User::findIdentity($item['user_id'])->truename;
             unset($available[$item['user_id']]);
