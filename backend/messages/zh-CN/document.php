@@ -11,6 +11,7 @@ return [
     'Documents' => '文档列表',
     'ID' => '序号',
     'Department' => '所属部门',
+    'Cate' => '文档分类',
     'Created By' => '创建人',
     'Updated By' => '修改人',
     'Created At' => '添加时间',
