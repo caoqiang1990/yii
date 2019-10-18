@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = Yii::t('document', 'Documents');
 ?>
 <div class="document-index">
 
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -82,5 +81,4 @@ $this->params['breadcrumbs'][] = Yii::t('document', 'Documents');
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-    <?php Pjax::end(); ?>
 </div>
