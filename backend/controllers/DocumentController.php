@@ -147,7 +147,7 @@ class DocumentController extends Controller
      */
     public function actionUploadAttachment()
     {
-        ini_set('max_execution_time', '50');
+        ini_set('max_execution_time', 0);
         $field = Yii::$app->request->post('field');
         $documentModel = new Document();
 
