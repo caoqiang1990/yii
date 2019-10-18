@@ -6,6 +6,7 @@ use Yii;
 use backend\models\Attachment;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use yii\helpers\FileHelper;
 
 /**
  * This is the model class for table "document".
