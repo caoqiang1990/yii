@@ -161,11 +161,12 @@ class TemplateController extends Controller
         $template_id = Yii::$app->request->get('template_id');
         $question_id = Yii::$app->request->get('question_id');
         $model = $this->findModel($template_id);
+
         $questionModel = Question::findOne($question_id);
         $answers = $model->answers;
         $templateRecordModel = new TemplateRecord();
         $user_id = Yii::$app->user->identity->id;
-        $hasFinished = $templateRecordModel->hasTemplateRecord($template_id, $user_id);
+        $hasFinished = $templateRecordModel->hasTemplateRecord($template_id, $question_id, $user_id);
 
         if ($hasFinished) {
             Yii::$app->session->setFlash('error', '您已完成作答，请勿重新作答!');

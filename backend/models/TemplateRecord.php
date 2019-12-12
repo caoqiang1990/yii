@@ -18,6 +18,11 @@ class TemplateRecord extends ActiveRecord
     public $result_3;
     public $result_4;
     public $result_5;
+    public $result_6;
+    public $result_7;
+    public $result_8;
+    public $result_9;
+    public $result_10;
     public $count;
 
     /**
@@ -26,7 +31,7 @@ class TemplateRecord extends ActiveRecord
     public function rules()
     {
         return [
-            [['template_id', 'question_id', 'result_1', 'result_2', 'result_3', 'result_4', 'result_5', 'result', 'count'], 'safe'],
+            [['template_id', 'question_id', 'result_1', 'result_2', 'result_3', 'result_4', 'result_5','result_6','result_7','result_8','result_9','result_10','result', 'count'], 'safe'],
             [['reason', 'total', 'operator', 'is_satisfy','department'], 'required'],
 
         ];
@@ -133,17 +138,21 @@ class TemplateRecord extends ActiveRecord
      * @param string $user_id
      * @return bool
      */
-    public function hasTemplateRecord($template_id = '', $user_id = '')
+    public function hasTemplateRecord($template_id = '', $question_id='', $user_id = '')
     {
         if (!$template_id) {
+            return false;
+        }
+        if ($question_id) {
             return false;
         }
         if (!$user_id) {
             return false;
         }
         $where['template_id'] = $template_id;
+        $where['question_id'] = $question_id;
         $where['created_by'] = $user_id;
-        $result = $this->find()->where($where)->all();
+        $result = self::find()->where($where)->all();
         if (empty($result)) {
             return false;
         }

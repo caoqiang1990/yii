@@ -90,7 +90,7 @@ $this->registerJs($js, View::POS_READY);
                     if (Helper::checkRoute('template/survey')) {
                         $templateRecordModel = new TemplateRecord();
                         $user_id = Yii::$app->user->identity->id;
-                        $hasFinished = $templateRecordModel->hasTemplateRecord($model->template_id, $user_id);
+                        $hasFinished = $templateRecordModel->hasTemplateRecord($model->template_id, $model->id, $user_id);
                         if (!$hasFinished) {
                             $url_2 = Url::to(['template/survey', 'template_id' => $model->template_id,'question_id'=>$model->id]);
                             $operator_2 = Html::a('评价', $url_2, ['title' => '评价', 'class' => '', 'data-id' => $model->id]);
