@@ -22,7 +22,6 @@ $this->params['breadcrumbs'][] = $model->id;
             'reason:ntext',
             'total',
             'operator',
-            'is_satisfy',
             [
                 'attribute' => 'created_at',
                 'value' => function ($model) {

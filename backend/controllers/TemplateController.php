@@ -197,7 +197,8 @@ class TemplateController extends Controller
             'templaterecordmodel' => $templateRecordModel,
             'answers' => $answers,
             'template_id' => $template_id,
-            'question_id' => $question_id
+            'question_id' => $question_id,
+            'sid' => $questionModel->sid,
         ]);
     }
 

@@ -3,6 +3,8 @@
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use backend\models\Template;
+use backend\models\Supplier;
+use backend\models\TemplateRecord;
 use backend\models\Question;
 use mdm\admin\components\Helper;
 
@@ -16,7 +18,6 @@ $this->params['breadcrumbs'][] = Yii::t('template', 'Template Records');
 ?>
 <div class="template-record-index">
 
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -24,7 +25,13 @@ $this->params['breadcrumbs'][] = Yii::t('template', 'Template Records');
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+            [
+                'attribute' => 'sid',
+                'value' => function ($model) {
+                    return Supplier::findOne($model->sid)->name;
+                },
+                'filter' => TemplateRecord::getSuppliers(),
+            ],
             [
                 'attribute' => 'template_id',
                 'value' => function ($model) {
@@ -49,5 +56,4 @@ $this->params['breadcrumbs'][] = Yii::t('template', 'Template Records');
             ],
         ],
     ]); ?>
-    <?php Pjax::end(); ?>
 </div>

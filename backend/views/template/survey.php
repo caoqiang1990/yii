@@ -12,8 +12,10 @@ $this->title = '';
         vertical-align: middle !important;
         text-align: center !important;
         background-color: #777;
+        border:1px solid black !important;
     }
 
+    table td{border:1px solid black !important;}
     .tfooter td {
         font-weight: bolder;
     }
@@ -30,8 +32,9 @@ $this->title = '';
 <div class="container-fluid">
     <?= $form->field($templaterecordmodel, 'template_id')->hiddenInput(['value' => $template_id])->label(false); ?>
     <?= $form->field($templaterecordmodel, 'question_id')->hiddenInput(['value' => $question_id])->label(false); ?>
+    <?= $form->field($templaterecordmodel, 'sid')->hiddenInput(['value' => $sid])->label(false); ?>
     <?= $form->field($templaterecordmodel, 'count')->hiddenInput(['value' => count($answers)])->label(false); ?>
-    <table class="table table-bordered">
+    <table class="table ">
         <tr class="theader">
             <th></th>
             <th>考评关键点</th>
@@ -67,8 +70,9 @@ $this->title = '';
 
                     ?>
                     <td style="vertical-align: middle;text-align: center" <?= $order == 1 ? "rowspan='$count'" : ""; ?>>
-                        <b>合作项目:</b> <?= Question::findOne($question_id)->title ?><br />
-                        <p style="font-size:10px !important;">请根据该合作项目填写合作感受</p>
+                        <b>合作项目:</b><?= $form->field($templaterecordmodel, 'project')->textInput()->label(false); ?>
+                        <br />
+                        <b>请根据该合作项目填写合作感受</b>
                         <?= $form->field($templaterecordmodel, 'reason')->textarea(['rows' => 6])->label(false); ?>
                     </td>
                     <?php
@@ -84,10 +88,8 @@ $this->title = '';
             <td style="vertical-align: middle;text-align: center">100</td>
             <td style="vertical-align: middle;"><?= $form->field($templaterecordmodel, 'department')->textInput()->label('评价事业部'); ?></td>
             <td style="vertical-align: middle;"><?= $form->field($templaterecordmodel, 'operator')->textInput()->label('经办人'); ?></td>
-            <td style="vertical-align: middle;"><?= $form->field($templaterecordmodel, 'total')->textInput()->label('实际得分'); ?></td>
-            <td style="vertical-align: middle;text-align: center"></td>
+            <td colspan="2" style="vertical-align: middle;"><?= $form->field($templaterecordmodel, 'total')->textInput()->label('实际得分'); ?></td>
             <td style="vertical-align: middle;">
-                是否还有合作意向： <?= $form->field($templaterecordmodel, 'is_satisfy')->checkboxList(['1' => '是', '0' => '否'])->label(false); ?></td>
         </tr>
     </table>
 

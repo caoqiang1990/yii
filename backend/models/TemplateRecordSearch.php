@@ -18,8 +18,8 @@ class TemplateRecordSearch extends TemplateRecord
     public function rules()
     {
         return [
-            [['id', 'template_id', 'question_id', 'total', 'is_satisfy', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['department', 'result', 'reason', 'operator'], 'safe'],
+            [['id', 'template_id', 'total', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['department', 'result', 'reason', 'operator','sid','question_id'], 'safe'],
         ];
     }
 
@@ -63,7 +63,7 @@ class TemplateRecordSearch extends TemplateRecord
             'template_id' => $this->template_id,
             //'question_id' => $this->question_id,
             'total' => $this->total,
-            'is_satisfy' => $this->is_satisfy,
+            'sid' => $this->sid,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,
