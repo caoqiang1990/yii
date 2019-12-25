@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = Yii::t('template', 'Template Records');
             [
                 'attribute' => 'template_id',
                 'value' => function ($model) {
-                    return Template::findOne($model->template_id)->name;
+                    return $model->template_id ? Template::findOne($model->template_id)->name : '';
                 },
                 'filter' => Template::getTemplates(),
             ],
