@@ -537,4 +537,14 @@ class Supplier extends ActiveRecord
         $count = self::find()->where($where)->count();
         return $count;
     }
+
+    public static function getCountByParamsArr($where) {
+        if (empty($where)) {
+            return false;
+        }
+        $where['status'] = 10;
+        $count = self::find()->where($where)->count();
+        return $count;
+
+    }
 }

@@ -1105,4 +1105,28 @@ class SupplierController extends Controller
 				}
 				return $response_data;
 		}
+
+
+		public function actionData()
+        {
+            $category = SupplierCategory::getCategoryByParams('id,category_name',1,0);
+            $levels = SupplierLevel::getLevels();
+            unset($levels[1]);
+            $level_arr = array_flip($levels);
+            $category_arr = array_flip($category);
+            $cate_ids = array_keys($category);
+            $data = [];
+            foreach ($category_arr as $category_name =>$cate_id) {
+
+                $data[$category_name]['total'] = Supplier::getCountByParams('cate_id1',$cate_id);
+                foreach ($level_arr as $level_name => $level_id) {
+                    $where['cate_id1'] = $cate_id;
+                    $where['level'] = $level_id;
+                    $data[$category_name][$level_name] = Supplier::getCountByParamsArr($where);
+                }
+            }
+            return $this->render('data', [
+              'data' => $data
+            ]);
+        }
 }
