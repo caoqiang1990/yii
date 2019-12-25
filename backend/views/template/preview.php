@@ -13,7 +13,9 @@ $this->title = '';
         vertical-align: middle !important;
         text-align: center !important;
         background-color: #777;
+        border:1px solid black !important;
     }
+    table td{border:1px solid black !important;}
     .tfooter td {
         font-weight:bolder;
     }
@@ -59,8 +61,8 @@ $this->title = '';
                     <td style="vertical-align: middle;text-align: center" <?= $order == 1 ? "rowspan='$count'" : ""; ?>>
                         <b>合作项目：</b>____________
                         <br />
-                        <p style="font-size: 10px;">请根据该合作项目填写合作感受</p>
-                        <br />
+                        <b>请根据该合作项目填写合作感受</b>
+                        <br />____________
                         <br />
                         <br />
                         <br />
@@ -78,9 +80,8 @@ $this->title = '';
             <td style="vertical-align: middle;text-align: center">100</td>
             <td style="vertical-align: middle;">评价事业部____________</td>
             <td style="vertical-align: middle;">经办人____________</td>
-            <td style="vertical-align: middle;">实际得分____________</td>
+            <td colspan="2" style="vertical-align: middle;">实际得分____________</td>
             <td style="vertical-align: middle;text-align: center"></td>
-            <td style="vertical-align: middle;">是否还有合作意向：<i class="fa fa-square-o"></i>是 <i class="fa fa-square-o"></i>否</td>
         </tr>
     </table>
     <div style="height:20px;width:100%"></div>
