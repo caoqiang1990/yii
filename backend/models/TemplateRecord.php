@@ -145,7 +145,7 @@ class TemplateRecord extends ActiveRecord
         if (!$template_id) {
             return false;
         }
-        if ($question_id) {
+        if (!$question_id) {
             return false;
         }
         if (!$user_id) {
