@@ -65,7 +65,7 @@ $this->title = '';
                     ?>
                     <td style="vertical-align: middle;text-align: center" <?= $order == 1 ? "rowspan='$count'" : ""; ?>>
                         <b>合作项目:</b><?= Question::findOne($question_id)->title ?>
-                        <p style="font-size: 10px">请根据该合作项目填写合作感受</p>
+                        <b>请根据该合作项目填写合作感受：</b><br />
                         <?= $form->field($templaterecordmodel, 'reason')->textarea(['rows' => 6,'disabled' => true])->label(false);?>
                     </td>
                     <?php
@@ -84,7 +84,7 @@ $this->title = '';
             <td style="vertical-align: middle;"><?= $form->field($templaterecordmodel, 'total')->textInput(['disabled' => true])->label('实际得分'); ?></td>
             <td style="vertical-align: middle;text-align: center"></td>
             <td style="vertical-align: middle;">
-                是否还有合作意向： <?= $form->field($templaterecordmodel, 'is_satisfy')->checkboxList(['1' => '是', '0' => '否'],['itemOptions'=>['disabled'=>true]])->label(false); ?></td>
+            </td>
         </tr>
     </table>
     <?php ActiveForm::end(); ?>

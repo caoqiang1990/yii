@@ -61,7 +61,7 @@ $this->title = '';
                     <td style="vertical-align: middle;text-align: center" <?= $order == 1 ? "rowspan='$count'" : ""; ?>>
                         <b>合作项目：</b>____________
                         <br />
-                        <b>请根据该合作项目填写合作感受</b>
+                        <b>请根据该合作项目填写合作感受：</b>
                         <br />____________
                         <br />
                         <br />
