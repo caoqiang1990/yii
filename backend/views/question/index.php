@@ -154,7 +154,8 @@ $this->registerJs($js, View::POS_READY);
                     if (Helper::checkRoute('question/sync') && $model->status == 3) {
                         //$url_3 = Url::to(['question/sync','question_id'=>$model->id]);
                         $url_3 = 'javascript:void(0);';
-                        $operator_5 = Html::a('同步', $url_3, ['title' => '同步', 'class' => 'sync', 'data-id' => $model->id]);
+                        //$operator_5 = Html::a('同步', $url_3, ['title' => '同步', 'class' => 'sync', 'data-id' => $model->id]);
+                        $operator_5 = '';
                     }
                     return $operator_1 . ' ' . $operator_2 . ' ' . $operator_3 . ' ' . $operator_4 . ' ' . $operator_5;
                 }
