@@ -59,15 +59,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'activate' => function ($url, $model) {
                         if ($model->status == 10) {
-                            return '';
+                            $options = [
+                                'title' => Yii::t('rbac-admin', 'Activate'),
+                                'aria-label' => Yii::t('rbac-admin', 'Activate'),
+                                'data-confirm' => Yii::t('rbac-admin', '是否冻结该用户?'),
+                                'data-method' => 'post',
+                                'data-pjax' => '0',
+                            ];
+                        } else {
+                            $options = [
+                                'title' => Yii::t('rbac-admin', 'Activate'),
+                                'aria-label' => Yii::t('rbac-admin', 'Activate'),
+                                'data-confirm' => Yii::t('rbac-admin', '是否取消冻结该用户?'),
+                                'data-method' => 'post',
+                                'data-pjax' => '0',
+                            ];
                         }
-                        $options = [
-                            'title' => Yii::t('rbac-admin', 'Activate'),
-                            'aria-label' => Yii::t('rbac-admin', 'Activate'),
-                            'data-confirm' => Yii::t('rbac-admin', 'Are you sure you want to activate this user?'),
-                            'data-method' => 'post',
-                            'data-pjax' => '0',
-                        ];
                         return Html::a('<span class="glyphicon glyphicon-ok"></span>', $url, $options);
                     },
                     'admin-change-password' => function ($url, $model) {

@@ -271,6 +271,14 @@ class UserController extends Controller
                 $errors = $user->firstErrors;
                 throw new UserException(reset($errors));
             }
+        } else {
+            $user->status = User::STATUS_INACTIVE;
+            if ($user->save()) {
+                return $this->goHome();
+            } else {
+                $errors = $user->firstErrors;
+                throw new UserException(reset($errors));
+            }
         }
         return $this->goHome();
     }
