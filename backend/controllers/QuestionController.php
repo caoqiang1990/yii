@@ -333,13 +333,13 @@ class QuestionController extends Controller
                     $total += $record['total'];
                 }
                 $result = $total / $num;
-                if ($result < 0 || ($result > 0 && $result <= 49)) {
+                if ($result < 0 || ($result > 0 && $result < 60)) {
                     $level = '不合格';
                 }
-                if ($result > 50 && $result < 80) {
+                if ($result >= 60 && $result < 90) {
                     $level = '合格';
                 }
-                if ($result >= 80 && $result <= 100) {
+                if ($result >= 90 && $result <= 100) {
                     $level = '优秀';
                 }
                 $level_id = $levelFlip["{$level}"];
