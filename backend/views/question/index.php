@@ -107,7 +107,13 @@ $this->registerJs($js, View::POS_READY);
             ['class' => 'yii\grid\SerialColumn'],
 
             'title',
-            'desc:ntext',
+            [
+                'attribute'=>'desc',
+                'format'=>'raw',
+                'value'=>function($model){
+                    return "<div style=\"width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">".$model->desc."</div>";
+                },
+            ],
             [
                 'attribute' => 'status',
                 'value' => function ($model) {
