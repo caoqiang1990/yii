@@ -234,6 +234,9 @@ class Department extends ActiveRecord
         $assigned = [];
         $lists = DepartmentAudit::getByDepartmentId($this->id);
         foreach ($lists as $item) {
+            if (!User::findIdentity($item['user_id'])) {
+                continue;
+            }
             $assigned[$item['user_id']] = User::findIdentity($item['user_id'])->truename;
             unset($available[$item['user_id']]);
         }
