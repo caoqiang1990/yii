@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = Yii::t('answer', 'Answers');
                             'data-pjax' => '0',
                         ];
                         $record = \backend\models\TemplateAnswer::getByAnswerId($model->id);
-                        $template_id = $record->template_id;
+                        $template_id = isset($record->template_id) ? $record->template_id : '';
                         $url = Url::to(['/answer/update','id'=>$model->id,'template_id'=>$template_id]);
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
                     },
