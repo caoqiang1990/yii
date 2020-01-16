@@ -13,10 +13,6 @@ $this->params['breadcrumbs'][] = Yii::t('answer', 'Answers');
 <div class="answer-index">
 
     <?php Pjax::begin(); ?>
-    <p>
-        <?= Html::a(Yii::t('answer', 'Create Answer'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

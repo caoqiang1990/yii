@@ -18,7 +18,7 @@ class AnswerSearch extends Answer
     public function rules()
     {
         return [
-            [['id', 'type', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['title', 'desc', 'options_1', 'answers_1','options_2','answers_2','options_3','answers_3'], 'safe'],
         ];
     }
@@ -60,7 +60,6 @@ class AnswerSearch extends Answer
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'type' => $this->type,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,
