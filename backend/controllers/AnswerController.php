@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\TemplateAnswer;
 use Yii;
 use backend\models\Answer;
 use backend\models\AnswerSearch;
@@ -88,26 +89,16 @@ class AnswerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($request = Yii::$app->request->post()) {
-            $model->title = $request['question_title'];
-            $model->desc = $request['question_desc'];
-            $model->type = $request['question_type'];
-            $model->answers = $request['answers'];
-            $model->options = $request['options'];
-            $model->question_id = $request['question_id'];
-            $model->ratio = $request['question_ratio'];
-            if ($model->validate() && $model->save()) {
-                return $this->redirect(Url::to(['question/preview', 'question_id' => $request['question_id']]));
+            if ($model->load($request) && $model->save()) {
+                return $this->redirect(Url::to(['template/index']));
             }
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $question_id = Yii::$app->request->get('question_id');
-        $options = json_decode($model->options, true);
-        //var_dump($options);die;
-        return $this->render('update', [
+        //获取模板id
+        return $this->render('create', [
             'model' => $model,
-            'question_id' => $question_id,
+            'template_id' => Yii::$app->request->get("template_id"),
         ]);
     }
 

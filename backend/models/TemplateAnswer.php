@@ -55,4 +55,16 @@ class TemplateAnswer extends ActiveRecord
         var_dump($list);die;
     }
 
+
+    public static function getByAnswerId($answer_id)
+    {
+        if (!$answer_id) {
+            return false;
+        }
+        $where["answer_id"] = $answer_id;
+        $record = self::find()->where($where)->one();
+        return $record;
+
+    }
+
 }
