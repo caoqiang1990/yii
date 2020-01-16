@@ -24,10 +24,15 @@ class SupplierDetail extends ActiveRecord
     public $coop_fund1;
     public $coop_fund2;
     public $coop_fund3;
-
+    public $coop_fund4;
+    public $coop_fund5;
+    public $coop_fund6;
     public $trade_fund1;
     public $trade_fund2;
     public $trade_fund3;
+    public $trade_fund4;
+    public $trade_fund5;
+    public $trade_fund6;
 
     public $fund_year1;
     public $fund_year2;
@@ -102,9 +107,15 @@ class SupplierDetail extends ActiveRecord
                 'coop_fund1',
                 'coop_fund2',
                 'coop_fund3',
+                'coop_fund4',
+                'coop_fund5',
+                'coop_fund6',
                 'trade_fund1',
                 'trade_fund2',
                 'trade_fund3',
+                'trade_fund4',
+                'trade_fund5',
+                'trade_fund6',
                 'develop_department',
                 'one_coop_department',
                 'second_coop_department',
@@ -124,9 +135,15 @@ class SupplierDetail extends ActiveRecord
                 'coop_fund1',
                 'coop_fund2',
                 'coop_fund3',
+                'coop_fund4',
+                'coop_fund5',
+                'coop_fund6',
                 'trade_fund1',
                 'trade_fund2',
-                'trade_fund3',           
+                'trade_fund3',
+                'trade_fund4',
+                'trade_fund5',
+                'trade_fund6',
                 'develop_department',
                 'sid',
                 'one_coop_department',
