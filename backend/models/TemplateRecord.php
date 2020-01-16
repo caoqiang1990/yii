@@ -25,6 +25,17 @@ class TemplateRecord extends ActiveRecord
     public $result_8;
     public $result_9;
     public $result_10;
+    public $result_11;
+    public $result_12;
+    public $result_13;
+    public $result_14;
+    public $result_15;
+    public $result_16;
+    public $result_17;
+    public $result_18;
+    public $result_19;
+    public $result_20;
+
     public $count;
 
     /**
@@ -33,7 +44,7 @@ class TemplateRecord extends ActiveRecord
     public function rules()
     {
         return [
-            [['template_id', 'question_id', 'sid', 'result_1', 'result_2', 'result_3', 'result_4', 'result_5','result_6','result_7','result_8','result_9','result_10','result', 'count'], 'safe'],
+            [['template_id', 'question_id', 'sid', 'result_1', 'result_2', 'result_3', 'result_4', 'result_5','result_6','result_7','result_8','result_9','result_10','result_11','result_12','result_13','result_14','result_15','result_16','result_17','result_18','result_19','result_20','result', 'count'], 'safe'],
             [['reason', 'total', 'operator', 'project','department'], 'required'],
 
         ];
