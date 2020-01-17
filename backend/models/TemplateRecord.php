@@ -113,12 +113,16 @@ class TemplateRecord extends ActiveRecord
      * @param $question_id
      * @return bool
      */
-    public static function getByTemplateId($template_id)
+    public static function getByTemplateId($template_id,$question_id)
     {
         if (!$template_id) {
             return false;
         }
+        if (!$question_id) {
+            return false;
+        }
         $where['template_id'] = $template_id;
+        $where['question_id'] = $question_id;
         $where['created_by'] = Yii::$app->user->identity->id;
         $one = self::find()->where($where)->one();
         return $one;
