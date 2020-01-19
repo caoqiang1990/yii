@@ -44,8 +44,8 @@ class TemplateRecord extends ActiveRecord
     public function rules()
     {
         return [
-            [['template_id', 'question_id', 'sid', 'result_1', 'result_2', 'result_3', 'result_4', 'result_5','result_6','result_7','result_8','result_9','result_10','result_11','result_12','result_13','result_14','result_15','result_16','result_17','result_18','result_19','result_20','result', 'count'], 'safe'],
-            [['reason', 'total', 'operator', 'project','department'], 'required'],
+            [['template_id', 'question_id', 'sid', 'result_1', 'result_2', 'result_3', 'result_4', 'result_5', 'result_6', 'result_7', 'result_8', 'result_9', 'result_10', 'result_11', 'result_12', 'result_13', 'result_14', 'result_15', 'result_16', 'result_17', 'result_18', 'result_19', 'result_20', 'result', 'count'], 'safe'],
+            [['reason', 'total', 'operator', 'project', 'department'], 'required'],
 
         ];
     }
@@ -100,7 +100,7 @@ class TemplateRecord extends ActiveRecord
     {
         $result = unserialize($this->result);
         $count = count($result);
-        for ($i=1;$i<=$count;$i++) {
+        for ($i = 1; $i <= $count; $i++) {
             $this->{"result_$i"} = $result["result_$i"];
         }
     }
@@ -113,7 +113,7 @@ class TemplateRecord extends ActiveRecord
      * @param $question_id
      * @return bool
      */
-    public static function getByTemplateId($template_id,$question_id)
+    public static function getByTemplateId($template_id, $question_id)
     {
         if (!$template_id) {
             return false;
@@ -155,7 +155,7 @@ class TemplateRecord extends ActiveRecord
      * @param string $user_id
      * @return bool
      */
-    public function hasTemplateRecord($template_id = '', $question_id='', $user_id = '')
+    public function hasTemplateRecord($template_id = '', $question_id = '', $user_id = '')
     {
         if (!$template_id) {
             return false;
@@ -188,10 +188,10 @@ class TemplateRecord extends ActiveRecord
             'project' => Yii::t('template', 'project'),
             'reason' => Yii::t('template', 'reason'),
             'department' => Yii::t('template', 'department'),
-            'template_id' => Yii::t('template','template_id'),
-            'question_id' => Yii::t('template','question_id'),
-            'created_at' => Yii::t('template','created_at'),
-            'updated_at' => Yii::t('template','updated_at'),
+            'template_id' => Yii::t('template', 'template_id'),
+            'question_id' => Yii::t('template', 'question_id'),
+            'created_at' => Yii::t('template', 'created_at'),
+            'updated_at' => Yii::t('template', 'updated_at'),
             'sid' => Yii::t('template', 'sid'),
         ];
     }
@@ -218,8 +218,8 @@ class TemplateRecord extends ActiveRecord
         $sids = self::find()->select("sid")->asArray()->all();
         $list = array();
         foreach ($sids as $id) {
-           $supplier = Supplier::getSupplierById($id);
-           $list[] = $supplier;
+            $supplier = Supplier::getSupplierById($id);
+            $list[] = $supplier;
         }
         $result = ArrayHelper::map($list, 'id', 'name');
         return $result;

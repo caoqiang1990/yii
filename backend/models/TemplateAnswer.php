@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\models;
 
 use Yii;
@@ -18,7 +19,7 @@ class TemplateAnswer extends ActiveRecord
     public function rules()
     {
         return [
-            [['template_id','answer_id'], 'required'],
+            [['template_id', 'answer_id'], 'required'],
 
         ];
     }
@@ -52,7 +53,8 @@ class TemplateAnswer extends ActiveRecord
         $where = ['template_id' => $template_id];
         $list = $this->hasOne(Template::className(), ['id' => 'template_id'])->where($where)->all();
         //->select('id,question_id,answer_id')->where($where)->asArray()->all();
-        var_dump($list);die;
+        var_dump($list);
+        die;
     }
 
 

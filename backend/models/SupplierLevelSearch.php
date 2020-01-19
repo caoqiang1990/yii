@@ -18,7 +18,7 @@ class SupplierLevelSearch extends SupplierLevel
     public function rules()
     {
         return [
-            [['id', 'status', 'created_at', 'updated_at','order_no'], 'integer'],
+            [['id', 'status', 'created_at', 'updated_at', 'order_no'], 'integer'],
             [['level_name'], 'safe'],
         ];
     }

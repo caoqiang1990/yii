@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\models;
 
 use Yii;
@@ -15,6 +16,7 @@ use yii\behaviors\TimestampBehavior;
 class PitchRecord extends ActiveRecord
 {
     public $attachment_id;
+
     /**
      * 返回表名
      * @return [type] [description]
@@ -30,7 +32,7 @@ class PitchRecord extends ActiveRecord
     public function rules()
     {
         return [
-            [['content','pitch_id'],'safe']
+            [['content', 'pitch_id'], 'safe']
         ];
     }
 
@@ -43,7 +45,7 @@ class PitchRecord extends ActiveRecord
         return [
             'content' => '留言'
         ];
-    }   
+    }
 
     /**
      * 行为
@@ -55,7 +57,7 @@ class PitchRecord extends ActiveRecord
             TimestampBehavior::className(),
             BlameableBehavior::className(),
         ];
-    }   
+    }
 
     public static function getPitchRecordByPitchId($id)
     {
@@ -65,5 +67,5 @@ class PitchRecord extends ActiveRecord
         $where = ['pitch_id' => $id];
         $records = self::find()->where($where)->asArray()->all();
         return $records;
-    }  
+    }
 }

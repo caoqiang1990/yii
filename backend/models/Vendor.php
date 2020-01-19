@@ -14,19 +14,20 @@ use yii\web\UploadedFile;
  */
 class Vendor extends Model
 {
-  public $vendorname;
-  public $imageFile;
-  public $isNewRecord;
-  public $id;
-  public $created_at;
-  public $updated_at;
+    public $vendorname;
+    public $imageFile;
+    public $isNewRecord;
+    public $id;
+    public $created_at;
+    public $updated_at;
+
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
         return [
-           // TimestampBehavior::className(),
+            // TimestampBehavior::className(),
         ];
     }
 
@@ -54,18 +55,18 @@ class Vendor extends Model
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('vendor','ID'),
-            'vendorname' => Yii::t('vendor','Vendor Name'),
-            'created_at' => Yii::t('vendor','Created At'),
-            'updated_at' => Yii::t('vendor','Updated At'),
+            'id' => Yii::t('vendor', 'ID'),
+            'vendorname' => Yii::t('vendor', 'Vendor Name'),
+            'created_at' => Yii::t('vendor', 'Created At'),
+            'updated_at' => Yii::t('vendor', 'Updated At'),
 
         ];
     }
 
     public function search($params)
     {
-    
-    }    
+
+    }
 
 
     public function upload()

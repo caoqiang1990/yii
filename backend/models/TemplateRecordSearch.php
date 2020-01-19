@@ -19,7 +19,7 @@ class TemplateRecordSearch extends TemplateRecord
     {
         return [
             [['id', 'template_id', 'total', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['department', 'result', 'reason', 'operator','sid','question_id'], 'safe'],
+            [['department', 'result', 'reason', 'operator', 'sid', 'question_id'], 'safe'],
         ];
     }
 

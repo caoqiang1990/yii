@@ -31,13 +31,13 @@ class SupplierFunds extends ActiveRecord
      */
     public function attributeLabels()
     {
-      return [
-        'id' => \Yii::t('funds','id'),
-        'created_at' => \Yii::t('funds','created_at'),
-        'updated_at' => \Yii::t('funds','updated_at'),
-        'coop_fund' => \Yii::t('funds','coop_fund1'),
-        'trade_fund' => \Yii::t('funds','trade_fund1'),
-      ];
+        return [
+            'id' => \Yii::t('funds', 'id'),
+            'created_at' => \Yii::t('funds', 'created_at'),
+            'updated_at' => \Yii::t('funds', 'updated_at'),
+            'coop_fund' => \Yii::t('funds', 'coop_fund1'),
+            'trade_fund' => \Yii::t('funds', 'trade_fund1'),
+        ];
     }
 
     /**
@@ -65,7 +65,7 @@ class SupplierFunds extends ActiveRecord
     public function rules()
     {
         return [
-    
+
         ];
     }
 
@@ -88,7 +88,7 @@ class SupplierFunds extends ActiveRecord
      * @param int $year
      * @return int
      */
-    public static function getTotalCountByYear($year=2015)
+    public static function getTotalCountByYear($year = 2015)
     {
         if (!$year) {
             return false;
@@ -107,7 +107,7 @@ class SupplierFunds extends ActiveRecord
      * @param int $year
      * @return float
      */
-    public static function getTotalTradeFundsByYear($year=2015)
+    public static function getTotalTradeFundsByYear($year = 2015)
     {
         if (!$year) {
             return false;

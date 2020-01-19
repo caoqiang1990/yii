@@ -80,15 +80,15 @@ class Pitch extends ActiveRecord
             ],
             self::SCENARIO_ADD => [
                 'name', 'desc', 'start_date', 'end_date', 'sids', 'record', 'remark',
-                'result', 'department', 'auditor', 'document', 'status','email_flag','email_text',
+                'result', 'department', 'auditor', 'document', 'status', 'email_flag', 'email_text',
             ],
             self::SCENARIO_EDIT => [
                 'name', 'desc', 'start_date', 'end_date', 'sids', 'record', 'remark',
-                'result', 'department', 'auditor', 'document', 'status','email_flag','email_text',
+                'result', 'department', 'auditor', 'document', 'status', 'email_flag', 'email_text',
             ],
             self::SCENARIO_FINISH => [
                 'name', 'desc', 'start_date', 'end_date', 'sids', 'record', 'remark',
-                'result', 'department', 'auditor', 'document', 'status','email_flag','email_text',
+                'result', 'department', 'auditor', 'document', 'status', 'email_flag', 'email_text',
             ],
         ];
     }
@@ -100,14 +100,14 @@ class Pitch extends ActiveRecord
     public function rules()
     {
         return [
-            [['sids','name','email_flag'],'required','on' => 'add'],
-            ['email_text','required','when' => function($model){
+            [['sids', 'name', 'email_flag'], 'required', 'on' => 'add'],
+            ['email_text', 'required', 'when' => function ($model) {
                 return $model->email_flag == 'y';
-            },'whenClient' => "function(attribute,value){ return $('#email_flag').val() == 'y'; }",'on' => 'add'],
-            ['email_text','validateEmailText','skipOnEmpty' => true,'when' => function($model){
+            }, 'whenClient' => "function(attribute,value){ return $('#email_flag').val() == 'y'; }", 'on' => 'add'],
+            ['email_text', 'validateEmailText', 'skipOnEmpty' => true, 'when' => function ($model) {
                 return $model->email_flag == 'y';
-            },'whenClient' => "function(attribute,value){ return $('#email_flag').val() == 'y'; }"],
-            [['result','remark'],'required','on' => 'finish'],
+            }, 'whenClient' => "function(attribute,value){ return $('#email_flag').val() == 'y'; }"],
+            [['result', 'remark'], 'required', 'on' => 'finish'],
         ];
     }
 
@@ -120,26 +120,26 @@ class Pitch extends ActiveRecord
      * @param $params
      * @return bool
      */
-    public function validateEmailText($attribute,$params)
+    public function validateEmailText($attribute, $params)
     {
         if (!$this->$attribute) {
-            $this->addError($attribute,'供应商邮箱不能为空!');
+            $this->addError($attribute, '供应商邮箱不能为空!');
             return false;
         }
-        $email_arr = explode(';',$this->$attribute);
+        $email_arr = explode(';', $this->$attribute);
         foreach ($email_arr as $item) {
-            list($name,$email) = explode(':',$item);
+            list($name, $email) = explode(':', $item);
             $supplier = Supplier::getSupplierByName($name);
             if (!$supplier) {
-                $this->addError($attribute,"供应商：{$name} 不存在！");
+                $this->addError($attribute, "供应商：{$name} 不存在！");
                 return false;
             } else {
                 //TODO验证邮箱是否正确
-                $preg_email='/^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@([a-zA-Z0-9]+[-.])+([a-z]{2,5})$/ims';
-                if(preg_match($preg_email,$email)){
+                $preg_email = '/^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@([a-zA-Z0-9]+[-.])+([a-z]{2,5})$/ims';
+                if (preg_match($preg_email, $email)) {
                     return true;
-                }else{
-                    $this->addError($attribute,"供应商：{$name} 邮箱不正确！");
+                } else {
+                    $this->addError($attribute, "供应商：{$name} 邮箱不正确！");
                     return false;
                 }
             }
@@ -208,7 +208,7 @@ class Pitch extends ActiveRecord
                     $this->auditor = implode(',', $this->auditor);
                 }
                 if (is_array($this->record)) {
-                    $this->record = implode(',',$this->record);
+                    $this->record = implode(',', $this->record);
                 }
             } else {
                 //sids 进行操作
@@ -219,7 +219,7 @@ class Pitch extends ActiveRecord
                     $this->auditor = implode(',', $this->auditor);
                 }
                 if (is_array($this->record)) {
-                    $this->record = implode(',',$this->record);
+                    $this->record = implode(',', $this->record);
                 }
             }
             return true;
@@ -245,7 +245,7 @@ class Pitch extends ActiveRecord
         $name = '';
         $email = '';
         foreach ($email_arr as $item) {
-            list($name,$email) = explode(':',$item);
+            list($name, $email) = explode(':', $item);
             $supplier = Supplier::getSupplierByName($name);
             if ($supplier) {
                 $messages[] = Yii::$app->mailer->compose(['html' => 'uploadAttachment-html', 'text' => 'uploadAttachment-text'], ['supplier' => $supplier, 'pitch_id' => $model->id])
@@ -291,7 +291,8 @@ class Pitch extends ActiveRecord
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function getByID($id){
+    public function getByID($id)
+    {
         if (($model = self::findOne($id)) !== null) {
             return json_encode($model->toArray());
         } else {

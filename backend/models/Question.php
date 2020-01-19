@@ -144,15 +144,16 @@ class Question extends ActiveRecord
      * @param array $params
      * @return array|bool
      */
-    public function getTemplateIdByParams($params=[])
+    public function getTemplateIdByParams($params = [])
     {
         if (empty($params)) {
             return false;
         }
         $where['created_by'] = $params['user_id'];
         $list = self::find()->select('id')->where($where)->asArray()->all();
-        return $list ? array_column($list,'id') : false;
+        return $list ? array_column($list, 'id') : false;
     }
+
     /**
      * 根据id获取评价
      * @param  string $id [description]

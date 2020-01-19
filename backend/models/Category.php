@@ -1,11 +1,11 @@
 <?php
- 
+
 namespace backend\models;
- 
+
 use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
- 
+
 /**
  * This is the model class for table "{{%category}}".
  *
@@ -22,7 +22,7 @@ class Category extends ActiveRecord
     {
         return '{{%category}}';
     }
- 
+
     /**
      * @inheritdoc
      */
@@ -33,7 +33,7 @@ class Category extends ActiveRecord
             [['cate_name'], 'string', 'max' => 255],
         ];
     }
- 
+
     /**
      * @inheritdoc
      */
@@ -45,7 +45,7 @@ class Category extends ActiveRecord
             'pid' => '父级分类',
         ];
     }
- 
+
     /**
      * 获取所有的分类
      */
@@ -55,23 +55,23 @@ class Category extends ActiveRecord
         $data = ArrayHelper::toArray($data);
         return $data;
     }
- 
+
     /**
      *遍历出各个子类 获得树状结构的数组
      */
-    public static function getTree($data,$pid = 0,$lev = 1)
+    public static function getTree($data, $pid = 0, $lev = 1)
     {
         $tree = [];
-        foreach($data as $value){
-            if($value['pid'] == $pid){
-                $value['cate_name'] = str_repeat('|___',$lev).$value['cate_name'];
+        foreach ($data as $value) {
+            if ($value['pid'] == $pid) {
+                $value['cate_name'] = str_repeat('|___', $lev) . $value['cate_name'];
                 $tree[] = $value;
-                $tree = array_merge($tree,self::getTree($data,$value['id'],$lev+1));
+                $tree = array_merge($tree, self::getTree($data, $value['id'], $lev + 1));
             }
         }
         return $tree;
     }
- 
+
     /**
      * 得到相应  id  对应的  分类名  数组
      */
@@ -80,10 +80,10 @@ class Category extends ActiveRecord
         $data = $this->getCategories();
         $tree = $this->getTree($data);
         $list = ['添加顶级分类'];
-        foreach($tree as $value){
+        foreach ($tree as $value) {
             $list[$value['id']] = $value['cate_name'];
         }
         return $list;
     }
- 
+
 }

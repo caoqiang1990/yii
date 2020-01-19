@@ -66,7 +66,7 @@ class DepartmentAssignment extends ActiveRecord
         return $users;
     }
 
-    public static function getByParams($department_id = '',$user_id = '')
+    public static function getByParams($department_id = '', $user_id = '')
     {
         if (!$department_id) {
             return false;
@@ -89,7 +89,7 @@ class DepartmentAssignment extends ActiveRecord
      * @param array $items
      * @return integer number of successful grand
      */
-    public function assign($user_ids,$department_id)
+    public function assign($user_ids, $department_id)
     {
         if (empty($user_ids)) {
             return false;
@@ -99,7 +99,7 @@ class DepartmentAssignment extends ActiveRecord
         }
         $success = 0;
         foreach ($user_ids as $uid) {
-            $model = self::getByParams($department_id,$uid);
+            $model = self::getByParams($department_id, $uid);
             if (!$model) {
                 $model = new self;
                 $model->department_id = $department_id;
@@ -115,7 +115,7 @@ class DepartmentAssignment extends ActiveRecord
      * @param array $items
      * @return integer number of successful revoke
      */
-    public function revoke($user_ids,$department_id)
+    public function revoke($user_ids, $department_id)
     {
         if (empty($user_ids)) {
             return false;
@@ -125,7 +125,7 @@ class DepartmentAssignment extends ActiveRecord
         }
         $success = 0;
         foreach ($user_ids as $uid) {
-            $model = self::getByParams($department_id,$uid);
+            $model = self::getByParams($department_id, $uid);
             $model->delete();
             $success++;
         }
@@ -140,7 +140,7 @@ class DepartmentAssignment extends ActiveRecord
         $where['user_id'] = $user_id;
         $department_ids = self::find()->select('department_id')->where($where)->asArray()->all();
         if ($department_ids) {
-            return array_column($department_ids,'department_id');
+            return array_column($department_ids, 'department_id');
         }
         return false;
     }

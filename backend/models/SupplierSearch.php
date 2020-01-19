@@ -13,14 +13,15 @@ use backend\models\Supplier;
 class SupplierSearch extends Supplier
 {
     public $supplier_status;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['created_at','trade'], 'integer'],
-            [['id','name','business_contact','business_email','cate_id1','filter_cate_id1','cate_id2','cate_id3','level','public_flag','department','status','supplier_status'], 'safe'],
+            [['created_at', 'trade'], 'integer'],
+            [['id', 'name', 'business_contact', 'business_email', 'cate_id1', 'filter_cate_id1', 'cate_id2', 'cate_id3', 'level', 'public_flag', 'department', 'status', 'supplier_status'], 'safe'],
         ];
     }
 
@@ -63,35 +64,35 @@ class SupplierSearch extends Supplier
         $query->andFilterWhere(['like', 'business_contact', $this->business_contact]);
         //$query->andFilterWhere(['not in','cate_id1',$this->filter_cate_id1]);
         if (is_array($this->id)) {
-            $query->andFilterWhere(['in','id',$this->id]);
+            $query->andFilterWhere(['in', 'id', $this->id]);
         } else {
             $query->andFilterWhere([
                 'id' => $this->id,
             ]);
         }
         if (!$this->supplier_status) {
-            $query->andFilterWhere(['in','status',$this->supplier_status]);
+            $query->andFilterWhere(['in', 'status', $this->supplier_status]);
         } else {
-            $query->andFilterWhere(['status'=>$this->supplier_status]);
+            $query->andFilterWhere(['status' => $this->supplier_status]);
         }
         if ($this->department) {
             $query->andFilterWhere(['in', 'department', $this->department]);
         }
         $query->andFilterWhere([
             //'name' => $this->name,
-            'level'=> $this->level,
+            'level' => $this->level,
             //'department' => $this->department,
-            'cate_id1'=> $this->cate_id1,
-            'cate_id2'=> $this->cate_id2,
-            'cate_id3'=> $this->cate_id3,
+            'cate_id1' => $this->cate_id1,
+            'cate_id2' => $this->cate_id2,
+            'cate_id3' => $this->cate_id3,
             'public_flag' => $this->public_flag,
-            'business_email'=> $this->business_email,
-            'trade'=> $this->trade,
+            'business_email' => $this->business_email,
+            'trade' => $this->trade,
             //'updated_by' => $this->created_by,
             'created_at' => $this->created_at,
             //'updated_at' => $this->updated_at,
         ]);
-        
+
         return $dataProvider;
     }
 }

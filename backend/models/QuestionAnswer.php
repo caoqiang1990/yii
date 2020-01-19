@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\models;
 
 use Yii;
@@ -18,7 +19,7 @@ class QuestionAnswer extends ActiveRecord
     public function rules()
     {
         return [
-            [['question_id','answer_id'], 'required'],
+            [['question_id', 'answer_id'], 'required'],
 
         ];
     }
@@ -52,7 +53,8 @@ class QuestionAnswer extends ActiveRecord
         $where = ['question_id' => $question_id];
         $list = $this->hasOne(Question::className(), ['id' => 'question_id'])->where($where)->all();
         //->select('id,question_id,answer_id')->where($where)->asArray()->all();
-        var_dump($list);die;
+        var_dump($list);
+        die;
     }
 
 }

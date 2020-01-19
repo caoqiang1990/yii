@@ -149,7 +149,7 @@ class Department extends ActiveRecord
      * 获取key-value键值对
      * @return [type] [description]
      */
-    public static function getDepartment($level=1)
+    public static function getDepartment($level = 1)
     {
         $where['level'] = $level;
         $category = self::find()->where($where)->all();
@@ -183,6 +183,7 @@ class Department extends ActiveRecord
         $category = ArrayHelper::map($lists, 'id', 'department_name');
         return $category;
     }
+
     /*
      *
      * 根据名称获取分类

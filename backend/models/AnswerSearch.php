@@ -19,7 +19,7 @@ class AnswerSearch extends Answer
     {
         return [
             [['id', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'desc', 'options_1', 'answers_1','options_2','answers_2','options_3','answers_3'], 'safe'],
+            [['title', 'desc', 'options_1', 'answers_1', 'options_2', 'answers_2', 'options_3', 'answers_3'], 'safe'],
         ];
     }
 

@@ -66,7 +66,7 @@ class SupplierCategory extends ActiveRecord
      * @param  string $id [description]
      * @return [type]         [description]
      */
-    public static function getCategoryByParams($column = '', $level = '',$pid='')
+    public static function getCategoryByParams($column = '', $level = '', $pid = '')
     {
         $where = [];
         $field = '';
@@ -182,6 +182,7 @@ class SupplierCategory extends ActiveRecord
         $category = ArrayHelper::map($lists, 'id', 'category_name');
         return $category;
     }
+
     /*
      *
      * 根据名称获取分类
@@ -200,11 +201,12 @@ class SupplierCategory extends ActiveRecord
         }
         return false;
     }
+
     /**
      * 获取key-value键值对
      * @return [type] [description]
      */
-    public static function getCategorys($pid=0)
+    public static function getCategorys($pid = 0)
     {
         $where['pid'] = $pid;
         $category = self::find()->where($where)->all();

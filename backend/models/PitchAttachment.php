@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\models;
 
 use Yii;
@@ -29,7 +30,7 @@ class PitchAttachment extends ActiveRecord
     public function rules()
     {
         return [
-            [['attachment','pitch_id'],'safe']
+            [['attachment', 'pitch_id'], 'safe']
         ];
     }
 
@@ -41,7 +42,7 @@ class PitchAttachment extends ActiveRecord
     {
         return [
         ];
-    }   
+    }
 
     /**
      * 行为
@@ -53,7 +54,7 @@ class PitchAttachment extends ActiveRecord
             TimestampBehavior::className(),
             BlameableBehavior::className(),
         ];
-    }   
+    }
 
     public static function getPitchAttachmentByPitchId($id)
     {
@@ -63,5 +64,5 @@ class PitchAttachment extends ActiveRecord
         $where = ['pitch_id' => $id];
         $attachments = self::find()->where($where)->asArray()->all();
         return $attachments;
-    }  
+    }
 }

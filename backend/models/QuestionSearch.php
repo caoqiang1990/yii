@@ -19,7 +19,7 @@ class QuestionSearch extends Question
     {
         return [
             [['id', 'created_by', 'updated_by', 'updated_at'], 'integer'],
-            [['title', 'desc','player','status'], 'safe'],
+            [['title', 'desc', 'player', 'status'], 'safe'],
         ];
     }
 
@@ -72,7 +72,7 @@ class QuestionSearch extends Question
             $query->andFilterWhere(['like', 'player', $this->player]);
         }
         if ($this->status && $this->status == 1) {
-            $query->andFilterWhere(['not','status=1']);
+            $query->andFilterWhere(['not', 'status=1']);
         }
         return $dataProvider;
     }

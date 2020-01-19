@@ -116,8 +116,8 @@ class Supplier extends ActiveRecord
             'enterprise_license_relate_desc' => Yii::t('suppliers', 'enterprise_license_relate_desc'),
             'status' => Yii::t('suppliers', 'status'),
             'source' => Yii::t('suppliers', 'source'),
-						'department' => Yii::t('suppliers','department'),
-						'public_flag' => Yii::t('suppliers', 'public_flag'),
+            'department' => Yii::t('suppliers', 'department'),
+            'public_flag' => Yii::t('suppliers', 'public_flag'),
             'created_by' => Yii::t('suppliers', 'created_by'),
             'updated_by' => Yii::t('suppliers', 'updated_by'),
         ];
@@ -538,7 +538,8 @@ class Supplier extends ActiveRecord
         return $count;
     }
 
-    public static function getCountByParamsArr($where) {
+    public static function getCountByParamsArr($where)
+    {
         if (empty($where)) {
             return false;
         }

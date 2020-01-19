@@ -18,7 +18,7 @@ class DocumentSearch extends Document
     public function rules()
     {
         return [
-            [['id', 'department','cate','doc_name', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'department', 'cate', 'doc_name', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['doc'], 'safe'],
         ];
     }

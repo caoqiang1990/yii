@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\models;
 
 use yii\base\Model;
@@ -23,6 +24,7 @@ class UploadForm extends Model
             [['excelFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'xlsx', 'on' => 'file'],
         ];
     }
+
     /**
      * 场景
      * @return [type] [description]
@@ -40,6 +42,7 @@ class UploadForm extends Model
         ];
 
     }
+
     public function upload($type)
     {
         if ($this->validate()) {

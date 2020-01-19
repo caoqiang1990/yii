@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\models;
 
 use Yii;
@@ -18,7 +19,7 @@ class QuestionRecord extends ActiveRecord
     public function rules()
     {
         return [
-            [['question_id','answer_id','result'], 'required'],
+            [['question_id', 'answer_id', 'result'], 'required'],
 
         ];
     }
@@ -56,7 +57,7 @@ class QuestionRecord extends ActiveRecord
         if (empty($records)) {
             return false;
         }
-        Yii::$app->db->createCommand()->batchInsert(QuestionRecord::tableName(), ['question_id', 'answer_id','result','ratio','created_by','updated_by','created_at','updated_at'], $records)->execute();
+        Yii::$app->db->createCommand()->batchInsert(QuestionRecord::tableName(), ['question_id', 'answer_id', 'result', 'ratio', 'created_by', 'updated_by', 'created_at', 'updated_at'], $records)->execute();
     }
 
     /**
@@ -75,7 +76,8 @@ class QuestionRecord extends ActiveRecord
         $where = ['question_id' => $question_id];
         $list = $this->hasOne(Question::className(), ['id' => 'question_id'])->where($where)->all();
         //->select('id,question_id,answer_id')->where($where)->asArray()->all();
-        var_dump($list);die;
+        var_dump($list);
+        die;
     }
 
     /**
@@ -105,7 +107,7 @@ class QuestionRecord extends ActiveRecord
      * @param string $user_id
      * @return bool
      */
-    public function hasQuestionRecord($question_id='',$user_id='')
+    public function hasQuestionRecord($question_id = '', $user_id = '')
     {
         if (!$question_id) {
             return false;

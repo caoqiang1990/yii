@@ -19,7 +19,7 @@ class SupplierDetailSearch extends SupplierDetail
     {
         return [
             [['id', 'created_at', 'updated_at'], 'integer'],
-            [['one_level_department','second_level_department', 'name', 'mobile', 'reason'], 'safe'],
+            [['one_level_department', 'second_level_department', 'name', 'mobile', 'reason'], 'safe'],
         ];
     }
 

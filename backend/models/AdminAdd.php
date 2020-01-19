@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\models;
 
 use Yii;
@@ -27,20 +28,20 @@ class AdminAdd extends Model
     public function rules()
     {
         return [
-            ['name', 'required','on' => 'add,edit'],
+            ['name', 'required', 'on' => 'add,edit'],
             [
-                'name','unique','targetClass'=>'backend\models\Supplier','message'=>'供应商名称已经存在','on' => 'add,edit'
+                'name', 'unique', 'targetClass' => 'backend\models\Supplier', 'message' => '供应商名称已经存在', 'on' => 'add,edit'
             ],
-            [['enterprise_code','check'], 'required','on' => 'add,edit'],
-            ['enterprise_code','string','length'=>[18,18],'message'=>'营业执照长度为18位'],
-            [['check_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg','on' => 'upload'],
+            [['enterprise_code', 'check'], 'required', 'on' => 'add,edit'],
+            ['enterprise_code', 'string', 'length' => [18, 18], 'message' => '营业执照长度为18位'],
+            [['check_id'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg', 'on' => 'upload'],
         ];
     }
 
     /**
-     * 
      *
-     * @return 
+     *
+     * @return
      */
     public function add()
     {
@@ -74,6 +75,7 @@ class AdminAdd extends Model
             'check_id' => '备案查询',
         ];
     }
+
     /**
      * 场景
      * @return [type] [description]
@@ -96,6 +98,7 @@ class AdminAdd extends Model
             ]
         ];
     }
+
     /**
      * Name: upload
      * User: aimer

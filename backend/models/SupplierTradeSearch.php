@@ -18,7 +18,7 @@ class SupplierTradeSearch extends SupplierTrade
     public function rules()
     {
         return [
-            [['id', 'status','order_no', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'status', 'order_no', 'created_at', 'updated_at'], 'integer'],
             [['trade_name'], 'safe'],
         ];
     }
