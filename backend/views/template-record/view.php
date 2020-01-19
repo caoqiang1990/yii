@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use backend\models\Question;
+use backend\models\Template;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\TemplateRecord */
@@ -16,8 +18,20 @@ $this->params['breadcrumbs'][] = $model->id;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'template_id',
-            'question_id',
+            [
+                    'attribute' => "template_id",
+                    'value' => function($model) {
+                        $template = Template::getByID($model->template_id);
+                        return $template ? $template->name : '';
+                    }
+            ],
+            [
+                'attribute' => "question_id",
+                'value' => function($model) {
+                    $question = Question::getByID($model->question_id);
+                    return $question ? $question->title : '';
+                }
+            ],
             'department',
             'reason:ntext',
             'total',

@@ -87,4 +87,19 @@ class Template extends \yii\db\ActiveRecord
         $template = ArrayHelper::map($templates, 'id', 'name');
         return $template;
     }
+
+
+    /**
+     * 根据id获取信息
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public static function getByID($id)
+    {
+        if (($model = self::findOne($id)) !== null) {
+            return json_encode($model->toArray());
+        } else {
+            throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 }
