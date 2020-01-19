@@ -90,7 +90,7 @@ class SupplierTradeController extends Controller
         $model->scenario = 'edit';
         $original = $model->getByID($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            AdminLog::saveLog('suppliertrade', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
+            AdminLog::saveLog('suppliertrade', 'update', $model->getByID($model->primaryKey), $model->primaryKey, $original);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

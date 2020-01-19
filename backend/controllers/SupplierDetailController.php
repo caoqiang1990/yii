@@ -34,7 +34,7 @@ class SupplierDetailController extends Controller
     {
         parent::__construct($id, $module);
         $this->this_year = date('Y');
-        $this->last_year = date('Y') -1;
+        $this->last_year = date('Y') - 1;
         $this->before_last_year = date('Y') - 2;
     }
 
@@ -94,14 +94,14 @@ class SupplierDetailController extends Controller
         $supplier_ids = 'none';
         $admin_ids = Supplier::find()->select('id')->distinct()->where($where)->asArray()->all();
         if ($sids && $admin_ids) {
-            $ids = array_column($admin_ids,'id');
+            $ids = array_column($admin_ids, 'id');
             $supplier_ids = array_keys(array_flip($sids) + array_flip($ids));
         } else {
             if ($sids) {
                 $supplier_ids = $sids;
             }
             if ($admin_ids) {
-                $supplier_ids = array_column($admin_ids,'id');
+                $supplier_ids = array_column($admin_ids, 'id');
             }
         }
 
@@ -109,14 +109,14 @@ class SupplierDetailController extends Controller
         $request['SupplierSearch']['supplier_status'] = '10';
         $dataProvider = $searchModel->search($request);
         if (isset($request['SupplierSearch']['cate_id1'])) {
-            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2,$request['SupplierSearch']['cate_id1']);
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name', 2, $request['SupplierSearch']['cate_id1']);
         } else {
-            $cate2 = SupplierCategory::getCategoryByParams('id,category_name',2);
+            $cate2 = SupplierCategory::getCategoryByParams('id,category_name', 2);
         }
         if (isset($request['SupplierSearch']['cate_id2'])) {
-            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3,$request['SupplierSearch']['cate_id2']);
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name', 3, $request['SupplierSearch']['cate_id2']);
         } else {
-            $cate3 = SupplierCategory::getCategoryByParams('id,category_name',3);
+            $cate3 = SupplierCategory::getCategoryByParams('id,category_name', 3);
         }
         return $this->render('admin-index', [
             'searchModel' => $searchModel,
@@ -183,22 +183,22 @@ class SupplierDetailController extends Controller
         $where['sid'] = $model->sid;
         $detailObjList = SupplierDetail::find()->where($where)->all();
         foreach ($detailObjList as $id => &$detail) {
-                $map['detail_id'] = $detail->id;
-                $funds = $fundModel->find()->where($map)
-                ->andfilterwhere(['in','year',[$this->before_last_year,$this->last_year,$this->this_year]])
+            $map['detail_id'] = $detail->id;
+            $funds = $fundModel->find()->where($map)
+                ->andfilterwhere(['in', 'year', [$this->before_last_year, $this->last_year, $this->this_year]])
                 ->orderBy('year asc')->all();
-                if ($funds) {
-                    foreach ($funds as $k => $v) {
-                        $id = $k + 1;
-                        $detail->{"coop_fund$id"} = $v->coop_fund;
-                        $detail->{"trade_fund$id"} = $v->trade_fund;
-                    }
+            if ($funds) {
+                foreach ($funds as $k => $v) {
+                    $id = $k + 1;
+                    $detail->{"coop_fund$id"} = $v->coop_fund;
+                    $detail->{"trade_fund$id"} = $v->trade_fund;
                 }
-                // $detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
-                // $detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
-                // $detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
+            }
+            // $detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
+            // $detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
+            // $detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
 
-        }    
+        }
         return $this->render('admin-view', [
             'model' => $model,
             'supplier' => $supplierModel,
@@ -211,12 +211,12 @@ class SupplierDetailController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($sid='')
+    public function actionCreate($sid = '')
     {
         $model = new SupplierDetail;
         $supplierModel = new Supplier;
         $fundModel = new SupplierFunds;
-        $levelModel = new SupplierLevel;        
+        $levelModel = new SupplierLevel;
         $supplierObj = $this->findSupplierModel($sid);
         $model->scenario = 'add';
         $post = Yii::$app->request->post();
@@ -244,20 +244,20 @@ class SupplierDetailController extends Controller
         $where['sid'] = $sid;
         $detailObjList = $model->find()->where($where)->all();
         foreach ($detailObjList as $id => &$detail) {
-                $map['detail_id'] = $detail->id;
-                $funds = $fundModel->find()->where($map)
-                ->andfilterwhere(['in','year',[$this->before_last_year,$this->last_year,$this->this_year]])
+            $map['detail_id'] = $detail->id;
+            $funds = $fundModel->find()->where($map)
+                ->andfilterwhere(['in', 'year', [$this->before_last_year, $this->last_year, $this->this_year]])
                 ->orderBy('year asc')->all();
-                if ($funds) {
-                    foreach ($funds as $k => $v) {
-                        $id = $k + 1;
-                        $detail->{"coop_fund$id"} = $v->coop_fund;
-                        $detail->{"trade_fund$id"} = $v->trade_fund;
-                    }
+            if ($funds) {
+                foreach ($funds as $k => $v) {
+                    $id = $k + 1;
+                    $detail->{"coop_fund$id"} = $v->coop_fund;
+                    $detail->{"trade_fund$id"} = $v->trade_fund;
                 }
-                // $detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
-                // $detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
-                // $detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
+            }
+            // $detail['cate_id1'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id1));
+            // $detail['cate_id2'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id2));
+            // $detail['cate_id3'] = implode(',', SupplierCategory::getCategoryNameByParams($detail->cate_id3));
 
         }
         //前三年
@@ -268,8 +268,8 @@ class SupplierDetailController extends Controller
         $department_info = Department::getDepartmentById($supplierObj->department);
         $model->one_level_department = $department_info ? $department_info->department_name : '';
         //部门列表
-        $one_level_department = Department::getDepartmentByParams('id,department_name',1);
-        $second_level_department = Department::getDepartmentByParams('id,department_name',2);
+        $one_level_department = Department::getDepartmentByParams('id,department_name', 1);
+        $second_level_department = Department::getDepartmentByParams('id,department_name', 2);
         return $this->render('create', [
             'model' => $model,
             'name' => $supplierObj->name,
@@ -295,7 +295,7 @@ class SupplierDetailController extends Controller
         $sid = $model->sid;
         $original = $model->getByID($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            AdminLog::saveLog('supplierdetail', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
+            AdminLog::saveLog('supplierdetail', 'update', $model->getByID($model->primaryKey), $model->primaryKey, $original);
             //调用swoole客户端
             $client = new \swoole_client(SWOOLE_SOCK_TCP);
             if (!$client->connect('127.0.0.1', 9503)) {
@@ -316,8 +316,8 @@ class SupplierDetailController extends Controller
         $level = $levelModel::getLevelByParams();//供应商等级
         $map['detail_id'] = $id;
         $funds = $fundModel->find()->where($map)
-        ->andfilterwhere(['in','year',[$this->before_last_year,$this->last_year,$this->this_year]])
-        ->orderBy('year asc')->all();
+            ->andfilterwhere(['in', 'year', [$this->before_last_year, $this->last_year, $this->this_year]])
+            ->orderBy('year asc')->all();
         if ($funds) {
             foreach ($funds as $k => $v) {
                 $id = $k + 1;
@@ -327,7 +327,7 @@ class SupplierDetailController extends Controller
         }
         $model->cate_id1 = implode(',', SupplierCategory::getCategoryNameByParams($model->cate_id1));
         $model->cate_id2 = implode(',', SupplierCategory::getCategoryNameByParams($model->cate_id2));
-        $model->cate_id3 = implode(',', SupplierCategory::getCategoryNameByParams($model->cate_id3));        
+        $model->cate_id3 = implode(',', SupplierCategory::getCategoryNameByParams($model->cate_id3));
         //前三年
         $model->fund_year1 = $this->before_last_year;
         $model->fund_year2 = $this->last_year;
@@ -340,15 +340,15 @@ class SupplierDetailController extends Controller
         if ($model->second_level_department) {
             $department = Department::getDepartmentById($model->second_level_department);
             $model->second_level_department = $department->department_name;
-        } 
+        }
         if ($model->develop_department) {
             $department = Department::getDepartmentById($model->develop_department);
             $model->develop_department = $department->department_name;
-        }                       
+        }
         $image = $attachmentModel->getImageByID($model->evaluate);
         $model->evaluate_url = $image ? $image->url : '';
-        $one_level_department = Department::getDepartmentByParams('id,department_name',1);
-        $second_level_department = Department::getDepartmentByParams('id,department_name',2);
+        $one_level_department = Department::getDepartmentByParams('id,department_name', 1);
+        $second_level_department = Department::getDepartmentByParams('id,department_name', 2);
         return $this->render('update', [
             'model' => $model,
             'name' => $supplierObj->name,
@@ -367,12 +367,12 @@ class SupplierDetailController extends Controller
         $supplier_detail = SupplierDetail::find()->where($where)->all();
         $fundModel = new SupplierFunds;
         if ($supplier_detail) {
-            foreach($supplier_detail as &$detail) {
-                $detail->supplier_name = $model->name; 
+            foreach ($supplier_detail as &$detail) {
+                $detail->supplier_name = $model->name;
                 $map['detail_id'] = $detail->id;
                 $funds = $fundModel->find()->where($map)
-                ->andfilterwhere(['in','year',[$this->before_last_year,$this->last_year,$this->this_year]])
-                ->orderBy('year asc')->all();
+                    ->andfilterwhere(['in', 'year', [$this->before_last_year, $this->last_year, $this->this_year]])
+                    ->orderBy('year asc')->all();
                 if ($funds) {
                     foreach ($funds as $k => $v) {
                         $id = $k + 1;
@@ -380,12 +380,12 @@ class SupplierDetailController extends Controller
                         $detail->{"trade_fund$id"} = $v->trade_fund;
                     }
                 }
-            } 
+            }
         }
-        return $this->render('admin-update',[
-                'model' => $model,
-                'supplier_detail' => $supplier_detail,
-            ]);
+        return $this->render('admin-update', [
+            'model' => $model,
+            'supplier_detail' => $supplier_detail,
+        ]);
     }
 
     /**
@@ -425,11 +425,11 @@ class SupplierDetailController extends Controller
     public function actionGetAllCate()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        $cate_id = Yii::$app->request->get('cate_id','');
+        $cate_id = Yii::$app->request->get('cate_id', '');
         //获取对应的大类
-        $cate_id1 = Yii::$app->request->get('cate_id1','');
+        $cate_id1 = Yii::$app->request->get('cate_id1', '');
         //获取对应的子类
-        $cate_id2 = Yii::$app->request->get('cate_id2','');
+        $cate_id2 = Yii::$app->request->get('cate_id2', '');
         $where = [];
         if ($cate_id) {
             $where['pid'] = 0;
@@ -443,14 +443,14 @@ class SupplierDetailController extends Controller
             $where['status'] = 1;
         }
         if ($cate_id2) {
-            $cate_id2 = explode('-',$cate_id2);
+            $cate_id2 = explode('-', $cate_id2);
             $where['pid'] = $cate_id2;
             $where['level'] = 3;
             $where['status'] = 1;
         }
         if (empty($where)) {
             $category = '';
-        }else{
+        } else {
             $categoryModel = new SupplierCategory;
             $category = $categoryModel::find()->select('id,category_name')->where($where)->asArray()->all();
             //return $category;
@@ -466,7 +466,7 @@ class SupplierDetailController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }   
+    }
 
     /**
      * 上传附件
@@ -508,6 +508,6 @@ class SupplierDetailController extends Controller
             ]);
         }
 
-    }     
+    }
 
 }

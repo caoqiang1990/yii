@@ -70,7 +70,7 @@ class SupplierCategoryController extends Controller
         if (isset($post['SupplierCategory']['pid'])) {
             if ($post['SupplierCategory']['pid'] == 0) {
                 $post['SupplierCategory']['level'] = 1;
-            }else{
+            } else {
                 $info = $model::getCategoryById($post['SupplierCategory']['pid']);
                 $post['SupplierCategory']['level'] = $info->level + 1;
             }
@@ -79,7 +79,7 @@ class SupplierCategoryController extends Controller
             AdminLog::saveLog('suppliercategory', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $status = [0 => '无效',1 => '有效'];
+        $status = [0 => '无效', 1 => '有效'];
         $level = $model->getOptions();
 
         return $this->render('create', [
@@ -103,19 +103,19 @@ class SupplierCategoryController extends Controller
         if (isset($post['SupplierCategory']['pid'])) {
             if ($post['SupplierCategory']['pid'] == 0) {
                 $post['SupplierCategory']['level'] = 1;
-            }else{
+            } else {
                 $info = $model::getCategoryById($post['SupplierCategory']['pid']);
                 $post['SupplierCategory']['level'] = $info->level + 1;
             }
         }
         $original = $model->getByID($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            AdminLog::saveLog('suppliercategory', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
+            AdminLog::saveLog('suppliercategory', 'update', $model->getByID($model->primaryKey), $model->primaryKey, $original);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $status = [0 => '无效',1 => '有效'];
+        $status = [0 => '无效', 1 => '有效'];
         $level = $model->getOptions();
-        
+
         return $this->render('update', [
             'model' => $model,
             'level' => $level,

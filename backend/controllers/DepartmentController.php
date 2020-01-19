@@ -182,7 +182,7 @@ class DepartmentController extends Controller
     {
         $items = Yii::$app->getRequest()->post('items', []);
         $model = new DepartmentAssignment();
-        $success = $model->assign($items,$id);
+        $success = $model->assign($items, $id);
         Yii::$app->getResponse()->format = 'json';
         $departmentModel = $this->findModel($id);
         return array_merge($departmentModel->getItems(), ['success' => $success]);
@@ -197,7 +197,7 @@ class DepartmentController extends Controller
     {
         $items = Yii::$app->getRequest()->post('items', []);
         $model = new DepartmentAssignment();
-        $success = $model->revoke($items,$id);
+        $success = $model->revoke($items, $id);
         Yii::$app->getResponse()->format = 'json';
         $departmentModel = $this->findModel($id);
         return array_merge($departmentModel->getItems(), ['success' => $success]);
@@ -231,7 +231,7 @@ class DepartmentController extends Controller
     {
         $items = Yii::$app->getRequest()->post('items', []);
         $model = new DepartmentAudit();
-        $success = $model->assign($items,$id);
+        $success = $model->assign($items, $id);
         Yii::$app->getResponse()->format = 'json';
         $departmentModel = $this->findModel($id);
         return array_merge($departmentModel->getItemsAudit(), ['success' => $success]);
@@ -250,7 +250,7 @@ class DepartmentController extends Controller
     {
         $items = Yii::$app->getRequest()->post('items', []);
         $model = new DepartmentAudit();
-        $success = $model->revoke($items,$id);
+        $success = $model->revoke($items, $id);
         Yii::$app->getResponse()->format = 'json';
         $departmentModel = $this->findModel($id);
         return array_merge($departmentModel->getItemsAudit(), ['success' => $success]);

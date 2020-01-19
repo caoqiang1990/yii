@@ -216,7 +216,7 @@ class TemplateController extends Controller
         $template_id = Yii::$app->request->get('template_id');
         $question_id = Yii::$app->request->get('question_id');
         $model = $this->findModel($template_id);
-        $templateRecordModel = TemplateRecord::getByTemplateId($template_id,$question_id);
+        $templateRecordModel = TemplateRecord::getByTemplateId($template_id, $question_id);
         $answers = $model->answers;
         return $this->render('result', [
             'model' => $model,

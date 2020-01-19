@@ -8,7 +8,7 @@ use backend\models\Category;
 
 class CategoryController extends Controller
 {
-  public function actionCreate()
+    public function actionCreate()
     {
         $model = new Category();
         $list = $model->getOptions();
@@ -22,8 +22,6 @@ class CategoryController extends Controller
         }
     }
 }
-
-
 
 
 ?>

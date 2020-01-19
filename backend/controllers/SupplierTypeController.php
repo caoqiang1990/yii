@@ -71,7 +71,7 @@ class SupplierTypeController extends Controller
             AdminLog::saveLog('suppliertype', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $status = [0=>'无效',1=>'有效'];
+        $status = [0 => '无效', 1 => '有效'];
         return $this->render('create', [
             'model' => $model,
             'status' => $status,
@@ -90,10 +90,10 @@ class SupplierTypeController extends Controller
         $model = $this->findModel($id);
         $original = $model->getByID($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            AdminLog::saveLog('suppliertype', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
+            AdminLog::saveLog('suppliertype', 'update', $model->getByID($model->primaryKey), $model->primaryKey, $original);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $status = [0=>'无效',1=>'有效'];
+        $status = [0 => '无效', 1 => '有效'];
         return $this->render('update', [
             'model' => $model,
             'status' => $status,

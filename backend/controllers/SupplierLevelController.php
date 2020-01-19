@@ -66,12 +66,12 @@ class SupplierLevelController extends Controller
     public function actionCreate()
     {
         $model = new SupplierLevel();
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             AdminLog::saveLog('supplierlevel', 'create', $model->getByID($model->primaryKey), $model->primaryKey);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $status = [0=>'无效',1=>'有效'];
+        $status = [0 => '无效', 1 => '有效'];
         return $this->render('create', [
             'model' => $model,
             'status' => $status,
@@ -90,10 +90,10 @@ class SupplierLevelController extends Controller
         $model = $this->findModel($id);
         $original = $model->getByID($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            AdminLog::saveLog('supplierlevel', 'update', $model->getByID($model->primaryKey), $model->primaryKey,$original);
+            AdminLog::saveLog('supplierlevel', 'update', $model->getByID($model->primaryKey), $model->primaryKey, $original);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $status = [0=>'无效',1=>'有效'];
+        $status = [0 => '无效', 1 => '有效'];
 
         return $this->render('update', [
             'model' => $model,

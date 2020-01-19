@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
@@ -32,11 +33,11 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error','reset','reset-password'],
+                        'actions' => ['login', 'error', 'reset', 'reset-password'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','reset','reset-password'],
+                        'actions' => ['logout', 'index', 'reset', 'reset-password'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -76,43 +77,43 @@ class SiteController extends Controller
         $typeValueArr = [];
 
         $deparmentArr = Department::getDepartment();
-        $departmentNameStr = "'" . join("','", array_values($deparmentArr) ) . "'";  // 使用需要的符号拼接
+        $departmentNameStr = "'" . join("','", array_values($deparmentArr)) . "'";  // 使用需要的符号拼接
 
         foreach ($deparmentArr as $department_id => $deparment_name) {
-            $departmentValueArr[] = Supplier::getCountByParams('department',$department_id);
+            $departmentValueArr[] = Supplier::getCountByParams('department', $department_id);
         }
         $totalCount = Supplier::getTotalCount();
 
         //供应商业务类型
         $typeArr = SupplierType::getTypes();
-        $typeNameStr = "'" . join("','", array_values($typeArr) ) . "'";  // 使用需要的符号拼接
+        $typeNameStr = "'" . join("','", array_values($typeArr)) . "'";  // 使用需要的符号拼接
         foreach ($typeArr as $type_id => $type_name) {
-            $typeValueArr[] = Supplier::getCountByParams('business_type',$type_id);
+            $typeValueArr[] = Supplier::getCountByParams('business_type', $type_id);
         }
 
         //供应商等级
         $levelArr = SupplierLevel::getLevels();
-        $levelNameStr = "'" . join("','", array_values($levelArr) ) . "'";  // 使用需要的符号拼接
+        $levelNameStr = "'" . join("','", array_values($levelArr)) . "'";  // 使用需要的符号拼接
         foreach ($levelArr as $level_id => $level_name) {
-            $levelValueArr[] = Supplier::getCountByParams('level',$level_id);
+            $levelValueArr[] = Supplier::getCountByParams('level', $level_id);
         }
 
         //供应商企业性质
         $natureArr = SupplierNature::getNature();
-        $natureNameStr = "'" . join("','", array_values($natureArr) ) . "'";  // 使用需要的符号拼接
+        $natureNameStr = "'" . join("','", array_values($natureArr)) . "'";  // 使用需要的符号拼接
         $key = 0;
         foreach ($natureArr as $nature_id => $nature_name) {
-            $natureValueArr[$key]['value'] = Supplier::getCountByParams('firm_nature',$nature_id);
+            $natureValueArr[$key]['value'] = Supplier::getCountByParams('firm_nature', $nature_id);
             $natureValueArr[$key]['name'] = $nature_name;
             $key++;
         }
 
         //供应商分类一级
         $categoryArr = SupplierCategory::getCategorys();
-        $categoryNameStr = "'" . join("','", array_values($categoryArr) ) . "'";  // 使用需要的符号拼接
+        $categoryNameStr = "'" . join("','", array_values($categoryArr)) . "'";  // 使用需要的符号拼接
         $k = 0;
         foreach ($categoryArr as $category_id => $category_name) {
-            $categoryValueArr[$k]['value'] = Supplier::getCountByParams('cate_id1',$category_id);
+            $categoryValueArr[$k]['value'] = Supplier::getCountByParams('cate_id1', $category_id);
             $categoryValueArr[$k]['name'] = $category_name;
             $categorySelectedArr[$category_name] = $k < 6;
             $k++;
@@ -122,7 +123,7 @@ class SiteController extends Controller
         $yearArr[] = date('Y') - 3;
         $yearArr[] = date('Y') - 2;
         $yearArr[] = date('Y') - 1;
-        $yearStr = "'" . join("','", array_values($yearArr) ) . "'";  // 使用需要的符号拼接
+        $yearStr = "'" . join("','", array_values($yearArr)) . "'";  // 使用需要的符号拼接
         foreach ($yearArr as $year) {
             //交易金额
             $tradeFundArr['trade'][] = SupplierFunds::getTotalTradeFundsByYear($year) / 10000;
@@ -132,20 +133,20 @@ class SiteController extends Controller
         return $this->render('index',
             [
                 'nameStr' => $departmentNameStr,
-                'valueStr' => implode(',',$departmentValueArr),
+                'valueStr' => implode(',', $departmentValueArr),
                 'totalCount' => $totalCount,
                 'typeNameStr' => $typeNameStr,
-                'typeValueStr' => implode(',',$typeValueArr),
+                'typeValueStr' => implode(',', $typeValueArr),
                 'levelNameStr' => $levelNameStr,
-                'levelValueStr' => implode(',',$levelValueArr),
+                'levelValueStr' => implode(',', $levelValueArr),
                 'natureNameStr' => $natureNameStr,
                 'natureValueStr' => json_encode($natureValueArr),
                 'categoryNameStr' => $categoryNameStr,
                 'categoryValueStr' => json_encode($categoryValueArr),
                 'categorySelectedStr' => json_encode($categorySelectedArr),
                 'yearStr' => $yearStr,
-                'totalSupplierCount' => implode(',',$tradeFundArr['count']),
-                'totalTradeFund' => implode(',',$tradeFundArr['trade']),
+                'totalSupplierCount' => implode(',', $tradeFundArr['count']),
+                'totalTradeFund' => implode(',', $tradeFundArr['trade']),
             ]
         );
     }
@@ -203,11 +204,12 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
             }
         }
-        
+
         return $this->render('reset', [
             'model' => $model,
         ]);
     }
+
     /**
      * Resets password.
      *

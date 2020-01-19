@@ -19,15 +19,16 @@ class AdminLogController extends Controller
                 ]
             ],
         ]);
-        return $this->render('index',[
+        return $this->render('index', [
             'dataProvider' => $dataProvider
         ]);
     }
 
-    public function actionView($id){
-       return $this->render('view',[
-           'model'=>AdminLog::findOne($id),
-       ]);
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => AdminLog::findOne($id),
+        ]);
     }
 
 }
