@@ -140,7 +140,7 @@ $this->registerJs($formatJS);
             echo $form->field($model, 'email_flag')->radioList([
                 'y' => '是',
                 'n' => '否'
-            ],['class' => 'email_flag']);
+            ], ['class' => 'email_flag']);
             ?>
         </div>
     </div>

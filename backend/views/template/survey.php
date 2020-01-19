@@ -12,10 +12,13 @@ $this->title = '';
         vertical-align: middle !important;
         text-align: center !important;
         background-color: #777;
-        border:1px solid black !important;
+        border: 1px solid black !important;
     }
 
-    table td{border:1px solid black !important;}
+    table td {
+        border: 1px solid black !important;
+    }
+
     .tfooter td {
         font-weight: bolder;
     }
@@ -71,7 +74,7 @@ $this->title = '';
                     ?>
                     <td style="vertical-align: middle;text-align: center" <?= $order == 1 ? "rowspan='$count'" : ""; ?>>
                         <b>合作项目:</b><?= $form->field($templaterecordmodel, 'project')->textInput()->label(false); ?>
-                        <br />
+                        <br/>
                         <b>请根据该合作项目填写合作感受</b>
                         <?= $form->field($templaterecordmodel, 'reason')->textarea(['rows' => 6])->label(false); ?>
                     </td>
@@ -88,7 +91,8 @@ $this->title = '';
             <td style="vertical-align: middle;text-align: center">100</td>
             <td style="vertical-align: middle;"><?= $form->field($templaterecordmodel, 'department')->textInput()->label('评价事业部'); ?></td>
             <td style="vertical-align: middle;"><?= $form->field($templaterecordmodel, 'operator')->textInput()->label('经办人'); ?></td>
-            <td colspan="2" style="vertical-align: middle;"><?= $form->field($templaterecordmodel, 'total')->textInput()->label('实际得分'); ?></td>
+            <td colspan="2"
+                style="vertical-align: middle;"><?= $form->field($templaterecordmodel, 'total')->textInput()->label('实际得分'); ?></td>
             <td style="vertical-align: middle;">
         </tr>
     </table>

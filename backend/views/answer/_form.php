@@ -44,7 +44,7 @@ use yii\helpers\Url;
             <?= $form->field($model, 'options_3')->textarea(['rows' => 5]) ?>
         </div>
     </div>
-    <?= $form->field($model, 'template_id')->hiddenInput(['value'=>$template_id])->label(false) ?>
+    <?= $form->field($model, 'template_id')->hiddenInput(['value' => $template_id])->label(false) ?>
 
     <div class="row">
         <div class="col-xs-6">

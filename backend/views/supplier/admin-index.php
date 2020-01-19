@@ -25,38 +25,38 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'pager'=>[
+        'pager' => [
             //'options'=>['class'=>'hidden']//关闭分页
-            'firstPageLabel'=>'首页',
-            'lastPageLabel'=>'尾页',
-            'maxButtonCount' => 5, 
-        ],        
+            'firstPageLabel' => '首页',
+            'lastPageLabel' => '尾页',
+            'maxButtonCount' => 5,
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'name',
                 'format' => 'raw',
-                'value' => function($model) {
-                    if(Helper::checkRoute('admin-view')) {
-                        $url = Url::to(['admin-view','id'=>$model->id]);
+                'value' => function ($model) {
+                    if (Helper::checkRoute('admin-view')) {
+                        $url = Url::to(['admin-view', 'id' => $model->id]);
                         $options = ['title' => $model->name];
-                        return Html::a($model->name,$url,$options);
+                        return Html::a($model->name, $url, $options);
                     } else {
                         return $model->name;
                     }
                 }
-            ], 
-             [
+            ],
+            [
                 'attribute' => 'cate_id1',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
                 },
-                'filter' => SupplierCategory::getCategoryByParams('id,category_name',1),
+                'filter' => SupplierCategory::getCategoryByParams('id,category_name', 1),
             ],
             [
                 'attribute' => 'cate_id2',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
                 },
@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'cate_id3',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
                 },
@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'level',
-                'value' => function($model){
+                'value' => function ($model) {
                     $levelModel = new SupplierLevel;
                     return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
                 },
@@ -94,12 +94,12 @@ $this->params['breadcrumbs'][] = $this->title;
             // ],
             [
                 'attribute' => 'department',
-                'value' => function($model){
-                        return Department::getDepartmentById($model->department) ? Department::getDepartmentById($model->department)->department_name : NULL;
+                'value' => function ($model) {
+                    return Department::getDepartmentById($model->department) ? Department::getDepartmentById($model->department)->department_name : NULL;
                 },
                 'filter' => $department,
             ],
-            'business_contact',  
+            'business_contact',
             //'business_email',
             //'business_license',
             //'tax_registration_certificate',
@@ -142,24 +142,24 @@ $this->params['breadcrumbs'][] = $this->title;
             // ],
             [
                 //'label'=>  (Helper::checkRoute('supplier-detail/create') || Helper::checkRoute('history/index')) ? '更多操作' : '',
-                'label'=>  (Helper::checkRoute('supplier-detail/create')) ? '更多操作' : '',
-                'format'=>'raw',
-                'value' => function($model){
-                $operator_1 = '';
-                $operator_2 = '';
-                if (Helper::checkRoute('supplier-detail/create')) {
-                    $url_1 = Url::to(['supplier-detail/create','sid'=>$model->id]);
-                    $operator_1 = Html::a('建立合作关系', $url_1, ['title' => '建立合作关系']);
+                'label' => (Helper::checkRoute('supplier-detail/create')) ? '更多操作' : '',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    $operator_1 = '';
+                    $operator_2 = '';
+                    if (Helper::checkRoute('supplier-detail/create')) {
+                        $url_1 = Url::to(['supplier-detail/create', 'sid' => $model->id]);
+                        $operator_1 = Html::a('建立合作关系', $url_1, ['title' => '建立合作关系']);
 
-                }
+                    }
 
-                // if (Helper::checkRoute('history/index')) {
-                //     $url_2 = Url::to(['history/index','object_id'=>$model->id]);
-                //     $operator_2 = Html::a('历史记录', $url_2, ['title' => '历史记录']);
-                // }
-                    return $operator_1.' '.$operator_2; 
+                    // if (Helper::checkRoute('history/index')) {
+                    //     $url_2 = Url::to(['history/index','object_id'=>$model->id]);
+                    //     $operator_2 = Html::a('历史记录', $url_2, ['title' => '历史记录']);
+                    // }
+                    return $operator_1 . ' ' . $operator_2;
                 }
-            ],              
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

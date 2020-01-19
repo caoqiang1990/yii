@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use mdm\admin\components\Helper;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\AnswerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -44,7 +45,7 @@ $this->params['breadcrumbs'][] = Yii::t('answer', 'Answers');
                         ];
                         $record = \backend\models\TemplateAnswer::getByAnswerId($model->id);
                         $template_id = isset($record->template_id) ? $record->template_id : '';
-                        $url = Url::to(['/answer/update','id'=>$model->id,'template_id'=>$template_id]);
+                        $url = Url::to(['/answer/update', 'id' => $model->id, 'template_id' => $template_id]);
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
                     },
                 ]

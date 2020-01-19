@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use backend\models\Supplier;
-use mdm\admin\components\Helper; 
+use mdm\admin\components\Helper;
 use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
@@ -15,7 +15,7 @@ use backend\models\SupplierNature;
 /* @var $model backend\models\SupplierDetail */
 
 $this->title = '';
-$this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('detail', 'Supplier Details'), 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supplier-detail-view">
@@ -23,42 +23,42 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
     <p>
         <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
     </p>
-  <?= DetailView::widget([
+    <?= DetailView::widget([
         'model' => $supplier,
         'attributes' => [
             //'id',
             'name',
             [
                 'attribute' => 'level',
-                'value' => function($model){
+                'value' => function ($model) {
                     $level = SupplierLevel::getLevelById($model->level);
                     return $level ? $level->level_name : '';
                 }
             ],
             [
                 'attribute' => 'trade',
-                'value' => function($model){
+                'value' => function ($model) {
                     $trade = SupplierTrade::getTradeById($model->trade);
                     return $trade ? $trade->trade_name : '';
                 }
             ],
-             [
+            [
                 'attribute' => 'cate_id1',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
                 },
             ],
             [
                 'attribute' => 'cate_id2',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
                 },
             ],
             [
                 'attribute' => 'cate_id3',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
                 },
@@ -71,11 +71,11 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             //'business_type',
             [
                 'attribute' => 'business_type',
-                'value' => function($model){
+                'value' => function ($model) {
                     $business = SupplierType::getTypeById($model->business_type);
                     return $business ? $business->type_name : '';
                 }
-            ],            
+            ],
             'business_email',
             'business_scope',
             'business_customer1',
@@ -90,11 +90,11 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             'instrument_device4',
             [
                 'attribute' => 'firm_nature',
-                'value' => function($model) {
+                'value' => function ($model) {
                     $nature = SupplierNature::getNatureById($model);
                     return $nature ? $nature->nature_name : '';
-                } 
-            ],         
+                }
+            ],
             'coop_content',
             'url',
             'headcount',
@@ -119,7 +119,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             'enterprise_certificate_etc_desc',
             [
                 'attribute' => 'status',
-                'value' => function($model){
+                'value' => function ($model) {
                     switch ($model->status) {
                         case 10:
                             $text = '正常';
@@ -135,7 +135,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             ],
             [
                 'attribute' => 'source',
-                'value' => function($model){
+                'value' => function ($model) {
                     switch ($model->source) {
                         case 'import':
                             $text = '导入';
@@ -152,12 +152,12 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             ],
             [
                 'attribute' => 'public_flag',
-                'value' => function($model){
+                'value' => function ($model) {
                     switch ($model->public_flag) {
                         case 'y':
                             $text = '共享';
                             break;
-                        
+
                         default:
                             $text = '保密';
                             break;
@@ -167,86 +167,86 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('detail','Supplier Details')
             ],
             [
                 'attribute' => 'created_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->created_at);
+                'value' => function ($model) {
+                    return date('Y-m-d H:i:s', $model->created_at);
                 }
             ],
             [
                 'attribute' => 'updated_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->updated_at);
+                'value' => function ($model) {
+                    return date('Y-m-d H:i:s', $model->updated_at);
                 }
             ],
         ],
     ]) ?>
     <?php
-        $key = 0;
-        foreach($supplier_detail as $model) {
-            $key++;
-    ?>
-    <p>合作关系<?= $key ?></p>
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            [
-                'attribute' => 'one_level_department',
-                'label' => '供应商管理部门(一级部门)',
-                'value' => function($model) {
-                    $department = Department::getDepartmentById($model->one_level_department);
-                    return $department ? $department->department_name : '';
-                }
+    $key = 0;
+    foreach ($supplier_detail as $model) {
+        $key++;
+        ?>
+        <p>合作关系<?= $key ?></p>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                [
+                    'attribute' => 'one_level_department',
+                    'label' => '供应商管理部门(一级部门)',
+                    'value' => function ($model) {
+                        $department = Department::getDepartmentById($model->one_level_department);
+                        return $department ? $department->department_name : '';
+                    }
+                ],
+                [
+                    'attribute' => 'second_level_department',
+                    'label' => '供应商管理部门(二级部门)',
+                    'value' => function ($model) {
+                        $department = Department::getDepartmentById($model->second_level_department);
+                        return $department ? $department->department_name : '';
+                    }
+                ],
+                [
+                    'attribute' => 'one_coop_department',
+                    'label' => '供应商合作部门(一级部门)',
+                    'value' => function ($model) {
+                        $department = Department::getDepartmentById($model->one_coop_department);
+                        return $department ? $department->department_name : '';
+                    }
+                ],
+                [
+                    'attribute' => 'second_coop_department',
+                    'label' => '供应商合作部门(二级部门)',
+                    'value' => function ($model) {
+                        $department = Department::getDepartmentById($model->second_coop_department);
+                        return $department ? $department->department_name : '';
+                    }
+                ],
+                'name',
+                'mobile',
+                'coop_fund1',
+                'trade_fund1',
+                'coop_fund2',
+                'trade_fund2',
+                'coop_fund3',
+                'trade_fund3',
+                'reason:ntext',
+                [
+                    'attribute' => 'created_at',
+                    'value' => function ($model) {
+                        return date('Y-m-d H:i:s', $model->created_at);
+                    }
+                ],
+                [
+                    'attribute' => 'updated_at',
+                    'value' => function ($model) {
+                        return date('Y-m-d H:i:s', $model->updated_at);
+                    }
+                ],
             ],
-            [
-                'attribute' => 'second_level_department',
-                'label' => '供应商管理部门(二级部门)',
-                'value' => function($model) {
-                    $department = Department::getDepartmentById($model->second_level_department);
-                    return $department ? $department->department_name : '';
-                }
-            ],
-            [
-                'attribute' => 'one_coop_department',
-                'label' => '供应商合作部门(一级部门)',
-                'value' => function($model) {
-                    $department = Department::getDepartmentById($model->one_coop_department);
-                    return $department ? $department->department_name : '';
-                }
-            ],
-            [
-                'attribute' => 'second_coop_department',
-                'label' => '供应商合作部门(二级部门)',
-                'value' => function($model) {
-                    $department = Department::getDepartmentById($model->second_coop_department);
-                    return $department ? $department->department_name : '';
-                }
-            ],    
-            'name',
-            'mobile',
-            'coop_fund1',
-            'trade_fund1',
-            'coop_fund2',
-            'trade_fund2',
-            'coop_fund3',
-            'trade_fund3',                        
-            'reason:ntext',
-            [
-                'attribute' => 'created_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->created_at);
-                }
-            ],
-            [
-                'attribute' => 'updated_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->updated_at);
-                }
-            ],
-        ],
-    ]) ?>
-    <?php
-        }
+        ]) ?>
+        <?php
+    }
     ?>
     <p>
-      <?= Html::a('返回', ['/supplier/department-index'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('返回', ['/supplier/department-index'], ['class' => 'btn btn-primary']) ?>
     </p>
 </div>

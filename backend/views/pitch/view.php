@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 /* @var $model backend\models\Pitch */
 
@@ -12,7 +13,7 @@ $this->params['breadcrumbs'][] = '比稿详情';
 <div class="pitch-view">
 
     <p>
-        <a class="btn btn-primary" href="<?php echo Url::to(['pitch/index'])?>">返回</a>
+        <a class="btn btn-primary" href="<?php echo Url::to(['pitch/index']) ?>">返回</a>
     </p>
 
     <?= DetailView::widget([
@@ -29,14 +30,14 @@ $this->params['breadcrumbs'][] = '比稿详情';
             'result:ntext',
             [
                 'attribute' => 'created_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->created_at);
+                'value' => function ($model) {
+                    return date('Y-m-d H:i:s', $model->created_at);
                 }
             ],
             [
                 'attribute' => 'updated_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->updated_at);
+                'value' => function ($model) {
+                    return date('Y-m-d H:i:s', $model->updated_at);
                 }
             ],
         ],

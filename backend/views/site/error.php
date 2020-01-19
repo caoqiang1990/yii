@@ -19,7 +19,7 @@ $this->title = $name;
 
             <p>
                 <?php
-                    //nl2br(Html::encode($message))
+                //nl2br(Html::encode($message))
                 ?>
             </p>
             <p>
@@ -29,7 +29,7 @@ $this->title = $name;
                 如果问题一直持续出现，请联系管理员哟！
             </p>
             <p>
-                 <a href='<?= Yii::$app->homeUrl ?>'>返回首页</a>
+                <a href='<?= Yii::$app->homeUrl ?>'>返回首页</a>
             </p>
         </div>
     </div>

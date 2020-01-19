@@ -12,30 +12,30 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'pager'=>[
+        'pager' => [
             //'options'=>['class'=>'hidden']//关闭分页
-            'firstPageLabel'=>'首页',
-            'lastPageLabel'=>'尾页',
-            'maxButtonCount' => 5, 
-        ],        
+            'firstPageLabel' => '首页',
+            'lastPageLabel' => '尾页',
+            'maxButtonCount' => 5,
+        ],
         'columns' => [
             'title',
             [
                 'attribute' => 'action',
-                'value' => function($model){
-                    $actions = ['create'=>'新增','update' => '更新','delete' =>'删除','login' => '登录','logout' =>'退出'];
+                'value' => function ($model) {
+                    $actions = ['create' => '新增', 'update' => '更新', 'delete' => '删除', 'login' => '登录', 'logout' => '退出'];
                     return isset($actions["$model->action"]) ? $actions["$model->action"] : '未知';
                 }
             ],
             [
-                'attribute'=>'addtime',
-                'value'=>function($model){
-                    return date('Y-m-d H:i:s',$model->addtime);
+                'attribute' => 'addtime',
+                'value' => function ($model) {
+                    return date('Y-m-d H:i:s', $model->addtime);
                 },
             ],
-            ['class' => 'yii\grid\ActionColumn','template'=>'{view}']
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}']
         ],
-        'tableOptions'=>['class' => 'table table-striped']
+        'tableOptions' => ['class' => 'table table-striped']
     ]); ?>
 
 </div>

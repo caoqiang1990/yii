@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = Yii::t('document', 'Documents');
                         $attachmentModel = new Attachment();
                         $attach = $attachmentModel->getAttachByID($model->doc);
                         $url = $attach->url;
-                        $options = ['title' => $attach->filename, 'target' => '_blank','data'=>['pajax'=>0]];
+                        $options = ['title' => $attach->filename, 'target' => '_blank', 'data' => ['pajax' => 0]];
                         return Html::a($attach->filename, $url, $options);
                     } else {
                         return null;

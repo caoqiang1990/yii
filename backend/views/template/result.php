@@ -65,8 +65,8 @@ $this->title = '';
                     ?>
                     <td style="vertical-align: middle;text-align: center" <?= $order == 1 ? "rowspan='$count'" : ""; ?>>
                         <b>合作项目:</b><?= Question::findOne($question_id)->title ?>
-                        <b>请根据该合作项目填写合作感受：</b><br />
-                        <?= $form->field($templaterecordmodel, 'reason')->textarea(['rows' => 6,'disabled' => true])->label(false);?>
+                        <b>请根据该合作项目填写合作感受：</b><br/>
+                        <?= $form->field($templaterecordmodel, 'reason')->textarea(['rows' => 6, 'disabled' => true])->label(false); ?>
                     </td>
                     <?php
                 }

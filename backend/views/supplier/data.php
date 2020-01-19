@@ -6,7 +6,7 @@ $this->params['breadcrumbs'][] = "统计";
 ?>
 
 
-<table class="table table-bordered" >
+<table class="table table-bordered">
 
     <tr style="font-weight: bold">
         <td>类别</td>
@@ -17,17 +17,17 @@ $this->params['breadcrumbs'][] = "统计";
         <td>战略</td>
         <td>不合格</td>
     </tr>
-<?php  foreach ($data as $name => $info) { ?>
+    <?php foreach ($data as $name => $info) { ?>
 
-    <tr>
-        <td><?=$name;?></td>
-        <?php foreach ($info as $v) {?>
-            <td><?=$v;?></td>
-        <?php } ?>
-    </tr>
+        <tr>
+            <td><?= $name; ?></td>
+            <?php foreach ($info as $v) { ?>
+                <td><?= $v; ?></td>
+            <?php } ?>
+        </tr>
 
 
-<?php  } ?>
+    <?php } ?>
 
 
 </table>

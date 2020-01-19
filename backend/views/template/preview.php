@@ -13,11 +13,15 @@ $this->title = '';
         vertical-align: middle !important;
         text-align: center !important;
         background-color: #777;
-        border:1px solid black !important;
+        border: 1px solid black !important;
     }
-    table td{border:1px solid black !important;}
+
+    table td {
+        border: 1px solid black !important;
+    }
+
     .tfooter td {
-        font-weight:bolder;
+        font-weight: bolder;
     }
 </style>
 
@@ -27,7 +31,7 @@ $this->title = '';
         <tr class="theader">
             <th></th>
             <th>考评关键点</th>
-            <th>分值<br />权重</th>
+            <th>分值<br/>权重</th>
             <th>80%-100%</th>
             <th>50%-79%</th>
             <th>0%-49%</th>
@@ -39,7 +43,7 @@ $this->title = '';
         foreach ($answers as $key => $answer) {
             $order = $key + 1;
             ?>
-            <tr >
+            <tr>
                 <?php
                 if ($order == 1) {
 
@@ -60,12 +64,12 @@ $this->title = '';
                     ?>
                     <td style="vertical-align: middle;text-align: center" <?= $order == 1 ? "rowspan='$count'" : ""; ?>>
                         <b>合作项目：</b>____________
-                        <br />
+                        <br/>
                         <b>请根据该合作项目填写合作感受：</b>
-                        <br />____________
-                        <br />
-                        <br />
-                        <br />
+                        <br/>____________
+                        <br/>
+                        <br/>
+                        <br/>
                     </td>
                     <?php
                 }
@@ -75,7 +79,7 @@ $this->title = '';
             <?php
         }
         ?>
-        <tr class="tfooter" >
+        <tr class="tfooter">
             <td colspan="2" style="vertical-align: middle;text-align: center">合计</td>
             <td style="vertical-align: middle;text-align: center">100</td>
             <td style="vertical-align: middle;">评价事业部____________</td>

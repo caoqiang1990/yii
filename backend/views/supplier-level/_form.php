@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
 
     <?= $form->field($model, 'level_name')->textInput(['maxlength' => true]) ?>
-    
+
     <?= $form->field($model, 'status')->dropDownList($status) ?>
     <?= $form->field($model, 'order_no')->input('number') ?>
 

@@ -88,8 +88,8 @@ $this->registerJs($js, View::POS_READY);
             ],
             [
                 'attribute' => 'desc',
-                'value' => function($model){
-                    return truncate_utf8_string($model->desc,30);
+                'value' => function ($model) {
+                    return truncate_utf8_string($model->desc, 30);
                 }
             ],
             'start_date',

@@ -7,7 +7,7 @@ use yii\helpers\Url;
 use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
-use mdm\admin\components\Helper; 
+use mdm\admin\components\Helper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SuppliersSearch */
@@ -22,64 +22,64 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-    <?php if(Helper::checkRoute('create')) {  ?>
-        <?= Html::a(Yii::t('suppliers', 'Create Suppliers'), ['create'], ['class' => 'btn btn-success']) ?>
-    <?php } ?>
-    <?php if(Helper::checkRoute('uploadxls')) {  ?>
-        <?= Html::a(Yii::t('suppliers', 'Import Suppliers'), ['uploadxls'], ['class' => 'btn btn-success']) ?>
-    <?php } ?>
+        <?php if (Helper::checkRoute('create')) { ?>
+            <?= Html::a(Yii::t('suppliers', 'Create Suppliers'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php } ?>
+        <?php if (Helper::checkRoute('uploadxls')) { ?>
+            <?= Html::a(Yii::t('suppliers', 'Import Suppliers'), ['uploadxls'], ['class' => 'btn btn-success']) ?>
+        <?php } ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'pager'=>[
+        'pager' => [
             //'options'=>['class'=>'hidden']//关闭分页
-            'firstPageLabel'=>'首页',
-            'lastPageLabel'=>'尾页',
-            'maxButtonCount' => 5, 
+            'firstPageLabel' => '首页',
+            'lastPageLabel' => '尾页',
+            'maxButtonCount' => 5,
         ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'name',
                 'format' => 'raw',
-                'value' => function($model) {
-                    if(Helper::checkRoute('view')) {
-                        $url = Url::to(['view','id'=>$model->id]);
+                'value' => function ($model) {
+                    if (Helper::checkRoute('view')) {
+                        $url = Url::to(['view', 'id' => $model->id]);
                         $options = ['title' => $model->name];
-                        return Html::a($model->name,$url,$options);
+                        return Html::a($model->name, $url, $options);
                     } else {
                         return $model->name;
                     }
                 }
-            ], 
-             [
+            ],
+            [
                 'attribute' => 'cate_id1',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
                 },
-                'filter' => SupplierCategory::getCategoryByParams('id,category_name',1),
+                'filter' => SupplierCategory::getCategoryByParams('id,category_name', 1),
             ],
             [
                 'attribute' => 'cate_id2',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
                 },
-                'filter' => SupplierCategory::getCategoryByParams('id,category_name',2),
+                'filter' => SupplierCategory::getCategoryByParams('id,category_name', 2),
             ],
             [
                 'attribute' => 'cate_id3',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
                 },
-                'filter' => SupplierCategory::getCategoryByParams('id,category_name',3),
+                'filter' => SupplierCategory::getCategoryByParams('id,category_name', 3),
             ],
             [
                 'attribute' => 'level',
-                'value' => function($model){
+                'value' => function ($model) {
                     $levelModel = new SupplierLevel;
                     return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
                 },
@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //         return $fund ? $fund->trade_fund : '';
             //     }
             // ],
-            'business_contact',  
+            'business_contact',
             //'business_email',
             //'business_license',
             //'tax_registration_certificate',
@@ -144,29 +144,29 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'header' => '操作',
                 'class' => 'yii\grid\ActionColumn',
-                'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
+                'template' => Helper::filterActionColumn('{view}{update}{delete}'),
 
             ],
             [
                 //'label'=>  (Helper::checkRoute('supplier-detail/create') || Helper::checkRoute('history/index')) ? '更多操作' : '',
-                'label'=>  (Helper::checkRoute('history/index')) ? '更多操作' : '',
-                'format'=>'raw',
-                'value' => function($model){
-                $operator_1 = '';
-                $operator_2 = '';
-                // if (Helper::checkRoute('supplier-detail/create')) {
-                //     $url_1 = Url::to(['supplier-detail/create','sid'=>$model->id]);
-                //     $operator_1 = Html::a('与我方关系', $url_1, ['title' => '与我方关系']);
+                'label' => (Helper::checkRoute('history/index')) ? '更多操作' : '',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    $operator_1 = '';
+                    $operator_2 = '';
+                    // if (Helper::checkRoute('supplier-detail/create')) {
+                    //     $url_1 = Url::to(['supplier-detail/create','sid'=>$model->id]);
+                    //     $operator_1 = Html::a('与我方关系', $url_1, ['title' => '与我方关系']);
 
-                // }
+                    // }
 
-                if (Helper::checkRoute('history/index')) {
-                    $url_2 = Url::to(['history/index','object_id'=>$model->id]);
-                    $operator_2 = Html::a('历史记录', $url_2, ['title' => '历史记录']);
+                    if (Helper::checkRoute('history/index')) {
+                        $url_2 = Url::to(['history/index', 'object_id' => $model->id]);
+                        $operator_2 = Html::a('历史记录', $url_2, ['title' => '历史记录']);
+                    }
+                    return $operator_1 . ' ' . $operator_2;
                 }
-                    return $operator_1.' '.$operator_2; 
-                }
-            ],   
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

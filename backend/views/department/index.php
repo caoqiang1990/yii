@@ -25,12 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'pager'=>[
+        'pager' => [
             //'options'=>['class'=>'hidden']//关闭分页
-            'firstPageLabel'=>'首页',
-            'lastPageLabel'=>'尾页',
-            'maxButtonCount' => 5, 
-        ],        
+            'firstPageLabel' => '首页',
+            'lastPageLabel' => '尾页',
+            'maxButtonCount' => 5,
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'department_name',
@@ -44,26 +44,26 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'header' => '操作',
                 'class' => 'yii\grid\ActionColumn',
-                'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
+                'template' => Helper::filterActionColumn('{view}{update}{delete}'),
 
             ],
             [
-                'label'=>  (Helper::checkRoute('department/assignment')) ? '更多操作' : '',
-                'format'=>'raw',
-                'value' => function($model){
+                'label' => (Helper::checkRoute('department/assignment')) ? '更多操作' : '',
+                'format' => 'raw',
+                'value' => function ($model) {
                     $operator_1 = '';
                     $operator_2 = '';
-                     if (Helper::checkRoute('department/audit') && $model->pid === 0) {
-                         $url_1 = Url::to(['department/audit','id'=>$model->id]);
-                         $operator_1 = Html::a('分配审核员', $url_1, ['title' => '分配审核员']);
+                    if (Helper::checkRoute('department/audit') && $model->pid === 0) {
+                        $url_1 = Url::to(['department/audit', 'id' => $model->id]);
+                        $operator_1 = Html::a('分配审核员', $url_1, ['title' => '分配审核员']);
 
-                     }
+                    }
 
                     if (Helper::checkRoute('department/assignment') && $model->pid === 0) {
-                        $url_2 = Url::to(['department/assignment','id'=>$model->id]);
+                        $url_2 = Url::to(['department/assignment', 'id' => $model->id]);
                         $operator_2 = Html::a('分配员工', $url_2, ['title' => '分配员工']);
                     }
-                    return $operator_1.' '.$operator_2;
+                    return $operator_1 . ' ' . $operator_2;
                 }
             ],
         ],

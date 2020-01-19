@@ -50,38 +50,38 @@ $this->registerJs($js, View::POS_READY);
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'pager'=>[
+        'pager' => [
             //'options'=>['class'=>'hidden']//关闭分页
-            'firstPageLabel'=>'首页',
-            'lastPageLabel'=>'尾页',
-            'maxButtonCount' => 5, 
-        ],        
+            'firstPageLabel' => '首页',
+            'lastPageLabel' => '尾页',
+            'maxButtonCount' => 5,
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'name',
                 'format' => 'raw',
-                'value' => function($model) {
-                    if(Helper::checkRoute('department-view')) {
-                        $url = Url::to(['/supplier/department-view','id'=>$model->id]);
+                'value' => function ($model) {
+                    if (Helper::checkRoute('department-view')) {
+                        $url = Url::to(['/supplier/department-view', 'id' => $model->id]);
                         $options = ['title' => $model->name];
-                        return Html::a($model->name,$url,$options);
+                        return Html::a($model->name, $url, $options);
                     } else {
                         return $model->name;
                     }
                 }
-            ], 
-             [
+            ],
+            [
                 'attribute' => 'cate_id1',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
                 },
-                'filter' => SupplierCategory::getCategoryByParams('id,category_name',1),
+                'filter' => SupplierCategory::getCategoryByParams('id,category_name', 1),
             ],
             [
                 'attribute' => 'cate_id2',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
                 },
@@ -89,7 +89,7 @@ $this->registerJs($js, View::POS_READY);
             ],
             [
                 'attribute' => 'cate_id3',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
                 },
@@ -97,7 +97,7 @@ $this->registerJs($js, View::POS_READY);
             ],
             [
                 'attribute' => 'level',
-                'value' => function($model){
+                'value' => function ($model) {
                     $levelModel = new SupplierLevel;
                     return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
                 },
@@ -117,7 +117,7 @@ $this->registerJs($js, View::POS_READY);
             //         return $fund ? $fund->trade_fund : '';
             //     }
             // ],
-            'business_contact',  
+            'business_contact',
             //'business_email',
             //'business_license',
             //'tax_registration_certificate',

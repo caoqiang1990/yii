@@ -6,7 +6,7 @@ use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
 use backend\models\SupplierType;
-use mdm\admin\components\Helper; 
+use mdm\admin\components\Helper;
 use backend\models\SupplierNature;
 use backend\models\Attachment;
 
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
 <div class="suppliers-view">
 
     <p>
-    <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
+        <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
     </p>
 
     <?= DetailView::widget([
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             'name',
             [
                 'attribute' => 'level',
-                'value' => function($model){
+                'value' => function ($model) {
                     $level = SupplierLevel::getLevelById($model->level);
                     if (!$level) {
                         return '';
@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             ],
             [
                 'attribute' => 'trade',
-                'value' => function($model){
+                'value' => function ($model) {
                     $trade = SupplierTrade::getTradeById($model->trade);
                     if (!$trade) {
                         return '';
@@ -48,23 +48,23 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
                     return $trade->trade_name;
                 }
             ],
-             [
+            [
                 'attribute' => 'cate_id1',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
                 },
             ],
             [
                 'attribute' => 'cate_id2',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
                 },
             ],
             [
                 'attribute' => 'cate_id3',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
                 },
@@ -77,14 +77,14 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             //'business_type',
             [
                 'attribute' => 'business_type',
-                'value' => function($model){
+                'value' => function ($model) {
                     $type = SupplierType::getTypeById($model->business_type);
                     if (!$type) {
                         return '';
                     }
                     return $type->type_name;
                 }
-            ],            
+            ],
             'business_email',
             'business_scope',
             'business_customer1',
@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             'instrument_device4',
             [
                 'attribute' => 'firm_nature',
-                'value' => function($model) {
+                'value' => function ($model) {
                     $nature = SupplierNature::getNatureById($model->firm_nature);
                     return $nature ? $nature->nature_name : '';
                 }
@@ -130,12 +130,12 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
                 'attribute' => 'enterprise_code',
                 'label' => '营业执照(上传附件)',
                 'format' => 'raw',
-                'value' => function($model){
+                'value' => function ($model) {
                     $attachment_id = $model->enterprise_code;
                     if ($attachment_id) {
                         $attachModel = new Attachment;
                         $attach = $attachModel->getImageByID($attachment_id);
-                        return Html::a(Html::img($attach->url, ['width' => 40]),$attach->url,['target' => '_blank']);
+                        return Html::a(Html::img($attach->url, ['width' => 40]), $attach->url, ['target' => '_blank']);
                     } else {
                         return NULL;
                     }
@@ -146,12 +146,12 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
                 'attribute' => 'enterprise_license',
                 'label' => '开户许可证(上传附件)',
                 'format' => 'raw',
-                'value' => function($model){
+                'value' => function ($model) {
                     $attachment_id = $model->enterprise_license;
                     if ($attachment_id) {
                         $attachModel = new Attachment;
                         $attach = $attachModel->getImageByID($attachment_id);
-                        return Html::a(Html::img($attach->url, ['width' => 40]),$attach->url,['target' => '_blank']);
+                        return Html::a(Html::img($attach->url, ['width' => 40]), $attach->url, ['target' => '_blank']);
                     } else {
                         return NULL;
                     }
@@ -162,53 +162,53 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
                 'attribute' => 'enterprise_certificate',
                 'label' => '贸易商（中间商）代理资质(上传附件)',
                 'format' => 'raw',
-                'value' => function($model){
+                'value' => function ($model) {
                     $attachment_id = $model->enterprise_certificate;
                     if ($attachment_id) {
                         $attachModel = new Attachment;
                         $attach = $attachModel->getImageByID($attachment_id);
-                        return Html::a(Html::img($attach->url, ['width' => 40]),$attach->url,['target' => '_blank']);
+                        return Html::a(Html::img($attach->url, ['width' => 40]), $attach->url, ['target' => '_blank']);
                     } else {
                         return NULL;
                     }
 
                 },
-            ], 
+            ],
             [
                 'attribute' => 'enterprise_certificate_etc',
                 'label' => '贸易商（中间商）其他资质',
                 'format' => 'raw',
-                'value' => function($model){
+                'value' => function ($model) {
                     $attachment_id = $model->enterprise_certificate_etc;
                     if ($attachment_id) {
                         $attachModel = new Attachment;
                         $attach = $attachModel->getImageByID($attachment_id);
-                        return Html::a(Html::img($attach->url, ['width' => 40]),$attach->url,['target' => '_blank']);
+                        return Html::a(Html::img($attach->url, ['width' => 40]), $attach->url, ['target' => '_blank']);
                     } else {
                         return NULL;
                     }
 
                 },
-            ],     
+            ],
             [
                 'attribute' => 'enterprise_license_relate',
                 'label' => '企业相关资质(上传附件)',
                 'format' => 'raw',
-                'value' => function($model){
+                'value' => function ($model) {
                     $attachment_id = $model->enterprise_license_relate;
                     if ($attachment_id) {
                         $attachModel = new Attachment;
                         $attach = $attachModel->getImageByID($attachment_id);
-                        return Html::a(Html::img($attach->url, ['width' => 40]),$attach->url,['target' => '_blank']);
+                        return Html::a(Html::img($attach->url, ['width' => 40]), $attach->url, ['target' => '_blank']);
                     } else {
                         return NULL;
                     }
 
                 },
-            ],                                 
+            ],
             [
                 'attribute' => 'status',
-                'value' => function($model){
+                'value' => function ($model) {
                     switch ($model->status) {
                         case 10:
                             $text = '正常';
@@ -228,7 +228,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             ],
             [
                 'attribute' => 'source',
-                'value' => function($model){
+                'value' => function ($model) {
                     switch ($model->source) {
                         case 'import':
                             $text = '导入';
@@ -245,12 +245,12 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             ],
             [
                 'attribute' => 'public_flag',
-                'value' => function($model){
+                'value' => function ($model) {
                     switch ($model->public_flag) {
                         case 'y':
                             $text = '共享';
                             break;
-                        
+
                         default:
                             $text = '保密';
                             break;
@@ -260,20 +260,20 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('suppliers', 'Suppliers'), '
             ],
             [
                 'attribute' => 'created_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->created_at);
+                'value' => function ($model) {
+                    return date('Y-m-d H:i:s', $model->created_at);
                 }
             ],
             [
                 'attribute' => 'updated_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->updated_at);
+                'value' => function ($model) {
+                    return date('Y-m-d H:i:s', $model->updated_at);
                 }
             ],
         ],
     ]) ?>
     <p>
-    <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
-    <?= Html::a('审核', ['audit','id'=>$model->id], ['class' => 'btn btn-primary']) ?>
+        <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
+        <?= Html::a('审核', ['audit', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 </div>

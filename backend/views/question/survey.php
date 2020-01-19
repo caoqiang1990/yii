@@ -49,33 +49,33 @@ $this->title = '';
     .option_select {
 
     }
-    .headert{
+
+    .headert {
         /*border: 1px solid #777;*/
         margin-bottom: 20px;
     }
 </style>
 <script>
-    function survey()
-    {
+    function survey() {
         var count = $('.radio_name').length;
-        for (var i=0;i<count;i++) {
+        for (var i = 0; i < count; i++) {
             var obj = $('.radio_name')[i];
             var radio_name = $(obj).val();
-            if (!$('input[name='+radio_name+']:checked').val()) {
+            if (!$('input[name=' + radio_name + ']:checked').val()) {
                 alert('请填写完整！');
                 return false;
             } else {
-                $('input[name='+radio_name+']').focus();
+                $('input[name=' + radio_name + ']').focus();
             }
         }
-       $('#survey').submit();
+        $('#survey').submit();
     }
 </script>
 <?php $form = ActiveForm::begin([
-        'id' => 'survey'
+    'id' => 'survey'
 ]); ?>
-<input name="question_id" type="hidden" value="<?=$question_id;?>">
-<input name="count" type="hidden" value="<?=count($answers);?>">
+<input name="question_id" type="hidden" value="<?= $question_id; ?>">
+<input name="count" type="hidden" value="<?= count($answers); ?>">
 <div class="container-fluid">
     <div class="row header">
         <div class="col-xs-12" class="text-center">
@@ -85,7 +85,7 @@ $this->title = '';
         </div>
         <div class="col-xs-12">
             <div class="option" style="border:none">
-                <?=$model->desc;?>
+                <?= $model->desc; ?>
             </div>
         </div>
     </div>
@@ -108,7 +108,8 @@ $this->title = '';
                                 ?>
                                 <div class="radio">
                                     <label>
-                                        <input class="radio_select" type="radio" name="option_<?= $answer['id'] ?>" id="optionsRadios1"
+                                        <input class="radio_select" type="radio" name="option_<?= $answer['id'] ?>"
+                                               id="optionsRadios1"
                                                value="<?= $option['desc'] ?>">
                                         <?= $option['desc'] ?>
                                     </label>

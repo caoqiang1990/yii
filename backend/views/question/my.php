@@ -78,10 +78,10 @@ $this->registerJs($js, View::POS_READY);
 
             'title',
             [
-                'attribute'=>'desc',
-                'format'=>'raw',
-                'value'=>function($model){
-                     return "<div style=\"width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">".$model->desc."</div>";
+                'attribute' => 'desc',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return "<div style=\"width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">" . $model->desc . "</div>";
                 },
             ],
             'start_date',
@@ -98,10 +98,10 @@ $this->registerJs($js, View::POS_READY);
                         $user_id = Yii::$app->user->identity->id;
                         $hasFinished = $templateRecordModel->hasTemplateRecord($model->template_id, $model->id, $user_id);
                         if (!$hasFinished) {
-                            $url_2 = Url::to(['template/survey', 'template_id' => $model->template_id,'question_id'=>$model->id]);
+                            $url_2 = Url::to(['template/survey', 'template_id' => $model->template_id, 'question_id' => $model->id]);
                             $operator_2 = Html::a('评价', $url_2, ['title' => '评价', 'class' => '', 'data-id' => $model->id]);
                         } else {
-                            $url_2 = Url::to(['template/result', 'template_id' => $model->template_id,'question_id'=>$model->id]);
+                            $url_2 = Url::to(['template/result', 'template_id' => $model->template_id, 'question_id' => $model->id]);
                             $operator_2 = Html::a('评价结果', $url_2, ['title' => '评价结果', 'class' => '', 'data-id' => $model->id]);
                         }
                     }

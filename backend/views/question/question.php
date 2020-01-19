@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use backend\assets\AnswerAsset;
 use yii\helpers\Url;
-use mdm\admin\components\Helper; 
+use mdm\admin\components\Helper;
 use yii\bootstrap\Modal;
 
 $this->title = '';
@@ -20,18 +20,21 @@ AnswerAsset::register($this);
       integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 <style>
-    .container-fluid{
+    .container-fluid {
         padding-top: 20px;
     }
-    .content{
+
+    .content {
         padding: 20px;
         min-height: 88%;
-        //border: 1px solid #dee5e7;
+    / / border: 1 px solid #dee5e7;
         overflow-y: hidden;
     }
-    .error{
+
+    .error {
         color: red;
     }
+
     .form-group {
         margin-bottom: 25px;
     }
@@ -39,27 +42,27 @@ AnswerAsset::register($this);
 </style>
 <div class="container-fluid">
     <div class="content">
-    	<div class="row">
-    		<div class="cos-xs-12 text-center">
-   			      <?php 
-          echo Html::a('添加选项',['answer'], [
-              'id' => 'create',
-              'data-toggle' => 'modal',
-              'data-target' => '#modal_ajax',
-              'class' => 'btn btn-success',
-          ]);
-      ?>
-    		</div>
-    	</div>
-    </div>
-</div>
- 
-  <div class="modal fade" id="modal_ajax" role="basic" aria-hidden="true">
-    <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-body">
-            <span> &nbsp;&nbsp;Loading... </span>
+        <div class="row">
+            <div class="cos-xs-12 text-center">
+                <?php
+                echo Html::a('添加选项', ['answer'], [
+                    'id' => 'create',
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal_ajax',
+                    'class' => 'btn btn-success',
+                ]);
+                ?>
+            </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="modal_ajax" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <span> &nbsp;&nbsp;Loading... </span>
+            </div>
+        </div>
     </div>
-  </div>
+</div>

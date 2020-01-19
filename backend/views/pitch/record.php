@@ -86,7 +86,7 @@ $this->title = '';
             <div class="form-group">
                 <label for="" class="col-xs-2 control-label">项目名称:</label>
                 <div class="col-sm-5">
-										<?= $model->name ? $model->name : '无' ?>
+                    <?= $model->name ? $model->name : '无' ?>
                 </div>
             </div>
         </div>
@@ -95,7 +95,7 @@ $this->title = '';
                 <label for="" class="col-xs-2 control-label">项目描述:</label>
 
                 <div class="col-sm-5">
-										<?= $model->desc ? $model->desc : '无' ?>
+                    <?= $model->desc ? $model->desc : '无' ?>
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@ $this->title = '';
                 <label for="" class="col-xs-2 control-label">项目备注:</label>
 
                 <div class="col-sm-5">
-										<?= $model->remark ? $model->remark : '无'; ?>
+                    <?= $model->remark ? $model->remark : '无'; ?>
                 </div>
             </div>
         </div>
@@ -116,50 +116,50 @@ $this->title = '';
                 <label for="" class="col-xs-2 control-label">上传记录:</label>
 
                 <div class="col-sm-5">
-										<?php if ($model->record_url) { ?>
-												<?php foreach ($model->record_url as $attach) { ?>
-														<?php if ($attach['filetype'] == 'image') { ?>
+                    <?php if ($model->record_url) { ?>
+                        <?php foreach ($model->record_url as $attach) { ?>
+                            <?php if ($attach['filetype'] == 'image') { ?>
                                 <a style="display:inline-block" href="<?= $attach['url'] ?>" target="_blank">
                                     <img src="<?= $attach['url'] ?>" style="height:50px"
                                          class="margin">
                                 </a>
-														<?php } elseif ($attach['filetype'] == 'txt') { ?>
+                            <?php } elseif ($attach['filetype'] == 'txt') { ?>
                                 <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
                                    target="_blank">
                                     <i style="margin-top:0px"
                                        class="fa"><?= $attach['filename'] ?></i>
                                 </a>
-														<?php } elseif ($attach['filetype'] == 'ppt' || $attach['filetype'] == 'pptx') { ?>
+                            <?php } elseif ($attach['filetype'] == 'ppt' || $attach['filetype'] == 'pptx') { ?>
 
                                 <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
                                    target="_blank">
                                     <i style="margin-top:0px"
                                        class="fa"><?= $attach['filename'] ?></i>
                                 </a>
-														<?php } elseif ($attach['filetype'] == 'xls' || $attach['filetype'] == 'xlsx' || $attach['filetype'] == 'csv') { ?>
+                            <?php } elseif ($attach['filetype'] == 'xls' || $attach['filetype'] == 'xlsx' || $attach['filetype'] == 'csv') { ?>
                                 <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
                                    target="_blank">
                                     <i style="margin-top:0px"
                                        class="fa"><?= $attach['filename'] ?></i>
                                 </a>
-														<?php } elseif ($attach['filetype'] == 'doc' || $attach['filetype'] == 'docx') { ?>
+                            <?php } elseif ($attach['filetype'] == 'doc' || $attach['filetype'] == 'docx') { ?>
                                 <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
                                    target="_blank">
                                     <i style="margin-top:0px"
                                        class="fa"><?= $attach['filename'] ?></i>
                                 </a>
-														<?php } else { ?>
+                            <?php } else { ?>
                                 <a style="display: inline-block;padding-top:10px" href="<?= $attach['url'] ?>"
                                    target="_blank">
                                     <i style="margin-top:0px"
                                        class="fa"><?= $attach['filename'] ?></i>
                                 </a>
-														<?php } ?>
-												<?php } ?>
+                            <?php } ?>
+                        <?php } ?>
 
-										<?php } else { ?>
+                    <?php } else { ?>
                         无
-										<?php } ?>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -170,10 +170,10 @@ $this->title = '';
                 <div class="col-sm-5">
                     <ul class="timeline">
                         <!-- timeline time label -->
-												<?php if (!empty($records)) { ?>
-														<?php foreach ($records as $record) { ?>
-																<?php
-																if (!$record['attachment']) { ?>
+                        <?php if (!empty($records)) { ?>
+                            <?php foreach ($records as $record) { ?>
+                                <?php
+                                if (!$record['attachment']) { ?>
                                     <li class="time-label">
                                       <span class="bg-red">
                                         <?= date('Y-m-d H:i:s', $record['created_at']) ?>
@@ -191,8 +191,8 @@ $this->title = '';
                                             </h3>
                                         </div>
                                     </li>
-																<?php } ?>
-																<?php if ($record['attachment']) { ?>
+                                <?php } ?>
+                                <?php if ($record['attachment']) { ?>
                                     <li class="time-label">
                                       <span class="bg-red">
                                         <?= date('Y-m-d H:i:s', $record['created_at']) ?>
@@ -207,60 +207,60 @@ $this->title = '';
                                             <h3 class="timeline-header"><?= $record['content'] ?></h3>
 
                                             <div class="timeline-body" style="vertical-align: middle;padding:2px">
-																								<?php foreach ($record['url'] as $url) { ?>
-																										<?php if ($url['filetype'] == 'image') { ?>
+                                                <?php foreach ($record['url'] as $url) { ?>
+                                                    <?php if ($url['filetype'] == 'image') { ?>
                                                         <a style="display:inline-block" href="<?= $url['url'] ?>"
                                                            target="_blank">
                                                             <img src="<?= $url['url'] ?>" style="height:50px"
                                                                  class="margin">
                                                         </a>
-																										<?php } elseif ($url['filetype'] == 'txt') { ?>
+                                                    <?php } elseif ($url['filetype'] == 'txt') { ?>
                                                         <a style="display: inline-block;padding-top:10px"
                                                            href="<?= $url['url'] ?>" target="_blank">
                                                             <i style="margin-top:0px"
                                                                class="fa"><?php $url['filename'] ?></i>
                                                         </a>
-																										<?php } elseif ($url['filetype'] == 'ppt' || $url['filetype'] == 'pptx') { ?>
+                                                    <?php } elseif ($url['filetype'] == 'ppt' || $url['filetype'] == 'pptx') { ?>
 
                                                         <a style="display: inline-block;padding-top:10px"
                                                            href="<?= $url['url'] ?>" target="_blank">
                                                             <i style="margin-top:0px"
                                                                class="fa"><?= $url['filename'] ?></i>
                                                         </a>
-																										<?php } elseif ($url['filetype'] == 'xls' || $url['filetype'] == 'xlsx' || $url['filetype'] == 'csv') { ?>
+                                                    <?php } elseif ($url['filetype'] == 'xls' || $url['filetype'] == 'xlsx' || $url['filetype'] == 'csv') { ?>
                                                         <a style="display: inline-block;padding-top:10px;padding-left:10px;padding-bottom:10px"
                                                            href="<?= $url['url'] ?>" target="_blank">
                                                             <i style="margin-top:0px"
                                                                class="fa"><?= $url['filename'] ?></i>
                                                         </a>
-																										<?php } elseif ($url['filetype'] == 'doc' || $url['filetype'] == 'docx') { ?>
+                                                    <?php } elseif ($url['filetype'] == 'doc' || $url['filetype'] == 'docx') { ?>
                                                         <a style="display: inline-block;padding-top:10px"
                                                            href="<?= $url['url'] ?>" target="_blank">
                                                             <i style="margin-top:0px"
                                                                class="fa"><?= $url['filename'] ?></i>
                                                         </a>
-																										<?php } else { ?>
+                                                    <?php } else { ?>
                                                         <a style="display: inline-block;padding-top:10px"
                                                            href="<?= $url['url'] ?>" target="_blank">
                                                             <i style="margin-top:0px"
                                                                class="fa"><?= $url['filename'] ?></i>
                                                         </a>
-																										<?php } ?>
+                                                    <?php } ?>
 
-																								<?php } ?>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </li>
-																<?php } ?>
+                                <?php } ?>
 
-														<?php } ?>
+                            <?php } ?>
                             <!-- END timeline item -->
                             <li>
                                 <i class="fa fa-clock-o bg-gray"></i>
                             </li>
-												<?php } else { ?>
+                        <?php } else { ?>
                             <li>暂无留言</li>
-												<?php } ?>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -271,7 +271,7 @@ $this->title = '';
                 <label for="" class="col-xs-2 control-label">项目结果:</label>
 
                 <div class="col-sm-5">
-										<?= $model->result ? $model->result : '无'; ?>
+                    <?= $model->result ? $model->result : '无'; ?>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-use mdm\admin\components\Helper; 
+use mdm\admin\components\Helper;
 use yii\web\View;
 use yii\helpers\Url;
 
@@ -46,24 +46,24 @@ $this->params['breadcrumbs'][] = Yii::t('pitch', 'Pitches');
             // ],
             [
                 //'label'=>  (Helper::checkRoute('supplier-detail/create') || Helper::checkRoute('history/index')) ? '更多操作' : '',
-                'label'=>  (Helper::checkRoute('pitch/review')) ? '更多操作' : '',
-                'format'=>'raw',
-                'value' => function($model){
-                $operator_1 = '';
-                $operator_2 = '';
-                // if (Helper::checkRoute('supplier-detail/create')) {
-                //     $url_1 = Url::to(['supplier-detail/create','sid'=>$model->id]);
-                //     $operator_1 = Html::a('与我方关系', $url_1, ['title' => '与我方关系']);
+                'label' => (Helper::checkRoute('pitch/review')) ? '更多操作' : '',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    $operator_1 = '';
+                    $operator_2 = '';
+                    // if (Helper::checkRoute('supplier-detail/create')) {
+                    //     $url_1 = Url::to(['supplier-detail/create','sid'=>$model->id]);
+                    //     $operator_1 = Html::a('与我方关系', $url_1, ['title' => '与我方关系']);
 
-                // }
+                    // }
 
-                if (Helper::checkRoute('pitch/time-line')) {
-                    $url_2 = Url::to(['pitch/time-line','id'=>$model->id]);
-                    $operator_2 = Html::a('查看', $url_2);
+                    if (Helper::checkRoute('pitch/time-line')) {
+                        $url_2 = Url::to(['pitch/time-line', 'id' => $model->id]);
+                        $operator_2 = Html::a('查看', $url_2);
+                    }
+                    return $operator_1 . ' ' . $operator_2;
                 }
-                    return $operator_1.' '.$operator_2; 
-                }
-            ],              
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

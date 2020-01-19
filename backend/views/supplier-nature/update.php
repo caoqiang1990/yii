@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\SupplierNature */
-$title = Yii::t('nature','Update Supplier Nature: ');
+$title = Yii::t('nature', 'Update Supplier Nature: ');
 $this->title = Yii::t('nature', $title . $model->id, [
     'nameAttribute' => '' . $model->id,
 ]);

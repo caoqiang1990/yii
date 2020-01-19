@@ -19,15 +19,15 @@ $this->params['breadcrumbs'][] = $model->id;
         'model' => $model,
         'attributes' => [
             [
-                    'attribute' => "template_id",
-                    'value' => function($model) {
-                        $template = Template::getTemplateById($model->template_id);
-                        return $template ? $template->name : '';
-                    }
+                'attribute' => "template_id",
+                'value' => function ($model) {
+                    $template = Template::getTemplateById($model->template_id);
+                    return $template ? $template->name : '';
+                }
             ],
             [
                 'attribute' => "question_id",
-                'value' => function($model) {
+                'value' => function ($model) {
                     $question = Question::getQuestionById($model->question_id);
                     return $question ? $question->title : '';
                 }

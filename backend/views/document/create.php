@@ -13,9 +13,9 @@ $this->params['breadcrumbs'][] = $title;
 ?>
 <div class="document-create">
 
-  <?= $this->render('_form', [
-	  'model' => $model,
-      'cate' => $cate,
-  ]) ?>
+    <?= $this->render('_form', [
+        'model' => $model,
+        'cate' => $cate,
+    ]) ?>
 
 </div>

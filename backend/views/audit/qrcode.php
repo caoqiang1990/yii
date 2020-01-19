@@ -25,14 +25,14 @@ $js = <<<JS
     }
 JS;
 
-$this->registerJS($js,View::POS_HEAD);
+$this->registerJS($js, View::POS_HEAD);
 $this->registerCss($css);
 ?>
 
-<img src="<?= Url::to(['audit/code','id'=>$id])  ?>" />
+<img src="<?= Url::to(['audit/code', 'id' => $id]) ?>"/>
 <div class="wrapper1">
-<p id="url"><?= $url ?></p>
-<textarea id="input">这是幕后黑手</textarea>
-<button onclick="copyText()">复制</button>
-<div class="clear"></div>
+    <p id="url"><?= $url ?></p>
+    <textarea id="input">这是幕后黑手</textarea>
+    <button onclick="copyText()">复制</button>
+    <div class="clear"></div>
 </div>

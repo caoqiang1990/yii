@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use backend\models\Supplier;
-use mdm\admin\components\Helper; 
+use mdm\admin\components\Helper;
 use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
@@ -20,9 +20,9 @@ $this->params['breadcrumbs'][0] = ['label' => '供应商合作信息', 'url' => 
 <div class="supplier-detail-view">
 
     <p>
-    <?php if(Helper::checkRoute('Update')) {  ?>
-        <?= Html::a('修改', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-    <?php }  ?>
+        <?php if (Helper::checkRoute('Update')) { ?>
+            <?= Html::a('修改', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php } ?>
         <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
     </p>
 
@@ -32,36 +32,36 @@ $this->params['breadcrumbs'][0] = ['label' => '供应商合作信息', 'url' => 
             'supplier_name',
             [
                 'attribute' => 'level',
-                'value' => function($model){
+                'value' => function ($model) {
                     $level = SupplierLevel::getLevelById($model->level);
                     return $level ? $level->level_name : '';
                 }
             ],
             [
                 'attribute' => 'cate_id1',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
                 },
             ],
             [
                 'attribute' => 'cate_id2',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
                 },
             ],
             [
                 'attribute' => 'cate_id3',
-                'value' => function($model){
+                'value' => function ($model) {
                     $categoryModel = new SupplierCategory;
                     return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
                 },
-            ],            
+            ],
             [
                 'attribute' => 'one_level_department',
                 'label' => '供应商管理部门(一级部门)',
-                'value' => function($model) {
+                'value' => function ($model) {
                     $department = Department::getDepartmentById($model->one_level_department);
                     return $department ? $department->department_name : '';
                 }
@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][0] = ['label' => '供应商合作信息', 'url' => 
             [
                 'attribute' => 'second_level_department',
                 'label' => '供应商管理部门(二级部门)',
-                'value' => function($model) {
+                'value' => function ($model) {
                     $department = Department::getDepartmentById($model->second_level_department);
                     return $department ? $department->department_name : '';
                 }
@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][0] = ['label' => '供应商合作信息', 'url' => 
             [
                 'attribute' => 'one_coop_department',
                 'label' => '供应商合作部门(一级部门)',
-                'value' => function($model) {
+                'value' => function ($model) {
                     $department = Department::getDepartmentById($model->one_coop_department);
                     return $department ? $department->department_name : '';
                 }
@@ -85,11 +85,11 @@ $this->params['breadcrumbs'][0] = ['label' => '供应商合作信息', 'url' => 
             [
                 'attribute' => 'second_coop_department',
                 'label' => '供应商合作部门(二级部门)',
-                'value' => function($model) {
+                'value' => function ($model) {
                     $department = Department::getDepartmentById($model->second_coop_department);
                     return $department ? $department->department_name : '';
                 }
-            ],            
+            ],
             'name',
             'mobile',
             'coop_fund1',
@@ -97,26 +97,26 @@ $this->params['breadcrumbs'][0] = ['label' => '供应商合作信息', 'url' => 
             'coop_fund2',
             'trade_fund2',
             'coop_fund3',
-            'trade_fund3',                        
+            'trade_fund3',
             'reason:ntext',
             [
                 'attribute' => 'created_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->created_at);
+                'value' => function ($model) {
+                    return date('Y-m-d H:i:s', $model->created_at);
                 }
             ],
             [
                 'attribute' => 'updated_at',
-                'value' => function($model){
-                    return date('Y-m-d H:i:s',$model->updated_at);
+                'value' => function ($model) {
+                    return date('Y-m-d H:i:s', $model->updated_at);
                 }
             ],
         ],
     ]) ?>
     <p>
-    <?php if(Helper::checkRoute('Update')) {  ?>
-        <?= Html::a('修改', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-    <?php } ?>
+        <?php if (Helper::checkRoute('Update')) { ?>
+            <?= Html::a('修改', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php } ?>
         <a class="btn btn-primary" href="javascript:history.go(-1)">返回</a>
     </p>
 </div>

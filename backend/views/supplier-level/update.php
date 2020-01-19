@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\SupplierLevel */
-$title =  Yii::t('level', 'Update Supplier Level: ');
+$title = Yii::t('level', 'Update Supplier Level: ');
 $this->title = $title . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('level', 'Supplier Levels'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];

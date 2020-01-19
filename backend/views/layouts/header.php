@@ -1,24 +1,26 @@
 <?php
+
 use yii\helpers\Html;
 use mdm\admin\models\form\ModifyUser;
 use yii\helpers\Url;
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 $username = Yii::$app->user->identity->truename;
-$this->registerJsFile("@web/js/watermark.js"); 
+$this->registerJsFile("@web/js/watermark.js");
 
 $js = <<<JS
 UESR = '$username';
 watermark_show({ watermark_txt: UESR,watermark_y:100,watermark_cols:4,watermark_x_space:200,watermark_rows:8});
 JS;
-$this->registerJs($js,\yii\web\View::POS_END);
+$this->registerJs($js, \yii\web\View::POS_END);
 
 ?>
 
 <header class="main-header">
 
     <!-- <?= Html::a('<span class="logo-mini">供应商管理</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?> -->
-	<?= Html::a('<span class="logo-mini"><img src="/static/images/aimer-logo-min.jpg" style="width:100%;max-width:230px;" alt="Aimer Logo"/></span><span class="logo-lg"><img src="/static/images/aimer-logo.png" style="width:100%;max-width:230px;" alt="Aimer Logo"/></span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    <?= Html::a('<span class="logo-mini"><img src="/static/images/aimer-logo-min.jpg" style="width:100%;max-width:230px;" alt="Aimer Logo"/></span><span class="logo-lg"><img src="/static/images/aimer-logo.png" style="width:100%;max-width:230px;" alt="Aimer Logo"/></span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -28,24 +30,26 @@ $this->registerJs($js,\yii\web\View::POS_END);
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                <li style="padding:15px"><span><a style="color:white" href="<?=Url::to('/help/index') ?>">操作手册</a></span></li>
+                <li style="padding:15px"><span><a style="color:white"
+                                                  href="<?= Url::to('/help/index') ?>">操作手册</a></span></li>
             </ul>
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
-                    <a href="<?= Url::to(['/admin/user/profile','id' => Yii::$app->user->identity->id]) ?>" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="<?= Url::to(['/admin/user/profile', 'id' => Yii::$app->user->identity->id]) ?>"
+                       class="dropdown-toggle" data-toggle="dropdown">
                         <?php
-                            if (!Yii::$app->user->identity->head_url) {
-                        ?>
+                        if (!Yii::$app->user->identity->head_url) {
+                            ?>
                             <img src="/static/images/aimer_head.jpg" class="user-image" alt="User Image"/>
-                        <?php
-                            } else {
-                                $user = new ModifyUser();
-                                $head_url = $user->parseImageUrl(Yii::$app->user->identity->head_url);
-                        ?>
-                            <img src="<?= $head_url?>" class="user-image" alt="User Image"/>
+                            <?php
+                        } else {
+                            $user = new ModifyUser();
+                            $head_url = $user->parseImageUrl(Yii::$app->user->identity->head_url);
+                            ?>
+                            <img src="<?= $head_url ?>" class="user-image" alt="User Image"/>
 
-                        <?php
-                            }
+                            <?php
+                        }
                         ?>
                         <span class="hidden-xs"><?= Yii::$app->user->identity->truename ?></span>
                     </a>
@@ -53,16 +57,16 @@ $this->registerJs($js,\yii\web\View::POS_END);
                         <!-- User image -->
                         <li class="user-header">
                             <?php
-                                if (!Yii::$app->user->identity->head_url) {
-                            ?>
+                            if (!Yii::$app->user->identity->head_url) {
+                                ?>
                                 <img src="/static/images/aimer_head.jpg" class="img-circle" alt="User Image"/>
-                            <?php
-                                } else {
-                            ?>      
-                                <img src="<?= $head_url?>" class="img-circle" alt="User Image"/>
-                            <?php
-                                }
-                            ?>                                                  
+                                <?php
+                            } else {
+                                ?>
+                                <img src="<?= $head_url ?>" class="img-circle" alt="User Image"/>
+                                <?php
+                            }
+                            ?>
                             <p>
                                 <?= Yii::$app->user->identity->truename ?>
                             </p>
@@ -72,14 +76,14 @@ $this->registerJs($js,\yii\web\View::POS_END);
                             <div class="pull-left">
                                 <?= Html::a(
                                     '个人设置',
-                                    ['/admin/user/profile','id'=>Yii::$app->user->identity->id],
+                                    ['/admin/user/profile', 'id' => Yii::$app->user->identity->id],
                                     ['class' => 'btn btn-default btn-flat']
-                                ) ?>                             
+                                ) ?>
                                 <?= Html::a(
                                     '修改密码',
                                     ['/admin/user/change-password'],
                                     ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
-                                ) ?>                            
+                                ) ?>
                             </div>
                             <div class="pull-right">
                                 <?= Html::a(

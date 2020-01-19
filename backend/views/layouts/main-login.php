@@ -1,4 +1,5 @@
 <?php
+
 use backend\assets\AppAsset;
 use yii\helpers\Html;
 
@@ -17,11 +18,12 @@ dmstr\web\AdminLteAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="login-page" style="background-image: url('/static/images/main.jpg');background-repeat: no-repeat;background-size:100%">
+<body class="login-page"
+      style="background-image: url('/static/images/main.jpg');background-repeat: no-repeat;background-size:100%">
 
 <?php $this->beginBody() ?>
 
-    <?= $content ?>
+<?= $content ?>
 
 <?php $this->endBody() ?>
 </body>

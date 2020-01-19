@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'pid')->dropDownList($level) ?>
     <?= $form->field($model, 'status')->dropDownList($status) ?>
     <?= $form->field($model, 'order_no')->input('number') ?>
-    <?= $form->field($model, 'level')->hiddenInput(['value'=>$model->level])->label(false); ?>
+    <?= $form->field($model, 'level')->hiddenInput(['value' => $model->level])->label(false); ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('department', 'Save'), ['class' => 'btn btn-success']) ?>

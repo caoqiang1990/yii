@@ -1,4 +1,5 @@
 <?php
+
 use yii\widgets\Breadcrumbs;
 use dmstr\widgets\Alert;
 
@@ -44,7 +45,7 @@ $this->registerJs("
     <div class="pull-right hidden-xs">
         <!-- <b>Version</b> 2.0 -->
     </div>
-    <strong>Copyright &copy; 2019-2020 <a href="/"><?=\Yii::$app->name ?></a>. V1.01</strong> All rights
+    <strong>Copyright &copy; 2019-2020 <a href="/"><?= \Yii::$app->name ?></a>. V1.01</strong> All rights
     reserved.
 </footer>
 

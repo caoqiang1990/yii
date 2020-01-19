@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use backend\models\Supplier;
-use mdm\admin\components\Helper; 
+use mdm\admin\components\Helper;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -21,31 +21,31 @@ $this->params['breadcrumbs'][] = ['label' => '与我方关系列表', 'url' => \
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'pager'=>[
+        'pager' => [
             //'options'=>['class'=>'hidden']//关闭分页
-            'firstPageLabel'=>'首页',
-            'lastPageLabel'=>'尾页',
-            'maxButtonCount' => 5, 
-        ],        
+            'firstPageLabel' => '首页',
+            'lastPageLabel' => '尾页',
+            'maxButtonCount' => 5,
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             [
                 'attribute' => 'sid',
                 'format' => 'raw',
-                'value' => function($model){
+                'value' => function ($model) {
                     $supplier = Supplier::getSupplierById($model->sid);
                     if (!$supplier) {
                         return '';
                     }
-                    if(Helper::checkRoute('view')) {
-                       
-                        $url = Url::to(['view','id'=>$model->id]);
+                    if (Helper::checkRoute('view')) {
+
+                        $url = Url::to(['view', 'id' => $model->id]);
                         $options = ['title' => $supplier->name];
-                        return Html::a($supplier->name,$url,$options);
+                        return Html::a($supplier->name, $url, $options);
                     } else {
                         return $supplier->name;
-                    }                    
+                    }
                 }
             ],
             'one_level_department',
@@ -59,22 +59,22 @@ $this->params['breadcrumbs'][] = ['label' => '与我方关系列表', 'url' => \
             [
                 'header' => '操作',
                 'class' => 'yii\grid\ActionColumn',
-                'template' => Helper::filterActionColumn('{view}{update}{delete}'), 
+                'template' => Helper::filterActionColumn('{view}{update}{delete}'),
 
-            ],   
+            ],
             [
-                'label'=>  (Helper::checkRoute('supplier-detail/create')) ? '更多操作' : '',
-                'format'=>'raw',
-                'value' => function($model){
+                'label' => (Helper::checkRoute('supplier-detail/create')) ? '更多操作' : '',
+                'format' => 'raw',
+                'value' => function ($model) {
                     $operator_1 = '';
                     if (Helper::checkRoute('supplier-detail/create')) {
-                        $url_1 = Url::to(['supplier-detail/create','sid'=>$model->sid]);
+                        $url_1 = Url::to(['supplier-detail/create', 'sid' => $model->sid]);
                         $operator_1 = Html::a('与我方关系', $url_1, ['title' => '与我方关系']);
 
                     }
-                   return $operator_1; 
+                    return $operator_1;
                 }
-            ],               
+            ],
         ],
     ]); ?>
 </div>

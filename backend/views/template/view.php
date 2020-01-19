@@ -32,15 +32,15 @@ $this->params['breadcrumbs'][] = $model->name;
 //            'created_by',
 //            'updated_by',
             [
-                    'attribute' =>'created_at',
-                    'value' => function($model) {
-                        return date('Y-m-d H:i:s',$model->created_at);
-                    }
+                'attribute' => 'created_at',
+                'value' => function ($model) {
+                    return date('Y-m-d H:i:s', $model->created_at);
+                }
             ],
             [
-                'attribute' =>'updated_at',
-                'value' => function($model) {
-                    return date('Y-m-d H:i:s',$model->created_at);
+                'attribute' => 'updated_at',
+                'value' => function ($model) {
+                    return date('Y-m-d H:i:s', $model->created_at);
                 }
             ],
         ],

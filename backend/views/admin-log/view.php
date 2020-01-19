@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Admin */
 
-$this->title = '操作记录： '.$model->title;
+$this->title = '操作记录： ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => '操作记录', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

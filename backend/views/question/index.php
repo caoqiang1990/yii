@@ -108,10 +108,10 @@ $this->registerJs($js, View::POS_READY);
 
             'title',
             [
-                'attribute'=>'desc',
-                'format'=>'raw',
-                'value'=>function($model){
-                    return "<div style=\"width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">".$model->desc."</div>";
+                'attribute' => 'desc',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return "<div style=\"width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">" . $model->desc . "</div>";
                 },
             ],
             [

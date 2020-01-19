@@ -49,7 +49,8 @@ $this->title = '';
     .option_select {
 
     }
-    .header{
+
+    .header {
         /*border: 1px solid #777;*/
         margin-bottom: 20px;
     }
@@ -64,7 +65,7 @@ $this->title = '';
         </div>
         <div class="col-xs-12">
             <div class="option" style="border:none">
-                <?=$model->desc;?>
+                <?= $model->desc; ?>
             </div>
         </div>
     </div>

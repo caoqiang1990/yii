@@ -83,7 +83,7 @@ AnswerAsset::register($this);
 </style>
 <div class="container-fluid">
     <ul class="nav nav-tabs">
-<!--        <li role="presentation" class="active"><a href="#">新增选项</a></li>-->
+        <!--        <li role="presentation" class="active"><a href="#">新增选项</a></li>-->
 
     </ul>
     <div class="content ">
@@ -96,19 +96,20 @@ AnswerAsset::register($this);
             ],
         ]); ?>
         <?= Html::errorSummary($model, ['style' => 'color:red']) ?>
-        <?php if(isset($model->count)) {?>
-        <div class="form-group">
-            <label for="" class="col-sm-2 control-label">序号:</label>
+        <?php if (isset($model->count)) { ?>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label">序号:</label>
 
-            <div class="col-sm-5">
-                <p class="form-control-static"><?=$model->count;?>/10</p>
+                <div class="col-sm-5">
+                    <p class="form-control-static"><?= $model->count; ?>/10</p>
+                </div>
             </div>
-        </div>
         <?php } ?>
         <div class="form-group">
             <label for="" class="col-sm-2 control-label">问答题目:</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" name="question_title" placeholder="请输入问答题目" value="<?=$model->title;?>">
+                <input type="text" class="form-control" name="question_title" placeholder="请输入问答题目"
+                       value="<?= $model->title; ?>">
                 <label for="question_title" class="error"
                        style="position: absolute;z-index: 100;display: none">请输入问答题目</label>
             </div>
@@ -117,7 +118,8 @@ AnswerAsset::register($this);
             <label for="" class="col-sm-2 control-label">问答描述:</label>
 
             <div class="col-sm-5">
-                <textarea class="form-control" rows="2" name="question_desc" placeholder="描述"><?=$model->desc;?></textarea>
+                <textarea class="form-control" rows="2" name="question_desc"
+                          placeholder="描述"><?= $model->desc; ?></textarea>
 
             </div>
         </div>
@@ -171,7 +173,7 @@ AnswerAsset::register($this);
     $(function () {
         mysortable = new Mysortable(1, '', '.list-group');
         <?php
-            if ($model->options) {
+        if ($model->options) {
         ?>
         option_sort = eval('<?=$model->options;?>');
 
@@ -179,7 +181,7 @@ AnswerAsset::register($this);
         mysortable.addOptions(1, '50-79', '描述');
         mysortable.addOptions(1, '0-49', '描述');
 
-    <?php }else{ ?>
+        <?php }else{ ?>
         for (var i = 1; i <= 4; i++) {
             mysortable.addOptions(1, 0, i);
         }

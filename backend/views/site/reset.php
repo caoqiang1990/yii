@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
+
 /* @var $model \frontend\models\PasswordResetRequestForm */
 
 use yii\helpers\Html;
@@ -18,23 +19,23 @@ $fieldOptions1 = [
 <div class="login-box">
 
     <div class="login-box-body">
-    <div class="login-logo">
-    <a href="#"><?= Html::encode($this->title) ?></a>
-    </div>
-    <p>请输入你的邮箱</p>
+        <div class="login-logo">
+            <a href="#"><?= Html::encode($this->title) ?></a>
+        </div>
+        <p>请输入你的邮箱</p>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
 
-                <?= $form->field($model, 'email',$fieldOptions1)->label('邮箱')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'email', $fieldOptions1)->label('邮箱')->textInput(['autofocus' => true]) ?>
 
                 <div class="form-group">
                     <?= Html::submitButton('发送', ['class' => 'btn btn-primary']) ?>
                 </div>
 
-            <?php ActiveForm::end(); ?>
+                <?php ActiveForm::end(); ?>
+            </div>
         </div>
-    </div>
     </div>
 </div>
