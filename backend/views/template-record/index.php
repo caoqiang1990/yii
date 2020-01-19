@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = Yii::t('template', 'Template Records');
             [
                 'attribute' => 'sid',
                 'value' => function ($model) {
-                    return Supplier::findOne($model->sid)->name;
+                    return Supplier::findOne($model->sid) ? Supplier::findOne($model->sid)->name : "";
                 },
                 'filter' => TemplateRecord::getSuppliers(),
             ],
