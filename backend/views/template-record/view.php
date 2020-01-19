@@ -21,14 +21,14 @@ $this->params['breadcrumbs'][] = $model->id;
             [
                     'attribute' => "template_id",
                     'value' => function($model) {
-                        $template = Template::getByID($model->template_id);
+                        $template = Template::getTemplateById($model->template_id);
                         return $template ? $template->name : '';
                     }
             ],
             [
                 'attribute' => "question_id",
                 'value' => function($model) {
-                    $question = Question::getByID($model->question_id);
+                    $question = Question::getQuestionById($model->question_id);
                     return $question ? $question->title : '';
                 }
             ],

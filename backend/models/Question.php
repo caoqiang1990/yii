@@ -153,18 +153,17 @@ class Question extends ActiveRecord
         $list = self::find()->select('id')->where($where)->asArray()->all();
         return $list ? array_column($list,'id') : false;
     }
-
     /**
-     * 根据id获取信息
-     * @param  [type] $id [description]
+     * 根据id获取评价
+     * @param  string $id [description]
      * @return [type]     [description]
      */
-    public static function getByID($id)
+    public static function getQuestionById($id = '')
     {
-        if (($model = self::findOne($id)) !== null) {
-            return json_encode($model->toArray());
-        } else {
-            throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
+        if (!$id) {
+            return false;
         }
+        $info = self::find()->where(['id' => $id])->one();
+        return $info ? $info : false;
     }
 }
