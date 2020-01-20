@@ -374,7 +374,7 @@ class QuestionController extends Controller
     public function actionMy()
     {
         $searchModel = new QuestionSearch();
-        $uid = Yii::$app->user->identity->id;
+        $uid[] = Yii::$app->user->identity->id;
 
         $request = Yii::$app->request->queryParams;
         $request['QuestionSearch']['player'] = $uid;

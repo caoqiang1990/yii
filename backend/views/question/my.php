@@ -84,6 +84,13 @@ $this->registerJs($js, View::POS_READY);
                     return "<div style=\"width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">" . $model->desc . "</div>";
                 },
             ],
+            [
+                'attribute' => 'sid',
+                'value' => function ($model) {
+                    $supplier = \backend\models\Supplier::getSupplierById($model->sid);
+                    return $supplier ? $supplier->name : "";
+                }
+            ],
             'start_date',
             'end_date',
             [
