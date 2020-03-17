@@ -2,7 +2,7 @@
 
 use yii\web\View;
 
-$this->title = '欢迎登录爱慕供应商系统';
+$this->title = '爱慕SRM系统';
 
 $css = <<<CSS
     ol li{
