@@ -6,6 +6,8 @@ use yii\console\Controller;
 use backend\models\Question;
 use backend\models\SupplierLevel;
 use backend\models\TemplateRecord;
+use console\models\Supplier;
+use console\models\SupplierDetail;
 
 class QuestionController extends Controller {
 
@@ -56,17 +58,40 @@ class QuestionController extends Controller {
         //修改供应商评价等级
         //调用swoole客户端
 
-        $client = new \swoole_client(SWOOLE_SOCK_TCP);
-        if (!$client->connect('127.0.0.1', 9503)) {
-          exit("connect failed. Error: {$client->errCode}\n");
+        $sql = "SELECT * FROM supplier WHERE status='10' AND id={$list['sid']}";
+        $supplier = Yii::$app->db->createCommand($sql)->queryAll();
+        foreach ($supplier as $v) {
+          $supplierModel = '';
+          $detail = SupplierDetail::getBySid($v['id']);
+
+          if ($detail && ($detail['one_level_department'] == $v['department'])) {
+            $supplierModel = Supplier::getByID($v['id']);
+            $supplierModel->scenario = 'sync';
+            if ($detail['cate_id1']) {
+              $supplierModel->cate_id1 = $detail['cate_id1'];
+            }
+            if ($detail['cate_id2']) {
+              $supplierModel->cate_id2 = $detail['cate_id2'];
+            }
+            if ($detail['cate_id3']) {
+              $supplierModel->cate_id3 = $detail['cate_id3'];
+            }
+            if ($level_id) {
+              $supplierModel->level = $level_id;
+            }
+            $supplierModel->save();
+          }
+          echo "评价id{$list['id']}-成功".PHP_EOL;
         }
-        $data['id'] = $list['sid'];
-        $data['level'] = $level_id;
-        $data = serialize($data);
-        $client->send($data);
-        $client->close();
-        sleep(1);
-        echo "评价id{$list['id']}-成功".PHP_EOL;
+//        $client = new \swoole_client(SWOOLE_SOCK_TCP);
+//        if (!$client->connect('127.0.0.1', 9503)) {
+//          exit("connect failed. Error: {$client->errCode}\n");
+//        }
+//        $data['id'] = $list['sid'];
+//        $data['level'] = $level_id;
+//        $data = serialize($data);
+//        $client->send($data);
+//        $client->close();
       }
     }
     echo "总数为{$count}".PHP_EOL;
