@@ -49,6 +49,9 @@ class QuestionController extends Controller {
         if ($result >= 90 && $result <= 100) {
           $level = '优秀';
         }
+        if ($result > 100) {
+          $level = '战略';
+        }
         $level_id = $levelFlip["{$level}"];
         //修改供应商评价等级
         //调用swoole客户端
