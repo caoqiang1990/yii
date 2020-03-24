@@ -18,6 +18,7 @@ class QuestionController extends Controller {
     $lists = Question::find()->select('id,template_id,sid,status')->asArray()->all();
     foreach ($lists as $list) {
       $data = array();
+      $supplierModel = '';
       $count++;
       if ($list['status'] != 3) {
         echo "评价id为{$list['id']}-失败".PHP_EOL;
@@ -61,7 +62,6 @@ class QuestionController extends Controller {
         $sql = "SELECT * FROM supplier WHERE status='10' AND id={$list['sid']}";
         $supplier = Yii::$app->db->createCommand($sql)->queryAll();
         foreach ($supplier as $v) {
-          $supplierModel = '';
           $detail = SupplierDetail::getBySid($v['id']);
 
           if ($detail && ($detail['one_level_department'] == $v['department'])) {
@@ -80,8 +80,10 @@ class QuestionController extends Controller {
               $supplierModel->level = $level_id;
             }
             $supplierModel->save();
+            echo "评价id{$list['id']}-成功".PHP_EOL;
+          } else {
+            echo "评价id{$list['id']}-不成功".PHP_EOL;
           }
-          echo "评价id{$list['id']}-成功".PHP_EOL;
         }
 //        $client = new \swoole_client(SWOOLE_SOCK_TCP);
 //        if (!$client->connect('127.0.0.1', 9503)) {
