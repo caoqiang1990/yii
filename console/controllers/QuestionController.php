@@ -40,7 +40,7 @@ class QuestionController extends Controller {
           $total += $record['total'];
         }
         $result = $total / $num;
-        if ($result < 0 || ($result > 0 && $result < 60)) {
+        if ($result <= 0 || ($result > 0 && $result < 60)) {
           $level = '不合格';
         }
         if ($result >= 60 && $result < 90) {
@@ -66,9 +66,11 @@ class QuestionController extends Controller {
         $client->send($data);
         $client->close();
         echo "评价id{$list['id']}-成功".PHP_EOL;
-        sleep(1);
       }
     }
     echo "总数为{$count}".PHP_EOL;
   }
 }
+
+
+17  161  198  201
