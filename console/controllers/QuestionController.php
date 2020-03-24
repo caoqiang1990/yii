@@ -71,6 +71,3 @@ class QuestionController extends Controller {
     echo "总数为{$count}".PHP_EOL;
   }
 }
-
-
-17  161  198  201
