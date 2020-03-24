@@ -50,7 +50,7 @@ class QuestionController extends Controller {
           $level = '优秀';
         }
         if ($result > 100) {
-          $level = '战略';
+          $level = '优秀';
         }
         $level_id = $levelFlip["{$level}"];
         //修改供应商评价等级
@@ -65,6 +65,7 @@ class QuestionController extends Controller {
         $data = serialize($data);
         $client->send($data);
         $client->close();
+        sleep(1);
         echo "评价id{$list['id']}-成功".PHP_EOL;
       }
     }
