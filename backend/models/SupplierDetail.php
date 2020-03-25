@@ -280,7 +280,8 @@ class SupplierDetail extends ActiveRecord
         $this->fund_year1 = date('Y') - 2;
         $this->fund_year2 = date('Y') - 1;
         $this->fund_year3 = date('Y') - 0;
-        if ($insert) {
+
+      if ($insert) {
 
 
             $funds = array();
@@ -299,10 +300,10 @@ class SupplierDetail extends ActiveRecord
             Yii::$app->db->createCommand()->batchInsert('supplier_funds', ['sid', 'detail_id', 'coop_fund', 'trade_fund', 'year', 'created_at', 'updated_at'], $funds)->execute();
         } else { // 编辑操作
             //2015
-            $fundModel = new SupplierFunds;
-            $where['detail_id'] = $this->id;
-            $where['year'] = $this->fund_year1;
-            $fundModel = SupplierFunds::find()->where($where)->one();
+            $fundModel = '';
+            $where_1['detail_id'] = $this->id;
+            $where_1['year'] = $this->fund_year1;
+            $fundModel = SupplierFunds::find()->where($where_1)->one();
             if ($fundModel) {
                 $fundModel->scenario = 'edit';
                 $fundModel->coop_fund = $this->coop_fund1;
@@ -310,18 +311,18 @@ class SupplierDetail extends ActiveRecord
             } else {
                 $fundModel = new SupplierFunds;
                 $fundModel->scenario = 'add';
-                $fundModel->coop_fund = $this->coop_fund3;
-                $fundModel->trade_fund = $this->trade_fund3;
-                $fundModel->year = $this->fund_year3;
+                $fundModel->coop_fund = $this->coop_fund1;
+                $fundModel->trade_fund = $this->trade_fund1;
+                $fundModel->year = $this->fund_year1;
                 $fundModel->sid = $this->sid;
                 $fundModel->detail_id = $this->id;
             }
             $fundModel->save();
             //2016
             $fundModel = '';
-            $where['detail_id'] = $this->id;
-            $where['year'] = $this->fund_year2;
-            $fundModel = SupplierFunds::find()->where($where)->one();
+            $where_2['detail_id'] = $this->id;
+            $where_2['year'] = $this->fund_year2;
+            $fundModel = SupplierFunds::find()->where($where_2)->one();
             if ($fundModel) {
                 $fundModel->scenario = 'edit';
                 $fundModel->coop_fund = $this->coop_fund2;
@@ -329,18 +330,18 @@ class SupplierDetail extends ActiveRecord
             } else {
                 $fundModel = new SupplierFunds;
                 $fundModel->scenario = 'add';
-                $fundModel->coop_fund = $this->coop_fund3;
-                $fundModel->trade_fund = $this->trade_fund3;
-                $fundModel->year = $this->fund_year3;
+                $fundModel->coop_fund = $this->coop_fund2;
+                $fundModel->trade_fund = $this->trade_fund2;
+                $fundModel->year = $this->fund_year2;
                 $fundModel->sid = $this->sid;
                 $fundModel->detail_id = $this->id;
             }
             $fundModel->save();
             //2017
             $fundModel = '';
-            $where['detail_id'] = $this->id;
-            $where['year'] = $this->fund_year3;
-            $fundModel = SupplierFunds::find()->where($where)->one();
+            $where_3['detail_id'] = $this->id;
+            $where_3['year'] = $this->fund_year3;
+            $fundModel = SupplierFunds::find()->where($where_3)->one();
             if ($fundModel) {
                 $fundModel->scenario = 'edit';
                 $fundModel->coop_fund = $this->coop_fund3;
