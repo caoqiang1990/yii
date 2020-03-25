@@ -13,7 +13,36 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Suppliers */
 /* @var $form yii\widgets\ActiveForm */
+$formatJS = <<<JS
+    var dataCateID_1 = function(params){
+        return {cate_id:'1'};
+    };
+    var dataCateID_2 = function(params){
+        var cate_id1 = $('#supplier-cate_id1').val()
+        //var cate_id = cate_id1.join('-');
+        return {cate_id1:cate_id1};
+    };
+    var dataCateID_3 = function(params){
+        var cate_id2 = $('#supplier-cate_id2').val()
+        //var cate_id = cate_id2.join('-');
+        return {cate_id2:cate_id2};
+    };    
+    var unSelect_1 = function(){
+        $('#supplier-cate_id2').select2('val',0);
+        $('#supplier-cate_id3').select2('val',0);
+    }
+    var unSelect_2 = function(){
+        $('#supplier-cate_id3').select2('val',0);
+    }    
+JS;
 
+
+$this->registerJs($formatJS, View::POS_HEAD);
+$resultsJs = <<<JS
+function (data,params) {
+    return data;
+}
+JS;
 ?>
 <div class="suppliers-form">
 
@@ -23,6 +52,104 @@ use yii\helpers\Url;
         <a class="btn btn-primary" href="javascript:history.go(-1)">取消</a>
     </p>
     <div class="row">
+        <div class="col-xs-6">
+          <?php //$form->field($model, 'business_type')->dropDownList($type)
+
+          echo $form->field($model, 'cate_id1')->label('*供应商一级分类(如需添加请联系管理员)')->widget(Select2::classname(), [
+              'options' => [
+                  'placeholder' => '请选择总类',
+                  'multiple' => false
+              ],
+              'pluginOptions' => [
+                  'allowClear' => true,
+                  'ajax' => [
+                      'url' => Url::to(['get-all-cate']),
+                      'dataType' => 'json',
+                      'data' => new JsExpression('dataCateID_1'),
+                      'processResults' => new JsExpression($resultsJs),
+                    //'cache' => true,
+                  ],
+                  'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                  'templateResult' => new JsExpression('function(result) { return result.category_name; }'),
+                  'templateSelection' => new JsExpression('function (select) { return select.category_name; }'),
+              ],
+              'pluginEvents' => [
+                  "change" => "function() { console.log('change'); }",
+                  "select2:opening" => "function() { console.log('select2:opening'); }",
+                  "select2:open" => "function() { console.log('open'); }",
+                  "select2:closing" => "function() { console.log('close'); }",
+                  "select2:close" => "function() { console.log('close'); }",
+                  "select2:selecting" => "function() { console.log('selecting'); }",
+                  "select2:select" => "function() { console.log('select'); }",
+                  "select2:unselecting" => "function() { console.log('unselecting'); }",
+                  "select2:unselect" => new JsExpression('unSelect_1')
+              ]
+
+          ]);
+          ?>
+        </div>
+        <div class="col-xs-6">
+          <?php //$form->field($model, 'business_type')->dropDownList($type)
+          echo $form->field($model, 'cate_id2')->label('*供应商二级分类(如需添加请联系管理员)')->widget(Select2::classname(), [
+              'options' => [
+                  'placeholder' => '请选择大类',
+                  'multiple' => false
+              ],
+              'pluginOptions' => [
+                  'allowClear' => true,
+                  'ajax' => [
+                      'url' => Url::to(['get-all-cate']),
+                      'dataType' => 'json',
+                      'data' => new JsExpression('dataCateID_2'),
+                    //'data' =>  {'qid':$('#supplierdetail-cate_id1').val()},
+                      'cache' => true,
+                  ],
+                  'escapeMarkup' => new JsExpression('function (markup) { console.log(markup);  return markup; }'),
+                  'templateResult' => new JsExpression('function(result) { console.log(result); return result.category_name; }'),
+                  'templateSelection' => new JsExpression('function (select) { console.log(select);  return select.category_name; }'),
+              ],
+              'pluginEvents' => [
+                  "change" => "function() { console.log('change'); }",
+                  "select2:opening" => "function() { console.log('select2:opening'); }",
+                  "select2:open" => "function() { console.log('open'); }",
+                  "select2:closing" => "function() { console.log('close'); }",
+                  "select2:close" => "function() { console.log('close'); }",
+                  "select2:selecting" => "function() { console.log('selecting'); }",
+                  "select2:select" => "function() { console.log('select'); }",
+                  "select2:unselecting" => "function() { console.log('unselecting'); }",
+                  "select2:unselect" => new JsExpression('unSelect_2')
+              ]
+
+          ]);
+          ?>
+        </div>
+        <div class="col-xs-6">
+          <?php //$form->field($model, 'business_type')->dropDownList($type)
+          echo $form->field($model, 'cate_id3')->label('*供应商三级分类(如需添加请联系管理员)')->widget(Select2::classname(), [
+              'options' => [
+                  'placeholder' => '请选择子类',
+                  'multiple' => false
+              ],
+              'pluginOptions' => [
+                  'allowClear' => true,
+                  'ajax' => [
+                      'url' => Url::to(['get-all-cate']),
+                      'dataType' => 'json',
+                      'data' => new JsExpression('dataCateID_3'),
+                    //'data' =>  {'qid':$('#supplierdetail-cate_id1').val()},
+                      'cache' => true,
+                  ],
+                  'escapeMarkup' => new JsExpression('function (markup) { console.log(markup);  return markup; }'),
+                  'templateResult' => new JsExpression('function(result) { console.log(result); return result.category_name; }'),
+                  'templateSelection' => new JsExpression('function (select) { console.log(select);  return select.category_name; }'),
+              ],
+              'pluginEvents' => [
+                  "change" => "function() { console.log('change'); }",
+              ]
+
+          ]);
+          ?>
+        </div>
         <div class="col-xs-6">
             <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('*供应商名录') ?>
         </div>
