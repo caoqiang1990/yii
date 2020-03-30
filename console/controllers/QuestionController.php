@@ -59,7 +59,8 @@ class QuestionController extends Controller {
         //修改供应商评价等级
         //调用swoole客户端
 
-        $sql = "SELECT * FROM supplier WHERE status='10' AND id={$list['sid']}";
+        $sql = "SELECT * FROM supplier WHERE status='10' AND cooperate = 1 AND id={$list['sid']}";
+        echo $sql.PHP_EOL;
         $supplier = Yii::$app->db->createCommand($sql)->queryAll();
         foreach ($supplier as $v) {
           $detail = SupplierDetail::getBySid($v['id']);
@@ -79,6 +80,7 @@ class QuestionController extends Controller {
             if ($level_id) {
               $supplierModel->level = $level_id;
             }
+            $supplierModel->cooperate = 2;
             $supplierModel->save();
             echo "评价id{$list['id']}-成功".PHP_EOL;
           } else {

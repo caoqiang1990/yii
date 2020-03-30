@@ -120,6 +120,7 @@ class Supplier extends ActiveRecord
         'public_flag' => Yii::t('suppliers', 'public_flag'),
         'created_by' => Yii::t('suppliers', 'created_by'),
         'updated_by' => Yii::t('suppliers', 'updated_by'),
+        'cooperate' => Yii::t('suppliers', 'cooperate'),
     ];
   }
 
@@ -186,6 +187,7 @@ class Supplier extends ActiveRecord
             'enterprise_certificate_etc_desc',
             'enterprise_license_relate_desc',
             'department',
+            'cooperate',
         ],
         self::SCENARIO_EDIT => [
             'name',
@@ -243,6 +245,7 @@ class Supplier extends ActiveRecord
             'enterprise_certificate_etc_desc',
             'enterprise_license_relate_desc',
             'department',
+            'cooperate',
         ],
         self::SCENARIO_UPLOAD => [
             'enterprise_code',
@@ -284,7 +287,7 @@ class Supplier extends ActiveRecord
       //['url','url','on'=>'add'],
         ['headcount', 'integer', 'on' => 'add,edit'],
         ['register_fund', 'double', 'on' => 'add,edit'],
-        [['level', 'enterprise_code', 'enterprise_license', 'enterprise_certificate', 'enterprise_certificate_etc', 'enterprise_license_relate'], 'safe'],
+        [['level', 'enterprise_code', 'enterprise_license', 'enterprise_certificate', 'enterprise_certificate_etc', 'enterprise_license_relate','cooperate'], 'safe'],
       //['business_mobile','required','message'=>'联系人电话不能为空！','on'=>'add'],
       //['business_phone','required','message'=>'联系人电话不能为空！','on'=>'add'],
         ['business_phone', 'match', 'pattern' => '/^1[345678]\d{9}$/', 'message' => '联系人手机号格式不正确！', 'on' => 'add,edit'],
@@ -567,5 +570,18 @@ class Supplier extends ActiveRecord
     $count = self::find()->where($where)->count();
     return $count;
 
+  }
+  /**
+   * 获取key-value键值对
+   * @return [type] [description]
+   */
+  public static function getSuppliersByParams($where)
+  {
+    if (empty($where)) {
+      return false;
+    }
+    $suppliers = self::find()->where($where)->all();
+    $supplier = ArrayHelper::map($suppliers, 'id', 'name');
+    return $supplier;
   }
 }
