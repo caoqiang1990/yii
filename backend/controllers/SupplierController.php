@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace backend\controllers;
 
@@ -74,7 +75,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionAdminIndex()
+  public function actionAdminIndex():string
   {
     $searchModel = new SupplierSearch();
     $request = Yii::$app->request->queryParams;
@@ -114,7 +115,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionDepartmentIndex()
+  public function actionDepartmentIndex():string
   {
     $searchModel = new SupplierSearch();
     $request = Yii::$app->request->queryParams;
@@ -172,7 +173,7 @@ class SupplierController extends Controller
    * @return mixed
    * @throws NotFoundHttpException if the model cannot be found
    */
-  public function actionDepartmentView($id)
+  public function actionDepartmentView($id):string
   {
     $where['sid'] = $id;
     $supplier_detail = SupplierDetail::find()->where($where)->all();
@@ -200,7 +201,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionAdmin()
+  public function actionAdmin():string
   {
     $searchModel = new SupplierSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -215,7 +216,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionAdminAdd()
+  public function actionAdminAdd():string
   {
     $model = new AdminAdd();
     //if (Yii::$app->request->isAjax) {
@@ -233,7 +234,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionAdminSave()
+  public function actionAdminSave():array
   {
     Yii::$app->response->format = Response::FORMAT_JSON;
     $model = new AdminAdd();
@@ -278,7 +279,7 @@ class SupplierController extends Controller
    * @return mixed
    * @throws NotFoundHttpException if the model cannot be found
    */
-  public function actionView($id)
+  public function actionView($id):string
   {
     return $this->render('view', [
         'model' => $this->findModel($id),
@@ -291,7 +292,7 @@ class SupplierController extends Controller
    * @return mixed
    * @throws NotFoundHttpException if the model cannot be found
    */
-  public function actionAdminView($id)
+  public function actionAdminView($id):string
   {
     $where['sid'] = $id;
     $supplier_detail = SupplierDetail::find()->where($where)->all();
@@ -305,7 +306,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionBasic()
+  public function actionBasic():string
   {
     $searchModel = new SupplierSearch();
     $request = Yii::$app->request->queryParams;
@@ -461,7 +462,7 @@ class SupplierController extends Controller
     );
   }
 
-  public function actionUpload()
+  public function actionUpload():array
   {
     $uploadForm = new UploadForm();
     $uploadForm->scenario = 'file';
