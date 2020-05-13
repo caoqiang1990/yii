@@ -53,7 +53,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionIndex()
+  public function actionIndex():string
   {
     $searchModel = new SupplierSearch();
     $request = Yii::$app->request->queryParams;
@@ -452,7 +452,7 @@ class SupplierController extends Controller
     throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
   }
 
-  public function actionUploadxls()
+  public function actionUploadxls():string
   {
     $uploadForm = new UploadForm();
     return $this->render('uploadxls',
@@ -462,7 +462,7 @@ class SupplierController extends Controller
     );
   }
 
-  public function actionUpload():array
+  public function actionUpload():string
   {
     $uploadForm = new UploadForm();
     $uploadForm->scenario = 'file';
