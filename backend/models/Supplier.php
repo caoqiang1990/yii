@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace backend\models;
 
@@ -45,7 +46,7 @@ class Supplier extends ActiveRecord
    * 返回表名
    * @return [type] [description]
    */
-  public static function tableName()
+  public static function tableName():string
   {
     return '{{%supplier}}';
   }
@@ -54,7 +55,7 @@ class Supplier extends ActiveRecord
    * 对应字段的中文翻译
    * @return [type] [description]
    */
-  public function attributeLabels()
+  public function attributeLabels():array
   {
     return [
         'id' => Yii::t('suppliers', 'id'),
@@ -306,7 +307,7 @@ class Supplier extends ActiveRecord
    * *
    * @return [type] [description]
    */
-  public function behaviors()
+  public function behaviors():array
   {
     return [
         TimestampBehavior::className(),
@@ -362,7 +363,7 @@ class Supplier extends ActiveRecord
    * @param $filePath
    * @return string
    */
-  public function parseImageUrl($filePath)
+  public function parseImageUrl($filePath):string
   {
     if (strpos($filePath, Yii::getAlias('@uploadPath')) !== false) {
       $url = Yii::$app->params['assetDomain'] . str_replace(Yii::getAlias('@uploadPath'), '', $filePath);
@@ -404,7 +405,7 @@ class Supplier extends ActiveRecord
    * @param  [type] $insert [description]
    * @return [type]         [description]
    */
-  public function beforeSave($insert)
+  public function beforeSave($insert):bool
   {
     if (parent::beforeSave($insert)) {
 
@@ -471,16 +472,16 @@ class Supplier extends ActiveRecord
    * 查询后修改
    * @return [type] [description]
    */
-  public function afterFind()
+  public function afterFind():void
   {
-    $this->business_type = explode(',', $this->business_type);
+    $this->business_type = $this->business_type ? explode(',', $this->business_type) : '';
   }
 
   /**
    * @param bool $insert
    * @param array $changedAttributes
    */
-  public function afterSave($insert, $changedAttributes)
+  public function afterSave($insert, $changedAttributes):void
   {
     if ($insert) { // 新增操作
       $historyModel = new History;
@@ -535,7 +536,7 @@ class Supplier extends ActiveRecord
    * 获取key-value键值对
    * @return [type] [description]
    */
-  public static function getSuppliers()
+  public static function getSuppliers():array
   {
     $suppliers = self::find()->all();
     $supplier = ArrayHelper::map($suppliers, 'id', 'name');
