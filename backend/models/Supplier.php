@@ -472,7 +472,7 @@ class Supplier extends ActiveRecord
    * 查询后修改
    * @return [type] [description]
    */
-  public function afterFind():void
+  public function afterFind()
   {
     $this->business_type = $this->business_type ? explode(',', $this->business_type) : '';
   }
