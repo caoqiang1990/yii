@@ -105,7 +105,7 @@ class PitchController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
         //供应商集合
-        $suppliers = Supplier::getSuppliers();
+        $suppliers = Supplier::getSuppliersByParams(['status' => 10]);
         $users = Auditor::getUsers();
         $departmentModel = new Department();
         $info = $departmentModel->getDepartmentById($department);
@@ -140,7 +140,8 @@ class PitchController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
         //供应商集合
-        $suppliers = Supplier::getSuppliers();
+        $suppliers = Supplier::getSuppliersByParams(['status' => 10]);
+
         $users = Auditor::getUsers();
 
         $attachmentModel = new Attachment();
