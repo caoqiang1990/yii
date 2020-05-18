@@ -481,7 +481,7 @@ class Supplier extends ActiveRecord
    * @param bool $insert
    * @param array $changedAttributes
    */
-  public function afterSave($insert, $changedAttributes):void
+  public function afterSave($insert, $changedAttributes)
   {
     if ($insert) { // 新增操作
       $historyModel = new History;
