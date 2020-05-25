@@ -41,7 +41,7 @@ class TemplateRecordController extends Controller
         $search = Yii::$app->request->queryParams;
         if ($is_administrator == 2) {
             $user_id = Yii::$app->user->identity->id;
-            $question_ids = $questionModel->getTemplateIdByParams(['user_id' => $user_id]);
+            $question_ids = $questionModel->getQuestionIdByParams(['user_id' => $user_id]);
             $search['TemplateRecordSearch']['question_id'] = $question_ids;
         }
         $searchModel = new TemplateRecordSearch();

@@ -144,7 +144,7 @@ class Question extends ActiveRecord
      * @param array $params
      * @return array|bool
      */
-    public function getTemplateIdByParams($params = [])
+    public function getQuestionIdByParams($params = [])
     {
         if (empty($params)) {
             return false;
