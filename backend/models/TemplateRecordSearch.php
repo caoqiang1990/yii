@@ -61,7 +61,7 @@ class TemplateRecordSearch extends TemplateRecord
         $query->andFilterWhere([
             'id' => $this->id,
             'template_id' => $this->template_id,
-            //'question_id' => $this->question_id,
+            'question_id' => $this->question_id,
             'total' => $this->total,
             'sid' => $this->sid,
             'created_by' => $this->created_by,
