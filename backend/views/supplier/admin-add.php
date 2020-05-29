@@ -63,7 +63,7 @@ function save_detail(){
                     alert(data.message);
                 }    
                 if(data.code == 'exist') {
-                    alert('此供应商已经存在，等级为'+data.type);
+                    alert('此供应商已经存在，状态为'+data.type);
                     //location.href = '/supplier/admin-index';
                 } 
                 if (data.code == 'new') {
@@ -86,12 +86,12 @@ $this->registerJs($js);
 
 ?>
 <div class="suppliers-form">
-    <?php $form = ActiveForm::begin([
-        'id' => 'form-id',
-        'action' => '',
-        'enableAjaxValidation' => true,
-        //'validationUrl' => Url::to(['supplier/admin-add']),     //数据异步校验
-    ]); ?>
+  <?php $form = ActiveForm::begin([
+      'id' => 'form-id',
+      'action' => '',
+      'enableAjaxValidation' => true,
+    //'validationUrl' => Url::to(['supplier/admin-add']),     //数据异步校验
+  ]); ?>
     <div class="row">
         <div class="col-xs-12">
             <blockquote>
@@ -99,10 +99,10 @@ $this->registerJs($js);
             </blockquote>
         </div>
         <div class="col-xs-6">
-            <?= $form->field($model, 'name')->label('供应商全称')->textInput(['maxlength' => true]) ?>
+          <?= $form->field($model, 'name')->label('供应商全称')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-xs-6">
-            <?= $form->field($model, 'enterprise_code')->label('营业执照统一社会信用代码（18位）')->textInput(['maxlength' => true]) ?>
+          <?= $form->field($model, 'enterprise_code')->label('营业执照统一社会信用代码（18位）')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-xs-12">
             <p><b>天眼查：</b><a href="https://www.tianyancha.com" target="_blank">https://www.tianyancha.com</a></p>
@@ -110,43 +110,44 @@ $this->registerJs($js);
             <p>新增供应商请通过以上链接进行企业信息查询，并上传查询成功的界面截图（必填）</p>
         </div>
         <div class="col-xs-12">
-            <?= $form->field($model, 'check')->hiddenInput()->label(false) ?>
-            <?php
-            echo $form->field($model, 'check_id')->widget(FileInput::className(), [
-                'options' => [
-                    'accept' => '*'
-                ],
-                'pluginOptions' => [
-                    // 异步上传的接口地址设置
-                    'uploadUrl' => \yii\helpers\Url::to(['admin-add/upload-attachment']),
-                    'uploadExtraData' => [
-                        'field' => 'check_id',
-                    ],
-                    'uploadAsync' => true,
-                    'initialPreview' => $model->check_url ? $model->check_url : "",
-                    'initialPreviewAsData' => true,
-                    'initialCaption' => "$model->check_id",
-                ],
-                //网上很多地方都没详细说明回调触发事件，其实fileupload为上传成功后触发的，三个参数，主要是第二个，有formData，jqXHR以及response参数，上传成功后返回的ajax数据可以在response获取
-                'pluginEvents' => [
-                    'fileuploaded' => "function (object,data){
+          <?= $form->field($model, 'check')->hiddenInput()->label(false) ?>
+          <?php
+          echo $form->field($model, 'check_id')->widget(FileInput::className(), [
+              'options' => [
+                  'accept' => '*'
+              ],
+              'pluginOptions' => [
+                // 异步上传的接口地址设置
+                  'uploadUrl' => \yii\helpers\Url::to(['admin-add/upload-attachment']),
+                  'uploadExtraData' => [
+                      'field' => 'check_id',
+                  ],
+                  'uploadAsync' => true,
+                  'initialPreview' => $model->check_url ? $model->check_url : "",
+                  'initialPreviewAsData' => true,
+                  'initialCaption' => "$model->check_id",
+              ],
+            //网上很多地方都没详细说明回调触发事件，其实fileupload为上传成功后触发的，三个参数，主要是第二个，有formData，jqXHR以及response参数，上传成功后返回的ajax数据可以在response获取
+              'pluginEvents' => [
+                  'fileuploaded' => "function (object,data){
                         $('#adminadd-check').remove();
                         $('.field-adminadd-check').append('<input type=\'hidden\' id=\'adminadd-check\' name=\'AdminAdd[check]\' value='+data.response.imageid+'>');
                         alert('上传成功');
             }",
-                    //错误的冗余机制
-                    'error' => "function (){
+                //错误的冗余机制
+                  'error' => "function (){
                 alert('上传失败');
             }"
-                ],
+              ],
 
-            ]);
-            ?>
+          ]);
+          ?>
         </div>
         <div class="col-xs-12">
             <a id="update-supplier" href=""><p id="update-prompt"></p></a>
             <p id="update-text"></p>
         </div>
+        <?= $form->field($model, 'action')->hiddenInput(['value' => '11'])->label(false); ?>
         <div class="form-group">
             <div class="col-xs-12">
                 <a onclick="save_detail()" class="btn btn-success">确认</a>
@@ -154,7 +155,7 @@ $this->registerJs($js);
             </div>
         </div>
 
-        <?php ActiveForm::end(); ?>
+      <?php ActiveForm::end(); ?>
     </div>
 
 </div>

@@ -101,6 +101,7 @@ return [
     'created_by' => '创建人',
     'updated_by' => '操作者',
     'cooperate' => '合作关系',
+    'action' => '行为',
 ];
 
 

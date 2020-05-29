@@ -499,6 +499,8 @@ JS;
             //$form->field($model, 'level')->label('*供应商等级')->dropDownList($level,['prompt'=>'请选择等级'])
             ?>
         </div>
+        <?= $model->isNewRecord ? $form->field($model,'action')->hiddenInput(['value' => '12'])->label(false) : $form->field($model,'action')->hiddenInput(['value' => '12'])->label(false); ?>
+        <?= $model->isNewRecord ? $form->field($model,'status')->hiddenInput(['value' => 'auditing'])->label(false) : $form->field($model,'status')->hiddenInput(['value' => 'auditing'])->label(false); ?>
         <div class="form-group">
             <div class="col-xs-12">
 

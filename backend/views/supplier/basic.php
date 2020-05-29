@@ -20,157 +20,183 @@ $this->params['breadcrumbs'][] = '变更基本信息';
 ?>
 <div class="suppliers-index">
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'pager' => [
-            //'options'=>['class'=>'hidden']//关闭分页
-            'firstPageLabel' => '首页',
-            'lastPageLabel' => '尾页',
-            'maxButtonCount' => 5,
-        ],
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            [
-                'attribute' => 'name',
-                'format' => 'raw',
-                'value' => function ($model) {
-                    if (Helper::checkRoute('update')) {
-                        $url = Url::to(['update', 'id' => $model->id]);
-                        $options = ['title' => $model->name];
-                        return Html::a($model->name, $url, $options);
-                    } else {
-                        return $model->name;
-                    }
-                },
-                'headerOptions' => [
-                    'width' => '50px'
-                ],
-            ],
-            [
-                'attribute' => 'cate_id1',
-                'value' => function ($model) {
-                    $categoryModel = new SupplierCategory;
-                    return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
-                },
-                'filter' => SupplierCategory::getCategoryByParams('id,category_name', 1),
-                'headerOptions' => [
-                    'width' => '100px'
-                ],
-            ],
-            [
-                'attribute' => 'cate_id2',
-                'value' => function ($model) {
-                    $categoryModel = new SupplierCategory;
-                    return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
-                },
-                'filter' => $cate2,
-                'headerOptions' => [
-                    'width' => '100px'
-                ]
-            ],
-            [
-                'attribute' => 'cate_id3',
-                'value' => function ($model) {
-                    $categoryModel = new SupplierCategory;
-                    return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
-                },
-                'filter' => $cate3,
-                'headerOptions' => [
-                    'width' => '100px'
-                ]
-            ],
-            [
-                'attribute' => 'level',
-                'value' => function ($model) {
-                    $levelModel = new SupplierLevel;
-                    return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
-                },
-                'filter' => SupplierLevel::getLevel(),
-                'headerOptions' => [
-                    'width' => '100px'
-                ]
-            ],
-            // [
-            //     'attribute' => 'trade',
-            //     'value' => function($model){
-            //         return SupplierTrade::getTradeById($model->trade) ? SupplierTrade::getTradeById($model->trade)->trade_name : '';
-            //     },
-            //     'filter' => SupplierTrade::getTrade(),
-            // ],
-            // [
-            //     'attribute' => 'total_fund',
-            //     'value' => function($model){
-            //         $fund = $model->getTotalFund($model->id);
-            //         return $fund ? $fund->trade_fund : '';
-            //     }
-            // ],
-            //'business_contact',  
-            //'business_email',
-            //'business_license',
-            //'tax_registration_certificate',
-            //'orcc',
-            //'service_authorization_letter',
-            //'certified_assets',
-            //'effective_credentials',
-            //'opening_bank',
-            //'bank_no',
-            //'account_name',
-            //'account_no',
-            //'registration_certificate',
-            //'manufacturing_licence',
-            //'business_certificate',
-            //'credibility_certificate',
-            //'headcount',
-            //'address',
-            //'telephone',
-            //'mobile',
-            //'fax',
-            //'email:email',
-            //'contact',
-            //'url:url',
-            //'black_box',
-            //'white_box',
-            //'remarks:ntext',
-            //'update_date',
-            //'operator',
-            // [
-            //     'attribute' => 'created_at',
-            //     'value' => function($model){
-            //         return date('Y-m-d H:i:s',$model->created_at);
-            //     }
-            // ],
-            // [
-            //     'attribute' => 'updated_at',
-            //     'value' => function($model){
-            //         return date('Y-m-d H:i:s',$model->updated_at);
-            //     }
-            // ],
-            [
-                'attribute' => 'updated_by',
-                'value' => function ($model) {
-                    $user = User::findOne($model->updated_by);
-                    return $user ? $user->truename : '';
-                },
-                'headerOptions' => [
-                    'width' => '100px'
-                ]
-            ],
-            [
-                'attribute' => 'updated_at',
-                'value' => function ($model) {
-                    return date('Y-m-d H:i:s', $model->updated_at);
+  <?php Pjax::begin(); ?>
+  <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+  <?= GridView::widget([
+      'dataProvider' => $dataProvider,
+      'filterModel' => $searchModel,
+      'pager' => [
+        //'options'=>['class'=>'hidden']//关闭分页
+          'firstPageLabel' => '首页',
+          'lastPageLabel' => '尾页',
+          'maxButtonCount' => 5,
+      ],
+      'columns' => [
+          ['class' => 'yii\grid\SerialColumn'],
+          [
+              'attribute' => 'name',
+              'format' => 'raw',
+              'value' => function ($model) {
+                if (Helper::checkRoute('update')) {
+                  $url = Url::to(['update', 'id' => $model->id]);
+                  $options = ['title' => $model->name];
+                  return Html::a($model->name, $url, $options);
+                } else {
+                  return $model->name;
                 }
-            ],
-            [
-                'header' => '操作',
-                'class' => 'yii\grid\ActionColumn',
-                'template' => Helper::filterActionColumn('{view}{update}{delete}'),
+              },
+              'headerOptions' => [
+                  'width' => '50px'
+              ],
+          ],
+          [
+              'attribute' => 'cate_id1',
+              'value' => function ($model) {
+                $categoryModel = new SupplierCategory;
+                return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
+              },
+              'filter' => SupplierCategory::getCategoryByParams('id,category_name', 1),
+              'headerOptions' => [
+                  'width' => '100px'
+              ],
+          ],
+          [
+              'attribute' => 'cate_id2',
+              'value' => function ($model) {
+                $categoryModel = new SupplierCategory;
+                return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
+              },
+              'filter' => $cate2,
+              'headerOptions' => [
+                  'width' => '100px'
+              ]
+          ],
+          [
+              'attribute' => 'cate_id3',
+              'value' => function ($model) {
+                $categoryModel = new SupplierCategory;
+                return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
+              },
+              'filter' => $cate3,
+              'headerOptions' => [
+                  'width' => '100px'
+              ]
+          ],
+          [
+              'attribute' => 'level',
+              'value' => function ($model) {
+                $levelModel = new SupplierLevel;
+                return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
+              },
+              'filter' => SupplierLevel::getLevel(),
+              'headerOptions' => [
+                  'width' => '100px'
+              ]
+          ],
+        // [
+        //     'attribute' => 'trade',
+        //     'value' => function($model){
+        //         return SupplierTrade::getTradeById($model->trade) ? SupplierTrade::getTradeById($model->trade)->trade_name : '';
+        //     },
+        //     'filter' => SupplierTrade::getTrade(),
+        // ],
+        // [
+        //     'attribute' => 'total_fund',
+        //     'value' => function($model){
+        //         $fund = $model->getTotalFund($model->id);
+        //         return $fund ? $fund->trade_fund : '';
+        //     }
+        // ],
+        //'business_contact',
+        //'business_email',
+        //'business_license',
+        //'tax_registration_certificate',
+        //'orcc',
+        //'service_authorization_letter',
+        //'certified_assets',
+        //'effective_credentials',
+        //'opening_bank',
+        //'bank_no',
+        //'account_name',
+        //'account_no',
+        //'registration_certificate',
+        //'manufacturing_licence',
+        //'business_certificate',
+        //'credibility_certificate',
+        //'headcount',
+        //'address',
+        //'telephone',
+        //'mobile',
+        //'fax',
+        //'email:email',
+        //'contact',
+        //'url:url',
+        //'black_box',
+        //'white_box',
+        //'remarks:ntext',
+        //'update_date',
+        //'operator',
+        // [
+        //     'attribute' => 'created_at',
+        //     'value' => function($model){
+        //         return date('Y-m-d H:i:s',$model->created_at);
+        //     }
+        // ],
+        // [
+        //     'attribute' => 'updated_at',
+        //     'value' => function($model){
+        //         return date('Y-m-d H:i:s',$model->updated_at);
+        //     }
+        // ],
+          [
+              'attribute' => 'updated_by',
+              'value' => function ($model) {
+                $user = User::findOne($model->updated_by);
+                return $user ? $user->truename : '';
+              },
+              'filter' => User::getUsers(),
+              'headerOptions' => [
+                  'width' => '100px'
+              ]
+          ],
+          [
+              'attribute' => 'updated_at',
+              'value' => function ($model) {
+                return date('Y-m-d H:i:s', $model->updated_at);
+              }
+          ],
+//            [
+//                'header' => '操作',
+//                'class' => 'yii\grid\ActionColumn',
+//                'template' => Helper::filterActionColumn('{view}{update}{delete}'),
+//
+//            ],
+          [
+              'label' => (Helper::checkRoute('supplier/basic')) ? '更多操作' : '',
+              'format' => 'raw',
+              'value' => function ($model) {
+                $view = '';
+                $update = '';
+                $delete = '';
+                $user_id = Yii::$app->user->identity->getId();
+                if (Helper::checkRoute('supplier/view')) {
+                  $url_1 = Url::to(['supplier/view', 'id' => $model->id]);
+                  $view = Html::a('', $url_1, ['title' => '', 'class' => 'glyphicon glyphicon-eye-open']);
 
-            ],
-        ],
-    ]); ?>
-    <?php Pjax::end(); ?>
+                }
+                if (Helper::checkRoute('supplier/update') && $user_id == $model->created_by) {
+                  $url_2 = Url::to(['supplier/update', 'id' => $model->id]);
+                  $update = Html::a('', $url_2, ['title' => '', 'class' => 'glyphicon glyphicon-pencil']);
+
+                }
+                if (Helper::checkRoute('supplier/delete') && $user_id == $model->created_by) {
+                  $url_3 = Url::to(['supplier/delete', 'id' => $model->id]);
+                  $delete = Html::a('', $url_3, ['title' => '', 'class' => 'glyphicon glyphicon-trash']);
+                }
+                return $view . ' ' . $update . ' ' . $delete;
+              }
+          ],
+      ],
+  ]); ?>
+  <?php Pjax::end(); ?>
 </div>

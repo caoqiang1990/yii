@@ -62,14 +62,14 @@ $this->params['breadcrumbs'][] = $this->title;
               },
               'filter' => $cate2,
           ],
-          [
-              'attribute' => 'cate_id3',
-              'value' => function ($model) {
-                $categoryModel = new SupplierCategory;
-                return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
-              },
-              'filter' => $cate3,
-          ],
+//          [
+//              'attribute' => 'cate_id3',
+//              'value' => function ($model) {
+//                $categoryModel = new SupplierCategory;
+//                return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
+//              },
+//              'filter' => $cate3,
+//          ],
           [
               'attribute' => 'level',
               'value' => function ($model) {

@@ -67,7 +67,11 @@ class AuditController extends Controller
         ];
         $model = $this->findModel($id);
         $model->scenario = 'audit';
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $post = Yii::$app->request->post();
+        if ($post && $post['Supplier']['status'] == 10) {
+          $post['Supplier']['action'] = 10;
+        }
+        if ($model->load($post) && $model->save()) {
             $this->redirect(['index']);
         }
         $model->status = '';

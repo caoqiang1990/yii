@@ -53,7 +53,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionIndex():string
+  public function actionIndex(): string
   {
     $searchModel = new SupplierSearch();
     $request = Yii::$app->request->queryParams;
@@ -75,7 +75,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionAdminIndex():string
+  public function actionAdminIndex(): string
   {
     $searchModel = new SupplierSearch();
     $request = Yii::$app->request->queryParams;
@@ -115,7 +115,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionDepartmentIndex():string
+  public function actionDepartmentIndex(): string
   {
     $searchModel = new SupplierSearch();
     $request = Yii::$app->request->queryParams;
@@ -173,7 +173,7 @@ class SupplierController extends Controller
    * @return mixed
    * @throws NotFoundHttpException if the model cannot be found
    */
-  public function actionDepartmentView($id):string
+  public function actionDepartmentView($id): string
   {
     $where['sid'] = $id;
     $supplier_detail = SupplierDetail::find()->where($where)->all();
@@ -201,7 +201,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionAdmin():string
+  public function actionAdmin(): string
   {
     $searchModel = new SupplierSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -216,7 +216,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionAdminAdd():string
+  public function actionAdminAdd(): string
   {
     $model = new AdminAdd();
     //if (Yii::$app->request->isAjax) {
@@ -234,7 +234,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionAdminSave():array
+  public function actionAdminSave(): array
   {
     Yii::$app->response->format = Response::FORMAT_JSON;
     $model = new AdminAdd();
@@ -248,8 +248,14 @@ class SupplierController extends Controller
       }
       $supplier = Supplier::getSupplierByName($model->name);
       if ($supplier) {
-        $level = SupplierLevel::getLevelById($supplier->level);
-        $type = $level ? $level->level_name : '未合作';
+        $status = [
+            '10' => '审核通过',
+            'wait' => '待完善',
+            'auditing' => '待审核',
+            '20' => '审核不通过',
+        ];
+        //$level = SupplierLevel::getLevelById($supplier->level);
+        $type =$status["{$supplier->status}"];
         return ['code' => 'exist', 'id' => $supplier->id, 'type' => $type];
       } else {
         $where['enterprise_code_desc'] = $model->enterprise_code;
@@ -279,7 +285,7 @@ class SupplierController extends Controller
    * @return mixed
    * @throws NotFoundHttpException if the model cannot be found
    */
-  public function actionView($id):string
+  public function actionView($id): string
   {
     return $this->render('view', [
         'model' => $this->findModel($id),
@@ -292,7 +298,7 @@ class SupplierController extends Controller
    * @return mixed
    * @throws NotFoundHttpException if the model cannot be found
    */
-  public function actionAdminView($id):string
+  public function actionAdminView($id): string
   {
     $where['sid'] = $id;
     $supplier_detail = SupplierDetail::find()->where($where)->all();
@@ -306,7 +312,7 @@ class SupplierController extends Controller
    * Lists all Suppliers models.
    * @return mixed
    */
-  public function actionBasic():string
+  public function actionBasic(): string
   {
     $searchModel = new SupplierSearch();
     $request = Yii::$app->request->queryParams;
@@ -452,7 +458,7 @@ class SupplierController extends Controller
     throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
   }
 
-  public function actionUploadxls():string
+  public function actionUploadxls(): string
   {
     $uploadForm = new UploadForm();
     return $this->render('uploadxls',
@@ -462,7 +468,7 @@ class SupplierController extends Controller
     );
   }
 
-  public function actionUpload():string
+  public function actionUpload(): string
   {
     $uploadForm = new UploadForm();
     $uploadForm->scenario = 'file';

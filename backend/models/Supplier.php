@@ -46,7 +46,7 @@ class Supplier extends ActiveRecord
    * 返回表名
    * @return [type] [description]
    */
-  public static function tableName():string
+  public static function tableName(): string
   {
     return '{{%supplier}}';
   }
@@ -55,7 +55,7 @@ class Supplier extends ActiveRecord
    * 对应字段的中文翻译
    * @return [type] [description]
    */
-  public function attributeLabels():array
+  public function attributeLabels(): array
   {
     return [
         'id' => Yii::t('suppliers', 'id'),
@@ -122,6 +122,7 @@ class Supplier extends ActiveRecord
         'created_by' => Yii::t('suppliers', 'created_by'),
         'updated_by' => Yii::t('suppliers', 'updated_by'),
         'cooperate' => Yii::t('suppliers', 'cooperate'),
+        'action' => Yii::t('suppliers', 'action'),
     ];
   }
 
@@ -189,6 +190,7 @@ class Supplier extends ActiveRecord
             'enterprise_license_relate_desc',
             'department',
             'cooperate',
+            'action'
         ],
         self::SCENARIO_EDIT => [
             'name',
@@ -247,6 +249,7 @@ class Supplier extends ActiveRecord
             'enterprise_license_relate_desc',
             'department',
             'cooperate',
+            'action'
         ],
         self::SCENARIO_UPLOAD => [
             'enterprise_code',
@@ -262,10 +265,12 @@ class Supplier extends ActiveRecord
             'department',
             'source',
             'status',
+            'action',
         ],
         self::SCENARIO_AUDIT => [
             'status',
             'public_flag',
+            'action',
         ],
         self::SCENARIO_SYNC => [
             'cate_id1',
@@ -288,7 +293,7 @@ class Supplier extends ActiveRecord
       //['url','url','on'=>'add'],
         ['headcount', 'integer', 'on' => 'add,edit'],
         ['register_fund', 'double', 'on' => 'add,edit'],
-        [['level', 'enterprise_code', 'enterprise_license', 'enterprise_certificate', 'enterprise_certificate_etc', 'enterprise_license_relate','cooperate'], 'safe'],
+        [['level', 'enterprise_code', 'enterprise_license', 'enterprise_certificate', 'enterprise_certificate_etc', 'enterprise_license_relate', 'cooperate'], 'safe'],
       //['business_mobile','required','message'=>'联系人电话不能为空！','on'=>'add'],
       //['business_phone','required','message'=>'联系人电话不能为空！','on'=>'add'],
         ['business_phone', 'match', 'pattern' => '/^1[345678]\d{9}$/', 'message' => '联系人手机号格式不正确！', 'on' => 'add,edit'],
@@ -307,7 +312,7 @@ class Supplier extends ActiveRecord
    * *
    * @return [type] [description]
    */
-  public function behaviors():array
+  public function behaviors(): array
   {
     return [
         TimestampBehavior::className(),
@@ -363,7 +368,7 @@ class Supplier extends ActiveRecord
    * @param $filePath
    * @return string
    */
-  public function parseImageUrl($filePath):string
+  public function parseImageUrl($filePath): string
   {
     if (strpos($filePath, Yii::getAlias('@uploadPath')) !== false) {
       $url = Yii::$app->params['assetDomain'] . str_replace(Yii::getAlias('@uploadPath'), '', $filePath);
@@ -405,7 +410,7 @@ class Supplier extends ActiveRecord
    * @param  [type] $insert [description]
    * @return [type]         [description]
    */
-  public function beforeSave($insert):bool
+  public function beforeSave($insert): bool
   {
     if (parent::beforeSave($insert)) {
 
@@ -536,7 +541,7 @@ class Supplier extends ActiveRecord
    * 获取key-value键值对
    * @return [type] [description]
    */
-  public static function getSuppliers():array
+  public static function getSuppliers(): array
   {
     $suppliers = self::find()->all();
     $supplier = ArrayHelper::map($suppliers, 'id', 'name');
@@ -572,6 +577,7 @@ class Supplier extends ActiveRecord
     return $count;
 
   }
+
   /**
    * 获取key-value键值对
    * @return [type] [description]
