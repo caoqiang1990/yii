@@ -322,8 +322,14 @@ class SupplierController extends Controller
     if (!$department_info) {
       throw new NotFoundHttpException("此用户不包含管理部门");
     }
+    $user_id = Yii::$app->user->identity->id;
+    $department_ids = DepartmentAssignment::getByUserId($user_id);
 
-    $request['SupplierSearch']['department'] = $department;
+    if (empty($department_ids)) {
+      $request['SupplierSearch']['department'][] = $department;
+    } else {
+      $request['SupplierSearch']['department'] = $department_ids;
+    }
     $request['SupplierSearch']['supplier_status'] = ['10', 'wait', 'auditing'];
     $dataProvider = $searchModel->search($request);
     if (isset($request['SupplierSearch']['cate_id1'])) {
