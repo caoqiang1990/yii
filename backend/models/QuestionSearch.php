@@ -74,8 +74,6 @@ class QuestionSearch extends Question
         if ($this->status && $this->status == 1) {
             $query->andFilterWhere(['not', 'status=1']);
         }
-        $sql = $query->createCommand()->getRawSql();
-        var_dump($sql);
         return $dataProvider;
     }
 }
