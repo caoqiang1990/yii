@@ -69,7 +69,9 @@ class QuestionSearch extends Question
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'desc', $this->desc]);
         if ($this->player) {
-            $query->andFilterWhere(['in', 'player', $this->player]);
+          $player = $this->player;
+          $player[] = 0;
+          $query->where(['in','player',$player]);
         }
         if ($this->status && $this->status == 1) {
             $query->andFilterWhere(['not', 'status=1']);
