@@ -69,13 +69,13 @@ class QuestionSearch extends Question
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'desc', $this->desc]);
         if ($this->player) {
-          $player = $this->player;
-          $player[] = 0;
-          $query->where(['in','player',$player]);
+          $query->andWhere("find_in_set($this->player, `player`)");
         }
         if ($this->status && $this->status == 1) {
             $query->andFilterWhere(['not', 'status=1']);
         }
+        $sql = $query->createCommand()->getRawSql();
+        var_dump($sql);
         return $dataProvider;
     }
 }
