@@ -233,7 +233,7 @@ class SupplierDetailController extends Controller
             if (!$client->connect('127.0.0.1', 9503)) {
                 exit("connect failed. Error: {$client->errCode}\n");
             }
-            $data['id'] = $model->primaryKey;
+            $data['id'] = $model->sid;
             $data = serialize($data);
             $client->send($data);
             $client->close();
