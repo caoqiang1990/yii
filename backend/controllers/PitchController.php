@@ -105,7 +105,7 @@ class PitchController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
         //供应商集合
-        $suppliers = Supplier::getSuppliersByParams(['status' => 10]);
+        $suppliers = Supplier::getSuppliers();
         $users = Auditor::getUsers();
         $departmentModel = new Department();
         $info = $departmentModel->getDepartmentById($department);
