@@ -19,7 +19,7 @@ class QuestionSearch extends Question
     {
         return [
             [['id', 'created_by', 'updated_by', 'updated_at'], 'integer'],
-            [['title', 'desc', 'player', 'status'], 'safe'],
+            [['title', 'desc', 'player', 'status','template_id'], 'safe'],
         ];
     }
 
@@ -65,7 +65,9 @@ class QuestionSearch extends Question
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
-
+        if ($this->template_id) {
+          $query->andFilterWhere(['in', 'template_id', $this->template_id]);
+        }
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'desc', $this->desc]);
         if ($this->player) {

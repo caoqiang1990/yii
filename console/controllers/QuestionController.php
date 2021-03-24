@@ -15,7 +15,7 @@ class QuestionController extends Controller {
   {
     //获取所有评价
     $count = 0;
-    $lists = Question::find()->select('id,template_id,sid,status')->asArray()->all();
+    $lists = Question::find()->select('id,template_id,sid,status')->where(['template_id' => [7,8,9,10]])->asArray()->all();
     foreach ($lists as $list) {
       $data = array();
       $supplierModel = '';
