@@ -209,7 +209,7 @@ class TemplateRecord extends ActiveRecord
     if (empty($params)) {
       return false;
     }
-    $records = self::find()->where($params)->andWhere(['>','created_at','1577808000'])->asArray()->all();
+    $records = self::find()->where($params)->andWhere(['>','created_at','1609430400'])->asArray()->all();
     return $records;
   }
 
