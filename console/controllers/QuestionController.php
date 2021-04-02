@@ -153,13 +153,13 @@ class QuestionController extends Controller {
             $supplierModel = Supplier::getByID($v['id']);
             $supplierModel->scenario = 'sync';
             if ($detail['cate_id1']) {
-              //$supplierModel->cate_id1 = $detail['cate_id1'];
+              $supplierModel->cate_id1 = $detail['cate_id1'];
             }
             if ($detail['cate_id2']) {
-              //$supplierModel->cate_id2 = $detail['cate_id2'];
+              $supplierModel->cate_id2 = $detail['cate_id2'];
             }
             if ($detail['cate_id3']) {
-              //$supplierModel->cate_id3 = $detail['cate_id3'];
+              $supplierModel->cate_id3 = $detail['cate_id3'];
             }
             if ($level_id) {
               $supplierModel->level = $level_id;
