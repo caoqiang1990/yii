@@ -89,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
               'attribute' => '',
               'label' => '申请人',
               'value' => function ($model) {
-                $user = User::findOne($model->updated_by);
+                $user = User::findOne($model->created_by);
                 return $user ? $user->truename : '';
               },
               'filter' => User::getUsers(),
