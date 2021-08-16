@@ -8,6 +8,8 @@ use backend\models\SupplierLevel;
 use backend\models\SupplierCategory;
 use backend\models\SupplierTrade;
 use mdm\admin\components\Helper;
+use backend\models\Department;
+use mdm\admin\models\User;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SuppliersSearch */
@@ -61,52 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
                   '11' => '新增供应商',
               ],
           ],
-        //  [
-        //     'attribute' => 'cate_id1',
-        //     'value' => function($model){
-        //         $categoryModel = new SupplierCategory;
-        //         return $categoryModel::getCategoryById($model->cate_id1) ? $categoryModel::getCategoryById($model->cate_id1)->category_name : '';
-        //     },
-        //     'filter' => SupplierCategory::getCategoryByParams('id,category_name',1),
-        // ],
-        // [
-        //     'attribute' => 'cate_id2',
-        //     'value' => function($model){
-        //         $categoryModel = new SupplierCategory;
-        //         return $categoryModel::getCategoryById($model->cate_id2) ? $categoryModel::getCategoryById($model->cate_id2)->category_name : '';
-        //     },
-        //     'filter' => SupplierCategory::getCategoryByParams('id,category_name',2),
-        // ],
-        // [
-        //     'attribute' => 'cate_id3',
-        //     'value' => function($model){
-        //         $categoryModel = new SupplierCategory;
-        //         return $categoryModel::getCategoryById($model->cate_id3) ? $categoryModel::getCategoryById($model->cate_id3)->category_name : '';
-        //     },
-        //     'filter' => SupplierCategory::getCategoryByParams('id,category_name',3),
-        // ],
-        // [
-        //     'attribute' => 'level',
-        //     'value' => function($model){
-        //         $levelModel = new SupplierLevel;
-        //         return $levelModel::getLevelById($model->level) ? $levelModel::getLevelById($model->level)->level_name : '';
-        //     },
-        //     'filter' => SupplierLevel::getLevel(),
-        // ],
-        // [
-        //     'attribute' => 'trade',
-        //     'value' => function($model){
-        //         return SupplierTrade::getTradeById($model->trade) ? SupplierTrade::getTradeById($model->trade)->trade_name : '';
-        //     },
-        //     'filter' => SupplierTrade::getTrade(),
-        // ],
-        // [
-        //     'attribute' => 'total_fund',
-        //     'value' => function($model){
-        //         $fund = $model->getTotalFund($model->id);
-        //         return $fund ? $fund->trade_fund : '';
-        //     }
-        // ],
           [
               'attribute' => 'status',
               'label' => '状态',
@@ -129,53 +85,29 @@ $this->params['breadcrumbs'][] = $this->title;
               },
               'filter' => $status,
           ],
-        //'business_email',
-        //'business_license',
-        //'tax_registration_certificate',
-        //'orcc',
-        //'service_authorization_letter',
-        //'certified_assets',
-        //'effective_credentials',
-        //'opening_bank',
-        //'bank_no',
-        //'account_name',
-        //'account_no',
-        //'registration_certificate',
-        //'manufacturing_licence',
-        //'business_certificate',
-        //'credibility_certificate',
-        //'headcount',
-        //'address',
-        //'telephone',
-        //'mobile',
-        //'fax',
-        //'email:email',
-        //'contact',
-        //'url:url',
-        //'black_box',
-        //'white_box',
-        //'remarks:ntext',
-        //'update_date',
-        //'operator',
-        // [
-        //     'attribute' => 'created_at',
-        //     'value' => function($model){
-        //         return date('Y-m-d H:i:s',$model->created_at);
-        //     }
-        // ],
-        // [
-        //     'attribute' => 'updated_at',
-        //     'value' => function($model){
-        //         return date('Y-m-d H:i:s',$model->updated_at);
-        //     }
-        // ],
-
-        // [
-        //     'header' => '操作',
-        //     'class' => 'yii\grid\ActionColumn',
-        //     'template' => Helper::filterActionColumn('{view}{update}{delete}'),
-
-        // ],
+          [
+              'attribute' => '',
+              'label' => '申请人',
+              'value' => function ($model) {
+                $user = User::findOne($model->updated_by);
+                return $user ? $user->truename : '';
+              },
+              'filter' => User::getUsers(),
+              'headerOptions' => [
+                  'width' => '100px'
+              ]
+          ],
+          [
+              'attribute' => '',
+              'label' => '部门',
+              'value' => function ($model) {
+                if ($model->department) {
+                  return Department::getDepartmentById($model->department) ? Department::getDepartmentById($model->department)->department_name : NULL;
+                } else {
+                    return '';
+                }
+              },
+          ],
           [
             //'label'=>  (Helper::checkRoute('supplier-detail/create') || Helper::checkRoute('history/index')) ? '更多操作' : '',
               'label' => '更多操作',
