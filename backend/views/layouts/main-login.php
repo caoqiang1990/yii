@@ -19,7 +19,7 @@ dmstr\web\AdminLteAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body class="login-page"
-      style="background-image: url('/static/images/main2022.png');background-repeat: no-repeat;background-size:100%">
+      style="background-image: url('/static/images/main2023.jpg');background-repeat: no-repeat;background-size:100%">
 
 <?php $this->beginBody() ?>
 
